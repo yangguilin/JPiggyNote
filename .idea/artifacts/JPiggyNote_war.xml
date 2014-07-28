@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="JPiggyNote:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="JPiggyNote.war">
+      <element id="artifact" artifact-name="JPiggyNote:war exploded" />
+    </root>
+  </artifact>
+</component>
