@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration("classpath:mvc-dispatcher-servlet.xml")
+@ContextConfiguration("file:/WEB-INF/mvc-dispatcher-servlet.xml")
 public class ServiceTests {
 
     @SuppressWarnings("SpringJavaAutowiringInspection")

@@ -3,6 +3,9 @@
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
   </component>
+  <component name="EntryPointsManager">
+    <entry_points version="2.0" />
+  </component>
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$" />
   </component>
@@ -13,77 +16,6 @@
         <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
-  </component>
-  <component name="ProjectInspectionProfilesVisibleTreeState">
-    <entry key="Project Default">
-      <profile-state>
-        <expanded-state>
-          <State>
-            <id />
-          </State>
-          <State>
-            <id>Android Lint</id>
-          </State>
-          <State>
-            <id>Compiler issues</id>
-          </State>
-          <State>
-            <id>Error handling</id>
-          </State>
-          <State>
-            <id>Finalization issues</id>
-          </State>
-          <State>
-            <id>General</id>
-          </State>
-          <State>
-            <id>GeneralJavaScript</id>
-          </State>
-          <State>
-            <id>Groovy</id>
-          </State>
-          <State>
-            <id>Inheritance issues</id>
-          </State>
-          <State>
-            <id>J2ME issues</id>
-          </State>
-          <State>
-            <id>JSP Inspections</id>
-          </State>
-          <State>
-            <id>Java language level migration aids</id>
-          </State>
-          <State>
-            <id>JavaBeans issues</id>
-          </State>
-          <State>
-            <id>JavaScript</id>
-          </State>
-          <State>
-            <id>Numeric issues</id>
-          </State>
-          <State>
-            <id>OtherGroovy</id>
-          </State>
-          <State>
-            <id>Performance issues</id>
-          </State>
-          <State>
-            <id>Probable bugs</id>
-          </State>
-          <State>
-            <id>Security issues</id>
-          </State>
-          <State>
-            <id>Serialization issues</id>
-          </State>
-          <State>
-            <id>Verbose or redundant code constructs</id>
-          </State>
-        </expanded-state>
-      </profile-state>
-    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -195,59 +127,6 @@
       <Host>localhost</Host>
       <Port>5050</Port>
     </configuration>
-  </component>
-  <component name="SvnConfiguration" myUseAcceleration="nothing">
-    <configuration useDefault="false">$USER_HOME$/.subversion</configuration>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>1.6</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.6</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>
 

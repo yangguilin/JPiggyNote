@@ -6,6 +6,6 @@
 <br/>
 <input type="button" value="click me to user_t" onclick="window.location.href='/user/delete?user_name=aaa&nike_name=nike'" />
 <br/>
-
+<img src="/img/cat.jpg" />
 </body>
 </html>
