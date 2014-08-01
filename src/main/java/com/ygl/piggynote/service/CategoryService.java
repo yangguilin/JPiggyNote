@@ -8,8 +8,7 @@ import com.ygl.piggynote.bean.CategoryBean;
  */
 public interface CategoryService {
 
-    public CategoryBean getByUserName(String userName);
+    public CategoryBean get(String userName);
     public Boolean add(CategoryBean cb);
-    public Boolean deleteByUserName(String userName);
     public Boolean update(CategoryBean cb);
 }

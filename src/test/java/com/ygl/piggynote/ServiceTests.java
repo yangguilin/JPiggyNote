@@ -101,11 +101,11 @@ public class ServiceTests {
         Assert.isTrue(ret);
 
         // get
-        CustomConfigBean ccb = ccsi.getByUserName(_userName);
+        CustomConfigBean ccb = ccsi.get(_userName);
         Assert.isTrue(ccb.getMonthCostPlan() == 6000l);
 
         // delete
-        ret = ccsi.deleteByUserName(_userName);
+        ret = ccsi.delete(_userName);
         Assert.isTrue(ret);
     }
 
@@ -134,12 +134,8 @@ public class ServiceTests {
         Assert.isTrue(ret);
 
         // get
-        CategoryBean cb = csi.getByUserName(_userName);
+        CategoryBean cb = csi.get(_userName);
         Assert.isTrue(cb.getCategoryXml().equals("new xml file"));
-
-        // delete
-        ret = csi.deleteByUserName(_userName);
-        Assert.isTrue(ret);
     }
 
     /**

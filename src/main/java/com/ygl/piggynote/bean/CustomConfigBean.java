@@ -28,4 +28,11 @@ public class CustomConfigBean {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    /**
+     * 系统默认数据
+     */
+    public void fillDefaultData(){
+        this.monthCostPlan = 3000l;
+    }
 }

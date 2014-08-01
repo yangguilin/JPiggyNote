@@ -25,7 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @return          账目分类实例
      */
     @Override
-    public CategoryBean getByUserName(String userName) {
+    public CategoryBean get(String userName) {
 
         return (CategoryBean)jdbcTemplate.queryForObject("select * from pn_category where user_name=?",
                 new Object[]{userName},
@@ -41,34 +41,24 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Boolean add(CategoryBean cb) {
 
-        int ret = jdbcTemplate.update("insert into pn_category(user_name, category_xml, category_xml_sorted, latest_modified_date) value(?, ?, ?, ?)",
-                new Object[]{cb.getUserName(), cb.getCategoryXml(), cb.getCategoryXmlSorted(), cb.getLatestModifiedDate()},
-                new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.DATE});
+        int ret = jdbcTemplate.update("insert into pn_category(user_name, category_xml, category_xml_sorted, latest_modified_date) value(?, ?, ?, now())",
+                new Object[]{cb.getUserName(), cb.getCategoryXml(), cb.getCategoryXmlSorted()},
+                new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR});
 
         return ret == 1;
     }
 
     /**
-     * 删除用户分类
-     * @param userName  用户名
-     * @return          是否成功
+     * 更新用户分类
+     * @param cb    更新后的category实例
+     * @return      成败
      */
-    @Override
-    public Boolean deleteByUserName(String userName) {
-
-        int ret = jdbcTemplate.update("delete from pn_category where user_name=?",
-                new Object[]{userName},
-                new int[]{Types.VARCHAR});
-
-        return ret == 1;
-    }
-
     @Override
     public Boolean update(CategoryBean cb) {
 
-        int ret = jdbcTemplate.update("update pn_category set category_xml=?, category_xml_sorted=?, latest_modified_date=? where user_name=?",
-                new Object[]{cb.getCategoryXml(), cb.getCategoryXmlSorted(), cb.getLatestModifiedDate(), cb.getUserName()},
-                new int[]{Types.VARCHAR, Types.VARCHAR, Types.DATE, Types.VARCHAR});
+        int ret = jdbcTemplate.update("update pn_category set category_xml=?, category_xml_sorted=?, latest_modified_date=now() where user_name=?",
+                new Object[]{cb.getCategoryXml(), cb.getCategoryXmlSorted(), cb.getUserName()},
+                new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR});
 
         return ret == 1;
     }

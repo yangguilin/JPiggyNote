@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * 用户操作服务控制器
@@ -59,10 +62,22 @@ public class UserController {
      * @return
      */
     @RequestMapping(value="/delete", method=RequestMethod.POST)
-    public String delUser(HttpServletRequest request){
+    public void delUser(HttpServletRequest request, HttpServletResponse response){
 
         String userName = request.getParameter("user_name");
 
-        return "user/delete";
+        if (!userName.isEmpty()){
+
+            Boolean ret = userService.deleteByUserName(userName);
+            String res = ret ? "success" : "fail";
+
+            try {
+                PrintWriter writer = response.getWriter();
+                writer.write(res);
+                writer.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

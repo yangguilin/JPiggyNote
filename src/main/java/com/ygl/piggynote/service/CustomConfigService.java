@@ -8,8 +8,8 @@ import com.ygl.piggynote.bean.CustomConfigBean;
  */
 public interface CustomConfigService {
 
-    public CustomConfigBean getByUserName(String userName);
+    public CustomConfigBean get(String userName);
     public Boolean add(CustomConfigBean bean);
-    public Boolean deleteByUserName(String userName);
+    public Boolean delete(String userName);
     public Boolean update(CustomConfigBean bean);
 }

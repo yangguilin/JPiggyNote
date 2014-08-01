@@ -26,7 +26,7 @@ public class CustomConfigServiceImpl implements CustomConfigService {
      * @return          自定义配置实例
      */
     @Override
-    public CustomConfigBean getByUserName(String userName) {
+    public CustomConfigBean get(String userName) {
 
         return (CustomConfigBean)jdbcTemplate.queryForObject("select * from pn_custom_config where user_name=?",
                 new Object[]{userName},
@@ -55,7 +55,7 @@ public class CustomConfigServiceImpl implements CustomConfigService {
      * @return          是否成功
      */
     @Override
-    public Boolean deleteByUserName(String userName) {
+    public Boolean delete(String userName) {
 
         int ret = jdbcTemplate.update("delete from pn_custom_config where user_name=?",
                 new Object[]{userName},

@@ -1,5 +1,6 @@
 package com.ygl.piggynote.controller.test;
 
+import com.ygl.piggynote.bean.CategoryBean;
 import com.ygl.piggynote.bean.UserBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,7 +11,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/test")
-public class UserTestController {
+public class TestController {
+
+    @RequestMapping(value="/category_test")
+    public String categoryPage(ModelMap model){
+
+        CategoryBean cb = new CategoryBean();
+        cb.setUserName("ygl");
+        cb.setCategoryXml("category_xml");
+        cb.setCategoryXmlSorted("category_xml_sorted");
+
+        model.addAttribute("category_new", cb);
+
+        return "/test/category_test";
+    }
 
     @RequestMapping(value="/user_t")
     public String showPage(ModelMap model){
@@ -27,5 +41,10 @@ public class UserTestController {
         model.addAttribute("user_update", updateUser);
 
         return "/test/user_t";
+    }
+
+    @RequestMapping(value="/test")
+    public String testPage(){
+        return "/test/test";
     }
 }

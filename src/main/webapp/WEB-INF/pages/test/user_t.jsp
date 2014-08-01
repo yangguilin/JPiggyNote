@@ -51,7 +51,6 @@
         </div>
         <br/>
         <br/>
-        <img src="/img/cat.jpg" />
     </div>
 </body>
 </html>

@@ -1,4 +1,8 @@
-
+/**
+ * 用户操作相关脚本文件
+ * by yanggl
+ * 2014-08-01
+ */
 
 function deleteUser(){
 

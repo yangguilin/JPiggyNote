@@ -47,4 +47,13 @@ public class CategoryBean {
     public void setCategoryXmlSorted(String categoryXmlSorted) {
         this.categoryXmlSorted = categoryXmlSorted;
     }
+
+    /**
+     * 填充默认用户分类数据
+     */
+    public void fillDefaultData() {
+
+        this.categoryXml = "xml_default";
+        this.categoryXmlSorted = null;
+    }
 }
