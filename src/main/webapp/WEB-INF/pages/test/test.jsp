@@ -24,10 +24,10 @@
 <br/>
 <h2>日常记录</h2>
 <br/>
-<input type="button" value="添加" onclick=""/>
+<input type="button" value="添加" onclick="addRecord()"/>
 <br/>
-<input type="button" value="更新" onclick=""/>
+<input type="button" value="更新" onclick="updateRecord()"/>
 <br/>
-<input type="button" value="删除" onclick=""/>
+<input type="button" value="删除" onclick="deleteRecord()"/>
 </body>
 </html>
