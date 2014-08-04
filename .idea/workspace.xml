@@ -2,27 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88a2c445-45c5-4656-81e7-f48af92a54c1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/CategoryController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/util/CommonUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/CustomConfigController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/category.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/test/category_test.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/test/test.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/bean/CategoryBean.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/bean/CategoryBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/service/CategoryService.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/service/CategoryService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/service/impl/CategoryServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/service/impl/CategoryServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/bean/CustomConfigBean.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/bean/CustomConfigBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/service/CustomConfigService.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/service/CustomConfigService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/service/impl/CustomConfigServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/service/impl/CustomConfigServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/ygl/piggynote/ServiceTests.java" afterPath="$PROJECT_DIR$/src/test/java/com/ygl/piggynote/ServiceTests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/UserController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/service/impl/UserServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/service/impl/UserServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/hello.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/hello.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/user.js" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/user.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/test/user_t.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/test/user_t.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="E:\JPiggyNote\src\main\java\com\ygl\piggynote\controller\test\UserTestController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/test/TestController.java" />
     </list>
     <ignored path="JPiggyNote.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -153,8 +133,8 @@
       <file leaf-file-name="CustomConfigController.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/CustomConfigController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.25885558" vertical-offset="641" max-vertical-offset="1200">
-              <caret line="46" column="44" selection-start-line="46" selection-start-column="44" selection-end-line="46" selection-end-column="44" />
+            <state vertical-scroll-proportion="0.4332425" vertical-offset="641" max-vertical-offset="1200">
+              <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1291,17 +1271,21 @@
       <workItem from="1406874524004" duration="1301000" />
       <workItem from="1406875843666" duration="49000" />
       <workItem from="1406876064649" duration="2361000" />
-      <workItem from="1406879031614" duration="7908000" />
+      <workItem from="1406879031614" duration="8311000" />
     </task>
     <task id="LOCAL-00001" summary="Resolve static resource file filter issue.">
       <created>1406783832333</created>
       <updated>1406783832333</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Add js test files and controllers.">
+      <created>1406888785425</created>
+      <updated>1406888785425</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="95004000" />
+    <option name="totallyTimeSpent" value="95407000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1335,7 +1319,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29865772" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29865772" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -1374,7 +1358,8 @@
       <TodoPanelSettings />
     </option>
     <MESSAGE value="Resolve static resource file filter issue." />
-    <option name="LAST_COMMIT_MESSAGE" value="Resolve static resource file filter issue." />
+    <MESSAGE value="Add js test files and controllers." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add js test files and controllers." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1818,8 +1803,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/CustomConfigController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25885558" vertical-offset="641" max-vertical-offset="1200">
-          <caret line="46" column="44" selection-start-line="46" selection-start-column="44" selection-end-line="46" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.4332425" vertical-offset="641" max-vertical-offset="1200">
+          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

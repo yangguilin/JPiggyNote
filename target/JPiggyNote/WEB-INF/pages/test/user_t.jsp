@@ -7,11 +7,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <title>用户相关操作调用测试页面</title>
-    <%--<script type="text/javascript" src="/js/jquery-1.4.4.min.js" />--%>
-    <%--<script type="text/javascript" src="/js/user.js" />--%>
+    <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="/js/user.js"></script>
 </head>
 <body>
     <div>
@@ -48,6 +49,8 @@
             <input id="txt_userName" type="text" class="normal_text" />
             <input type="button" value="删除用户" onclick="deleteUser()" />
         </div>
+        <br/>
+        <br/>
     </div>
 </body>
 </html>
