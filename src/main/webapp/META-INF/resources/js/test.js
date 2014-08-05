@@ -71,6 +71,9 @@ function addRecord(){
         });
 }
 
+/**
+ * 带编码格式的参数
+ */
 function addRecord2(){
 
     var userName = "yanggl2";
@@ -96,8 +99,8 @@ function addRecord2(){
 function updateRecord(){
 
     var userName = "yanggl2";
-    var moneyType = "0";
-    var statType = "0";
+    var moneyType = "COST";
+    var statType = "NORMAL";
     var categoryId = "1";
     var categoryName = "食物";
     var amount = 101;
@@ -117,7 +120,7 @@ function updateRecord(){
 function deleteRecord(){
 
     var userName = "yanggl2";
-    var id = "";
+    var id = 2346;
 
     // 调用ajax请求
     $.post("../daily_record/delete", { "userName": userName, "id":id },

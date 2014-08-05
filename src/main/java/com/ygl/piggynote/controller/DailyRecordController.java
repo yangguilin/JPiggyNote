@@ -37,7 +37,7 @@ public class DailyRecordController {
     /**
      * 更新记录
      * @param drb   记录实例
-     * @param response  response
+     * @param response  response1
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public void update(DailyRecordBean drb, HttpServletResponse response){
