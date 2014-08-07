@@ -8,8 +8,9 @@ import com.ygl.piggynote.bean.*;
  */
 public interface UserService {
 
-    public UserBean getByUserName(String userName);
+    public UserBean get(String userName);
     public Boolean add(UserBean bean);
-    public Boolean deleteByUserName(String userName);
+    public Boolean delete(String userName);
     public Boolean update(UserBean bean);
+    public Boolean exist(String userName);
 }

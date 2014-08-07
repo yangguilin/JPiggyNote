@@ -1,6 +1,8 @@
 package com.ygl.piggynote.service.impl;
 
+import com.ygl.piggynote.bean.QueryCountBean;
 import com.ygl.piggynote.bean.UserBean;
+import com.ygl.piggynote.rowmapper.QueryCountRowMapper;
 import com.ygl.piggynote.rowmapper.UserRowMapper;
 import com.ygl.piggynote.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,7 @@ public class UserServiceImpl implements UserService {
      * @return          用户实例
      */
     @Override
-    public UserBean getByUserName(String userName) {
+    public UserBean get(String userName) {
 
         return (UserBean)jdbcTemplate.queryForObject("select * from pn_users where user_name=?",
                 new Object[]{userName},
@@ -55,7 +57,7 @@ public class UserServiceImpl implements UserService {
      * @return              是否成功
      */
     @Override
-    public Boolean deleteByUserName(String userName) {
+    public Boolean delete(String userName) {
 
         int ret = jdbcTemplate.update("update pn_users set deleted=1 where user_name=?",
                 new Object[]{userName},
@@ -77,5 +79,21 @@ public class UserServiceImpl implements UserService {
                 new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.DATE, Types.VARCHAR});
 
         return ret > 0;
+    }
+
+    /**
+     * 用户是否存在
+     * @param userName  用户名
+     * @return  是否存在
+     */
+    @Override
+    public Boolean exist(String userName) {
+
+        QueryCountBean qcb = (QueryCountBean)jdbcTemplate.queryForObject("select count(id) as num from pn_users where user_name=?",
+                new Object[]{userName},
+                new int[]{Types.VARCHAR},
+                new QueryCountRowMapper());
+
+        return qcb.getNum() > 0;
     }
 }

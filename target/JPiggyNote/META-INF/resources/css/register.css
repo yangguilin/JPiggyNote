@@ -1,0 +1,15 @@
+
+.username_msg_default {
+    font-size: 12px;
+    color:red;
+}
+
+.username_exist_msg {
+    font-size: 12px;
+    color:red;
+}
+
+.username_not_exist_msg {
+    font-size: 12px;
+    color:green;
+}

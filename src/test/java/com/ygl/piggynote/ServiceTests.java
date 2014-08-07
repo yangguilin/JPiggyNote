@@ -165,11 +165,11 @@ public class ServiceTests {
         Assert.isTrue(ret);
 
         // get
-        UserBean ub = usi.getByUserName(_userName);
+        UserBean ub = usi.get(_userName);
         Assert.isTrue(ub.getMobilePhone().equals("18622222222"));
 
         // delete
-        ret = usi.deleteByUserName(_userName);
+        ret = usi.delete(_userName);
         Assert.isTrue(ret);
     }
 }

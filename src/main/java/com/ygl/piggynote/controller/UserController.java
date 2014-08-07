@@ -2,6 +2,7 @@ package com.ygl.piggynote.controller;
 
 import com.ygl.piggynote.bean.UserBean;
 import com.ygl.piggynote.service.impl.UserServiceImpl;
+import com.ygl.piggynote.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,7 +69,7 @@ public class UserController {
 
         if (!userName.isEmpty()){
 
-            Boolean ret = userService.deleteByUserName(userName);
+            Boolean ret = userService.delete(userName);
             String res = ret ? "success" : "fail";
 
             try {
@@ -79,5 +80,28 @@ public class UserController {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * 用户登录成功
+     * @param ub    用户实例
+     */
+    public void loginSuccess(UserBean ub){
+
+        userService.update(ub);
+    }
+
+    /**
+     * 检查用户是否存在
+     * @param userName  用户名
+     * @param response  response
+     */
+    @RequestMapping(value="/exist.do", method=RequestMethod.POST)
+    public void exist(String userName, HttpServletResponse response){
+
+        // 检查用户名是否存在
+        Boolean exist = userService.exist(userName);
+
+        CommonUtil.writeResponse4BooleanResult(exist, response);
     }
 }

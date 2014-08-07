@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class BaseController {
 
+    protected static final String ERROR_MSG_KEY = "errorMsg";
+
     /**
      * 从Session中获取用户实例
      * @param request   request
