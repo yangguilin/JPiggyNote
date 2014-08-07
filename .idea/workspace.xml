@@ -4,28 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/src/main/java/com/ygl/piggynote/filter/AuthFilter.java" line="96" mnemonic="8" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="88a2c445-45c5-4656-81e7-f48af92a54c1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jstl_jstl_1_2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/bean/QueryCountBean.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/rowmapper/QueryCountRowMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/RegisterController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/exception/UserExistException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/register.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/register.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/register.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/filter/AuthFilter.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/filter/AuthFilter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/BaseController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/BaseController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/common/CommonConstant.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/common/CommonConstant.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JPiggyNote.iml" afterPath="$PROJECT_DIR$/JPiggyNote.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/JPiggyNote_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/JPiggyNote_war_exploded.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/LoginController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/LoginController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/ygl/piggynote/ServiceTests.java" afterPath="$PROJECT_DIR$/src/test/java/com/ygl/piggynote/ServiceTests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/UserController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/service/UserService.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/service/UserService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/service/impl/UserServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/service/impl/UserServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="88a2c445-45c5-4656-81e7-f48af92a54c1" name="Default" comment="" />
     <ignored path="JPiggyNote.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -1419,7 +1398,7 @@
       <workItem from="1407121370335" duration="4575000" />
       <workItem from="1407133997071" duration="33383000" />
       <workItem from="1407236798197" duration="144000" />
-      <workItem from="1407377463784" duration="19993000" />
+      <workItem from="1407377463784" duration="20064000" />
     </task>
     <task id="LOCAL-00001" summary="Resolve static resource file filter issue.">
       <created>1406783832333</created>
@@ -1441,7 +1420,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="154161000" />
+    <option name="totallyTimeSpent" value="154232000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
