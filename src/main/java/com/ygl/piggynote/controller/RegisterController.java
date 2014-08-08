@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * Created by guilin on 2014/8/7.
@@ -40,15 +41,21 @@ public class RegisterController extends BaseController {
     public ModelAndView register(UserBean ub, HttpServletRequest request){
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/success");
-        try{
+        mav.setViewName("/register_success");
 
+        // 添加页面参数
+        mav.addObject("title", "注册新用户");
+        mav.addObject("msgContent", "恭喜您成功注册新的小猪账号！");
+
+        try{
+            // 添加新用户
             userService.add(ub);
         } catch(Exception e){
 
             mav.addObject(ERROR_MSG_KEY, "用户名已经存在，请选择其它的名字");
             mav.setViewName("forward:/register");
         }
+        // 保存到session
         setUserToSession(request, ub);
 
         return mav;
