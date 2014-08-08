@@ -1,0 +1,10 @@
+
+.loginMsg {
+    color:red;
+    font-size: 12px;
+}
+
+div.loginMsg {
+    height:30px;
+}
+
