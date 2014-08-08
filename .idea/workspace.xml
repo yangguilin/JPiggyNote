@@ -5,13 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88a2c445-45c5-4656-81e7-f48af92a54c1" name="Default" comment="">
-      <change type="DELETED" beforePath="E:\JPiggyNote\src\main\java\com\ygl\piggynote\controller\HelloController.java" afterPath="" />
-      <change type="DELETED" beforePath="E:\JPiggyNote\src\main\webapp\WEB-INF\pages\hello.jsp" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/DailyRecordController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/DailyRecordController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/LoginController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/LoginController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/RegisterController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/RegisterController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/login.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/login.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/register.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/register.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="JPiggyNote.iws" />
@@ -1329,7 +1322,7 @@
       <workItem from="1407121370335" duration="4575000" />
       <workItem from="1407133997071" duration="33383000" />
       <workItem from="1407236798197" duration="144000" />
-      <workItem from="1407377463784" duration="43735000" />
+      <workItem from="1407377463784" duration="43779000" />
     </task>
     <task id="LOCAL-00001" summary="Resolve static resource file filter issue.">
       <created>1406783832333</created>
@@ -1347,11 +1340,15 @@
       <created>1407236612580</created>
       <updated>1407236612580</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="login, daily records feature part.">
+      <created>1407495098523</created>
+      <updated>1407495098523</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177903000" />
+    <option name="totallyTimeSpent" value="177947000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1427,7 +1424,8 @@
     <MESSAGE value="Add js test files and controllers." />
     <MESSAGE value="Add new files related daily records." />
     <MESSAGE value="Add new files. AuthFilter and login part." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add new files. AuthFilter and login part." />
+    <MESSAGE value="login, daily records feature part." />
+    <option name="LAST_COMMIT_MESSAGE" value="login, daily records feature part." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
