@@ -5,26 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88a2c445-45c5-4656-81e7-f48af92a54c1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/util/Md5Util.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/custom_config.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/custom_config.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/custom_config.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/bean/CategoryBean.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/bean/CategoryBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/util/CommonUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/util/CommonUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/bean/CustomConfigBean.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/bean/CustomConfigBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/CustomConfigController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/CustomConfigController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/rowmapper/CustomConfigRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/rowmapper/CustomConfigRowMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/service/impl/CustomConfigServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/service/impl/CustomConfigServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/DailyRecordController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/DailyRecordController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/LoginController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/LoginController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/RegisterController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/RegisterController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/daily_record.css" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/daily_record.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/daily_record.js" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/daily_record.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/daily_record.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/daily_record.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/home.css" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/home.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/home.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/home.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/login.js" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/login.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/login.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="JPiggyNote.iws" />
@@ -1343,7 +1323,7 @@
       <workItem from="1407133997071" duration="33383000" />
       <workItem from="1407236798197" duration="144000" />
       <workItem from="1407377463784" duration="43900000" />
-      <workItem from="1407724371955" duration="12386000" />
+      <workItem from="1407724371955" duration="12442000" />
     </task>
     <task id="LOCAL-00001" summary="Resolve static resource file filter issue.">
       <created>1406783832333</created>
@@ -1365,11 +1345,15 @@
       <created>1407495098523</created>
       <updated>1407495098523</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="custom config feature">
+      <created>1407753424852</created>
+      <updated>1407753424852</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="190454000" />
+    <option name="totallyTimeSpent" value="190510000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1446,7 +1430,8 @@
     <MESSAGE value="Add new files related daily records." />
     <MESSAGE value="Add new files. AuthFilter and login part." />
     <MESSAGE value="login, daily records feature part." />
-    <option name="LAST_COMMIT_MESSAGE" value="login, daily records feature part." />
+    <MESSAGE value="custom config feature" />
+    <option name="LAST_COMMIT_MESSAGE" value="custom config feature" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
