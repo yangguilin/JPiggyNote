@@ -23,7 +23,8 @@
         width:120px;
     }
 
-    .btn_add {
+    .btn_add, .btn_return {
         width:80px;
+        height:25px;
     }
 

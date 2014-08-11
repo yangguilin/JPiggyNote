@@ -28,5 +28,4 @@ public class CommonUtil {
         pw.write(res);
         pw.flush();
     }
-
 }

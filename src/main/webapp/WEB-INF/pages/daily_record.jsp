@@ -25,7 +25,7 @@
             <tr>
                 <td>用户</td>
                 <td>
-                    <input type="text" id="user_name" value="yanggl" />
+                    <span>${userBean.getUserName()}</span>
                 </td>
             </tr>
             <tr>
@@ -71,8 +71,12 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
+                <td>
                     <input type="button" class="btn_add" value="记一笔" onclick="addRecord()" />
+                    <input id="hidden_user_name" type="hidden" value="${userBean.getUserName()}" />
+                </td>
+                <td>
+                    <input type="button" class="btn_return" value="返回" onclick="backToMenu()" />
                 </td>
             </tr>
         </table>

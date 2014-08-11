@@ -8,7 +8,7 @@
  */
 function addRecord(){
 
-    var userName = $("#user_name").val();
+    var userName = $("#hidden_user_name").val();
     var moneyType = $("#money_type").val();
     var amount = $("#amount").val();
     var categoryId = $("#category").val();
@@ -26,4 +26,13 @@ function addRecord(){
                 alert("操作失败！" + data);
             }
         });
+}
+
+
+/**
+ * 返回主菜单
+ */
+function backToMenu(){
+
+    window.location.href = "/";
 }

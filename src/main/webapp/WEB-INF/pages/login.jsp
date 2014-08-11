@@ -29,6 +29,7 @@
                 <td>密码</td>
                 <td>
                     <input id="psw" type="password" name="password" />
+                    <span id="pswInfoMsg" class="loginMsg"></span>
                 </td>
             </tr>
             <tr>

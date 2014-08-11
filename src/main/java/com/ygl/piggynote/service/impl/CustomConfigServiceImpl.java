@@ -72,9 +72,9 @@ public class CustomConfigServiceImpl implements CustomConfigService {
     @Override
     public Boolean update(CustomConfigBean bean) {
 
-        int ret = jdbcTemplate.update("update pn_custom_config set month_cost_plan=? where user_name=?",
-                new Object[]{ bean.getMonthCostPlan(), bean.getUserName()},
-                new int[]{Types.FLOAT, Types.VARCHAR});
+        int ret = jdbcTemplate.update("update pn_custom_config set month_cost_plan=?, category_switch=?, prepay_switch=? where user_name=?",
+                new Object[]{ bean.getMonthCostPlan(), bean.getCategorySwitch(), bean.getPrepaySwitch(), bean.getUserName()},
+                new int[]{Types.FLOAT, Types.TINYINT, Types.TINYINT, Types.VARCHAR});
 
         return ret == 1;
     }

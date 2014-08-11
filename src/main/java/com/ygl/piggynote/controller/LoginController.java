@@ -5,6 +5,7 @@ import com.ygl.piggynote.bean.UserBean;
 import com.ygl.piggynote.common.CommonConstant;
 import com.ygl.piggynote.service.impl.UserServiceImpl;
 import com.ygl.piggynote.util.CommonUtil;
+import com.ygl.piggynote.util.Md5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +52,10 @@ public class LoginController extends BaseController {
             // 数据库查询用户
             UserBean dbUser = userService.get(ub.getUserName());
 
-            if (!dbUser.getPassword().equals(ub.getPassword())) {
+            // 用户密码md5加密
+            String newPsw = Md5Util.getMD5Code(ub.getPassword());
+
+            if (!dbUser.getPassword().equals(newPsw)) {
                 mav.addObject(ERROR_MSG_KEY, "用户密码不正确");
             } else {
 

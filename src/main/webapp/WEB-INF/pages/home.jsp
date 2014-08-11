@@ -15,6 +15,10 @@
         <div>
             <input class="btn_login" type="button" value="登录" onclick="window.location.href='/login'" />
         </div>
+        <br/>
+        <div>
+            <input class="btn_register" type="button" value="注册" onclick="window.location.href='/register'" />
+        </div>
     </c:if>
 
     <c:if test="${!notLogin}">
@@ -27,6 +31,10 @@
         <br/>
         <div>
             <input type="button" class="btn_daily_record" value="添加记录" onclick="window.location.href='/daily_record'" />
+        </div>
+        <br/>
+        <div>
+            <input type="button" class="btn_custom_config" value="自定义设置" onclick="window.location.href='/custom_config'" />
         </div>
     </c:if>
 

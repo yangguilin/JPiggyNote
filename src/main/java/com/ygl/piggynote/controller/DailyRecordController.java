@@ -1,13 +1,16 @@
 package com.ygl.piggynote.controller;
 
 import com.ygl.piggynote.bean.DailyRecordBean;
+import com.ygl.piggynote.bean.UserBean;
 import com.ygl.piggynote.service.impl.DailyRecordServiceImpl;
 import com.ygl.piggynote.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 
@@ -17,7 +20,7 @@ import java.io.UnsupportedEncodingException;
  */
 @Controller
 @RequestMapping("/daily_record")
-public class DailyRecordController {
+public class DailyRecordController extends BaseController {
 
     @Autowired
     private DailyRecordServiceImpl dailyRecordService;
@@ -28,7 +31,10 @@ public class DailyRecordController {
      * @return
      */
     @RequestMapping(method=RequestMethod.GET)
-    public String show(){
+    public String show(ModelMap model, HttpServletRequest request){
+
+        UserBean ub = getUserFromSession(request);
+        model.addAttribute("userBean", ub);
 
         return "/daily_record";
     }

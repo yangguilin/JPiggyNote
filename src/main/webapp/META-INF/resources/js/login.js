@@ -8,11 +8,27 @@
  */
 function check(){
 
+    var pass = true;
+
     if ($("#userName").val() == ""){
 
         $("#userInfoMsg").html("用户名不能为空");
-        return false;
+        pass = false;
+    } else {
+
+        $("#userInfoMsg").html("");
+        pass = true;
     }
 
-    return true;
+    if ($("#psw").val() == ""){
+
+        $("#pswInfoMsg").html("密码不能为空");
+        pass = false;
+    } else {
+
+        $("#pswInfoMsg").html("");
+        pass = true;
+    }
+
+    return pass;
 }

@@ -14,7 +14,11 @@ public class CategoryBean {
     private Date latestModifiedDate;
 
 
-    public CategoryBean() {}
+    public CategoryBean() {
+
+        this.categoryXml = "";
+        this.categoryXmlSorted = "";
+    }
 
     public Date getLatestModifiedDate() {
         return latestModifiedDate;
