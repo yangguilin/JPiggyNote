@@ -17,8 +17,8 @@ public class CategoryRowMapper implements RowMapper {
 
         CategoryBean bean = new CategoryBean();
         bean.setUserName(rs.getString("user_name"));
-        bean.setCategoryXml(rs.getString("category_xml"));
-        bean.setCategoryXmlSorted(rs.getString("category_xml_sorted"));
+        bean.setCategoryData(rs.getString("category_data"));
+        bean.setCategoryDataSorted(rs.getString("category_data_sorted"));
         bean.setLatestModifiedDate(rs.getDate("latest_modified_date"));
 
         return bean;

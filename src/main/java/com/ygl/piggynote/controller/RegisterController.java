@@ -69,11 +69,13 @@ public class RegisterController extends BaseController {
             // 添加默认自定义设定
             CustomConfigBean ccb = new CustomConfigBean();
             ccb.setUserName(ub.getUserName());
+            ccb.fillDefaultData();
             customConfigService.add(ccb);
 
             // 添加默认分类数据
             CategoryBean cb = new CategoryBean();
             cb.setUserName(ub.getUserName());
+            cb.fillDefaultData();
             categoryService.add(cb);
         } catch(Exception e){
 

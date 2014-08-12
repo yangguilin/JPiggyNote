@@ -13,10 +13,6 @@ public class CustomConfigBean {
 
 
     public CustomConfigBean() {
-
-        this.monthCostPlan = 888f;
-        this.categorySwitch = 0;
-        this.prepaySwitch = 0;
     }
 
     public float getMonthCostPlan() {
@@ -55,6 +51,9 @@ public class CustomConfigBean {
      * 系统默认数据
      */
     public void fillDefaultData(){
-        this.monthCostPlan = 3000l;
+
+        this.monthCostPlan = 888f;
+        this.categorySwitch = 0;
+        this.prepaySwitch = 0;
     }
 }

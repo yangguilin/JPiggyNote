@@ -36,6 +36,10 @@
         <div>
             <input type="button" class="btn_custom_config" value="自定义设置" onclick="window.location.href='/custom_config'" />
         </div>
+        <br/>
+        <div>
+            <input type="button" class="btn_category" value="我的分类" onclick="window.location.href='/category'" />
+        </div>
     </c:if>
 
 </body>

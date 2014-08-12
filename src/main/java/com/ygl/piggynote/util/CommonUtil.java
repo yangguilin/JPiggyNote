@@ -28,4 +28,24 @@ public class CommonUtil {
         pw.write(res);
         pw.flush();
     }
+
+    /**
+     * 为String类型的返回结果，写入response返回字符串
+     * @param ret   操作是否成功
+     * @param resContent    返回内容
+     * @param response  response
+     */
+    public static void writeResponse4ReturnStrResult(Boolean ret, String resContent, HttpServletResponse response){
+
+        String res = ret ? resContent : "fail";
+
+        PrintWriter pw = null;
+        try {
+            pw = response.getWriter();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        pw.write(res);
+        pw.flush();
+    }
 }
