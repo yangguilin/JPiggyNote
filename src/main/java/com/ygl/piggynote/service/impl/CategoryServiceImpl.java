@@ -41,8 +41,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Boolean add(CategoryBean cb) {
 
-        int ret = jdbcTemplate.update("insert into pn_category(user_name, category_xml, category_xml_sorted, latest_modified_date) value(?, ?, ?, now())",
-                new Object[]{cb.getUserName(), cb.getCategoryXml(), cb.getCategoryXmlSorted()},
+        int ret = jdbcTemplate.update("insert into pn_category(user_name, category_data, category_data_sorted, latest_modified_date) value(?, ?, ?, now())",
+                new Object[]{cb.getUserName(), cb.getCategoryData(), cb.getCategoryDataSorted()},
                 new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR});
 
         return ret == 1;
@@ -56,8 +56,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Boolean update(CategoryBean cb) {
 
-        int ret = jdbcTemplate.update("update pn_category set category_xml=?, category_xml_sorted=?, latest_modified_date=now() where user_name=?",
-                new Object[]{cb.getCategoryXml(), cb.getCategoryXmlSorted(), cb.getUserName()},
+        int ret = jdbcTemplate.update("update pn_category set category_data=?, category_data_sorted=?, latest_modified_date=now() where user_name=?",
+                new Object[]{cb.getCategoryData(), cb.getCategoryDataSorted(), cb.getUserName()},
                 new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR});
 
         return ret == 1;

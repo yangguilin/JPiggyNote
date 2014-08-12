@@ -8,6 +8,8 @@ public class CustomConfigBean {
 
     private String userName;
     private float monthCostPlan;
+    private int categorySwitch;
+    private int prepaySwitch;
 
 
     public CustomConfigBean() {
@@ -29,10 +31,29 @@ public class CustomConfigBean {
         this.userName = userName;
     }
 
+    public int getCategorySwitch() {
+        return categorySwitch;
+    }
+
+    public void setCategorySwitch(int categorySwitch) {
+        this.categorySwitch = categorySwitch;
+    }
+
+    public int getPrepaySwitch() {
+        return prepaySwitch;
+    }
+
+    public void setPrepaySwitch(int prepaySwitch) {
+        this.prepaySwitch = prepaySwitch;
+    }
+
     /**
      * 系统默认数据
      */
     public void fillDefaultData(){
-        this.monthCostPlan = 3000l;
+
+        this.monthCostPlan = 888f;
+        this.categorySwitch = 0;
+        this.prepaySwitch = 0;
     }
 }

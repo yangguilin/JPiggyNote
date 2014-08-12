@@ -43,7 +43,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <input type="submit" value="保存" />
+                    <input type="submit" value="注册" />
                     <input type="reset" value="重置" />
                 </td>
             </tr>

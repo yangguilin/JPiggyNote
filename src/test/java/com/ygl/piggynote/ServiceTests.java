@@ -120,8 +120,8 @@ public class ServiceTests {
 
         CategoryBean category = new CategoryBean();
         category.setUserName(_userName);
-        category.setCategoryXml("category_xml");
-        category.setCategoryXmlSorted("category_xml_sorted");
+        category.setCategoryData("category_xml");
+        category.setCategoryDataSorted("category_xml_sorted");
         category.setLatestModifiedDate(new Date());
 
         // add
@@ -129,13 +129,13 @@ public class ServiceTests {
         Assert.isTrue(ret);
 
         // update
-        category.setCategoryXml("new xml file");
+        category.setCategoryData("new xml file");
         ret = csi.update(category);
         Assert.isTrue(ret);
 
         // get
         CategoryBean cb = csi.get(_userName);
-        Assert.isTrue(cb.getCategoryXml().equals("new xml file"));
+        Assert.isTrue(cb.getCategoryData().equals("new xml file"));
     }
 
     /**

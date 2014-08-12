@@ -18,8 +18,8 @@ public class TestController {
 
         CategoryBean cb = new CategoryBean();
         cb.setUserName("ygl");
-        cb.setCategoryXml("category_xml");
-        cb.setCategoryXmlSorted("category_xml_sorted");
+        cb.setCategoryData("category_xml");
+        cb.setCategoryDataSorted("category_xml_sorted");
 
         model.addAttribute("category_new", cb);
 

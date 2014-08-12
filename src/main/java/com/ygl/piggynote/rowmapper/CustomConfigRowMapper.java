@@ -17,6 +17,8 @@ public class CustomConfigRowMapper implements RowMapper {
         CustomConfigBean bean = new CustomConfigBean();
         bean.setUserName(rs.getString("user_name"));
         bean.setMonthCostPlan(rs.getFloat("month_cost_plan"));
+        bean.setCategorySwitch(rs.getInt("category_switch"));
+        bean.setPrepaySwitch(rs.getInt("prepay_switch"));
 
         return bean;
     }

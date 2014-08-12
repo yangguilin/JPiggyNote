@@ -1,5 +1,7 @@
 package com.ygl.piggynote.bean;
 
+import com.google.gson.Gson;
+
 import java.util.Date;
 
 /**
@@ -9,12 +11,14 @@ import java.util.Date;
 public class CategoryBean {
 
     private String userName;
-    private String categoryXml;
-    private String categoryXmlSorted;
+    private String categoryData;
+    private String categoryDataSorted;
     private Date latestModifiedDate;
+    private CategoryList categoryList;
 
 
-    public CategoryBean() {}
+    public CategoryBean() {
+    }
 
     public Date getLatestModifiedDate() {
         return latestModifiedDate;
@@ -32,20 +36,36 @@ public class CategoryBean {
         this.userName = userName;
     }
 
-    public String getCategoryXml() {
-        return categoryXml;
+    public String getCategoryData() {
+
+        // 如果没有生成json字符串，通过分类列表生成
+        if (categoryData == null || categoryData.isEmpty()){
+            getJsonFromCategoryList();
+        }
+
+        return this.categoryData;
     }
 
-    public void setCategoryXml(String categoryXml) {
-        this.categoryXml = categoryXml;
+    public void setCategoryData(String categoryData) {
+        this.categoryData = categoryData;
     }
 
-    public String getCategoryXmlSorted() {
-        return categoryXmlSorted;
+    public String getCategoryDataSorted() {
+        return categoryDataSorted;
     }
 
-    public void setCategoryXmlSorted(String categoryXmlSorted) {
-        this.categoryXmlSorted = categoryXmlSorted;
+    public void setCategoryDataSorted(String categoryDataSorted) {
+        this.categoryDataSorted = categoryDataSorted;
+    }
+
+    public CategoryList getGetCategoryList() {
+
+        // 如果没有分类列表，通过json字符串实例化
+        if (categoryList == null){
+            getCategoryListFromJson();
+        }
+
+        return categoryList;
     }
 
     /**
@@ -53,7 +73,43 @@ public class CategoryBean {
      */
     public void fillDefaultData() {
 
-        this.categoryXml = "xml_default";
-        this.categoryXmlSorted = null;
+        this.categoryData = "";
+        this.categoryDataSorted = "";
+        // 默认分类数据
+        this.categoryList = new CategoryList();
+        this.categoryList.defaultData();
+    }
+
+    /**
+     * 转化Json字符串为categoryList实例
+     */
+    private void getCategoryListFromJson(){
+
+        if(categoryData != null && !categoryData.isEmpty()){
+
+            Gson gson = new Gson();
+            this.categoryList = gson.fromJson(categoryData, CategoryList.class);
+        }
+    }
+
+    /**
+     * 转化categoryList为Json字符串
+     */
+    private void getJsonFromCategoryList(){
+
+        if (categoryList != null) {
+
+            Gson gson = new Gson();
+            this.categoryData = gson.toJson(categoryList);
+        }
+    }
+
+    /**
+     * 强制由分类列表更新为json字符串
+     */
+    public void updateJsonDataByCategoryList(){
+
+        Gson gson = new Gson();
+        this.categoryData = gson.toJson(categoryList);
     }
 }
