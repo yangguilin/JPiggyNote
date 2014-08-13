@@ -1,5 +1,31 @@
 
-.btn_login, .btn_register, .btn_logout, .btn_daily_record, .btn_custom_config, .btn_category {
+.div_container {
+    text-align: center;
+}
+
+.table_menu {
+    display:inline-block;
+}
+
+.table_menu tr td {
+    height: 50px;
+    text-align: center;
+}
+
+.table_menu input[type="button"] {
     width:80px;
+    height:30px;
+}
+
+.table_wallet {
+    display: inline-block;
+}
+
+.table_wallet tr {
+    text-align: right;
+}
+
+#txt_amount {
+    width:100px;
     height:30px;
 }

@@ -5,25 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88a2c445-45c5-4656-81e7-f48af92a54c1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/bean/CategoryList.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_2_4.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/category.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/category.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/bean/CategoryBean.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/bean/CategoryBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/CategoryController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/CategoryController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/rowmapper/CategoryRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/rowmapper/CategoryRowMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/service/impl/CategoryServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/service/impl/CategoryServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/util/CommonUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/util/CommonUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/bean/CustomConfigBean.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/bean/CustomConfigBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JPiggyNote.iml" afterPath="$PROJECT_DIR$/JPiggyNote.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/JPiggyNote_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/JPiggyNote_war_exploded.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/RegisterController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/RegisterController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/ygl/piggynote/ServiceTests.java" afterPath="$PROJECT_DIR$/src/test/java/com/ygl/piggynote/ServiceTests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/test/TestController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/test/TestController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/category.js" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/category.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/img/money_logo_01.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/home_mobile.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/home_mobile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/home_mobile.jsp" />
+      <change type="DELETED" beforePath="E:\JPiggyNote\src\main\webapp\META-INF\resources\img\cat.jpg" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/home.css" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/home.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/home.js" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/home.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/home.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/home.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="JPiggyNote.iws" />
@@ -87,26 +76,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="daily_record.jsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/daily_record.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.5833335" vertical-offset="1098" max-vertical-offset="1456">
-              <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="79" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CategoryList.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ygl/piggynote/bean/CategoryList.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="325" max-vertical-offset="720">
-              <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="category.jsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/category.jsp">
           <provider selected="true" editor-type-id="text-editor">
@@ -117,21 +86,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="daily_record.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/daily_record.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="114" max-vertical-offset="576">
-              <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="category.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="category.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/category.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.17325228" vertical-offset="2439" max-vertical-offset="2768">
-              <caret line="158" column="39" selection-start-line="158" selection-start-column="39" selection-end-line="158" selection-end-column="39" />
+            <state vertical-scroll-proportion="-7.4827585" vertical-offset="951" max-vertical-offset="2768">
+              <caret line="75" column="48" selection-start-line="75" selection-start-column="48" selection-end-line="75" selection-end-column="48" />
               <folding>
                 <marker date="1407841674437" expanded="true" signature="2453:2463" placeholder="..." />
               </folding>
@@ -139,21 +98,51 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CommonUtil.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ygl/piggynote/util/CommonUtil.java">
+      <file leaf-file-name="HomeController.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/HomeController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="365" max-vertical-offset="880">
-              <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="384">
+              <caret line="20" column="37" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="category.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/category.css">
+      <file leaf-file-name="home_mobile.jsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/home_mobile.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="61" max-vertical-offset="448">
-              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+            <state vertical-scroll-proportion="-6.0" vertical-offset="0" max-vertical-offset="400">
+              <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="home_mobile.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/home_mobile.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="112">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="home_mobile.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/home_mobile.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="96">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="home.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/home.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="167" max-vertical-offset="560">
+              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -169,26 +158,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CategoryController.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/CategoryController.java">
+      <file leaf-file-name="home.jsp" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/home.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2117" max-vertical-offset="3120">
-              <caret line="135" column="17" selection-start-line="135" selection-start-column="17" selection-end-line="135" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.30081302" vertical-offset="721" max-vertical-offset="1280">
+              <caret line="52" column="71" selection-start-line="52" selection-start-column="71" selection-end-line="52" selection-end-column="71" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CategoryServiceImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ygl/piggynote/service/impl/CategoryServiceImpl.java">
+      <file leaf-file-name="home.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/home.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="666" max-vertical-offset="1024">
-              <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-              <folding>
-                <marker date="1407813017248" expanded="true" signature="795:838" placeholder="select * fro..pn_category..." />
-                <marker date="1407813017248" expanded="true" signature="1151:1266" placeholder="insert into ..." />
-                <marker date="1407813017248" expanded="true" signature="1660:1768" placeholder="update pn_ca..." />
-              </folding>
+            <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="576">
+              <caret line="21" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -206,9 +191,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/exception/UserExistException.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/filter/AuthFilter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/rowmapper/CountRowMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/bean/QueryCountBean.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/rowmapper/QueryCountRowMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/UserController.java" />
@@ -225,7 +207,6 @@
         <option value="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/login.css" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/HomeController.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/home.js" />
         <option value="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/rowmapper/CustomConfigRowMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/CustomConfigController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/service/impl/CustomConfigServiceImpl.java" />
@@ -248,8 +229,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/bean/CustomConfigBean.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/RegisterController.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/home.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/home.css" />
         <option value="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/bean/CategoryBean.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/util/CommonUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/bean/CategoryList.java" />
@@ -257,6 +236,12 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/category.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/category.css" />
         <option value="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/category.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/home_mobile.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/home_mobile.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/home_mobile.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/home.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/home.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/home.css" />
       </list>
     </option>
   </component>
@@ -579,6 +564,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="img" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -969,8 +958,13 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\JPiggyNote\src\main\webapp\META-INF\resources\img" />
       <recent name="E:\JPiggyNote\src\main\webapp\js" />
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.ygl.piggynote" />
+      <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\JPiggyNote\src\main\webapp\WEB-INF\pages" />
@@ -978,10 +972,6 @@
       <recent name="E:\JPiggyNote\src\main\webapp" />
       <recent name="E:\JPiggyNote\src\main\webapp\WEB-INF\pages\test" />
       <recent name="E:\JPiggyNote\src\main\webapp\WEB-INF" />
-    </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="com.ygl.piggynote" />
-      <recent name="" />
     </key>
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat-7.0.55">
@@ -1348,7 +1338,7 @@
       <workItem from="1407133997071" duration="33383000" />
       <workItem from="1407236798197" duration="144000" />
       <workItem from="1407377463784" duration="43900000" />
-      <workItem from="1407724371955" duration="33388000" />
+      <workItem from="1407724371955" duration="42787000" />
     </task>
     <task id="LOCAL-00001" summary="Resolve static resource file filter issue.">
       <created>1406783832333</created>
@@ -1374,11 +1364,15 @@
       <created>1407753424852</created>
       <updated>1407753424852</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="category feature.">
+      <created>1407841770149</created>
+      <updated>1407841770149</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="211456000" />
+    <option name="totallyTimeSpent" value="220855000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1413,7 +1407,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28739497" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25042018" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
@@ -1456,7 +1450,8 @@
     <MESSAGE value="Add new files. AuthFilter and login part." />
     <MESSAGE value="login, daily records feature part." />
     <MESSAGE value="custom config feature" />
-    <option name="LAST_COMMIT_MESSAGE" value="custom config feature" />
+    <MESSAGE value="category feature." />
+    <option name="LAST_COMMIT_MESSAGE" value="category feature." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1485,43 +1480,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1316" max-vertical-offset="1632">
-          <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/HomeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="384">
-          <caret line="19" column="42" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar!/javax/servlet/http/HttpSession.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3557423" vertical-offset="577" max-vertical-offset="960">
-          <caret line="45" column="9" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/home.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="448">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1615" max-vertical-offset="2240">
-          <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="116" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ygl/piggynote/filter/AuthFilter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="533" max-vertical-offset="1568">
@@ -1779,22 +1737,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/home.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.5833335" vertical-offset="482" max-vertical-offset="816">
-          <caret line="40" column="52" selection-start-line="40" selection-start-column="40" selection-end-line="40" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/home.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="160">
-          <caret line="1" column="92" selection-start-line="1" selection-start-column="92" selection-end-line="1" selection-end-column="92" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/3.2.0.RELEASE/spring-web-3.2.0.RELEASE-sources.jar!/org/springframework/web/method/support/InvocableHandlerMethod.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2965" max-vertical-offset="3728">
@@ -1826,9 +1768,9 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="666" max-vertical-offset="1024">
           <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
           <folding>
-            <marker date="1407813017248" expanded="true" signature="795:838" placeholder="select * fro..pn_category..." />
-            <marker date="1407813017248" expanded="true" signature="1151:1266" placeholder="insert into ..." />
-            <marker date="1407813017248" expanded="true" signature="1660:1768" placeholder="update pn_ca..." />
+            <marker date="1407813017248" expanded="true" signature="-1:-1" placeholder="select * fro..pn_category..." />
+            <marker date="1407813017248" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1407813017248" expanded="true" signature="-1:-1" placeholder="update pn_ca..." />
           </folding>
         </state>
       </provider>
@@ -1899,11 +1841,67 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/category.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17325228" vertical-offset="2439" max-vertical-offset="2768">
-          <caret line="158" column="39" selection-start-line="158" selection-start-column="39" selection-end-line="158" selection-end-column="39" />
+        <state vertical-scroll-proportion="-7.4827585" vertical-offset="951" max-vertical-offset="2768">
+          <caret line="75" column="48" selection-start-line="75" selection-start-column="48" selection-end-line="75" selection-end-column="48" />
           <folding>
             <marker date="1407841674437" expanded="true" signature="2453:2463" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/HomeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="384">
+          <caret line="20" column="37" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/home_mobile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="423">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/home_mobile.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="423">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/home_mobile.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.0" vertical-offset="0" max-vertical-offset="400">
+          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/home.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="167" max-vertical-offset="560">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/home.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="576">
+          <caret line="21" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/home.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30081302" vertical-offset="721" max-vertical-offset="1280">
+          <caret line="52" column="71" selection-start-line="52" selection-start-column="71" selection-end-line="52" selection-end-column="71" />
+          <folding />
         </state>
       </provider>
     </entry>

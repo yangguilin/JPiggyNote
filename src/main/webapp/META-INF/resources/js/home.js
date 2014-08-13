@@ -23,3 +23,10 @@ function logout(){
             }
         });
 }
+
+/**
+ * 检查输入金额
+ */
+function checkAmount(){
+
+}
