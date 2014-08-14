@@ -48,22 +48,34 @@
                 </tr>
             </table>
             <br/>
+            <br/>
             <div class="div_container">
                 <h3>俺的荷包</h3>
-                <table width="400px" border="1px" class="table_wallet">
+                <table width="400px" border="0px" class="table_wallet">
                     <tr>
-                        <td width="100px">
-                            <img src="/img/money_logo_01.jpg" width="50px" height="50px" />
-                        </td>
-                        <td>
-                            <input id="txt_amount" type="text" onblur="checkAmount()" />
+                        <td class="td_first"></td>
+                        <td colspan="2">
+                            <div class="div_cost_button_container">
+                                <img id="img_cost_button" src="/img/cost_button.png" width="40px" height="40px" onclick="selectImgButton(this)" />
+                            </div>
+                            <div class="div_income_button_container div_button_unselected">
+                                <img id="img_income_button" src="/img/income_button.png" width="40px" height="40px"  onclick="selectImgButton(this)"  />
+                            </div>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
-                            <input type="button" value="收入" />
-                            &nbsp;&nbsp;
-                            <input type="button" value="支出" />
+                        <td colspan="3" class="td_split"></td>
+                    </tr>
+                    <tr>
+                        <td class="td_money_logo">
+                            <img src="/img/money_logo_01.jpg" width="30px" height="30px" />
+                        </td>
+                        <td class="td_money_amount">
+                            <input id="txt_amount" type="text" onblur="checkAmount()" />
+                        </td>
+                        <td>
+                            <input id="btn_cost" type="button" value="支出" onclick="" />
+                            <input id="btn_income" class="btn_hidden" type="button" value="收入" onclick="" />
                         </td>
                     </tr>
                 </table>
