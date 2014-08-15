@@ -5,7 +5,18 @@
 /**
  * 页面全局变量
  */
-var g_curImgButtonId = "img_cost_button";
+var g_curImgButtonId = "";
+
+
+/**
+ * 页面载入后默认执行
+ */
+$(document).ready(function(){
+
+    // 默认支出选项选中
+    $("#img_cost_button").click();
+
+});
 
 
 /**
@@ -54,9 +65,9 @@ function selectImgButton(obj){
 
         // 操作按钮显示切换
         if (selectImgBtnId == "img_cost_button"){
-            $("#btn_cost").toggleClass("btn_hidden").siblings("input").toggleClass("btn_hidden");
+            $("#btn_cost").show().siblings("a").hide();
         } else {
-            $("#btn_income").toggleClass("btn_hidden").siblings("input").toggleClass("btn_hidden");
+            $("#btn_income").show().css("margin-right", "10px").siblings("a").hide();
         }
 
         // 保存临时变量

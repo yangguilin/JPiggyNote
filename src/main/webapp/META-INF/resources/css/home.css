@@ -1,4 +1,8 @@
 
+/* element */
+
+
+/* class */
 .div_container {
     text-align: center;
 }
@@ -19,33 +23,26 @@
 
 .table_wallet {
     display: inline-block;
+    margin-right: 20px;
 }
 
 .td_money_logo {
     text-align: right;
-    width:150px;
+    width:30px;
 }
 
 .td_split {
-    height:5px;
+    height:8px;
 }
 
 .td_money_amount {
     text-align: left;
-    padding-left:5px;
-    width:110px;
+    padding-left:10px;
 }
 
-#img_income_button, #img_cost_button {
-    cursor:pointer;
-}
 
 .div_button_unselected {
     -moz-opacity:0.3;-khtml-opacity:0.3;opacity: 0.3;
-}
-
-.td_first {
-    width:130px;
 }
 
 .div_income_button_container {
@@ -61,11 +58,6 @@
     height:40px;
 }
 
-#btn_cost, #btn_income {
-    width:60px;
-    height:30px;
-}
-
 .btn_show {
     display:"";
 }
@@ -74,9 +66,17 @@
     display:none;
 }
 
+
+/* id */
+#img_income_button, #img_cost_button {
+    cursor:pointer;
+}
+
 #txt_amount {
-    width:90px;
-    height:30px;
-    padding-left: 20px;
-    padding-right: 20px;
+    width:40px;
+    height:26px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 10px;
+    border-radius:5px;
 }
