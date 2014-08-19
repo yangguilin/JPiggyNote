@@ -1,6 +1,8 @@
 
 /* element */
-
+body {
+    background: url(/img/background.png) repeat!important;
+}
 
 /* class */
 .div_container {
@@ -10,6 +12,14 @@
 .div_content_container {
     width: 230px;
     display:inline-block;
+}
+
+.div_main_content_container {
+    margin-top: 5px;
+}
+
+.div_content_container .groupList:first-child {
+    text-align: left;
 }
 
 .table_menu {
@@ -38,7 +48,7 @@
 }
 
 .td_split {
-    height:12px;
+    height:15px;
 }
 
 .td_money_amount {
@@ -74,6 +84,15 @@
     font-weight: bold;
     font-size: 14px;
     color: darkred;
+}
+
+.div_record_item {
+    cursor: pointer;
+    height:22px;
+}
+
+.div_record_item input {
+    display: none
 }
 
 

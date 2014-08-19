@@ -1,7 +1,10 @@
+<%@ page import="java.util.HashMap" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <head>
+    <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
+
     <title>欢迎来到小猪账本</title>
     <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="/js/home.js"></script>
@@ -25,21 +28,19 @@
             </table>
         </div>
     </c:if>
-
     <c:if test="${!notLogin}">
-        <div  class="div_container">
+        <div class="div_container">
             <h2>欢迎亲：
                 <span id="span_curUserName">${curUser.getUserName()}</span>
             </h2>
             <div class="div_content_container">
                 <div class="groupList clear">
-                    <a href="#" class="button blue left" onclick="window.location.href='/daily_record'">记账</a>
+                    <a href="#" class="button blue left">统计</a>
                     <a href="#" class="button blue middle" onclick="window.location.href='/category'">分类</a>
                     <a href="#" class="button blue middle" onclick="window.location.href='/custom_config'">设置</a>
                     <a href="#" class="button blue right" onclick="logout()">退出</a>
                 </div>
-                <br/>
-                <div class="div_container">
+                <div class="div_main_content_container">
                     <table class="table_wallet">
                         <tr>
                             <td colspan="3">
@@ -75,79 +76,45 @@
                         </tr>
                     </table>
                 </div>
-                <br/>
                 <div id="div_history_container">
-                    <h3 id="h3_today">今天</h3>
-                    <table>
-                        <tr>
-                            <td>
-                                <div>
-                                    1. ygl>&nbsp;支出&nbsp;200元
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>
-                                    2. ygl>&nbsp;支出&nbsp;200元
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>
-                                    3. ygl>&nbsp;支出&nbsp;200元
-                                </div>
-                            </td>
-                        </tr>
+                    <h3 id="h3_today">今天(${todayList.size()})</h3>
+                    <table id="tbl_today_list">
+                        <c:forEach items="${todayList}" var="item">
+                            <tr>
+                                <td>
+                                    <div class="div_record_item">
+                                        <input record_id="${item.getId()}" type="button" value="删除" onclick="deleteRecord(this)" />&nbsp;&nbsp;&nbsp;&nbsp;
+                                        /&nbsp;${curUser.getUserName()}>&nbsp;&nbsp;${moneyTypeMap.get(item.getMoneyType())}&nbsp;${item.getAmount()}&nbsp;元
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:forEach>
                     </table>
-                    <h3 id="h3_yesterday">昨天</h3>
-                    <table>
-                        <tr>
-                            <td>
-                                <div>
-                                    1. ygl>&nbsp;支出&nbsp;200元
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>
-                                    2. ygl>&nbsp;支出&nbsp;200元
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>
-                                    3. ygl>&nbsp;支出&nbsp;200元
-                                </div>
-                            </td>
-                        </tr>
+                    <h3 id="h3_yesterday">昨天(${yesterdayList.size()})</h3>
+                    <table id="tbl_yesterday_list">
+                        <c:forEach items="${yesterdayList}" var="item">
+                            <tr>
+                                <td>
+                                    <div class="div_record_item">
+                                        <input record_id="${item.getId()}" type="button" value="删除" onclick="deleteRecord(this)" />&nbsp;&nbsp;&nbsp;&nbsp;
+                                        /&nbsp;${curUser.getUserName()}>&nbsp;&nbsp;${moneyTypeMap.get(item.getMoneyType())}&nbsp;${item.getAmount()}&nbsp;元
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:forEach>
                     </table>
-                    <h3 id="h3_dayafteryesterday">前天</h3>
-                    <table>
-                        <tr>
-                            <td>
-                                <div>
-                                    1. ygl>&nbsp;支出&nbsp;200元
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>
-                                    2. ygl>&nbsp;支出&nbsp;200元
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>
-                                    3. ygl>&nbsp;支出&nbsp;200元
-                                </div>
-                            </td>
-                        </tr>
+                    <h3 id="h3_dayafteryesterday">前天(${dayBeforeYesterdayList.size()})</h3>
+                    <table id="tbl_dayBeforeYesterday_list">
+                        <c:forEach items="${dayBeforeYesterdayList}" var="item">
+                            <tr>
+                                <td>
+                                    <div class="div_record_item">
+                                        <input record_id="${item.getId()}" type="button" value="删除" onclick="deleteRecord(this)" />&nbsp;&nbsp;&nbsp;&nbsp;
+                                        /&nbsp;${curUser.getUserName()}>&nbsp;&nbsp;${moneyTypeMap.get(item.getMoneyType())}&nbsp;${item.getAmount()}&nbsp;元
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:forEach>
                     </table>
                 </div>
             </div>

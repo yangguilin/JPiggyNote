@@ -29,11 +29,26 @@ $(document).ready(function() {
     // 历史查看页事件
     $("#div_history_container h3").click(function () {
 
+        // 重置删除按钮
+        $(".div_record_item input:visible").hide();
+
         // 显示切换
         $("#div_history_container table").css("display", "none");
         $(this).next("table").css("display", "block");
+
         // 选中样式调整
         $(this).addClass("h3_selected").siblings("h3").removeClass("h3_selected");
+    });
+
+    // 历史条目事件及鼠标悬停效果
+    $(".div_record_item").hover(function(){
+        $(this).css("font-weight", "bold");
+    }, function(){
+        $(this).css("font-weight", "normal");
+    }).click(function(){
+
+        $(".div_record_item input:visible").hide("fast");
+        $(this).children("input").show("fast");
     });
 
     // 默认支出选项选中
@@ -157,10 +172,57 @@ function addNewRecord(obj){
 
             if (data == "success") {
 
-                alert("操作成功!");
+                // 列表中添加数据
+                addItemIntoTable(userName, moneyType, amount);
                 // 恢复初始值
                 $amountObj.val("0");
 
+            } else {
+                alert("操作失败！" + data);
+            }
+        });
+}
+
+
+/**
+ * 向列页面表中添加一条记录
+ */
+function addItemIntoTable(userName, moneyType, amount){
+
+    if (moneyType == "COST"){
+        moneyType = "支出";
+    } else if (moneyType == "INCOME"){
+        moneyType = "收入";
+    } else if (moneyType == "PREPAY"){
+        moneyType = "垫付";
+    } else if (moneyType == "PAYBACK"){
+        moneyType = "收回";
+    }
+
+    var trObjHtml = '<tr><td>[New]&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;'
+        + userName + '>&nbsp;&nbsp;' + moneyType + '&nbsp;' + amount + '&nbsp;元</div></td></tr>';
+    $("#tbl_today_list tr:first").before($(trObjHtml));
+}
+
+
+/**
+ * 删除记录
+ * @param obj   当前button对象
+ */
+function deleteRecord(obj){
+
+    var id = $(obj).attr("record_id");
+    var userName = $("#span_curUserName").text();
+    if (userName == null || userName == ""){
+        return;
+    }
+
+    // ajax request
+    $.post("/daily_record/delete.do", { "userName": userName, "id":id },
+        function (data) {
+            if (data == "success") {
+                // 删除列表记录
+                $(obj).parent().parent().parent().remove();
             } else {
                 alert("操作失败！" + data);
             }

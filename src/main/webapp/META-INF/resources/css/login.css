@@ -1,10 +1,29 @@
 
+/* style class */
+
 .loginMsg {
     color:red;
     font-size: 12px;
 }
 
 div.loginMsg {
-    height:30px;
+    height:15px;
+}
+
+.div_container {
+    text-align: center;
+}
+
+.table_menu {
+    display:inline-block;
+}
+
+.table_menu tr td {
+    height: 30px;
+    text-align: center;
+}
+
+.span_title {
+    font-size: 12px; font-family: Georgia, Times New Roman, serif;
 }
 
