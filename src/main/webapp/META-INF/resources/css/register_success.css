@@ -1,8 +1,19 @@
 
+/* element */
 body {
-    font-size:12px;
+    background: url(/img/background.png) repeat!important;
 }
 
-#div_msgContent {
-    color:red;
+/* class */
+.div_container {
+    text-align: center;
+}
+
+.table_menu {
+    display:inline-block;
+    text-align: center;
+}
+
+.table_menu tr td {
+    height: 30px;
 }

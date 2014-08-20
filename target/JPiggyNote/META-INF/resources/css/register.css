@@ -1,15 +1,44 @@
 
-.username_msg_default {
-    font-size: 12px;
-    color:red;
+/* element */
+body {
+    background: url(/img/background.png) repeat!important;
 }
 
-.username_exist_msg {
-    font-size: 12px;
-    color:red;
+/* class */
+.div_container {
+    text-align: center;
 }
 
-.username_not_exist_msg {
+.table_menu {
+    display:inline-block;
+    text-align: center;
+}
+
+.table_menu tr td {
+    height: 30px;
+}
+
+.span_title {
     font-size: 12px;
-    color:green;
+    font-family: Georgia, Times New Roman, serif;
+    font-weight: normal;
+    color: #666;
+}
+
+.td_title {
+    text-align: right;
+    padding-right: 5px;
+    padding-top:3px;
+}
+
+/* id */
+#txt_user_name, #txt_psw, #txt_psw_confirm {
+    width:70px;
+}
+#div_login_msg {
+    padding-top: 15px;
+    height:30px;
+    color: darkred;
+    font-size: 12px;
+    font-family: Georgia, Times New Roman, serif;
 }

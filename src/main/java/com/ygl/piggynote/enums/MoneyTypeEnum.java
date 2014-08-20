@@ -8,7 +8,9 @@ package com.ygl.piggynote.enums;
 public enum MoneyTypeEnum {
 
     COST("0", "支出"),
-    INCOME("1", "收入");
+    INCOME("1", "收入"),
+    PREPAY("2", "垫付"),
+    PAYBACK("3", "收回");
 
 
     private String value;

@@ -1,7 +1,10 @@
+<%@ page import="java.util.HashMap" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <head>
+    <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
+
     <title>欢迎来到小猪账本</title>
     <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="/js/home.js"></script>
@@ -17,60 +20,126 @@
             <h1>小猪de糊涂账</h1>
             <table class="table_menu">
                 <tr>
+                    <td class="td_title">
+                        <span class="span_title">账号</span>
+                    </td>
                     <td>
-                        <a href="#" class="button green" onclick="window.location.href='/login'">登录</a>
+                        <input class="input_text" id="txt_user_name" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_title">
+                        <span class="span_title">口令</span>
+                    </td>
+                    <td>
+                        <input class="input_text" id="txt_psw" type="password" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <a href="#" class="button green" onclick="login()">登录</a>
                         <a href="#" class="button green" onclick="window.location.href='/register'">注册</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div id="div_login_msg">${errorMsg}</div>
                     </td>
                 </tr>
             </table>
         </div>
     </c:if>
-
     <c:if test="${!notLogin}">
-        <div  class="div_container">
-            <h2>欢迎亲：
-                <span id="span_curUserName">${curUser.getUserName()}</span>
+        <div class="div_container">
+            <input type="hidden" id="hidden_userName" value="${curUser.getUserName()}" />
+            <h2>
+                <div class="groupList clear" style="font-style: normal;">
+                    <a href="#" class="button blue left">统计</a>
+                    <a href="#" class="button blue middle" onclick="window.location.href='/category'">分类</a>
+                    <a href="#" class="button blue middle" onclick="window.location.href='/custom_config'">设置</a>
+                    <a href="#" class="button blue right" onclick="logout()">退出</a>
+                </div>
             </h2>
-            <div class="groupList clear">
-                <a href="#" class="button blue left" onclick="window.location.href='/daily_record'">记账</a>
-                <a href="#" class="button blue middle" onclick="window.location.href='/category'">分类</a>
-                <a href="#" class="button blue middle" onclick="window.location.href='/custom_config'">设置</a>
-                <a href="#" class="button blue right" onclick="logout()">退出</a>
-            </div>
-            <br/>
-            <div class="div_container">
-                <table class="table_wallet">
-                    <tr>
-                        <td colspan="3">
-                            <div class="div_cost_button_container div_button_unselected">
-                                <img id="img_cost_button" src="/img/cost_button.png" width="40px" height="40px" onclick="selectImgButton(this)" />
-                            </div>
-                            <div class="div_income_button_container">
-                                <img id="img_income_button" src="/img/income_button.png" width="40px" height="40px"  onclick="selectImgButton(this)"  />
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3" class="td_split"></td>
-                    </tr>
-                    <tr>
-                        <td class="td_money_logo">
-                            <img src="/img/money_logo_01.jpg" width="30px" height="30px" />
-                        </td>
-                        <td class="td_money_amount">
-                            <input id="txt_amount" type="text" onblur="checkAmount()" />
-                        </td>
-                        <td>
-                            <div class="clear">
-                                <a id="btn_cost" href="#" class="button grey" onclick="">支出</a>
-                                <a id="btn_income" href="#" class="button green" onclick="">收入</a>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+            <div class="div_content_container">
+                <div class="div_main_content_container">
+                    <table class="table_wallet">
+                        <tr>
+                            <td colspan="3">
+                                <div class="div_cost_button_container div_button_unselected">
+                                    <img id="img_cost_button" src="/img/btn_cost.png" width="40px" height="40px" onclick="selectImgButton(this)" />
+                                </div>
+                                <div class="div_income_button_container">
+                                    <img id="img_income_button" src="/img/btn_income.png" width="40px" height="40px"  onclick="selectImgButton(this)"  />
+                                </div>
+                                <div class="div_prepay_button_container">
+                                    <img id="img_prepay_button" src="/img/btn_prepay.png" width="40px" height="40px"  onclick="selectImgButton(this)"  />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="td_split"></td>
+                        </tr>
+                        <tr>
+                            <td class="td_money_logo">
+                                <img src="/img/logo_money.png" width="30px" height="30px" />
+                            </td>
+                            <td class="td_money_amount">
+                                <input id="txt_amount" type="text" onkeyup="checkAmount()" />
+                            </td>
+                            <td>
+                                <div class="clear">
+                                    <a id="btn_cost" href="#" class="button grey" onclick="addNewRecord(this)">支出</a>
+                                    <a id="btn_income" href="#" class="button green" onclick="addNewRecord(this)">收入</a>
+                                    <a id="btn_prepay" href="#" class="button grey" onclick="addNewRecord(this)">垫付</a>
+                                    <a id="btn_prepay_back" href="#" class="button green" onclick="addNewRecord(this)">收回</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="div_history_container">
+                    <h3 id="h3_today">今天(${todayList.size()})</h3>
+                    <table id="tbl_today_list">
+                        <c:forEach items="${todayList}" var="item">
+                            <tr>
+                                <td>
+                                    <div class="div_record_item">
+                                        <input record_id="${item.getId()}" type="button" value="删除" onclick="deleteRecord(this)" />&nbsp;&nbsp;&nbsp;&nbsp;
+                                        /&nbsp;${curUser.getUserName()}>&nbsp;&nbsp;${moneyTypeMap.get(item.getMoneyType())}&nbsp;${item.getAmount()}&nbsp;元
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                    <h3 id="h3_yesterday">昨天(${yesterdayList.size()})</h3>
+                    <table id="tbl_yesterday_list">
+                        <c:forEach items="${yesterdayList}" var="item">
+                            <tr>
+                                <td>
+                                    <div class="div_record_item">
+                                        <input record_id="${item.getId()}" type="button" value="删除" onclick="deleteRecord(this)" />&nbsp;&nbsp;&nbsp;&nbsp;
+                                        /&nbsp;${curUser.getUserName()}>&nbsp;&nbsp;${moneyTypeMap.get(item.getMoneyType())}&nbsp;${item.getAmount()}&nbsp;元
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                    <h3 id="h3_dayafteryesterday">前天(${dayBeforeYesterdayList.size()})</h3>
+                    <table id="tbl_dayBeforeYesterday_list">
+                        <c:forEach items="${dayBeforeYesterdayList}" var="item">
+                            <tr>
+                                <td>
+                                    <div class="div_record_item">
+                                        <input record_id="${item.getId()}" type="button" value="删除" onclick="deleteRecord(this)" />&nbsp;&nbsp;&nbsp;&nbsp;
+                                        /&nbsp;${curUser.getUserName()}>&nbsp;&nbsp;${moneyTypeMap.get(item.getMoneyType())}&nbsp;${item.getAmount()}&nbsp;元
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
             </div>
         </div>
     </c:if>
-
 </body>
 </html>

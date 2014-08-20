@@ -7,9 +7,10 @@ package com.ygl.piggynote.enums;
  */
 public enum StatTypeEnum {
 
-    NORMAL("0", "日常"),
-    PERIOD("1", "阶段"),
-    BIG("2", "大额");
+    SIMPLE("0", "精简模式"),
+    NORMAL("1", "日常"),
+    PERIOD("2", "阶段"),
+    BIG("3", "大额");
 
 
     private String value;

@@ -21,7 +21,7 @@ function addRecord(){
         function (data) {
 
             if (data == "success") {
-                alert("操作成功!")
+                alert("操作成功!");
             } else {
                 alert("操作失败！" + data);
             }

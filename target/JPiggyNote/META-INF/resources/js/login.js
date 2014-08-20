@@ -8,27 +8,33 @@
  */
 function check(){
 
-    var pass = true;
+    var pass = false;
+    var msg = "";
 
-    if ($("#userName").val() == ""){
+    var userName = $("#userName").val();
+    var psw = $("#psw").val();
 
-        $("#userInfoMsg").html("用户名不能为空");
-        pass = false;
+    if (userName == "" && psw == ""){
+        msg = "账号/口令不能为空";
+    } else if (userName == ""){
+        msg = "账号不能为空";
+    } else if (psw == ""){
+        msg = "口令不能为空";
     } else {
-
-        $("#userInfoMsg").html("");
         pass = true;
     }
 
-    if ($("#psw").val() == ""){
-
-        $("#pswInfoMsg").html("密码不能为空");
-        pass = false;
-    } else {
-
-        $("#pswInfoMsg").html("");
-        pass = true;
-    }
+    $("#div_login_msg").text(msg);
 
     return pass;
+}
+
+/**
+ * 登录
+ */
+function login(){
+
+    if(check()){
+        document.forms[0].submit();
+    }
 }

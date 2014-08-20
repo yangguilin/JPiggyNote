@@ -46,7 +46,7 @@ public class LoginController extends BaseController {
         mav.setViewName("/login");
 
         if (!userService.exist(ub.getUserName())){
-            mav.addObject(ERROR_MSG_KEY, "用户名不存在");
+            mav.addObject(ERROR_MSG_KEY, "账号不存在");
         } else {
 
             // 数据库查询用户
@@ -56,7 +56,7 @@ public class LoginController extends BaseController {
             String newPsw = Md5Util.getMD5Code(ub.getPassword());
 
             if (!dbUser.getPassword().equals(newPsw)) {
-                mav.addObject(ERROR_MSG_KEY, "用户密码不正确");
+                mav.addObject(ERROR_MSG_KEY, "口令不正确");
             } else {
 
                 // 最后登录时间
@@ -76,6 +76,41 @@ public class LoginController extends BaseController {
         }
 
         return mav;
+    }
+
+    /**
+     * 用户登录
+     * @param ub    用户实例
+     * @param request   request
+     * @return  页面视图
+     */
+    @RequestMapping(value="/login_ajax.do", method=RequestMethod.POST)
+    public void login_ajax(UserBean ub, HttpServletRequest request, HttpServletResponse response){
+
+        Boolean loginSuccess = true;
+        if (!userService.exist(ub.getUserName())){
+            loginSuccess = false;
+        } else {
+
+            // 数据库查询用户
+            UserBean dbUser = userService.get(ub.getUserName());
+
+            // 用户密码md5加密
+            String newPsw = Md5Util.getMD5Code(ub.getPassword());
+
+            if (!dbUser.getPassword().equals(newPsw)) {
+                loginSuccess = false;
+            } else {
+
+                // 最后登录时间
+                dbUser.setLatestLoginDate(new Date());
+                // 保存到session
+                setUserToSession(request, dbUser);
+            }
+        }
+
+        // 返回操作结果
+        CommonUtil.writeResponse4BooleanResult(loginSuccess, response);
     }
 
     /**
