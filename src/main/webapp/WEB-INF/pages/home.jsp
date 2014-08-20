@@ -20,9 +20,30 @@
             <h1>小猪de糊涂账</h1>
             <table class="table_menu">
                 <tr>
+                    <td class="td_title">
+                        <span class="span_title">账号</span>
+                    </td>
                     <td>
-                        <a href="#" class="button green" onclick="window.location.href='/login'">登录</a>
+                        <input class="input_text" id="txt_user_name" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_title">
+                        <span class="span_title">口令</span>
+                    </td>
+                    <td>
+                        <input class="input_text" id="txt_psw" type="password" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <a href="#" class="button green" onclick="login()">登录</a>
                         <a href="#" class="button green" onclick="window.location.href='/register'">注册</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div id="div_login_msg">${errorMsg}</div>
                     </td>
                 </tr>
             </table>
@@ -30,16 +51,16 @@
     </c:if>
     <c:if test="${!notLogin}">
         <div class="div_container">
-            <h2>欢迎亲：
-                <span id="span_curUserName">${curUser.getUserName()}</span>
-            </h2>
-            <div class="div_content_container">
-                <div class="groupList clear">
+            <input type="hidden" id="hidden_userName" value="${curUser.getUserName()}" />
+            <h2>
+                <div class="groupList clear" style="font-style: normal;">
                     <a href="#" class="button blue left">统计</a>
                     <a href="#" class="button blue middle" onclick="window.location.href='/category'">分类</a>
                     <a href="#" class="button blue middle" onclick="window.location.href='/custom_config'">设置</a>
                     <a href="#" class="button blue right" onclick="logout()">退出</a>
                 </div>
+            </h2>
+            <div class="div_content_container">
                 <div class="div_main_content_container">
                     <table class="table_wallet">
                         <tr>

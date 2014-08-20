@@ -32,15 +32,23 @@ $(document).ready(function() {
         // 重置删除按钮
         $(".div_record_item input:visible").hide();
 
-        // 显示切换
-        $("#div_history_container table").css("display", "none");
-        $(this).next("table").css("display", "block");
+        if ($(this).next("table").is(":visible")){
 
-        // 选中样式调整
-        $(this).addClass("h3_selected").siblings("h3").removeClass("h3_selected");
+            // 收起下拉框
+            $(this).next("table").css("display", "none");
+            // 恢复未选样式
+            $(this).removeClass("h3_selected");
+        } else {
+
+            // 显示切换
+            $("#div_history_container table").css("display", "none");
+            $(this).next("table").css("display", "block");
+            // 选中样式调整
+            $(this).addClass("h3_selected").siblings("h3").removeClass("h3_selected");
+        }
     });
 
-    // 历史条目事件及鼠标悬停效果
+    // 历史条目鼠标悬停效果及点击事件
     $(".div_record_item").hover(function(){
         $(this).css("font-weight", "bold");
     }, function(){
@@ -54,8 +62,9 @@ $(document).ready(function() {
     // 默认支出选项选中
     $("#img_cost_button").click();
 
-    // 默认显示今天的记录
-    $("#h3_today").click();
+    // 默认不显示任何记录
+    // $("#h3_today").click();
+    $("#div_history_container table").css("display", "none");
 });
 
 /**
@@ -63,7 +72,7 @@ $(document).ready(function() {
  */
 function logout(){
 
-    var userName = $("#span_curUserName").html();
+    var userName = $("#hidden_userName").val();
     if (userName == null || userName == ""){ return; }
 
     // 调用ajax请求
@@ -155,7 +164,7 @@ function addNewRecord(obj){
     }
 
     // userName
-    var userName = $("#span_curUserName").text();
+    var userName = $("#hidden_userName").val();
     if (userName == null || userName == ""){
         return;
     }
@@ -212,7 +221,7 @@ function addItemIntoTable(userName, moneyType, amount){
 function deleteRecord(obj){
 
     var id = $(obj).attr("record_id");
-    var userName = $("#span_curUserName").text();
+    var userName = $("#hidden_userName").val();
     if (userName == null || userName == ""){
         return;
     }
@@ -225,6 +234,61 @@ function deleteRecord(obj){
                 $(obj).parent().parent().parent().remove();
             } else {
                 alert("操作失败！" + data);
+            }
+        });
+}
+
+/**
+ * 登录提交前检查
+ * @returns {boolean}
+ */
+function checkBeforeLogin(){
+
+    var pass = false;
+    var msg = "";
+
+    var userName = $("#txt_user_name").val();
+    var psw = $("#txt_psw").val();
+
+    if (userName == "" && psw == ""){
+        msg = "账号/口令不能为空";
+    } else if (userName == ""){
+        msg = "账号不能为空";
+    } else if (psw == ""){
+        msg = "口令不能为空";
+    } else {
+        pass = true;
+    }
+
+    $("#div_login_msg").text(msg);
+
+    return pass;
+}
+
+/**
+ * 登录
+ */
+function login(){
+
+    if(!checkBeforeLogin()){
+        return;
+    }
+
+    var userName = $("#txt_user_name").val();
+    var psw = $("#txt_psw").val();
+
+    // ajax request
+    $.post("/login_ajax.do", { "userName": userName, "password":psw },
+        function (data) {
+            if (data == "success") {
+                window.location.reload();
+            } else {
+
+                // 错误提示
+                $("#div_login_msg").text("账号/口令不匹配");
+                // 重置输入框
+                $("#txt_user_name").val("");
+                $("#txt_psw").val("");
             }
         });
 }

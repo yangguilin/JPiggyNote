@@ -2,12 +2,10 @@
 /* style class */
 
 .loginMsg {
-    color:red;
+    height:30px;
+    color: darkred;
     font-size: 12px;
-}
-
-div.loginMsg {
-    height:15px;
+    font-family: Georgia, Times New Roman, serif;
 }
 
 .div_container {
@@ -16,14 +14,32 @@ div.loginMsg {
 
 .table_menu {
     display:inline-block;
+    text-align: center;
 }
 
 .table_menu tr td {
     height: 30px;
-    text-align: center;
 }
 
 .span_title {
-    font-size: 12px; font-family: Georgia, Times New Roman, serif;
+    font-size: 14px;
+    font-family: Georgia, Times New Roman, serif;
+    font-weight: normal;
+    color: #666;
+}
+
+.table_menu tr td:first-child {
+    text-align: right;
+    padding-right: 15px;
+}
+
+.table_menu tr td:last-child {
+    text-align: left;
+}
+
+
+/* id */
+#userName, #psw {
+    width:80px;
 }
 

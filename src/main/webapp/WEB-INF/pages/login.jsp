@@ -21,27 +21,29 @@
 </head>
 <body>
     <div class="div_container">
-        <h1>请先登录</h1>
-        <form action="login.do" method="post" onsubmit="return check();">
-            <div class="loginMsg">${errorMsg}</div>
+        <h1>请亲登录</h1>
+        <form action="login.do" method="post">
+            <div id="div_login_msg" class="loginMsg">${errorMsg}</div>
             <table class="table_menu">
                 <tr>
-                    <td>用户名</td>
+                    <td class="td_title">
+                        <span class="span_title">账号</span>
+                    </td>
                     <td>
                         <input id="userName" type="text" name="userName" />
-                        <span id="userInfoMsg" class="loginMsg"></span>
                     </td>
                 </tr>
                 <tr>
-                    <td>密码</td>
+                    <td class="td_title">
+                        <span class="span_title">口令</span>
+                    </td>
                     <td>
                         <input id="psw" type="password" name="password" />
-                        <span id="pswInfoMsg" class="loginMsg"></span>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <a href="#" class="button green" onclick="document.forms[0].submit()">登录</a>
+                <tr style="padding-top: 10px;">
+                    <td colspan="2">
+                        <a href="#" class="button green" onclick="login()">登录</a>
                         <a href="#" class="button green" onclick="document.forms[0].reset()">注册</a>
                     </td>
                 </tr>
