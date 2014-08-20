@@ -4,21 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/src/main/java/com/ygl/piggynote/filter/AuthFilter.java" line="96" mnemonic="8" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="88a2c445-45c5-4656-81e7-f48af92a54c1" name="Default" comment="login and register page">
-      <change type="DELETED" beforePath="E:\JPiggyNote\src\test\java\com\ygl\piggynote\AppTests.java" afterPath="" />
-      <change type="DELETED" beforePath="E:\JPiggyNote\src\test\java\com\ygl\piggynote\ServiceTests.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/LoginController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ygl/piggynote/controller/LoginController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/home.css" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/home.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/home.js" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/home.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/home.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/home.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/login.css" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/login.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/login.js" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/login.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/login.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/register.css" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/register.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/register.js" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/js/register.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/register.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/register.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/register_success.css" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/resources/css/register_success.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/register_success.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/register_success.jsp" />
+    <list default="true" id="88a2c445-45c5-4656-81e7-f48af92a54c1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="JPiggyNote.iws" />
@@ -1492,7 +1478,7 @@
       <workItem from="1407724371955" duration="59464000" />
       <workItem from="1408069074917" duration="381000" />
       <workItem from="1408069472554" duration="12913000" />
-      <workItem from="1408328343097" duration="58962000" />
+      <workItem from="1408328343097" duration="59003000" />
     </task>
     <task id="LOCAL-00001" summary="Resolve static resource file filter issue.">
       <created>1406783832333</created>
@@ -1542,11 +1528,15 @@
       <created>1408445691393</created>
       <updated>1408445691393</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="login and register page">
+      <created>1408534446215</created>
+      <updated>1408534446215</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="309788000" />
+    <option name="totallyTimeSpent" value="309829000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1727,7 +1717,7 @@
         <state vertical-scroll-proportion="-4.3448277" vertical-offset="338" max-vertical-offset="33184">
           <caret line="29" column="52" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="52" />
           <folding>
-            <marker date="1408534385807" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1408534465532" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
