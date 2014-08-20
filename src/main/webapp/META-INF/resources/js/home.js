@@ -62,7 +62,8 @@ $(document).ready(function() {
     // 默认支出选项选中
     $("#img_cost_button").click();
 
-    // 默认不显示任何记录
+    // 默认显示今天列表
+    $("#div_history_container table").css("display", "none");
     $("#h3_today").click();
 });
 
@@ -207,9 +208,40 @@ function addItemIntoTable(userName, moneyType, amount){
         moneyType = "收回";
     }
 
+    // 新记录html字符串
     var trObjHtml = '<tr><td>[New]&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;'
         + userName + '>&nbsp;&nbsp;' + moneyType + '&nbsp;' + amount + '&nbsp;元</div></td></tr>';
-    $("#tbl_today_list tr:first").before($(trObjHtml));
+    // 插入到列表
+    $("#tbl_today_list").prepend($(trObjHtml));
+    // 更新标题
+    updateHistoryTitleNum("h3_today");
+}
+
+/**
+ * 更新历史记录标题
+ * @param titleId   历史标题id
+ */
+function updateHistoryTitleNum(titleId){
+
+    var newTitle = "";
+
+    // 区别是哪一个条目
+    if (titleId == "h3_today"){
+        newTitle = "今天";
+    } else if (titleId == "h3_yesterday"){
+        newTitle = "昨天";
+    } else if (titleId == "h3_dayafteryesterday"){
+        newTitle = "前天";
+    } else {
+        return;
+    }
+
+    // 统计最新记录条数
+    var newNum = $("#" + titleId).next("table").children("tbody").children("tr").length;
+
+    // 赋值
+    newTitle += "(" + newNum + ")";
+    $("#" + titleId).text(newTitle);
 }
 
 
@@ -229,8 +261,12 @@ function deleteRecord(obj){
     $.post("/daily_record/delete.do", { "userName": userName, "id":id },
         function (data) {
             if (data == "success") {
+
+                var titleId = $(obj).attr("title_id");
                 // 删除列表记录
                 $(obj).parent().parent().parent().remove();
+                // 更新标题
+                updateHistoryTitleNum(titleId);
             } else {
                 alert("操作失败！" + data);
             }

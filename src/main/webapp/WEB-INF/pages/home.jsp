@@ -36,9 +36,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
-                        <a href="#" class="button green" onclick="login()">登录</a>
-                        <a href="#" class="button green" onclick="window.location.href='/register'">注册</a>
+                    <td colspan="2" style="padding-top:15px;">
+                        <a href="#" style="font-size:18px; margin-left: 15px; margin-right: 30px;" class="button green" onclick="login()">登录</a>
+                        <a href="#" style="font-size:18px;" class="button green" onclick="window.location.href='/register'">注册</a>
                     </td>
                 </tr>
                 <tr>
@@ -66,13 +66,13 @@
                         <tr>
                             <td colspan="3">
                                 <div class="div_cost_button_container div_button_unselected">
-                                    <img id="img_cost_button" src="/img/btn_cost.png" width="40px" height="40px" onclick="selectImgButton(this)" />
+                                    <img id="img_cost_button" src="/img/btn_cost.png" onclick="selectImgButton(this)" />
                                 </div>
                                 <div class="div_income_button_container">
-                                    <img id="img_income_button" src="/img/btn_income.png" width="40px" height="40px"  onclick="selectImgButton(this)"  />
+                                    <img id="img_income_button" src="/img/btn_income.png" onclick="selectImgButton(this)"  />
                                 </div>
                                 <div class="div_prepay_button_container">
-                                    <img id="img_prepay_button" src="/img/btn_prepay.png" width="40px" height="40px"  onclick="selectImgButton(this)"  />
+                                    <img id="img_prepay_button" src="/img/btn_prepay.png" onclick="selectImgButton(this)"  />
                                 </div>
                             </td>
                         </tr>
@@ -88,10 +88,10 @@
                             </td>
                             <td>
                                 <div class="clear">
-                                    <a id="btn_cost" href="#" class="button grey" onclick="addNewRecord(this)">支出</a>
-                                    <a id="btn_income" href="#" class="button green" onclick="addNewRecord(this)">收入</a>
-                                    <a id="btn_prepay" href="#" class="button grey" onclick="addNewRecord(this)">垫付</a>
-                                    <a id="btn_prepay_back" href="#" class="button green" onclick="addNewRecord(this)">收回</a>
+                                    <a id="btn_cost" href="#" style="font-size: 20px;" class="button grey" onclick="addNewRecord(this)">支出</a>
+                                    <a id="btn_income" href="#" style="font-size: 20px;" class="button green" onclick="addNewRecord(this)">收入</a>
+                                    <a id="btn_prepay" href="#" style="font-size: 20px;" class="button grey" onclick="addNewRecord(this)">垫付</a>
+                                    <a id="btn_prepay_back" href="#" style="font-size: 20px;" class="button green" onclick="addNewRecord(this)">收回</a>
                                 </div>
                             </td>
                         </tr>
@@ -104,7 +104,7 @@
                             <tr>
                                 <td>
                                     <div class="div_record_item">
-                                        <input record_id="${item.getId()}" type="button" value="删除" onclick="deleteRecord(this)" />&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input record_id="${item.getId()}" title_id="h3_today" type="button" value="删除" onclick="deleteRecord(this)" />&nbsp;&nbsp;&nbsp;&nbsp;
                                         /&nbsp;${curUser.getUserName()}>&nbsp;&nbsp;${moneyTypeMap.get(item.getMoneyType())}&nbsp;${item.getAmount()}&nbsp;元
                                     </div>
                                 </td>
@@ -117,7 +117,7 @@
                             <tr>
                                 <td>
                                     <div class="div_record_item">
-                                        <input record_id="${item.getId()}" type="button" value="删除" onclick="deleteRecord(this)" />&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input record_id="${item.getId()}" title_id="h3_yesterday" type="button" value="删除" onclick="deleteRecord(this)" />&nbsp;&nbsp;&nbsp;&nbsp;
                                         /&nbsp;${curUser.getUserName()}>&nbsp;&nbsp;${moneyTypeMap.get(item.getMoneyType())}&nbsp;${item.getAmount()}&nbsp;元
                                     </div>
                                 </td>
@@ -130,7 +130,7 @@
                             <tr>
                                 <td>
                                     <div class="div_record_item">
-                                        <input record_id="${item.getId()}" type="button" value="删除" onclick="deleteRecord(this)" />&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input record_id="${item.getId()}" title_id="h3_dayafteryesterday" type="button" value="删除" onclick="deleteRecord(this)" />&nbsp;&nbsp;&nbsp;&nbsp;
                                         /&nbsp;${curUser.getUserName()}>&nbsp;&nbsp;${moneyTypeMap.get(item.getMoneyType())}&nbsp;${item.getAmount()}&nbsp;元
                                     </div>
                                 </td>

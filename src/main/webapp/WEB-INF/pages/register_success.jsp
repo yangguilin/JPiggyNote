@@ -16,11 +16,11 @@
 </head>
 <body>
     <div class="div_container">
-        <h1>恭喜亲，账号注册成功！</h1>
+        <h1>账号注册成功！</h1>
         <table class="table_menu">
             <tr>
-                <td>
-                    <a href="#" class="button green" onclick="window.location.href='/'">返回登录界面</a>
+                <td style="padding-top:15px;">
+                    <a href="#" style="font-size:18px;" class="button green" onclick="window.location.href='/'">返回登录界面</a>
                 </td>
             </tr>
         </div>

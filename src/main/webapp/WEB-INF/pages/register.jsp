@@ -27,7 +27,7 @@
                         <span class="span_title">账号</span>
                     </td>
                     <td>
-                        <input id="txt_user_name" type="text" name="userName" username_status="" onblur="checkUserName()" />
+                        <input class="input_text" id="txt_user_name" type="text" name="userName" username_status="" onblur="checkUserName()" />
                     </td>
                 </tr>
                 <tr>
@@ -35,7 +35,7 @@
                         <span class="span_title">口令</span>
                     </td>
                     <td>
-                        <input id="txt_psw" type="password" name="password" />
+                        <input class="input_text" id="txt_psw" type="password" name="password" />
                     </td>
                 </tr>
                 <tr>
@@ -43,13 +43,13 @@
                         <span class="span_title">确认</span>
                     </td>
                     <td>
-                        <input id="txt_psw_confirm" type="password"  />
+                        <input class="input_text" id="txt_psw_confirm" type="password"  />
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
-                        <a href="#" class="button green" onclick="register()">注册</a>
-                        <a href="#" class="button green" onclick="document.forms[0].reset()">重置</a>
+                    <td colspan="2" style="padding-top:15px;">
+                        <a href="#" style="font-size:18px; margin-left: 15px; margin-right: 30px;" class="button green" onclick="register()">注册</a>
+                        <a href="#" style="font-size:18px;" class="button green" onclick="document.forms[0].reset()">重置</a>
                     </td>
                 </tr>
                 <tr>
