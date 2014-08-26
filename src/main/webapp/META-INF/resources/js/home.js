@@ -303,7 +303,7 @@ function checkBeforeLogin(){
 /**
  * 登录
  */
-function login(){
+function login(obj){
 
     if(!checkBeforeLogin()){
         return;
