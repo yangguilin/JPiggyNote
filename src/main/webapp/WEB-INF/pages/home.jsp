@@ -37,8 +37,8 @@
                 </tr>
                 <tr>
                     <td colspan="2" style="padding-top:15px;">
-                        <a href="#" style="font-size:18px;" class="button green" onclick="window.location.href='/register'">注册</a>
-                        <a href="#" style="font-size:18px; margin-left: 15px; margin-right: 30px;" class="button green" onclick="login(this)">登录</a>
+                        <a href="#" style="font-size:18px; margin-left: 15px; margin-right: 30px;" class="button green" onclick="window.location.href='/register'">注册</a>
+                        <a href="#" style="font-size:18px;" class="button green" onclick="login(this)">登录</a>
                     </td>
                 </tr>
                 <tr>
