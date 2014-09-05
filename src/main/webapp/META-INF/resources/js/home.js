@@ -114,7 +114,18 @@ function selectImgButton(obj){
 
     var selectImgBtnId = $(obj).attr("id");
     if (selectImgBtnId == g_curImgButtonId){
-        return;
+
+        // 如果为临时类型，可再次切换“垫付/收回”按钮
+        if (selectImgBtnId == "img_prepay_button"){
+
+            if ($("#btn_prepay").is(":visible")){
+                $("#btn_prepay_back").show().css("margin-left", "-25px").siblings("a").hide();
+            } else {
+                $("#btn_prepay").show().siblings("a").hide();
+            }
+        } else {
+            return;
+        }
     } else {
 
         // 图标按钮样式更换
@@ -125,11 +136,9 @@ function selectImgButton(obj){
         if (selectImgBtnId == "img_cost_button"){
             $("#btn_cost").show().siblings("a").hide();
         } else if (selectImgBtnId == "img_income_button") {
-            $("#btn_income").show().css("margin-right", "10px").siblings("a").hide();
+            $("#btn_income").show().siblings("a").hide();
         } else if (selectImgBtnId == "img_prepay_button") {
-
-            $("#btn_prepay").show().css("margin-right", "10px").siblings("a").hide();
-            $("#btn_prepay_back").show();
+            $("#btn_prepay").show().siblings("a").hide();
         }
 
         // 保存临时变量
@@ -175,8 +184,26 @@ function addNewRecord(obj){
     var statType = "SIMPLE";
     var remark = "";
 
+    var requestUrl = "/daily_record/add.do";
+    var dayIndex = 0;
+    // 根据选中的历史记录时间，来调整新加记录的创建时间，及请求的链接
+    var $curHistoryBar = $("h3.h3_selected");
+    if ($curHistoryBar != null){
+
+        var id = $curHistoryBar.attr("id");
+        if (id == "h3_yesterday"){
+            dayIndex = -1;
+        } else if (id == "h3_dayafteryesterday"){
+            dayIndex = -2;
+        }
+    }
+    // 请求链接
+    if (dayIndex != 0){
+        requestUrl = "/daily_record/add2.do";
+    }
+
     // 调用ajax请求
-    $.post("/daily_record/add.do", { "userName": userName , "moneyType":moneyType, "statType":statType, "categoryId":categoryId, "categoryName":categoryName, "amount":amount, "remark":remark },
+    $.post(requestUrl, { "userName": userName , "moneyType":moneyType, "statType":statType, "categoryId":categoryId, "categoryName":categoryName, "amount":amount, "remark":remark, "index":dayIndex },
         function (data) {
 
             if (data == "success") {
@@ -211,10 +238,22 @@ function addItemIntoTable(userName, moneyType, amount){
     // 新记录html字符串
     var trObjHtml = '<tr><td>[New]&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;'
         + userName + '>&nbsp;&nbsp;' + moneyType + '&nbsp;' + amount + '&nbsp;元</div></td></tr>';
+
     // 插入到列表
-    $("#tbl_today_list").prepend($(trObjHtml));
+    var id = $("h3.h3_selected").attr("id");
+    var listId = "tbl_today_list";
+    if (id == "h3_yesterday"){
+        listId = "tbl_yesterday_list";
+    } else if (id == "h3_dayafteryesterday"){
+        listId = "tbl_dayBeforeYesterday_list";
+    } else {
+        id = "h3_today";
+    }
+
+    $("#" + listId).prepend($(trObjHtml));
+
     // 更新标题
-    updateHistoryTitleNum("h3_today");
+    updateHistoryTitleNum(id);
 }
 
 /**
@@ -303,7 +342,7 @@ function checkBeforeLogin(){
 /**
  * 登录
  */
-function login(obj){
+function login(){
 
     if(!checkBeforeLogin()){
         return;
@@ -326,4 +365,21 @@ function login(obj){
                 $("#txt_psw").val("");
             }
         });
+}
+
+/**
+ * 密码输入框回车快捷登陆
+ */
+function quickLogin(){
+
+    var keyNum = window.event.keyCode;
+    var psw = $("#txt_psw").val();
+
+    if (psw != ""){
+
+        // 回车键
+        if (keyNum == 13){
+            login();
+        }
+    }
 }

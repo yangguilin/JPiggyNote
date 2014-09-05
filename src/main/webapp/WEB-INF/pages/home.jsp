@@ -32,13 +32,13 @@
                         <span class="span_title">口令</span>
                     </td>
                     <td>
-                        <input class="input_text" id="txt_psw" type="password" />
+                        <input class="input_text" id="txt_psw" type="password" onkeydown="quickLogin()" />
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2" style="padding-top:15px;">
                         <a href="#" style="font-size:18px; margin-left: 15px; margin-right: 30px;" class="button green" onclick="window.location.href='/register'">注册</a>
-                        <a href="#" style="font-size:18px;" class="button green" onclick="login(this)">登录</a>
+                        <a href="#" style="font-size:18px;" class="button green" onclick="login()">登录</a>
                     </td>
                 </tr>
                 <tr>

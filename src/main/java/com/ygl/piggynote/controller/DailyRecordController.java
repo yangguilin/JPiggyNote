@@ -4,6 +4,7 @@ import com.ygl.piggynote.bean.DailyRecordBean;
 import com.ygl.piggynote.bean.UserBean;
 import com.ygl.piggynote.service.impl.DailyRecordServiceImpl;
 import com.ygl.piggynote.util.CommonUtil;
+import com.ygl.piggynote.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -48,6 +49,24 @@ public class DailyRecordController extends BaseController {
     public void add(DailyRecordBean drb, HttpServletResponse response){
 
         Boolean ret = dailyRecordService.add(drb);
+        CommonUtil.writeResponse4BooleanResult(ret, response);
+    }
+
+    /**
+     * 添加记录（记录日期可调）
+     * @param drb   记录实例
+     * @param index 日期偏差数值：昨天=-1，前天=-2
+     * @param response  response
+     */
+    @RequestMapping(value="/add2.do", method=RequestMethod.POST)
+    public void addByDate(DailyRecordBean drb, int index, HttpServletResponse response){
+
+        // 如果有日期参数，调整创建日期参数
+        if (index < 0){
+            drb.setCreateDate(DateUtil.getDateByIndex(index));
+        }
+
+        Boolean ret = dailyRecordService.addByCreateDate(drb);
         CommonUtil.writeResponse4BooleanResult(ret, response);
     }
 

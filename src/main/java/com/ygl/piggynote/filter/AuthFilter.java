@@ -27,7 +27,8 @@ public class AuthFilter implements Filter {
             "/login",
             "/login.do",
             "/register",
-            "/error"
+            "/error",
+            "/login_ajax.do"
     };
 
 
@@ -58,7 +59,7 @@ public class AuthFilter implements Filter {
 
             // 根据用户信息是否存在进行跳转
             if (ub == null) {
-                httpResponse.sendRedirect("/login");
+                httpResponse.sendRedirect("/");
             }
         }
 

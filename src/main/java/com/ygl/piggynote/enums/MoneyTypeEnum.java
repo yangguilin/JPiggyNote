@@ -37,6 +37,10 @@ public enum MoneyTypeEnum {
 
         if ("1".equals(val)){
             moneyType = MoneyTypeEnum.INCOME;
+        } else if ("2".equals(val)){
+            moneyType = MoneyTypeEnum.PREPAY;
+        } else if ("3".equals(val)){
+            moneyType = MoneyTypeEnum.PAYBACK;
         }
 
         return moneyType;

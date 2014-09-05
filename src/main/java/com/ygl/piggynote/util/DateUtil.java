@@ -3,6 +3,7 @@ package com.ygl.piggynote.util;
 import java.text.*;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * 时间工具类
@@ -41,6 +42,19 @@ public class DateUtil {
 
         DateFormat df = new SimpleDateFormat(shortDateFormatStr);
         return df.format(date);
+    }
+
+    /**
+     * 获取以今天为起点，相应天数差值计算后的日期
+     * @param index 天数差值
+     * @return  短日期字符串
+     */
+    public static Date getDateByIndex(int index){
+
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(new Date());
+        cal.add(Calendar.DATE, index);
+        return cal.getTime();
     }
 
     /**

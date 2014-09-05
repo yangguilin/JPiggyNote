@@ -26,6 +26,7 @@ public class CommonUtil {
             e.printStackTrace();
         }
         pw.write(res);
+        pw.close();
         pw.flush();
     }
 

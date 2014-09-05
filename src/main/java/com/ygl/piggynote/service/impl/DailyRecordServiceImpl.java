@@ -53,6 +53,40 @@ public class DailyRecordServiceImpl implements DailyRecordService {
     }
 
     /**
+     * 添加一条新纪录（含创建时间）
+     * @param   bean    记录实例
+     * @return          是否成功
+     */
+    @Override
+    public Boolean addByCreateDate(DailyRecordBean bean) {
+
+        int ret = jdbcTemplate.update("insert into pn_daily_records(user_name, money_type, stat_type, category_id, category_name, amount, remark, create_date, latest_modified_date)"
+                        + "value(?, ?, ?, ?, ?, ?, ?, ?, now())",
+                new Object[]{
+                        bean.getUserName(),
+                        bean.getMoneyType().getValue(),
+                        bean.getStatType().getValue(),
+                        bean.getCategoryId(),
+                        bean.getCategoryName(),
+                        bean.getAmount(),
+                        bean.getRemark(),
+                        bean.getCreateDate()
+                },
+                new int[]{
+                        Types.VARCHAR,
+                        Types.VARCHAR,
+                        Types.VARCHAR,
+                        Types.VARCHAR,
+                        Types.VARCHAR,
+                        Types.FLOAT,
+                        Types.VARCHAR,
+                        Types.DATE
+                });
+
+        return ret == 1;
+    }
+
+    /**
      * 通过记录id删除某用户的一条记录
      * @param id            记录id
      * @param userName      用户名

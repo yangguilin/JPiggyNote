@@ -18,6 +18,13 @@ public interface DailyRecordService {
     public Boolean add(DailyRecordBean bean);
 
     /**
+     * 添加一条新纪录（含创建时间）
+     * @param   bean    记录实例
+     * @return          是否成功
+     */
+    public Boolean addByCreateDate(DailyRecordBean bean);
+
+    /**
      * 通过记录id删除某用户的一条记录
      * @param id            记录id
      * @param userName      用户名

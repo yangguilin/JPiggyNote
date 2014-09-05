@@ -48,8 +48,8 @@
                 </tr>
                 <tr>
                     <td colspan="2" style="padding-top:15px;">
-                        <a href="#" style="font-size:18px; margin-left: 15px; margin-right: 30px;" class="button green" onclick="register()">注册</a>
-                        <a href="#" style="font-size:18px;" class="button green" onclick="document.forms[0].reset()">重置</a>
+                        <a href="#" style="font-size:18px; margin-left: 15px; margin-right: 30px;" class="button green" onclick="document.forms[0].reset()">重置</a>
+                        <a href="#" style="font-size:18px;" class="button green" onclick="register()">注册</a>
                     </td>
                 </tr>
                 <tr>
