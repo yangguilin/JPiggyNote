@@ -8,6 +8,7 @@
     <title>欢迎来到小猪账本</title>
     <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="/js/home.js"></script>
+    <script type="text/javascript" src="/js/event_util.js"></script>
     <link href="/css/home.css" rel="stylesheet" type="text/css">
     <link href="/css/shared/buttons.css" rel="stylesheet" type="text/css">
     <link href="/css/shared/screen.css" rel="stylesheet" type="text/css">
@@ -32,7 +33,7 @@
                         <span class="span_title">口令</span>
                     </td>
                     <td>
-                        <input class="input_text" id="txt_psw" type="password" onkeydown="quickLogin()" />
+                        <input class="input_text" id="txt_psw" type="password" onkeydown="quickLogin(event)" />
                     </td>
                 </tr>
                 <tr>
@@ -84,10 +85,10 @@
                                 <img src="/img/logo_money.png" width="30px" height="30px" />
                             </td>
                             <td class="td_money_amount">
-                                <input id="txt_amount" type="text" onkeyup="checkAmount()" />
+                                <input id="txt_amount" type="text" onkeyup="checkAmountAndAdd(event)" />
                             </td>
                             <td>
-                                <div class="clear">
+                                <div id="div_pro_buttons" class="clear">
                                     <a id="btn_cost" href="#" style="font-size: 20px;" class="button grey" onclick="addNewRecord(this)">支出</a>
                                     <a id="btn_income" href="#" style="font-size: 20px;" class="button green" onclick="addNewRecord(this)">收入</a>
                                     <a id="btn_prepay" href="#" style="font-size: 20px;" class="button grey" onclick="addNewRecord(this)">垫付</a>

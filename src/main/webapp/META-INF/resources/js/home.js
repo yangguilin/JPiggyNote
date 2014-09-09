@@ -92,7 +92,7 @@ function logout(){
 /**
  * 检查输入金额
  */
-function checkAmount(){
+function checkAmountAndAdd(event){
 
     var $amountObj = $("#txt_amount");
 
@@ -103,6 +103,18 @@ function checkAmount(){
     } else {
         // 内容恢复正常
         $amountObj.removeClass("txt_error");
+    }
+
+    // 判断是否为回车键，如果是直接添加
+    var theEvent = window.event || event;
+    var code = theEvent.keyCode || theEvent.which;
+    // 回车键
+    if (code == 13){
+
+        // 当前选择的操作类型
+        var $curObj = $("#div_pro_buttons").children("a:visible");
+        // 添加新记录
+        addNewRecord($curObj[0]);
     }
 }
 
@@ -212,6 +224,7 @@ function addNewRecord(obj){
                 addItemIntoTable(userName, moneyType, amount);
                 // 恢复初始值
                 $amountObj.val("0");
+                $("#img_cost_button").click();
 
             } else {
                 alert("操作失败！" + data);
@@ -370,15 +383,15 @@ function login(){
 /**
  * 密码输入框回车快捷登陆
  */
-function quickLogin(){
+function quickLogin(event){
 
-    var keyNum = window.event.keyCode;
-    var psw = $("#txt_psw").val();
+    var theEvent = window.event || event;
+    var code = theEvent.keyCode || theEvent.which;
 
-    if (psw != ""){
+    if ($("#txt_psw").val() != ""){
 
         // 回车键
-        if (keyNum == 13){
+        if (code == 13){
             login();
         }
     }
