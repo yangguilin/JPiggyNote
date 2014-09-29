@@ -83,7 +83,7 @@ body {
 
 .h3_selected {
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px;
     color: darkred;
 }
 
@@ -109,6 +109,14 @@ body {
 }
 .input_text {
     border-radius:5px;
+    font-size: 16px;
+}
+.span_remark {
+    margin-left: 3px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+a.a_menu {
     font-size: 16px;
 }
 
@@ -144,6 +152,8 @@ body {
 
 #div_history_container h3 {
     cursor: pointer;
+    font-size: 16px;
+    padding-bottom: 12px;
 }
 
 #txt_user_name, #txt_psw {
@@ -156,5 +166,14 @@ body {
     color: darkred;
     font-size: 12px;
     font-family: Georgia, Times New Roman, serif;
+}
+#input_remark {
+    width:150px;
+    height:24px;
+    font-size:16px;
+    border-radius:5px;
+}
+#tr_remark {
+    display: none;
 }
 

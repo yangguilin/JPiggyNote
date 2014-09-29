@@ -8,7 +8,6 @@
     <title>欢迎来到小猪账本</title>
     <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="/js/home.js"></script>
-    <script type="text/javascript" src="/js/event_util.js"></script>
     <link href="/css/home.css" rel="stylesheet" type="text/css">
     <link href="/css/shared/buttons.css" rel="stylesheet" type="text/css">
     <link href="/css/shared/screen.css" rel="stylesheet" type="text/css">
@@ -53,12 +52,13 @@
     <c:if test="${!notLogin}">
         <div class="div_container">
             <input type="hidden" id="hidden_userName" value="${curUser.getUserName()}" />
+            <input type="hidden" id="hidden_remarkAmount" value="${customConfig.getRemarkAmount()}" />
             <h2>
                 <div class="groupList clear" style="font-style: normal;">
-                    <a href="#" class="button blue left">统计</a>
-                    <a href="#" class="button blue middle" onclick="window.location.href='/category'">分类</a>
-                    <a href="#" class="button blue middle" onclick="window.location.href='/custom_config'">设置</a>
-                    <a href="#" class="button blue right" onclick="logout()">退出</a>
+                    <%--<a href="#" class="button blue left a_menu">统计</a>--%>
+                    <%--<a href="#" class="button blue middle a_menu">分类</a>--%>
+                    <a href="#" class="button blue left a_menu" onclick="window.location.href='/custom_config'">设置</a>
+                    <a href="#" class="button blue right a_menu" onclick="logout()">退出</a>
                 </div>
             </h2>
             <div class="div_content_container">
@@ -96,6 +96,12 @@
                                 </div>
                             </td>
                         </tr>
+                        <tr id="tr_remark">
+                            <td colspan="3">
+                                <span class="span_remark">备注</span>
+                                <input type="text" id="input_remark" />
+                            </td>
+                        </tr>
                     </table>
                 </div>
                 <div id="div_history_container">
@@ -106,7 +112,7 @@
                                 <td>
                                     <div class="div_record_item">
                                         <input record_id="${item.getId()}" title_id="h3_today" type="button" value="删除" onclick="deleteRecord(this)" />&nbsp;&nbsp;&nbsp;&nbsp;
-                                        /&nbsp;${curUser.getUserName()}>&nbsp;&nbsp;${moneyTypeMap.get(item.getMoneyType())}&nbsp;${item.getAmount()}&nbsp;元
+                                        /&nbsp;${curUser.getUserName()}>&nbsp;&nbsp;${moneyTypeMap.get(item.getMoneyType())}&nbsp;${item.getAmount()}&nbsp;元&nbsp;&nbsp;|&nbsp;&nbsp;${item.getRemark()}
                                     </div>
                                 </td>
                             </tr>
@@ -119,7 +125,7 @@
                                 <td>
                                     <div class="div_record_item">
                                         <input record_id="${item.getId()}" title_id="h3_yesterday" type="button" value="删除" onclick="deleteRecord(this)" />&nbsp;&nbsp;&nbsp;&nbsp;
-                                        /&nbsp;${curUser.getUserName()}>&nbsp;&nbsp;${moneyTypeMap.get(item.getMoneyType())}&nbsp;${item.getAmount()}&nbsp;元
+                                        /&nbsp;${curUser.getUserName()}>&nbsp;&nbsp;${moneyTypeMap.get(item.getMoneyType())}&nbsp;${item.getAmount()}&nbsp;元&nbsp;&nbsp;|&nbsp;&nbsp;${item.getRemark()}
                                     </div>
                                 </td>
                             </tr>
@@ -132,7 +138,7 @@
                                 <td>
                                     <div class="div_record_item">
                                         <input record_id="${item.getId()}" title_id="h3_dayafteryesterday" type="button" value="删除" onclick="deleteRecord(this)" />&nbsp;&nbsp;&nbsp;&nbsp;
-                                        /&nbsp;${curUser.getUserName()}>&nbsp;&nbsp;${moneyTypeMap.get(item.getMoneyType())}&nbsp;${item.getAmount()}&nbsp;元
+                                        /&nbsp;${curUser.getUserName()}>&nbsp;&nbsp;${moneyTypeMap.get(item.getMoneyType())}&nbsp;${item.getAmount()}&nbsp;元&nbsp;&nbsp;|&nbsp;&nbsp;${item.getRemark()}
                                     </div>
                                 </td>
                             </tr>

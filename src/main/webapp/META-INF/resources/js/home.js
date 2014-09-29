@@ -17,12 +17,12 @@ $(document).ready(function() {
     $("#div_history_container h3").hover(function(){
 
         if (!$(this).hasClass("h3_selected")) {
-            $(this).animate({"font-size": "14px"}, 100, null);
+            $(this).animate({"font-size": "18px"}, 100, null);
         }
     }, function(){
 
         if (!$(this).hasClass("h3_selected")){
-            $(this).animate({"font-size":"12px"}, 100, null);
+            $(this).animate({"font-size":"16px"}, 100, null);
         }
     });
 
@@ -101,8 +101,17 @@ function checkAmountAndAdd(event){
         // 内容变红
         $amountObj.addClass("txt_error");
     } else {
+
         // 内容恢复正常
         $amountObj.removeClass("txt_error");
+
+        // 根据备注金额来判断是否添加备注
+        var remarkAmount = Number($("#hidden_remarkAmount").val());
+        if (Number(amount) >= remarkAmount){
+            $("#tr_remark").show("normal");
+        } else {
+            $("#tr_remark").hide("fast");
+        }
     }
 
     // 判断是否为回车键，如果是直接添加
@@ -173,6 +182,12 @@ function addNewRecord(obj){
     }
     amount = $amountObj.val();
 
+    // 备注
+    var remark = "";
+    if ($("#input_remark").is(":visible")){
+        remark = $("#input_remark").val();
+    }
+
     // moneyType
     var curId = $(obj).attr("id");
     var moneyType = "COST";
@@ -194,7 +209,6 @@ function addNewRecord(obj){
     var categoryId = "0";
     var categoryName = "";
     var statType = "SIMPLE";
-    var remark = "";
 
     var requestUrl = "/daily_record/add.do";
     var dayIndex = 0;
@@ -221,10 +235,12 @@ function addNewRecord(obj){
             if (data == "success") {
 
                 // 列表中添加数据
-                addItemIntoTable(userName, moneyType, amount);
+                addItemIntoTable(userName, moneyType, amount, remark);
                 // 恢复初始值
-                $amountObj.val("0");
+                $amountObj.val("");
                 $("#img_cost_button").click();
+                // 隐藏备注栏
+                $("#tr_remark").hide("fast");
 
             } else {
                 alert("操作失败！" + data);
@@ -236,7 +252,7 @@ function addNewRecord(obj){
 /**
  * 向列页面表中添加一条记录
  */
-function addItemIntoTable(userName, moneyType, amount){
+function addItemIntoTable(userName, moneyType, amount, remark){
 
     if (moneyType == "COST"){
         moneyType = "支出";
@@ -250,7 +266,7 @@ function addItemIntoTable(userName, moneyType, amount){
 
     // 新记录html字符串
     var trObjHtml = '<tr><td>[New]&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;'
-        + userName + '>&nbsp;&nbsp;' + moneyType + '&nbsp;' + amount + '&nbsp;元</div></td></tr>';
+        + userName + '>&nbsp;&nbsp;' + moneyType + '&nbsp;' + amount + '&nbsp;元&nbsp;&nbsp;|&nbsp;&nbsp;' + remark + '</div></td></tr>';
 
     // 插入到列表
     var id = $("h3.h3_selected").attr("id");
