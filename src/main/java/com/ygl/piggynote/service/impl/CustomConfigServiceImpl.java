@@ -42,9 +42,9 @@ public class CustomConfigServiceImpl implements CustomConfigService {
     @Override
     public Boolean add(CustomConfigBean bean) {
 
-        int ret = jdbcTemplate.update("insert into pn_custom_config(user_name, month_cost_plan) value(?, ?)",
-                new Object[]{bean.getUserName(), bean.getMonthCostPlan()},
-                new int[]{Types.VARCHAR, Types.FLOAT});
+        int ret = jdbcTemplate.update("insert into pn_custom_config(user_name, month_cost_plan, remark_amount) value(?, ?, ?)",
+                new Object[]{bean.getUserName(), bean.getMonthCostPlan(), bean.getRemarkAmount()},
+                new int[]{Types.VARCHAR, Types.FLOAT, Types.FLOAT});
 
         return ret == 1;
     }
@@ -72,9 +72,9 @@ public class CustomConfigServiceImpl implements CustomConfigService {
     @Override
     public Boolean update(CustomConfigBean bean) {
 
-        int ret = jdbcTemplate.update("update pn_custom_config set month_cost_plan=?, category_switch=?, prepay_switch=? where user_name=?",
-                new Object[]{ bean.getMonthCostPlan(), bean.getCategorySwitch(), bean.getPrepaySwitch(), bean.getUserName()},
-                new int[]{Types.FLOAT, Types.TINYINT, Types.TINYINT, Types.VARCHAR});
+        int ret = jdbcTemplate.update("update pn_custom_config set month_cost_plan=?, category_switch=?, prepay_switch=?, remark_amount=? where user_name=?",
+                new Object[]{ bean.getMonthCostPlan(), bean.getCategorySwitch(), bean.getPrepaySwitch(), bean.getRemarkAmount(), bean.getUserName() },
+                new int[]{Types.FLOAT, Types.TINYINT, Types.TINYINT, Types.FLOAT, Types.VARCHAR});
 
         return ret == 1;
     }

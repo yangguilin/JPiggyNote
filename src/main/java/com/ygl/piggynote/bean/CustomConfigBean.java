@@ -10,6 +10,7 @@ public class CustomConfigBean {
     private float monthCostPlan;
     private int categorySwitch;
     private int prepaySwitch;
+    private float remarkAmount;
 
 
     public CustomConfigBean() {
@@ -47,6 +48,14 @@ public class CustomConfigBean {
         this.prepaySwitch = prepaySwitch;
     }
 
+    public float getRemarkAmount() {
+        return remarkAmount;
+    }
+
+    public void setRemarkAmount(float remarkAmount) {
+        this.remarkAmount = remarkAmount;
+    }
+
     /**
      * 系统默认数据
      */
@@ -55,5 +64,6 @@ public class CustomConfigBean {
         this.monthCostPlan = 888f;
         this.categorySwitch = 0;
         this.prepaySwitch = 0;
+        this.remarkAmount = 88;
     }
 }

@@ -1,8 +1,10 @@
 package com.ygl.piggynote.controller;
 
+import com.ygl.piggynote.bean.CustomConfigBean;
 import com.ygl.piggynote.bean.DailyRecordBean;
 import com.ygl.piggynote.bean.UserBean;
 import com.ygl.piggynote.enums.MoneyTypeEnum;
+import com.ygl.piggynote.service.impl.CustomConfigServiceImpl;
 import com.ygl.piggynote.service.impl.DailyRecordServiceImpl;
 import com.ygl.piggynote.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,6 +24,9 @@ public class HomeController extends BaseController {
 
     @Autowired
     private DailyRecordServiceImpl dailyRecordService;
+
+    @Autowired
+    private CustomConfigServiceImpl customConfigService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String printWelcome(ModelMap model, HttpServletRequest request) {
@@ -68,6 +72,10 @@ public class HomeController extends BaseController {
             moneyTypeMap.put(MoneyTypeEnum.PREPAY, "垫付");
             moneyTypeMap.put(MoneyTypeEnum.PAYBACK, "收回");
             model.addAttribute("moneyTypeMap", moneyTypeMap);
+
+            // config
+            CustomConfigBean ccb = customConfigService.get(ub.getUserName());
+            model.addAttribute("customConfig", ccb);
         }
 
 		return "home";

@@ -2,7 +2,6 @@ package com.ygl.piggynote.controller;
 
 import com.ygl.piggynote.bean.CustomConfigBean;
 import com.ygl.piggynote.bean.UserBean;
-import com.ygl.piggynote.service.impl.CategoryServiceImpl;
 import com.ygl.piggynote.service.impl.CustomConfigServiceImpl;
 import com.ygl.piggynote.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Created by guilin on 2014/8/1.
@@ -25,20 +25,31 @@ public class CustomConfigController extends BaseController{
     private CustomConfigServiceImpl ccService;
 
     @RequestMapping(method=RequestMethod.GET)
-    public String show(HttpServletRequest request, ModelMap model){
+    public String show(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 
         CustomConfigBean ccb = null;
 
         // 获取用户自定义配置实例
         UserBean ub = getUserFromSession(request);
         if (ub != null) {
+
+            // 获取配置实例
             ccb = ccService.get(ub.getUserName());
+            // 放入视图map
+            model.addAttribute("customConfig", ccb);
+
+            return "/custom_config";
+        } else {
+
+            // 修改跳转链接为首页
+            try {
+                response.sendRedirect("/");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return "/home";
         }
-
-        // 放入视图map
-        model.addAttribute("customConfig", ccb);
-
-        return "/custom_config";
     }
 
     /**
