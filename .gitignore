@@ -48,3 +48,9 @@ target/JPiggyNote/WEB-INF/pages/home.jsp
 target/JPiggyNote/WEB-INF/pages/register.jsp
 
 target/JPiggyNote/WEB-INF/pages/register_success.jsp
+
+*.war
+
+*.properties
+
+src/main/java/com/ygl/piggynote/controller/CustomConfigController.java
