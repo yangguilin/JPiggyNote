@@ -1,0 +1,90 @@
+/***
+    无空格：关联紧密样式间
+    一行空格：非相关联样式间
+    两行空格：一段相关样式与其他样式间
+    三行空格：不同样式part间
+
+    1. 仅涉及一个或两个样式时，横向书写，超过两个样式时，竖向书写
+    2. 样式父子级别在2层之内，可以通过父级子级的方式来定义样式，达到或超过3层，则需要再定义id或class来设置样式
+***/
+
+
+
+/**
+    element part
+**/
+body { background: url(/img/background.png) repeat!important; }
+
+
+
+/**
+    class part
+**/
+
+.cDiv_main_c { text-align: center; }
+
+a.cA_topMenu_b { font-size: 16px; }
+
+
+.cDiv_content_c { width: 260px; display:inline-block; }
+.cDiv_content_c div:first-child { text-align: center; }
+
+
+a.cA_statMenu_b { text-decoration: none; }
+a.cA_statMenuSelected_b { color:darkred; font-weight:bold; }
+
+
+.cTbl_statDetail_l {
+    margin:7px 0px;
+    background-color: #ffffff;
+    border:1px solid darkgray;
+}
+.cTbl_statDetail_l td {
+    text-align: left;
+    font-size: 12px;
+    color:gray;
+    padding:5px 5px;
+}
+.cTbl_statDetail_l tr td:nth-child(1) { width: 80px; }
+.cTbl_statDetail_l tr td:nth-child(2) { width: 50px; font-weight: bold; }
+.cTbl_statDetail_l tr td:nth-child(3) { width: 100px; }
+.cTbl_statDetail_l tr:nth-child(odd) { background-color: #F7F7F7; }
+
+
+.cTr_statData_f { background-color: #eed8ae; font-size: 12px; }
+.cTr_statData_f td { padding:5px 5px; color: gray; }
+.cTr_statData_f td:nth-child(odd) { width:50px; text-align: center; }
+.cTr_statData_f td:nth-child(even) {
+    width:60px;
+    font-weight: bold;
+    text-align: left;
+}
+
+
+
+/**
+    id part
+**/
+
+#iTr_incomeDetail_c, #iTr_costDetail_c { display: none; }
+
+#iTbl_incomeData_l, #iTbl_costData_l { margin-top: 15px; margin-bottom: 20px; }
+#iTd_incomeData_t { background-color: #a5cb5e; }
+#iTd_costData_t { background-color: #e1e1e1 }
+#iTd_incomeData_t:hover, #iTd_costData_t:hover { font-size: 16px; }
+#iTd_incomeData_t, #iTd_costData_t {
+    padding:8px 5px 5px 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    height:32px;
+    color: gray;
+}
+#iTd_incomeData_t tr:last-child, #iTd_costData_t tr:last-child
+
+#iTr_incomeDetail_c, #iTr_costDetail_c { display: none; }
+
+#iTr_otherTotal_d td { background-color: #eed8ae; padding:10px 5px; }
+
+
+

@@ -67,27 +67,6 @@ $(document).ready(function() {
     $("#h3_today").click();
 });
 
-/**
- * 退出登录
- */
-function logout(){
-
-    var userName = $("#hidden_userName").val();
-    if (userName == null || userName == ""){ return; }
-
-    // 调用ajax请求
-    $.post("/logout.do", { "userName": userName },
-        function (data) {
-
-            if (data == "success") {
-
-                alert("成功退出");
-                window.location.href = "/";
-            } else {
-                alert("退出失败");
-            }
-        });
-}
 
 /**
  * 检查输入金额
@@ -184,8 +163,9 @@ function addNewRecord(obj){
 
     // 备注
     var remark = "";
-    if ($("#input_remark").is(":visible")){
-        remark = $("#input_remark").val();
+    var $remarkObj = $("#input_remark");
+    if ($remarkObj.is(":visible")){
+        remark = $remarkObj.val();
     }
 
     // moneyType
@@ -238,6 +218,7 @@ function addNewRecord(obj){
                 addItemIntoTable(userName, moneyType, amount, remark);
                 // 恢复初始值
                 $amountObj.val("");
+                $remarkObj.val("");
                 $("#img_cost_button").click();
                 // 隐藏备注栏
                 $("#tr_remark").hide("fast");

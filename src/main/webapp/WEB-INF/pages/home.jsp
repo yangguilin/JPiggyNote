@@ -7,6 +7,7 @@
 
     <title>欢迎来到小猪账本</title>
     <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
     <script type="text/javascript" src="/js/home.js"></script>
     <link href="/css/home.css" rel="stylesheet" type="text/css">
     <link href="/css/shared/buttons.css" rel="stylesheet" type="text/css">
@@ -55,9 +56,9 @@
             <input type="hidden" id="hidden_remarkAmount" value="${customConfig.getRemarkAmount()}" />
             <h2>
                 <div class="groupList clear" style="font-style: normal;">
-                    <%--<a href="#" class="button blue left a_menu">统计</a>--%>
+                    <a href="#" class="button blue left a_menu" onclick="window.location.href='/stat'">统计</a>
                     <%--<a href="#" class="button blue middle a_menu">分类</a>--%>
-                    <a href="#" class="button blue left a_menu" onclick="window.location.href='/custom_config'">设置</a>
+                    <a href="#" class="button blue middle a_menu" onclick="window.location.href='/custom_config'">设置</a>
                     <a href="#" class="button blue right a_menu" onclick="logout()">退出</a>
                 </div>
             </h2>
@@ -99,7 +100,7 @@
                         <tr id="tr_remark">
                             <td colspan="3">
                                 <span class="span_remark">备注</span>
-                                <input type="text" id="input_remark" />
+                                <input type="text" id="input_remark" onkeyup="checkAmountAndAdd(event)" />
                             </td>
                         </tr>
                     </table>

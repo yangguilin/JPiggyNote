@@ -16,7 +16,6 @@
     <link rel="stylesheet" type="text/css" href="/css/custom_config.css">
     <link href="/css/shared/buttons.css" rel="stylesheet" type="text/css">
     <link href="/css/shared/screen.css" rel="stylesheet" type="text/css">
-    <link href="/css/mmenu/jquery.mmenu.all.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div id="div_container">
