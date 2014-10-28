@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -45,6 +46,16 @@ public class StatController extends BaseController {
             // 获取用户月计划花费
             CustomConfigBean ccb = customConfigService.get(ub.getUserName());
             model.addAttribute("monthCostPlan", ccb.getMonthCostPlan());
+        } else {
+
+            // 修改跳转链接为首页
+            try {
+                response.sendRedirect("/");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return "/home";
         }
 
         return "stat";
