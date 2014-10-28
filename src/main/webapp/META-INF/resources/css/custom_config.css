@@ -1,37 +1,43 @@
 
-    /* class */
+/**
+    class part
+**/
 
-    .btn_update, .btn_return {
-        width:80px;
-        height:25px;
-    }
+.btn_update, .btn_return { width:80px; height:25px; }
 
-    .table_options {
-        display:inline-block;
-        font-size:18px;
-    }
+.input_text { border-radius:5px; font-size: 16px; width:210px; }
 
-    .td_title {
-        height:40px;
-        padding-right: 20px;
-        padding-top:2px;
-    }
+a.cA_topMenu_b { font-size: 16px; }
 
-    .input_text {
-        border-radius:5px;
-        font-size: 16px;
-    }
+.table_options {
+    display:inline-block;
+    font-size:18px;
+    margin-left: -20px
+}
 
-    /* id */
-    #div_container {
-        text-align: center;
-    }
+.td_title {
+    height:40px;
+    padding-right: 20px;
+    padding-top:2px;
+}
 
-    #input_month_cost_plan, #select_category_switch, #select_prepay_switch, #input_remark_show_amount {
-        width:120px;
-        height:24px;
-    }
+a.cA_update_b {
+    font-size:18px;
+    margin-left: 40px;
+    display: block;
+    width:100px;
+}
+.txt_error { color:red; }
 
-    #input_month_cost_plan, #input_remark_show_amount, #select_category_switch, #select_prepay_switch {
-        width:80px;
-    }
+
+
+
+/**
+    id part
+**/
+
+#div_container { text-align: center; }
+
+#input_month_cost_plan, #select_category_switch, #select_prepay_switch, #input_remark_show_amount { width:120px; height:24px; }
+
+#input_month_cost_plan, #input_remark_show_amount, #select_category_switch, #select_prepay_switch { width:80px; }

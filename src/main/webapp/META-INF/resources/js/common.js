@@ -22,3 +22,11 @@ function logout(){
             }
         });
 }
+
+/**
+ * 检查字符串是否为合法的数值金额
+ * @param amount    金额字符
+ */
+function checkAmountVal(amount){
+    return (amount != "" && !isNaN(amount) && parseInt(amount) > 0);
+}

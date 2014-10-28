@@ -56,7 +56,10 @@ $(document).ready(function() {
     }).click(function(){
 
         $(".div_record_item input:visible").hide("fast");
-        $(this).children("input").show("fast");
+        var $curInputObj = $(this).children("input");
+        if (!$curInputObj.is(":visible")) {
+            $curInputObj.show("fast");
+        }
     });
 
     // 默认支出选项选中
@@ -76,7 +79,7 @@ function checkAmountAndAdd(event){
     var $amountObj = $("#txt_amount");
 
     var amount = $amountObj.val();
-    if (amount == "" || isNaN(amount) || parseInt(amount) <= 0){
+    if (!checkAmountVal(amount)){
         // 内容变红
         $amountObj.addClass("txt_error");
     } else {
@@ -84,9 +87,9 @@ function checkAmountAndAdd(event){
         // 内容恢复正常
         $amountObj.removeClass("txt_error");
 
-        // 根据备注金额来判断是否添加备注
+        // 根据备注金额来判断是否添加备注，如果为垫付和收回，则必须添加备注
         var remarkAmount = Number($("#hidden_remarkAmount").val());
-        if (Number(amount) >= remarkAmount){
+        if (Number(amount) >= remarkAmount || g_curImgButtonId == "img_prepay_button"){
             $("#tr_remark").show("normal");
         } else {
             $("#tr_remark").hide("fast");
@@ -94,15 +97,18 @@ function checkAmountAndAdd(event){
     }
 
     // 判断是否为回车键，如果是直接添加
-    var theEvent = window.event || event;
-    var code = theEvent.keyCode || theEvent.which;
-    // 回车键
-    if (code == 13){
+    if (event != null) {
 
-        // 当前选择的操作类型
-        var $curObj = $("#div_pro_buttons").children("a:visible");
-        // 添加新记录
-        addNewRecord($curObj[0]);
+        var theEvent = window.event || event;
+        var code = theEvent.keyCode || theEvent.which;
+        // 回车键
+        if (code == 13) {
+
+            // 当前选择的操作类型
+            var $curObj = $("#div_pro_buttons").children("a:visible");
+            // 添加新记录
+            addNewRecord($curObj[0]);
+        }
     }
 }
 
@@ -143,6 +149,8 @@ function selectImgButton(obj){
 
         // 保存临时变量
         g_curImgButtonId = selectImgBtnId;
+        // 更新备注显示状态
+        checkAmountAndAdd(null);
     }
 }
 
@@ -246,8 +254,12 @@ function addItemIntoTable(userName, moneyType, amount, remark){
     }
 
     // 新记录html字符串
-    var trObjHtml = '<tr><td>[New]&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;'
-        + userName + '>&nbsp;&nbsp;' + moneyType + '&nbsp;' + amount + '&nbsp;元&nbsp;&nbsp;|&nbsp;&nbsp;' + remark + '</div></td></tr>';
+    var trObjHtml = '<tr><td>[New]&nbsp;&nbsp;|&nbsp;&nbsp;'
+        + moneyType + '&nbsp;&nbsp;|&nbsp;&nbsp;' + amount + '&nbsp;元';
+    if (remark != "") {
+        trObjHtml += '&nbsp;&nbsp;|&nbsp;&nbsp;' + remark;
+    }
+    trObjHtml += '</div></td></tr>';
 
     // 插入到列表
     var id = $("h3.h3_selected").attr("id");
@@ -313,7 +325,7 @@ function deleteRecord(obj){
 
                 var titleId = $(obj).attr("title_id");
                 // 删除列表记录
-                $(obj).parent().parent().parent().remove();
+                $(obj).parent().parent().parent().hide("slow").remove();
                 // 更新标题
                 updateHistoryTitleNum(titleId);
             } else {

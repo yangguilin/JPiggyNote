@@ -13,7 +13,7 @@
 /**
     element part
 **/
-body { background: url(/img/background.png) repeat!important; }
+
 
 
 
@@ -30,35 +30,90 @@ a.cA_topMenu_b { font-size: 16px; }
 .cDiv_content_c div:first-child { text-align: center; }
 
 
-a.cA_statMenu_b { text-decoration: none; }
-a.cA_statMenuSelected_b { color:darkred; font-weight:bold; }
-
-
-.cTbl_statDetail_l {
-    margin:7px 0px;
+.cC_detailList {
+    margin:3px 0px;
     background-color: #ffffff;
     border:1px solid darkgray;
 }
-.cTbl_statDetail_l td {
+.cC_detailList td {
     text-align: left;
     font-size: 12px;
     color:gray;
     padding:5px 5px;
 }
-.cTbl_statDetail_l tr td:nth-child(1) { width: 80px; }
-.cTbl_statDetail_l tr td:nth-child(2) { width: 50px; font-weight: bold; }
-.cTbl_statDetail_l tr td:nth-child(3) { width: 100px; }
-.cTbl_statDetail_l tr:nth-child(odd) { background-color: #F7F7F7; }
+.cC_detailList tr td:nth-child(1) { width: 80px; }
+.cC_detailList tr td:nth-child(2) { width: 50px; font-weight: bold; }
+.cC_detailList tr td:nth-child(3) { width: 100px; word-break: break-all; }
+.cC_detailList tr:nth-child(odd) { background-color: #F7F7F7; }
 
 
-.cTr_statData_f { background-color: #eed8ae; font-size: 12px; }
-.cTr_statData_f td { padding:5px 5px; color: gray; }
-.cTr_statData_f td:nth-child(odd) { width:50px; text-align: center; }
-.cTr_statData_f td:nth-child(even) {
+.cC_itemFooter { background-color: #eed8ae; font-size: 12px; }
+.cC_itemFooter td { padding:5px 5px; color: gray; }
+.cC_itemFooter td:nth-child(odd) { width:50px; text-align: center; }
+.cC_itemFooter td:nth-child(even) {
     width:60px;
     font-weight: bold;
     text-align: left;
 }
+.cC_itemFooter td:nth-child(1) { border-radius: 1px 0px 0px 5px; }
+.cC_itemFooter td:nth-child(4) { border-radius: 0px 1px 5px 0px; }
+
+.cC_totalItemFooter { font-size: 12px; }
+.cC_totalItemFooter td { padding:5px 5px; color: gray; }
+.cC_totalItemFooter td:nth-child(odd) { width:50px; text-align: center; }
+.cC_totalItemFooter td:nth-child(even) {
+    width:60px;
+    font-weight: bold;
+    text-align: left;
+}
+
+tr.cTr_totalSurplusItemFooter td { color: green; }
+
+.cTd_totalDebtSplit { height:2px; background-color: gray; }
+.cTd_totalSurplusSplit { height:2px; background-color: green; }
+
+.cC_totalItemTitle {
+    padding:8px 5px 5px 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    height:32px;
+    color: gray;
+    width:260px;
+}
+
+.cC_itemTitle {
+    padding:8px 5px 5px 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    height:32px;
+    color: gray;
+    width:260px;
+    border-radius: 8px 8px 2px 2px;
+}
+.cC_itemTitle:hover { cursor:pointer; }
+
+.cC_itemSplitSpace { height:20px; }
+
+.cTd_moneySurplus_t { background-color: #a5cb5e; }
+.cTd_moneyDebt_t { background-color: #e1e1e1; }
+
+.cTd_totalMoneySurplus_t { color: green; }
+.cTd_totalMoneyDebt_t { color: gray; }
+
+.cTr_monthItemData_f { background-color: #eed8ae; font-size: 12px; }
+.cTr_monthItemData_f td { padding:5px 5px; color:gray; }
+
+.cTr_monthDetailData_c { display: none; }
+
+.cTr_otherCostTotal_d td { background-color: #e1e1e1; padding:5px 5px; }
+.cTr_otherIncomeTotal_d td { background-color: #a5cb5e; padding:5px 5px; }
+
+td.cTd_cost_d {}
+td.cTd_prepay_d { color: darkorange; }
+td.cTd_income_d { color: #a5cb5e }
+td.cTd_payback_d { color: #a5cb5e; }
 
 
 
@@ -68,23 +123,19 @@ a.cA_statMenuSelected_b { color:darkred; font-weight:bold; }
 
 #iTr_incomeDetail_c, #iTr_costDetail_c { display: none; }
 
-#iTbl_incomeData_l, #iTbl_costData_l { margin-top: 15px; margin-bottom: 20px; }
+#iTbl_incomeData_l, #iTbl_costData_l, #iTbl_monthList_c, #iTbl_monthPrepayList_c { margin-top: 15px; margin-bottom: 20px; }
 #iTd_incomeData_t { background-color: #a5cb5e; }
 #iTd_costData_t { background-color: #e1e1e1 }
-#iTd_incomeData_t:hover, #iTd_costData_t:hover { font-size: 16px; }
-#iTd_incomeData_t, #iTd_costData_t {
-    padding:8px 5px 5px 5px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 14px;
-    height:32px;
-    color: gray;
-}
-#iTd_incomeData_t tr:last-child, #iTd_costData_t tr:last-child
 
 #iTr_incomeDetail_c, #iTr_costDetail_c { display: none; }
 
-#iTr_otherTotal_d td { background-color: #eed8ae; padding:10px 5px; }
+#iDiv_monthStatInfo_c, #iDiv_monthPrepayStatInfo_c { display: none; }
+
+#iDiv_curMonthPlanCostProcess_c { height:10px; margin-top:15px; }
+#iDiv_curMonthPlanCostProcess_c table { width:100%; }
+#iTd_curVal { height:5px; background-color: #a5cb5e; }
+#iTd_leftVal { background-color: white; }
+
 
 
 

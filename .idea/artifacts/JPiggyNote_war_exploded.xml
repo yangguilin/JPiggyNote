@@ -2,7 +2,6 @@
   <artifact type="exploded-war" build-on-make="true" name="JPiggyNote:war exploded">
     <output-path>$PROJECT_DIR$/target/JPiggyNote</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="JPiggyNote/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="JPiggyNote" />
@@ -27,6 +26,7 @@
           <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.2.4" />
         </element>
       </element>
+      <element id="javaee-facet-resources" facet="JPiggyNote/web/Web" />
     </root>
   </artifact>
 </component>

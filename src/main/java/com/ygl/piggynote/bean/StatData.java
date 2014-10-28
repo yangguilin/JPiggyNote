@@ -33,9 +33,45 @@ public class StatData {
      */
     private float curMonthOtherCostTotal;
     /**
+     * 本月份垫付合计
+     */
+    private float curMonthPrepayTotal;
+    /**
+     * 本月份收回合计
+     */
+    private float curMonthPaybackTotal;
+    /**
+     * 全部收入支出盈余
+     */
+    private float finalTotal;
+    /**
+     * 全部收入总计
+     */
+    private float finalIncomeTotal;
+    /**
+     * 全部支出总计
+     */
+    private float finalCostTotal;
+    /**
+     * 全部垫付总计
+     */
+    private float finalPrepayTotal;
+    /**
+     * 全部收回总计
+     */
+    private float finalPaybackTotal;
+    /**
      * 本月份收入列表
      */
     private List<DailyRecordBean> curMonthIncomeList;
+    /**
+     * 按月份统计数据列表
+     */
+    private List<MonthStatData> monthStatDataList;
+    /**
+     * 按月份统计垫付数据列表
+     */
+    private List<MonthPrepayStatData> monthPrepayStatDataList;
 
 
     public int getCurMonthIncomeCount() {
@@ -94,6 +130,77 @@ public class StatData {
         this.curMonthIncomeList = curMonthIncomeList;
     }
 
+    public float getCurMonthPrepayTotal() {
+        return curMonthPrepayTotal;
+    }
+
+    public void setCurMonthPrepayTotal(float curMonthPrepayTotal) {
+        this.curMonthPrepayTotal = curMonthPrepayTotal;
+    }
+
+    public float getCurMonthPaybackTotal() {
+        return curMonthPaybackTotal;
+    }
+
+    public void setCurMonthPaybackTotal(float curMonthPayBackTotal) {
+        this.curMonthPaybackTotal = curMonthPayBackTotal;
+    }
+
+    public List<MonthStatData> getMonthStatDataList() {
+        return monthStatDataList;
+    }
+
+    public void setMonthStatDataList(List<MonthStatData> monthStatDataList) {
+        this.monthStatDataList = monthStatDataList;
+    }
+
+    public float getFinalTotal() {
+        return finalTotal;
+    }
+
+    public void setFinalTotal(float finalTotal) {
+        this.finalTotal = finalTotal;
+    }
+
+    public float getFinalIncomeTotal() {
+        return finalIncomeTotal;
+    }
+
+    public void setFinalIncomeTotal(float finalIncomeTotal) {
+        this.finalIncomeTotal = finalIncomeTotal;
+    }
+
+    public float getFinalCostTotal() {
+        return finalCostTotal;
+    }
+
+    public void setFinalCostTotal(float finalCostTotal) {
+        this.finalCostTotal = finalCostTotal;
+    }
+
+    public float getFinalPrepayTotal() {
+        return finalPrepayTotal;
+    }
+
+    public void setFinalPrepayTotal(float finalPrepayTotal) {
+        this.finalPrepayTotal = finalPrepayTotal;
+    }
+
+    public float getFinalPaybackTotal() {
+        return finalPaybackTotal;
+    }
+
+    public void setFinalPaybackTotal(float finalPaybackTotal) {
+        this.finalPaybackTotal = finalPaybackTotal;
+    }
+
+    public List<MonthPrepayStatData> getMonthPrepayStatDataList() {
+        return monthPrepayStatDataList;
+    }
+
+    public void setMonthPrepayStatDataList(List<MonthPrepayStatData> monthPrepayStatDataList) {
+        this.monthPrepayStatDataList = monthPrepayStatDataList;
+    }
 
     public StatData(){
 

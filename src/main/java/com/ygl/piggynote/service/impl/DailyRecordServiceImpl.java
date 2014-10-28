@@ -149,4 +149,18 @@ public class DailyRecordServiceImpl implements DailyRecordService {
                 new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR},
                 new DailyRecordRowMapper());
     }
+
+    /**
+     * 获取用户全部记录数据
+     * @param userName      用户名
+     * @return              记录列表
+     */
+    @Override
+    public List<DailyRecordBean> getAllRecords(String userName) {
+
+        return (List<DailyRecordBean>)jdbcTemplate.query("select * from pn_daily_records where user_name=? order by create_date desc",
+                new Object[]{userName},
+                new int[]{Types.VARCHAR},
+                new DailyRecordRowMapper());
+    }
 }
