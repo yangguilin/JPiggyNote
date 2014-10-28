@@ -108,3 +108,15 @@ target/classes/com/ygl/piggynote/service/impl/DailyRecordServiceImpl.class
 target/classes/com/ygl/piggynote/util/CommonUtil.class
 
 target/classes/com/ygl/piggynote/filter/AuthFilter.class
+
+target/JPiggyNote-20141028.war
+
+target/JPiggyNote/META-INF/resources/css/common.css
+
+target/JPiggyNote/META-INF/resources/css/stat.css
+
+target/JPiggyNote/META-INF/resources/js/common.js
+
+target/JPiggyNote/META-INF/resources/js/stat.js
+
+target/JPiggyNote/WEB-INF/pages/stat.jsp
