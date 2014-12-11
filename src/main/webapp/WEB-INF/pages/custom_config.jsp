@@ -21,7 +21,7 @@
 </head>
 <body>
 <div>
-    <input id="hidden_curUserName" type="hidden" value="${customConfig.getUserName()}" />
+    <input id="hidden_userName" type="hidden" value="${customConfig.getUserName()}" />
     <input id="iIpt_monthCostPlan_h" type="hidden" value="${customConfig.getMonthCostPlan()}" />
     <input id="iIpt_remarkAmount_h" type="hidden" value="${customConfig.getRemarkAmount()}" />
 </div>

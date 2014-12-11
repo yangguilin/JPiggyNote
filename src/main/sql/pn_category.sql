@@ -11,7 +11,7 @@
  Target Server Version : 50615
  File Encoding         : utf-8
 
- Date: 07/18/2014 16:06:39 PM
+ Date: 12/11/2014 11:07:05 AM
 */
 
 SET NAMES utf8;
@@ -23,8 +23,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `pn_category`;
 CREATE TABLE `pn_category` (
   `user_name` varchar(50) COLLATE gbk_bin NOT NULL,
-  `category_xml` varchar(5000) COLLATE gbk_bin NOT NULL,
-  `category_xml_sorted` varchar(5000) COLLATE gbk_bin DEFAULT NULL,
+  `category_data` varchar(5000) COLLATE gbk_bin NOT NULL,
+  `category_data_sorted` varchar(5000) COLLATE gbk_bin DEFAULT NULL,
   `latest_modified_date` datetime NOT NULL,
   PRIMARY KEY (`user_name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=gbk COLLATE=gbk_bin;

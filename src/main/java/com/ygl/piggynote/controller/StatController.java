@@ -23,11 +23,16 @@ import java.util.*;
 @RequestMapping("/stat")
 public class StatController extends BaseController {
 
-    @Autowired
-    private DailyRecordServiceImpl dailyRecordService;
+    /**
+     * 本月份记录列表
+     */
+    private List<DailyRecordBean> _curMonthDataList = new ArrayList<DailyRecordBean>();
 
     @Autowired
+    private DailyRecordServiceImpl dailyRecordService;
+    @Autowired
     private CustomConfigServiceImpl customConfigService;
+
 
 
     @RequestMapping(method= RequestMethod.GET)
@@ -70,11 +75,11 @@ public class StatController extends BaseController {
 
         StatData sd = new StatData();
 
-        // 查询并统计本月数据
-        queryAndStatCurMonthData(userName, sd);
-
         // 查询并统计月份数据
         queryAndStatMonthsData(userName, sd);
+
+        // 查询并统计本月数据
+        queryAndStatCurMonthData(userName, sd);
 
         // 查询垫付收回数据
         queryAndStatPrepayData(userName, sd);
@@ -105,9 +110,15 @@ public class StatController extends BaseController {
         // 将数据按照月份保存
         HashMap<String, List<DailyRecordBean>> monthDataMap = new HashMap<String, List<DailyRecordBean>>();
         String monthStr = "";
+        String curMonthStr = DateUtil.getMonthStr(Calendar.getInstance().getTime());
         for (DailyRecordBean drb : allRecords){
 
             monthStr = DateUtil.getMonthStr(drb.getCreateDate());
+
+            // 当月数据
+            if (monthStr.endsWith(curMonthStr)){
+                _curMonthDataList.add(drb);
+            }
 
             // 月份不存在，添加新数组
             if (!monthDataMap.containsKey(monthStr)){
@@ -253,14 +264,7 @@ public class StatController extends BaseController {
     private void queryAndStatCurMonthData(String userName, StatData sd) {
 
         //
-        // 获取用户本月份记录列表
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH) + 1;
-        String beginDate = year + "-" + month + "-01";
-        String endDate = year + "-" + (month + 1) + "-01";
-        List<DailyRecordBean> curMonthDataList = dailyRecordService.getRecordsByDateRange(beginDate, endDate, userName);
-
+        // 遍历本月数据
         float curMonthOtherCostTotal = 0.0f;
         float curMonthCostTotal = 0.0f;
         float curMonthIncomeTotal = 0.0f;
@@ -270,7 +274,7 @@ public class StatController extends BaseController {
         int curMonthCostCount = 0;
         List<DailyRecordBean> curMonthCostList = new ArrayList<DailyRecordBean>();
         List<DailyRecordBean> curMonthIncomeList = new ArrayList<DailyRecordBean>();
-        for (DailyRecordBean drb : curMonthDataList){
+        for (DailyRecordBean drb : _curMonthDataList){
 
             MoneyTypeEnum moneyType = drb.getMoneyType();
             float amount = drb.getAmount();

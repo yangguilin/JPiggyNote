@@ -17,7 +17,7 @@ $(document).ready(
  */
 function update(){
 
-    var userName = $("#hidden_curUserName").val();
+    var userName = $("#hidden_userName").val();
     var monthCostPlan = $("#input_month_cost_plan").val();
     var remarkAmount = $("#input_remark_show_amount").val();
     var categorySwitch = "0";
