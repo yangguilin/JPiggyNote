@@ -17,6 +17,7 @@
 
     <!--auto scan package-->
     <context:component-scan base-package="com.ygl.piggynote"/>
+    <context:component-scan base-package="com.ygl.snwt"/>
 
     <!--annotation config-->
     <mvc:annotation-driven/>
