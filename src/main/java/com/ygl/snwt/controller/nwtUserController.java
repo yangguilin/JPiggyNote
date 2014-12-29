@@ -15,7 +15,7 @@ import javax.servlet.http.*;
  * Created by yanggavin on 14/12/11.
  */
 @Controller
-@RequestMapping("/snwt/user")
+@RequestMapping("/snwt")
 public class NwtUserController extends BaseController {
 
     @Autowired
@@ -29,7 +29,25 @@ public class NwtUserController extends BaseController {
     @RequestMapping(method = RequestMethod.GET)
     public String show(){
 
-        return "snwt/user_manager";
+        return "snwt/snwt_login";
+    }
+
+    /**
+     * 用户登录
+     * @param user user
+     * @return  用户首页链接
+     */
+    @RequestMapping(value = "/login.do", method = RequestMethod.POST)
+    public String login(NwtUser user){
+
+        String pageName = "snwt/snwt_login";
+
+        NwtUser queryUser = nwtUserService.exist(user.getName(), user.getPassword());
+        if (queryUser != null){
+            pageName = "snwt/snwt_home";
+        }
+
+        return pageName;
     }
 
     /**
@@ -54,5 +72,26 @@ public class NwtUserController extends BaseController {
 
         // write result to response
         CommonUtil.writeResponse4BooleanResult(success, response);
+    }
+
+    /**
+     * 用户验证
+     * @param user  用户实例
+     */
+    @RequestMapping(value="/verification.do", method = RequestMethod.POST)
+    public void verification(NwtUser user, HttpServletResponse response){
+
+        Boolean success = false;
+        String userId = "";
+
+        // check user from db
+        NwtUser queryUser = nwtUserService.exist(user.getName(), user.getPassword());
+        if (queryUser != null){
+            success = true;
+            userId = queryUser.getId() + "";
+        }
+
+        // response
+        CommonUtil.writeResponse4ReturnStrResult(success, userId, response);
     }
 }

@@ -3,9 +3,11 @@ package com.ygl.piggynote.controller;
 import com.ygl.piggynote.bean.CustomConfigBean;
 import com.ygl.piggynote.bean.DailyRecordBean;
 import com.ygl.piggynote.bean.UserBean;
+import com.ygl.piggynote.common.CommonConstant;
 import com.ygl.piggynote.enums.MoneyTypeEnum;
 import com.ygl.piggynote.service.impl.CustomConfigServiceImpl;
 import com.ygl.piggynote.service.impl.DailyRecordServiceImpl;
+import com.ygl.piggynote.util.CookieUtil;
 import com.ygl.piggynote.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +15,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,13 +33,17 @@ public class HomeController extends BaseController {
     private CustomConfigServiceImpl customConfigService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String printWelcome(ModelMap model, HttpServletRequest request) {
+	public String printWelcome(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
 
         // user
         UserBean ub = getUserFromSession(request);
         model.addAttribute("curUser", ub);
 
         if (ub != null) {
+
+            // 保存信息到cookie
+            int  loginMaxAge = 30*24*60*60;   //定义账户密码的生命周期，这里是一个月。单位为秒
+            CookieUtil.addCookie(response, CommonConstant.COOKIE_USER_NAME, ub.getUserName(), loginMaxAge);
 
             // 3 days history records
             String beginDateStr = DateUtil.getDateStr(0, 0, -2);
@@ -76,6 +84,14 @@ public class HomeController extends BaseController {
             // config
             CustomConfigBean ccb = customConfigService.get(ub.getUserName());
             model.addAttribute("customConfig", ccb);
+
+        } else {
+
+            // cookie中读取保存的用户名
+            Cookie userNameCookie = CookieUtil.getCookieByName(request, CommonConstant.COOKIE_USER_NAME);
+            if (userNameCookie != null && userNameCookie.getValue() != ""){
+                model.addAttribute("userNameInCookie", userNameCookie.getValue());
+            }
         }
 
 		return "home";

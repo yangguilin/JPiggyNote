@@ -1,10 +1,10 @@
 package com.ygl.piggynote.controller;
 
-import com.mysql.jdbc.StringUtils;
 import com.ygl.piggynote.bean.UserBean;
 import com.ygl.piggynote.common.CommonConstant;
 import com.ygl.piggynote.service.impl.UserServiceImpl;
 import com.ygl.piggynote.util.CommonUtil;
+import com.ygl.piggynote.util.CookieUtil;
 import com.ygl.piggynote.util.Md5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -123,6 +123,9 @@ public class LoginController extends BaseController {
 
         // 去除session
         session.removeAttribute(CommonConstant.SESSION_USER_CONTENT);
+        // 清除cookie
+        CookieUtil.addCookie(response, CommonConstant.COOKIE_USER_NAME, null, 0);
+
         // 返回操作结果
         CommonUtil.writeResponse4BooleanResult(true, response);
     }

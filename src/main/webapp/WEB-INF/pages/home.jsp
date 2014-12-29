@@ -27,7 +27,7 @@
                         <span class="span_title">账号</span>
                     </td>
                     <td>
-                        <input class="input_text" id="txt_user_name" type="text" />
+                        <input class="input_text" id="txt_user_name" type="text" value="${userNameInCookie}" />
                     </td>
                 </tr>
                 <tr>

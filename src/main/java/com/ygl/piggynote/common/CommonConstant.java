@@ -14,4 +14,8 @@ public class CommonConstant {
      * 用户登录前访问的URL在Seesion中保存的KEY
      */
     public static String LOGIN_TO_URL = "LOGIN_TO_URL";
+    /**
+     * 保存到COOKIE中的用户名key
+     */
+    public static String COOKIE_USER_NAME = "cookie_user_name";
 }

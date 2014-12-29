@@ -120,3 +120,5 @@ target/JPiggyNote/META-INF/resources/js/common.js
 target/JPiggyNote/META-INF/resources/js/stat.js
 
 target/JPiggyNote/WEB-INF/pages/stat.jsp
+
+target/*

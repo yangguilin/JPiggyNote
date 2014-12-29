@@ -11,4 +11,5 @@ public interface NwtUserService {
     public Boolean add(NwtUser nwtUser);
     public Boolean update(NwtUser nwtUser);
     public Boolean delete(int userId);
+    public NwtUser exist(String name, String password);
 }

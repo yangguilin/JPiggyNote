@@ -28,7 +28,9 @@ public class AuthFilter implements Filter {
             "/login.do",
             "/register",
             "/error",
-            "/login_ajax.do"
+            "/login_ajax.do",
+            "/snwt/user/register.do",
+            "/snwt/user/verification.do"
     };
 
 

@@ -78,4 +78,27 @@ public class NwtUserServiceImpl implements NwtUserService {
 
         return ret > 0;
     }
+
+    /**
+     * 通过姓名和密码，验证用户是否存在
+     * @param name  姓名
+     * @param password  密码（加密后）
+     * @return  是否存在
+     */
+    @Override
+    public NwtUser exist(String name, String password){
+
+        NwtUser nwtUser = null;
+
+        try {
+            nwtUser = (NwtUser) jdbcTemplateSnwt.queryForObject("select * from user where name=? and password=?",
+                    new Object[]{name, password},
+                    new int[]{Types.VARCHAR, Types.VARCHAR},
+                    new NwtUserRowMapper());
+        }catch (Exception e){
+
+        }
+
+        return nwtUser;
+    }
 }
