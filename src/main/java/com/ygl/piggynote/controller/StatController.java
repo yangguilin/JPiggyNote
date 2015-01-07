@@ -44,6 +44,9 @@ public class StatController extends BaseController {
 
         if (ub != null) {
 
+            // 清理本地成员变量数据，防止重复添加
+            _curMonthDataList.clear();
+
             // 查询并统计用户记录数据
             StatData sd = queryAndStatUserData(ub.getUserName());
             model.addAttribute("statData", sd);
