@@ -1,0 +1,37 @@
+
+body{ font-family: 微软雅黑, 'Microsoft Yahei', 'Hiragino Sans GB', tahoma, arial, 宋体; background-image: url("/img/background.png"); }
+a{ text-decoration: none; }
+
+#iTbl_stockInfoList{ width:1230px; font-size: 14px; }
+#iTbl_stockInfoList tr td { padding: 5px 15px; text-align: right; }
+#iTbl_stockInfoList tr:not(.cTr_title) td { height:25px; }
+#iTbl_stockInfoList tr:nth-child(odd) { background-color: #F4F4F4; }
+#iTbl_stockInfoList tr:nth-child(even) { background-color: white; }
+#iDiv_updateTime{
+    color:darkgreen;
+    font-weight: bold;
+    font-size: 16px;
+    padding:10px 20px;
+}
+#iIpt_stockCode, #iIpt_stockName, #iIpt_buyPrice, #iIpt_buyDate, #iIpt_buyNumber { padding-left: 10px; height: 16px; width:120px;}
+#iIpt_AddStockToCookie_btn {
+    width:120px;
+    font-size: 14px;
+    height:30px;
+    margin-left: 50px;
+}
+
+tr.cTr_title td {
+    height:30px;
+    color:white;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #43BFE3;
+}
+tr.cTr_data td { width:80px; }
+tr.cTr_data td:nth-child(2) { font-weight: bold; }
+td.cTd_stockNameAndCode { width:150px; }
+td.cTd_upStatus { color:red; }
+td.cTd_balanceStatus { color:gray }
+td.cTd_downStatus { color:green; }
+span.cSpan_comment { font-size: 12px; color:gray; }
