@@ -20,11 +20,16 @@ $(document).ready(function(){
     readStockDataFromCookieAndParseToStockList();
     getStockInfoFromSina();
     setTimeout(function() {
-        initPageDataAndShowMyStockList();
+        initStockDataTableList();
     }, g_intervalBeforeShowStockList);
 });
 
 function getStockInfoFromSina(){
+    var sinaStockCodes = getSinaStockCodes();
+    addSinaStockScriptElement(sinaStockCodes);
+}
+
+function getSinaStockCodes(){
     var sinaStockCodes = "";
     for (var code in g_myStockList){
         sinaStockCodes += code + ",";
@@ -35,10 +40,10 @@ function getStockInfoFromSina(){
     }else{
         sinaStockCodes += "," + g_shangHaiCode;
     }
-    generateScriptElementAndAppendToHead(sinaStockCodes);
+    return sinaStockCodes;
 }
 
-function generateScriptElementAndAppendToHead(sinaStockCodes){
+function addSinaStockScriptElement(sinaStockCodes){
     var customScriptElement = document.createElement("script");
     customScriptElement.type = "text/javascript";
     customScriptElement.src = "http://hq.sinajs.cn/list=" + sinaStockCodes;
@@ -47,12 +52,26 @@ function generateScriptElementAndAppendToHead(sinaStockCodes){
     headElement.appendChild(customScriptElement);
 }
 
-function initPageDataAndShowMyStockList(){
+function removeSinaStockScriptElement(){
+    $("script[charset]").remove();
+}
+
+function initStockDataTableList(){
+    getLatestStockDataFromSinaAndFillTableList();
+    updateStockDataBetweenTradeTime();
+}
+
+function updateStockDataTableList(){
+    removeSinaStockScriptElement();
+    getLatestStockDataFromSinaAndFillTableList();
+}
+
+function getLatestStockDataFromSinaAndFillTableList(){
+    getStockInfoFromSina();
     checkTradeTimeStatus();
     showUpdateTimeTitle();
     parseSinaStockDataAndInsertIntoTableList();
     showPageTitle();
-    reloadPageBetweenTradeTime();
 }
 
 function checkTradeTimeStatus(){
@@ -70,11 +89,11 @@ function readStockDataFromCookieAndParseToStockList(){
     }catch(e){}
 }
 
-function reloadPageBetweenTradeTime(){
+function updateStockDataBetweenTradeTime(){
     if (g_isTradeTime) {
-        setTimeout(
+        setInterval(
             function () {
-                reloadPage();
+                updateStockDataTableList();
             },
             g_freshIntervalMillisecond
         );
@@ -82,9 +101,16 @@ function reloadPageBetweenTradeTime(){
 }
 
 function parseSinaStockDataAndInsertIntoTableList() {
+    resetMyStockDataTableList();
     addStockInfoIntoTableList("hq_str_" + g_shangHaiCode, g_shangHaiCode);  // default add shanghai code item
     for(var stockItemCode in g_myStockList){
         addStockInfoIntoTableList("hq_str_" + stockItemCode, stockItemCode);
+    }
+}
+
+function resetMyStockDataTableList(){
+    if ($("#iTbl_stockInfoList tr").length > 1){
+        $("#iTbl_stockInfoList tr:gt(0)").remove();
     }
 }
 
@@ -93,38 +119,40 @@ function reloadPage(){
 }
 
 function addStockInfoIntoTableList(stockDataVarName, stockCode){
-    var elements = window[stockDataVarName].split(",");
-    var name = elements[0];
-    var todayOpenPrice = elements[1];
-    var yesterdayClosePrice = elements[2];
-    var currentPrice = elements[3];
-    var todayMaxPrice = elements[4];
-    var todayMinPrice = elements[5];
-    var todayPercent = getTodayPercent(yesterdayClosePrice, currentPrice);
-    var todayOpenStatus = getTodayOpenStatus(todayOpenPrice, yesterdayClosePrice);
-    var holdStockDays = getHoldStockDaysNum(stockCode);
-    var totalPercent = getTotalPercent(stockCode, currentPrice);
-    var tdClassName4TodayOpenStatus = getTdClassName4TodayOpenStatus(todayOpenPrice, yesterdayClosePrice);
-    var tdClassName4TodayIncrease = getTdClassName4TodayIncrease(currentPrice, todayOpenPrice);
-    var tdClassName4TotalIncrease = getTdClassName4TotalIncrease(stockCode, currentPrice);
+    if (stockDataVarName in window) {
+        var elements = window[stockDataVarName].split(",");
+        var name = elements[0];
+        var todayOpenPrice = elements[1];
+        var yesterdayClosePrice = elements[2];
+        var currentPrice = elements[3];
+        var todayMaxPrice = elements[4];
+        var todayMinPrice = elements[5];
+        var todayPercent = getTodayPercent(yesterdayClosePrice, currentPrice);
+        var todayOpenStatus = getTodayOpenStatus(todayOpenPrice, yesterdayClosePrice);
+        var holdStockDays = getHoldStockDaysNum(stockCode);
+        var totalPercent = getTotalPercent(stockCode, currentPrice);
+        var tdClassName4TodayOpenStatus = getTdClassName4TodayOpenStatus(todayOpenPrice, yesterdayClosePrice);
+        var tdClassName4TodayIncrease = getTdClassName4TodayIncrease(currentPrice, todayOpenPrice);
+        var tdClassName4TotalIncrease = getTdClassName4TotalIncrease(stockCode, currentPrice);
 
-    var stockInfoTdHtmlString = generateStockInfoTrHtmlString(
-        stockCode,
-        name,
-        currentPrice,
-        todayPercent,
-        todayOpenStatus,
-        todayOpenPrice,
-        yesterdayClosePrice,
-        todayMinPrice,
-        todayMaxPrice,
-        holdStockDays,
-        totalPercent,
-        tdClassName4TodayIncrease,
-        tdClassName4TodayOpenStatus,
-        tdClassName4TotalIncrease
-    );
-    $("#iTbl_stockInfoList tbody").append($(stockInfoTdHtmlString));
+        var stockInfoTdHtmlString = generateStockInfoTrHtmlString(
+            stockCode,
+            name,
+            currentPrice,
+            todayPercent,
+            todayOpenStatus,
+            todayOpenPrice,
+            yesterdayClosePrice,
+            todayMinPrice,
+            todayMaxPrice,
+            holdStockDays,
+            totalPercent,
+            tdClassName4TodayIncrease,
+            tdClassName4TodayOpenStatus,
+            tdClassName4TotalIncrease
+        );
+        $("#iTbl_stockInfoList tbody").append($(stockInfoTdHtmlString));
+    }
 }
 
 function showUpdateTimeTitle(){
@@ -133,9 +161,12 @@ function showUpdateTimeTitle(){
 }
 
 function showPageTitle(){
-    var currentSHPrice = (window["hq_str_sh000001"].split(","))[3];
-    if (currentSHPrice != ""){
-        document.title = "上证指数：" + currentSHPrice;
+    var shangHaiVarName = "hq_str_" + g_shangHaiCode;
+    if (shangHaiVarName in window) {
+        var currentSHPrice = (window[shangHaiVarName].split(","))[3];
+        if (currentSHPrice != "") {
+            document.title = "上证指数：" + currentSHPrice;
+        }
     }
 }
 
@@ -351,7 +382,6 @@ function removeStockItemFromCookie(stockCode){
     if (stockCode in g_myStockList){
         delete g_myStockList[stockCode];
     }
-
     g_myStockDataInCookie = generateStockDataByList();
     addStockDataToCookie();
     reloadPage();
@@ -400,7 +430,6 @@ function addTestData(){
     g_myStockList["sh603288"] = new StockData("sh603288", "海天味业", "42.341", "2014-12-03");
     g_myStockList["sh600509"] = new StockData("sh600509", "天富能源", "10.581", "2014-12-16");
     g_myStockList["sz000099"] = new StockData("sz000099", "中信海直", "14.62", "2014-12-22");
-    g_myStockList["sh600339"] = new StockData("sh600339", "天利高新", "6.151", "2014-12-29");
     g_myStockList["sh601117"] = new StockData("sh601117", "中国化学", "9.439", "2015-01-06");
     g_myStockList["sz000837"] = new StockData("sz000837", "秦川机床", "11.115", "2015-01-12");
     g_myStockList["sh600597"] = new StockData("sh600597", "光明乳业", "18.311", "2015-01-14");

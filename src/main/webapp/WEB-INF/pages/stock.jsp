@@ -69,7 +69,7 @@
   </table>
   <br/>
   <input id="iIpt_AddStockToCookie_btn" type="button" onclick="checkAndSaveStockData()" value="添加该自选股" />
-  <%--<input id="" type="button" onclick="addTestData()" value="测试数据" />--%>
+  <%--<input id="" type="button" onclick="updateSinaData4Test()" value="更新数据" />--%>
 </div>
 </body>
 </html>
