@@ -59,13 +59,6 @@
         &nbsp;<span class="cSpan_comment">如：2015-01-11</span>
       </td>
     </tr>
-    <tr>
-      <td>买入股数：</td>
-      <td>
-        <input id="iIpt_buyNumber" type="number" />
-        &nbsp;<span class="cSpan_comment">如：1000</span>
-      </td>
-    </tr>
   </table>
   <br/>
   <input id="iIpt_AddStockToCookie_btn" type="button" onclick="checkAndSaveStockData()" value="添加该自选股" />

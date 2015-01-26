@@ -334,10 +334,9 @@ function checkAndSaveStockData(){
     var stockCode = $("#iIpt_stockCode").val();
     var buyPrice = $("#iIpt_buyPrice").val();
     var buyDate = $("#iIpt_buyDate").val();
-    var buyNumber = $("#iIpt_buyNumber").val();
 
-    if (checkUserInputStockData(stockCode, buyPrice, buyDate, buyNumber)){
-        updateGlobalStockData(stockCode, buyPrice, buyDate, buyNumber);
+    if (checkUserInputStockData(stockCode, buyPrice, buyDate)){
+        updateGlobalStockData(stockCode, buyPrice, buyDate);
         addStockDataToCookie();
         reloadPage();
     } else {
@@ -346,17 +345,17 @@ function checkAndSaveStockData(){
     resetAllInputControls();
 }
 
-function checkUserInputStockData(stockCode, buyPrice, buyDate, buyNumber){
+function checkUserInputStockData(stockCode, buyPrice, buyDate){
     var passStatus = true;
-    if(stockCode != "" && buyPrice != "" && buyDate != "" && buyNumber != ""){
+    if(stockCode != "" && buyPrice != "" && buyDate != ""){
 
     }
     return passStatus;
 }
 
-function updateGlobalStockData(stockCode, buyPrice, buyDate, buyNumber){
-    var newStockItemData = stockCode + "," + buyPrice + "," + buyDate + "," + buyNumber;
-    if (g_myStockDataInCookie == ""){
+function updateGlobalStockData(stockCode, buyPrice, buyDate){
+    var newStockItemData = stockCode + "," + buyPrice + "," + buyDate;
+    if (g_myStockDataInCookie == "" || g_myStockDataInCookie == undefined){
         g_myStockDataInCookie = newStockItemData;
     } else {
         g_myStockDataInCookie += ";" + newStockItemData;
@@ -371,11 +370,11 @@ function resetAllInputControls(){
     $("#iIpt_stockCode").val("");
     $("#iIpt_buyPrice").val("");
     $("#iIpt_buyDate").val("");
-    $("#iIpt_buyNumber").val("");
 }
 
 function readStockDataFromCookie(){
-    g_myStockDataInCookie = $.cookie("user_stock_data");
+    var stockDataInCookie =  $.cookie("user_stock_data");
+    g_myStockDataInCookie = (stockDataInCookie == undefined) ? "" : stockDataInCookie;
 }
 
 function removeStockItemFromCookie(stockCode){
