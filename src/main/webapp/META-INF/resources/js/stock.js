@@ -10,6 +10,7 @@ function StockData(stockCode, stockName, buyPrice, buyDate){
 var g_NaN = "--";
 var g_freshIntervalMillisecond = 5000;
 var g_intervalBeforeShowStockList = 100;
+var g_cookieSavedDaysNum = 90;
 var g_shangHaiCode = "sh000001";
 var g_isTradeTime = false;
 var g_myStockDataInCookie = "";
@@ -132,7 +133,7 @@ function addStockInfoIntoTableList(stockDataVarName, stockCode){
         var holdStockDays = getHoldStockDaysNum(stockCode);
         var totalPercent = getTotalPercent(stockCode, currentPrice);
         var tdClassName4TodayOpenStatus = getTdClassName4TodayOpenStatus(todayOpenPrice, yesterdayClosePrice);
-        var tdClassName4TodayIncrease = getTdClassName4TodayIncrease(currentPrice, todayOpenPrice);
+        var tdClassName4TodayIncrease = getTdClassName4TodayIncrease(currentPrice, yesterdayClosePrice);
         var tdClassName4TotalIncrease = getTdClassName4TotalIncrease(stockCode, currentPrice);
 
         var stockInfoTdHtmlString = generateStockInfoTrHtmlString(
@@ -254,8 +255,8 @@ function getTdClassName4TodayOpenStatus(todayOpenPrice, yesterdayClosePrice){
     return getTdClassNameByPrice(todayOpenPrice, yesterdayClosePrice);
 }
 
-function getTdClassName4TodayIncrease(currentPrice, todayOpenPrice){
-    return getTdClassNameByPrice(currentPrice, todayOpenPrice);
+function getTdClassName4TodayIncrease(currentPrice, yesterdayClosePrice){
+    return getTdClassNameByPrice(currentPrice, yesterdayClosePrice);
 }
 
 function getTdClassName4TotalIncrease(stockCode, currentPrice){
@@ -363,7 +364,7 @@ function updateGlobalStockData(stockCode, buyPrice, buyDate){
 }
 
 function addStockDataToCookie(){
-    $.cookie("user_stock_data", g_myStockDataInCookie, { expires:7 });
+    $.cookie("user_stock_data", g_myStockDataInCookie, { expires: g_cookieSavedDaysNum });
 }
 
 function resetAllInputControls(){
