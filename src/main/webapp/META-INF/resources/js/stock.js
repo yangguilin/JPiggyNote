@@ -15,6 +15,8 @@ var g_shangHaiCode = "sh000001";
 var g_isTradeTime = false;
 var g_myStockDataInCookie = "";
 var g_myStockList = {};
+var g_shangHaiCurrentPrice = "";
+var g_shangHaiYesterdayPrice = "";
 
 
 $(document).ready(function(){
@@ -69,10 +71,8 @@ function updateStockDataTableList(){
 
 function getLatestStockDataFromSinaAndFillTableList(){
     getStockInfoFromSina();
-    checkTradeTimeStatus();
-    showUpdateTimeTitle();
+    updateTableTitleAndDocumentTitle();
     parseSinaStockDataAndInsertIntoTableList();
-    showPageTitle();
 }
 
 function checkTradeTimeStatus(){
@@ -103,7 +103,6 @@ function updateStockDataBetweenTradeTime(){
 
 function parseSinaStockDataAndInsertIntoTableList() {
     resetMyStockDataTableList();
-    addStockInfoIntoTableList("hq_str_" + g_shangHaiCode, g_shangHaiCode);  // default add shanghai code item
     for(var stockItemCode in g_myStockList){
         addStockInfoIntoTableList("hq_str_" + stockItemCode, stockItemCode);
     }
@@ -156,17 +155,34 @@ function addStockInfoIntoTableList(stockDataVarName, stockCode){
     }
 }
 
-function showUpdateTimeTitle(){
-    var titleText = getCurrentTime() + " | " + (g_isTradeTime ? "交易时间" : "闭市时间");
-    $("#iSpan_currentTime").text(titleText);
+function updateTableTitleAndDocumentTitle(){
+    checkTradeTimeStatus();
+    getShangHaiCurrentPrice();
+
+    var tableTitleText4Time = getCurrentTime() + " - [ " + (g_isTradeTime ? "交易时间" : "闭市时间") + " ]";
+    $("#iSpan_currentTime").text(tableTitleText4Time);
+    var tableTitleText4ShangHaiPrice = g_shangHaiCurrentPrice + " - [ "
+                            + getTodayPercent(g_shangHaiYesterdayPrice, g_shangHaiCurrentPrice) + " ]";
+    var shangHaiPriceStatus = getTdClassName4TodayIncrease(g_shangHaiCurrentPrice, g_shangHaiYesterdayPrice);
+    $("#iSpan_shangHaiZhiShu").attr("class", shangHaiPriceStatus).text(tableTitleText4ShangHaiPrice);
+
+    showPageTitle();
 }
 
 function showPageTitle(){
+    document.title = "上证指数：" + g_shangHaiCurrentPrice;
+}
+
+function getShangHaiCurrentPrice(){
     var shangHaiVarName = "hq_str_" + g_shangHaiCode;
     if (shangHaiVarName in window) {
-        var currentSHPrice = (window[shangHaiVarName].split(","))[3];
-        if (currentSHPrice != "") {
-            document.title = "上证指数：" + currentSHPrice;
+        var shangHaiData = window[shangHaiVarName];
+        if (shangHaiData != null && shangHaiData != undefined){
+            var arr = shangHaiData.split(",");
+            if (arr != "" && arr.length > 1) {
+                g_shangHaiCurrentPrice = arr[3];
+                g_shangHaiYesterdayPrice = arr[2];
+            }
         }
     }
 }
@@ -309,12 +325,7 @@ function generateStockInfoTrHtmlString(stockCode,
         tdClassName4TodayOpenStatus = "cTd_balanceStatus";
         tdClassName4TotalIncrease = getTdClassName4TotalIncrease(stockCode, yesterdayClosePrice);
     }
-    var procPanelHtmlString = "<a href='#' onclick='removeStockItemFromCookie(\"" + stockCode + "\")'>取消关注</a>";
-    if (stockCode  == g_shangHaiCode){
-        holdStockDays = g_NaN;
-        totalPercent = g_NaN;
-        procPanelHtmlString = "";
-    }
+    var procPanelHtmlString = "<a href='#' onclick='removeStockItemFromCookie(\"" + stockCode + "\")'>取消</a>";
 
     return "<tr class='cTr_data'>"
         + "<td>" + stockCode + " | " + name + "</td>"

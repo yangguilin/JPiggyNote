@@ -20,6 +20,9 @@
   <div id="iDiv_updateTime">
     <span>更新时间：</span>
     <span id="iSpan_currentTime"></span>
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    <span>上证指数：</span>
+    <span id="iSpan_shangHaiZhiShu"></span>
   </div>
   <table id="iTbl_stockInfoList">
     <tr class="cTr_title">
