@@ -23,12 +23,15 @@
     &nbsp;&nbsp;|&nbsp;&nbsp;
     <span>上证指数：</span>
     <span id="iSpan_shangHaiZhiShu"></span>
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    <span class="cSpan_button" onclick="clearAllStockItemInCookie()">[清空列表]</span>
+    <span id="iSpan_showMoreColumns" class="cSpan_button" onclick="showStockDetailColumnsInTable()">[详细模式]</span>
   </div>
   <table id="iTbl_stockInfoList">
     <tr class="cTr_title">
       <td class="cTd_stockNameAndCode">股票名称</td>
       <td>当前价格</td>
-      <td>涨幅比例</td>
+      <td>今日涨幅</td>
       <td>开盘状态</td>
       <td>今日开盘</td>
       <td>昨日收盘</td>
@@ -58,14 +61,16 @@
     <tr>
       <td>买入日期：</td>
       <td>
-        <input id="iIpt_buyDate" type="date" />
+        <input id="iIpt_buyDate" type="text" />
         &nbsp;<span class="cSpan_comment">如：2015-01-11</span>
       </td>
     </tr>
+    <tr>
+      <td class="cTd_addStockButton_c" colspan="2">
+        <span class="cSpan_button" onclick="checkAndSaveStockData()">[添加自选股]</span>
+      </td>
+    </tr>
   </table>
-  <br/>
-  <input id="iIpt_AddStockToCookie_btn" type="button" onclick="checkAndSaveStockData()" value="添加该自选股" />
-  <%--<input id="" type="button" onclick="updateSinaData4Test()" value="更新数据" />--%>
 </div>
 </body>
 </html>

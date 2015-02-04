@@ -12,6 +12,8 @@ var g_freshIntervalMillisecond = 5000;
 var g_intervalBeforeShowStockList = 100;
 var g_cookieSavedDaysNum = 90;
 var g_shangHaiCode = "sh000001";
+var g_userCookieName = "user_stock_data";
+var g_stockDetailColumnsIndex = "4,5,6,7,8";
 var g_isTradeTime = false;
 var g_myStockDataInCookie = "";
 var g_myStockList = {};
@@ -20,12 +22,21 @@ var g_shangHaiYesterdayPrice = "";
 
 
 $(document).ready(function(){
+    initPageDefaultJsEvents();
     readStockDataFromCookieAndParseToStockList();
     getStockInfoFromSina();
     setTimeout(function() {
         initStockDataTableList();
     }, g_intervalBeforeShowStockList);
 });
+
+function initPageDefaultJsEvents(){
+    $(".cSpan_button").mouseover(function(){
+        $(this).addClass("cSpan_mouseOverButton");
+    }).mouseout(function(){
+        $(this).removeClass("cSpan_mouseOverButton");
+    });
+}
 
 function getStockInfoFromSina(){
     var sinaStockCodes = getSinaStockCodes();
@@ -102,13 +113,13 @@ function updateStockDataBetweenTradeTime(){
 }
 
 function parseSinaStockDataAndInsertIntoTableList() {
-    resetMyStockDataTableList();
+    clearMyStockDataTableList();
     for(var stockItemCode in g_myStockList){
         addStockInfoIntoTableList("hq_str_" + stockItemCode, stockItemCode);
     }
 }
 
-function resetMyStockDataTableList(){
+function clearMyStockDataTableList(){
     if ($("#iTbl_stockInfoList tr").length > 1){
         $("#iTbl_stockInfoList tr:gt(0)").remove();
     }
@@ -325,7 +336,7 @@ function generateStockInfoTrHtmlString(stockCode,
         tdClassName4TodayOpenStatus = "cTd_balanceStatus";
         tdClassName4TotalIncrease = getTdClassName4TotalIncrease(stockCode, yesterdayClosePrice);
     }
-    var procPanelHtmlString = "<a href='#' onclick='removeStockItemFromCookie(\"" + stockCode + "\")'>取消</a>";
+    var procPanelHtmlString = "<a href='#' onclick='removeStockItemFromCookie(\"" + stockCode + "\")'>[取消]</a>";
 
     return "<tr class='cTr_data'>"
         + "<td>" + stockCode + " | " + name + "</td>"
@@ -351,16 +362,29 @@ function checkAndSaveStockData(){
         updateGlobalStockData(stockCode, buyPrice, buyDate);
         addStockDataToCookie();
         reloadPage();
-    } else {
-        alert("信息输入有误，请重新输入。");
     }
     resetAllInputControls();
 }
 
 function checkUserInputStockData(stockCode, buyPrice, buyDate){
-    var passStatus = true;
-    if(stockCode != "" && buyPrice != "" && buyDate != ""){
+    var passStatus = false;
+    var errorMsg = "";
+    var stockCodeReg = /^(sz|SZ|sh|SH)\d{6}$/;
+    var priceReg = /^\d+(.\d{0,3})$/;
+    var dateReg = /^\d{4}-\d{2}-\d{2}$/;
 
+    if(stockCode == "" || !stockCodeReg.test(stockCode)){
+        errorMsg = "股票代码输入有误，是不是忘了前缀了？";
+    } else if (buyPrice == "" || !priceReg.test(buyPrice)){
+        errorMsg = "买入价格输入有误";
+    } else if (buyDate == "" || !dateReg.test(buyDate)){
+        errorMsg = "买入日期输入有误";
+    } else {
+        passStatus = true;
+    }
+
+    if (!passStatus && errorMsg != ""){
+        alert(errorMsg);
     }
     return passStatus;
 }
@@ -375,7 +399,7 @@ function updateGlobalStockData(stockCode, buyPrice, buyDate){
 }
 
 function addStockDataToCookie(){
-    $.cookie("user_stock_data", g_myStockDataInCookie, { expires: g_cookieSavedDaysNum });
+    $.cookie(g_userCookieName, g_myStockDataInCookie, { expires: g_cookieSavedDaysNum });
 }
 
 function resetAllInputControls(){
@@ -385,8 +409,8 @@ function resetAllInputControls(){
 }
 
 function readStockDataFromCookie(){
-    var stockDataInCookie =  $.cookie("user_stock_data");
-    g_myStockDataInCookie = (stockDataInCookie == undefined) ? "" : stockDataInCookie;
+    var stockDataInCookie =  $.cookie(g_userCookieName);
+    g_myStockDataInCookie = (stockDataInCookie == undefined || stockDataInCookie == null) ? "" : stockDataInCookie;
 }
 
 function removeStockItemFromCookie(stockCode){
@@ -396,6 +420,13 @@ function removeStockItemFromCookie(stockCode){
     g_myStockDataInCookie = generateStockDataByList();
     addStockDataToCookie();
     reloadPage();
+}
+
+function clearAllStockItemInCookie(){
+    if (confirm("确定要清空本地全部自选股信息么？")){
+        $.cookie(g_userCookieName, "");
+        reloadPage();
+    }
 }
 
 function parseStockDataIntoList(){
@@ -434,6 +465,28 @@ function removeLastWord4String(str){
     return finalStr;
 }
 
+function showStockDetailColumnsInTable(){
+    var arr = g_stockDetailColumnsIndex.split(",");
+    for (var i = 0; i < arr.length; i++){
+        $("#iTbl_stockInfoList tr td:nth-child(" + arr[i] + ")").show();
+    }
+    $("#iSpan_showMoreColumns")
+        .unbind("click", showStockDetailColumnsInTable)
+        .text("[精简模式]")
+        .bind("click", hideStockDetailColumnsInTable);
+}
+
+function hideStockDetailColumnsInTable(){
+    var arr = g_stockDetailColumnsIndex.split(",");
+    for (var i = 0; i < arr.length; i++){
+        $("#iTbl_stockInfoList tr td:nth-child(" + arr[i] + ")").hide();
+    }
+    $("#iSpan_showMoreColumns")
+        .unbind("click")
+        .text("[详细模式]", hideStockDetailColumnsInTable)
+        .bind("click", showStockDetailColumnsInTable);
+}
+
 
 /* function for test */
 function addTestData(){
@@ -441,7 +494,6 @@ function addTestData(){
     g_myStockList["sh603288"] = new StockData("sh603288", "海天味业", "42.341", "2014-12-03");
     g_myStockList["sh600509"] = new StockData("sh600509", "天富能源", "10.581", "2014-12-16");
     g_myStockList["sz000099"] = new StockData("sz000099", "中信海直", "14.62", "2014-12-22");
-    g_myStockList["sh601117"] = new StockData("sh601117", "中国化学", "9.439", "2015-01-06");
     g_myStockList["sz000837"] = new StockData("sz000837", "秦川机床", "11.115", "2015-01-12");
     g_myStockList["sh600597"] = new StockData("sh600597", "光明乳业", "18.311", "2015-01-14");
     g_myStockDataInCookie = generateStockDataByList();

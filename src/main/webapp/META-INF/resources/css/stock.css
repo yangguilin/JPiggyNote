@@ -14,12 +14,6 @@ a{ text-decoration: none; }
     padding:10px 20px;
 }
 #iIpt_stockCode, #iIpt_stockName, #iIpt_buyPrice, #iIpt_buyDate { padding-left: 10px; height: 16px; width:120px; }
-#iIpt_AddStockToCookie_btn {
-    width:120px;
-    font-size: 14px;
-    height:30px;
-    margin-left: 50px;
-}
 #iTbl_stockInfoList tr td:nth-child(4), #iTbl_stockInfoList tr td:nth-child(5),
 #iTbl_stockInfoList tr td:nth-child(6), #iTbl_stockInfoList tr td:nth-child(7),
 #iTbl_stockInfoList tr td:nth-child(8) { display:none; }
@@ -39,3 +33,6 @@ td.cTd_stockNameAndCode { width:150px; }
 .cTd_balanceStatus { color:gray }
 .cTd_downStatus { color:green; }
 span.cSpan_comment { font-size: 12px; color:gray; }
+.cSpan_button { cursor:pointer; }
+.cSpan_mouseOverButton { font-weight: bold; color:darkred; }
+.cTd_addStockButton_c { text-align: center; padding-top:10px;}
