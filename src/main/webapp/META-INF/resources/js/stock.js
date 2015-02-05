@@ -14,11 +14,14 @@ var g_cookieSavedDaysNum = 90;
 var g_shangHaiCode = "sh000001";
 var g_userCookieName = "user_stock_data";
 var g_stockDetailColumnsIndex = "4,5,6,7,8";
+var g_sinaStockVarPrefix = "hq_str_";
+var g_showStockDetailColumnsStatus = false;
 var g_isTradeTime = false;
 var g_myStockDataInCookie = "";
 var g_myStockList = {};
 var g_shangHaiCurrentPrice = "";
 var g_shangHaiYesterdayPrice = "";
+var g_isTestMode = true;
 
 
 $(document).ready(function(){
@@ -102,10 +105,11 @@ function readStockDataFromCookieAndParseToStockList(){
 }
 
 function updateStockDataBetweenTradeTime(){
-    if (g_isTradeTime) {
+    if (g_isTradeTime || g_isTestMode) {
         setInterval(
             function () {
                 updateStockDataTableList();
+                controlStockDetailColumnsByStatus();
             },
             g_freshIntervalMillisecond
         );
@@ -115,7 +119,7 @@ function updateStockDataBetweenTradeTime(){
 function parseSinaStockDataAndInsertIntoTableList() {
     clearMyStockDataTableList();
     for(var stockItemCode in g_myStockList){
-        addStockInfoIntoTableList("hq_str_" + stockItemCode, stockItemCode);
+        addStockInfoIntoTableList(stockItemCode);
     }
 }
 
@@ -129,8 +133,9 @@ function reloadPage(){
     window.location.reload();
 }
 
-function addStockInfoIntoTableList(stockDataVarName, stockCode){
-    if (stockDataVarName in window) {
+function addStockInfoIntoTableList(stockCode){
+    var stockDataVarName = g_sinaStockVarPrefix + stockCode;
+    if (checkStockCodeAvailable(stockDataVarName)) {
         var elements = window[stockDataVarName].split(",");
         var name = elements[0];
         var todayOpenPrice = elements[1];
@@ -163,7 +168,14 @@ function addStockInfoIntoTableList(stockDataVarName, stockCode){
             tdClassName4TotalIncrease
         );
         $("#iTbl_stockInfoList tbody").append($(stockInfoTdHtmlString));
+    } else {
+        alert("股票代号【" + stockCode + "】不存在，请重新输入！");
+        removeStockItemFromCookie(stockCode);
     }
+}
+
+function checkStockCodeAvailable(stockDataVarName){
+    return ((stockDataVarName in window) && (window[stockDataVarName] != ""));
 }
 
 function updateTableTitleAndDocumentTitle(){
@@ -336,7 +348,8 @@ function generateStockInfoTrHtmlString(stockCode,
         tdClassName4TodayOpenStatus = "cTd_balanceStatus";
         tdClassName4TotalIncrease = getTdClassName4TotalIncrease(stockCode, yesterdayClosePrice);
     }
-    var procPanelHtmlString = "<a href='#' onclick='removeStockItemFromCookie(\"" + stockCode + "\")'>[取消]</a>";
+    var procPanelHtmlString = "<a href='#' onclick='confirmAndRemoveCurrentStockItem(\"" + stockCode + "\")'>[删除]</a>&nbsp;&nbsp;&nbsp;&nbsp;"
+        + "<a href='#' onclick='showUpdateStockInfoPanel(\"" + stockCode + "\")'>[设置]</a>";
 
     return "<tr class='cTr_data'>"
         + "<td>" + stockCode + " | " + name + "</td>"
@@ -359,11 +372,18 @@ function checkAndSaveStockData(){
     var buyDate = $("#iIpt_buyDate").val();
 
     if (checkUserInputStockData(stockCode, buyPrice, buyDate)){
-        updateGlobalStockData(stockCode, buyPrice, buyDate);
-        addStockDataToCookie();
-        reloadPage();
+        addStockDataToCookieAndRefreshPage(stockCode, buyPrice, buyDate);
     }
-    resetAllInputControls();
+}
+
+function checkAndUpdateStockData(){
+    var stockCode = $("#iSpan_currentUpdateStockCode").text();
+    var buyPrice = $("#iIpt_currentUpdateStockBuyPrice").val();
+    var buyDate = $("#iIpt_currentUpdateStockBuyDate").val();
+
+    if (checkUserInputStockData(stockCode, buyPrice, buyDate)){
+        addStockDataToCookieAndRefreshPage(stockCode, buyPrice, buyDate);
+    }
 }
 
 function checkUserInputStockData(stockCode, buyPrice, buyDate){
@@ -398,10 +418,6 @@ function updateGlobalStockData(stockCode, buyPrice, buyDate){
     }
 }
 
-function addStockDataToCookie(){
-    $.cookie(g_userCookieName, g_myStockDataInCookie, { expires: g_cookieSavedDaysNum });
-}
-
 function resetAllInputControls(){
     $("#iIpt_stockCode").val("");
     $("#iIpt_buyPrice").val("");
@@ -413,13 +429,21 @@ function readStockDataFromCookie(){
     g_myStockDataInCookie = (stockDataInCookie == undefined || stockDataInCookie == null) ? "" : stockDataInCookie;
 }
 
+function addStockDataToCookie(){
+    $.cookie(g_userCookieName, g_myStockDataInCookie, { expires: g_cookieSavedDaysNum });
+}
+
 function removeStockItemFromCookie(stockCode){
     if (stockCode in g_myStockList){
         delete g_myStockList[stockCode];
+        updateStockDataToCookieAndRefreshPage();
     }
-    g_myStockDataInCookie = generateStockDataByList();
-    addStockDataToCookie();
-    reloadPage();
+}
+
+function confirmAndRemoveCurrentStockItem(stockCode){
+    if (confirm("确定要取消对自选股【" + stockCode + "】的关注么？")){
+        removeStockItemFromCookie(stockCode);
+    }
 }
 
 function clearAllStockItemInCookie(){
@@ -427,6 +451,25 @@ function clearAllStockItemInCookie(){
         $.cookie(g_userCookieName, "");
         reloadPage();
     }
+}
+
+function updateStockItemToCookie(stockCode, buyPrice, buyDate){
+    if (stockCode != "" && buyPrice != "" && buyDate != ""){
+        g_myStockList[stockCode] = new StockData(stockCode, "", buyPrice, buyDate);
+        updateStockDataToCookieAndRefreshPage();
+    }
+}
+
+function addStockDataToCookieAndRefreshPage(stockCode, buyPrice, buyDate){
+    updateGlobalStockData(stockCode, buyPrice, buyDate);
+    addStockDataToCookie();
+    reloadPage();
+}
+
+function updateStockDataToCookieAndRefreshPage(){
+    generateStockDataByList();
+    addStockDataToCookie();
+    reloadPage();
 }
 
 function parseStockDataIntoList(){
@@ -454,7 +497,7 @@ function generateStockDataByList(){
     if (allStockDataValue != ""){
         allStockDataValue = allStockDataValue.substring(0, allStockDataValue.length - 1);
     }
-    return allStockDataValue;
+    g_myStockDataInCookie = allStockDataValue;
 }
 
 function removeLastWord4String(str){
@@ -466,26 +509,85 @@ function removeLastWord4String(str){
 }
 
 function showStockDetailColumnsInTable(){
-    var arr = g_stockDetailColumnsIndex.split(",");
-    for (var i = 0; i < arr.length; i++){
-        $("#iTbl_stockInfoList tr td:nth-child(" + arr[i] + ")").show();
-    }
-    $("#iSpan_showMoreColumns")
-        .unbind("click", showStockDetailColumnsInTable)
-        .text("[精简模式]")
-        .bind("click", hideStockDetailColumnsInTable);
+    g_showStockDetailColumnsStatus = true;
+    controlStockDetailColumnsByStatus();
 }
 
 function hideStockDetailColumnsInTable(){
-    var arr = g_stockDetailColumnsIndex.split(",");
-    for (var i = 0; i < arr.length; i++){
-        $("#iTbl_stockInfoList tr td:nth-child(" + arr[i] + ")").hide();
-    }
-    $("#iSpan_showMoreColumns")
-        .unbind("click")
-        .text("[详细模式]", hideStockDetailColumnsInTable)
-        .bind("click", showStockDetailColumnsInTable);
+    g_showStockDetailColumnsStatus = false;
+    controlStockDetailColumnsByStatus();
 }
+
+function controlStockDetailColumnsByStatus(){
+    var arr = g_stockDetailColumnsIndex.split(",");
+        for (var i = 0; i < arr.length; i++){
+            var $tds = $("#iTbl_stockInfoList tr td:nth-child(" + arr[i] + ")");
+            if (g_showStockDetailColumnsStatus){
+                $tds.show();
+                $("#iSpan_showMoreColumns")
+                    .unbind("click", showStockDetailColumnsInTable)
+                    .text("[精简模式]")
+                    .bind("click", hideStockDetailColumnsInTable);
+            } else {
+                $tds.hide();
+                $("#iSpan_showMoreColumns")
+                    .unbind("click")
+                    .text("[详细模式]", hideStockDetailColumnsInTable)
+                    .bind("click", showStockDetailColumnsInTable);
+            }
+        }
+}
+
+function showAddSelectedStockPanel(){
+    showBackgroundCoverLayer();
+    showProcPanelById("iDiv_addSelectedStockPanel_c");
+}
+
+function showUpdateStockInfoPanel(stockCode){
+    showBackgroundCoverLayer();
+    showProcPanelById("iDiv_updateStockInfoPanel_c");
+    autoFillStockInfoToUpdatedPanel(stockCode);
+}
+
+function autoFillStockInfoToUpdatedPanel(stockCode){
+    var currentStockData = g_myStockList[stockCode];
+    $("#iSpan_currentUpdateStockCode").text(stockCode);
+    $("#iIpt_currentUpdateStockBuyPrice").attr("value", currentStockData.buyPrice);
+    $("#iIpt_currentUpdateStockBuyDate").attr("value", currentStockData.buyDate);
+}
+
+function showBackgroundCoverLayer(){
+    var pageHeight = $(document).height();
+    var pageWidth = $(document).width();
+    $("#iDiv_backgroundCoverLayer").css(
+        {
+            "width":pageWidth + "px",
+            "height":pageHeight + "px",
+            "top": "0px",
+            "left":"0px"
+        }
+    ).show();
+}
+
+function showProcPanelById(divId){
+    var $panelObj = $("#" + divId);
+    var panelWidth = 400;
+    var panelHeight = 300;
+    var pageHeight = Number($(document).height());
+    var pageWidth = Number($(document).width());
+    var leftVal = ((pageWidth - panelWidth) / 2) + "px";
+    var topVal = ((pageHeight - panelHeight) / 2) + "px";
+    $panelObj.css({
+        "left" : leftVal,
+        "top" : topVal
+    }).show().siblings(".cDiv_userProcPanel_c").hide();
+}
+
+function hideBackgroundCoverLayerAndProcPanel(){
+    $("#iDiv_backgroundCoverLayer").hide();
+    $(".cDiv_userProcPanel_c").hide();
+}
+
 
 
 /* function for test */
@@ -496,7 +598,7 @@ function addTestData(){
     g_myStockList["sz000099"] = new StockData("sz000099", "中信海直", "14.62", "2014-12-22");
     g_myStockList["sz000837"] = new StockData("sz000837", "秦川机床", "11.115", "2015-01-12");
     g_myStockList["sh600597"] = new StockData("sh600597", "光明乳业", "18.311", "2015-01-14");
-    g_myStockDataInCookie = generateStockDataByList();
+    generateStockDataByList();
     addStockDataToCookie();
     reloadPage();
 }

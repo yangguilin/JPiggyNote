@@ -7,16 +7,21 @@ a{ text-decoration: none; }
 #iTbl_stockInfoList tr:not(.cTr_title) td { height:25px; }
 #iTbl_stockInfoList tr:nth-child(odd) { background-color: #F4F4F4; }
 #iTbl_stockInfoList tr:nth-child(even) { background-color: white; }
-#iDiv_updateTime{
-    color:darkblue;
-    font-weight: bold;
-    font-size: 16px;
-    padding:10px 20px;
-}
 #iIpt_stockCode, #iIpt_stockName, #iIpt_buyPrice, #iIpt_buyDate { padding-left: 10px; height: 16px; width:120px; }
 #iTbl_stockInfoList tr td:nth-child(4), #iTbl_stockInfoList tr td:nth-child(5),
 #iTbl_stockInfoList tr td:nth-child(6), #iTbl_stockInfoList tr td:nth-child(7),
 #iTbl_stockInfoList tr td:nth-child(8) { display:none; }
+#iDiv_backgroundCoverLayer, #iDiv_addSelectedStockPanel_c,
+#iDiv_updateStockInfoPanel_c, #iDiv_addFollowedStockPanel_c { display: none; }
+#iDiv_backgroundCoverLayer {
+    position: absolute;
+    z-index: 99;
+    background-color: gray;
+    filter: alpha(opacity = 70);
+    -moz-opacity: 0.7;
+    -khtml-opacity: 0.7;
+    opacity: 0.7;
+}
 
 
 tr.cTr_title td {
@@ -26,13 +31,43 @@ tr.cTr_title td {
     font-weight: bold;
     background-color: #43BFE3;
 }
-tr.cTr_data td { width:80px; }
+tr.cTr_data td { width:70px; }
 tr.cTr_data td:nth-child(2) { font-weight: bold; }
 td.cTd_stockNameAndCode { width:150px; }
+td.cTd_stockItemProcPanelColumn { width:100px; }
 .cTd_upStatus { color:red; }
 .cTd_balanceStatus { color:gray }
 .cTd_downStatus { color:green; }
 span.cSpan_comment { font-size: 12px; color:gray; }
 .cSpan_button { cursor:pointer; }
 .cSpan_mouseOverButton { font-weight: bold; color:darkred; }
-.cTd_addStockButton_c { text-align: center; padding-top:10px;}
+.cTd_addStockButton_c { text-align: center; padding:5px 30px 10px 0px;}
+.cTbl_userInput_c {
+    border:1px solid gray;
+    border-radius: 5px;
+    width:400px;
+    height:170px;
+}
+.cTbl_userInput_c tr td:nth-child(1) { padding-left: 30px; }
+.cTbl_userInput_c { padding-top: 15px; }
+.cDiv_realTimeInfo_c{
+    color:darkblue;
+    font-weight: bold;
+    font-size: 16px;
+    padding:10px 20px;
+}
+.cDiv_userProcPanel_c {
+    z-index: 100;
+    position: absolute;
+    width:400px;
+    height:170px;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+.cDiv_procPanel_c {
+    padding:10px 20px;
+    font-size: 16px;
+}
+.cDiv_stockInfoList_c {
+    padding:10px 20px;
+}
