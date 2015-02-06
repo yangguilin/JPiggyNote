@@ -18,18 +18,16 @@
 <body>
 <div>
   <div class="cDiv_realTimeInfo_c">
-    <span>更新时间：</span>
+    <span class="cSpan_firstTitle"></span>
+    <span id="iSpan_shangHaiZhiShuTitle">上证指数：</span>
+    <span id="iSpan_shangHaiZhiShu"></span>&nbsp;&nbsp;|&nbsp;
     <span id="iSpan_currentTime"></span>
-    &nbsp;&nbsp;|&nbsp;&nbsp;
-    <span>上证指数：</span>
-    <span id="iSpan_shangHaiZhiShu"></span>
   </div>
   <div class="cDiv_procPanel_c">
-    <span class="cSpan_button" onclick="clearAllStockItemInCookie()">[清空列表]</span>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <span id="iSpan_showMoreColumns" class="cSpan_button" onclick="showStockDetailColumnsInTable()">[详细模式]</span>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <span class="cSpan_button" onclick="showAddSelectedStockPanel()">[添加自选股]</span>
+    <span class="cSpan_firstTitle"></span>
+    <a href="javascript:;" class="grayButton firstGrayButton" onclick="clearAllStockItemInCookie()">清空列表</a>
+    <a id="iA_showMoreColumns" class="grayButton" href="javascript:;" onclick="showStockDetailColumnsInTable()">详细模式</a>
+    <a href="javascript:;" class="grayButton" onclick="showAddSelectedStockPanel()">添加自选股</a>
   </div>
   <div class="cDiv_stockInfoList_c">
     <table id="iTbl_stockInfoList">
@@ -51,7 +49,7 @@
   <br/>
 </div>
 <div id="iDiv_backgroundCoverLayer"></div>
-<div id="iDiv_addSelectedStockPanel_c" class="cDiv_userProcPanel_c">
+<div id="iDiv_addSelectedStockPanel_c" class="cDiv_userProcPanel_c" panelWidth="400" panelHeight="300">
   <table class="cTbl_userInput_c">
     <tr>
       <td>股票代码：</td>
@@ -76,14 +74,13 @@
     </tr>
     <tr>
       <td class="cTd_addStockButton_c" colspan="2">
-        <span class="cSpan_button" onclick="hideBackgroundCoverLayerAndProcPanel()">[取消]</span>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <span class="cSpan_button" onclick="checkAndSaveStockData()">[添加]</span>
+        <a href="javascript:;" class="grayButton firstGrayButton" onclick="hideBackgroundCoverLayerAndProcPanel()">取消</a>
+        <a href="javascript:;" class="grayButton" onclick="checkAndSaveStockData()">添加</a>
       </td>
     </tr>
   </table>
 </div>
-<div id="iDiv_updateStockInfoPanel_c" class="cDiv_userProcPanel_c">
+<div id="iDiv_updateStockInfoPanel_c" class="cDiv_userProcPanel_c" panelWidth="400" panelHeight="300">
   <table class="cTbl_userInput_c">
     <tr>
       <td>股票代码：</td>
@@ -107,9 +104,8 @@
     </tr>
     <tr>
       <td class="cTd_addStockButton_c" colspan="2">
-        <span class="cSpan_button" onclick="hideBackgroundCoverLayerAndProcPanel()">[取消]</span>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <span class="cSpan_button" onclick="checkAndUpdateStockData()">[更新]</span>
+        <a href="javascript:;" class="grayButton firstGrayButton" onclick="hideBackgroundCoverLayerAndProcPanel()">取消</a>
+        <a href="javascript:;" class="grayButton" onclick="checkAndUpdateStockData()">更新</a>
       </td>
     </tr>
   </table>

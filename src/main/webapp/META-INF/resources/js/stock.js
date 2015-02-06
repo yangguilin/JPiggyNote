@@ -21,7 +21,9 @@ var g_myStockDataInCookie = "";
 var g_myStockList = {};
 var g_shangHaiCurrentPrice = "";
 var g_shangHaiYesterdayPrice = "";
-var g_isTestMode = true;
+
+var g_isTestMode = false;
+var g_publishVersion = "1.0.0";
 
 
 $(document).ready(function(){
@@ -168,9 +170,6 @@ function addStockInfoIntoTableList(stockCode){
             tdClassName4TotalIncrease
         );
         $("#iTbl_stockInfoList tbody").append($(stockInfoTdHtmlString));
-    } else {
-        alert("股票代号【" + stockCode + "】不存在，请重新输入！");
-        removeStockItemFromCookie(stockCode);
     }
 }
 
@@ -188,7 +187,7 @@ function updateTableTitleAndDocumentTitle(){
                             + getTodayPercent(g_shangHaiYesterdayPrice, g_shangHaiCurrentPrice) + " ]";
     var shangHaiPriceStatus = getTdClassName4TodayIncrease(g_shangHaiCurrentPrice, g_shangHaiYesterdayPrice);
     $("#iSpan_shangHaiZhiShu").attr("class", shangHaiPriceStatus).text(tableTitleText4ShangHaiPrice);
-
+    $("#iSpan_shangHaiZhiShuTitle").attr("class", shangHaiPriceStatus);
     showPageTitle();
 }
 
@@ -524,15 +523,15 @@ function controlStockDetailColumnsByStatus(){
             var $tds = $("#iTbl_stockInfoList tr td:nth-child(" + arr[i] + ")");
             if (g_showStockDetailColumnsStatus){
                 $tds.show();
-                $("#iSpan_showMoreColumns")
+                $("#iA_showMoreColumns")
                     .unbind("click", showStockDetailColumnsInTable)
-                    .text("[精简模式]")
+                    .text("精简模式")
                     .bind("click", hideStockDetailColumnsInTable);
             } else {
                 $tds.hide();
-                $("#iSpan_showMoreColumns")
+                $("#iA_showMoreColumns")
                     .unbind("click")
-                    .text("[详细模式]", hideStockDetailColumnsInTable)
+                    .text("详细模式", hideStockDetailColumnsInTable)
                     .bind("click", showStockDetailColumnsInTable);
             }
         }
@@ -571,8 +570,8 @@ function showBackgroundCoverLayer(){
 
 function showProcPanelById(divId){
     var $panelObj = $("#" + divId);
-    var panelWidth = 400;
-    var panelHeight = 300;
+    var panelWidth = Number($panelObj.attr("panelWidth"));
+    var panelHeight = Number($panelObj.attr("panelHeight"));
     var pageHeight = Number($(document).height());
     var pageWidth = Number($(document).width());
     var leftVal = ((pageWidth - panelWidth) / 2) + "px";

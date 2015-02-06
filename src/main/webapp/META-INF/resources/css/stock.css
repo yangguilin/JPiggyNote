@@ -1,18 +1,20 @@
 
-body{ font-family: 微软雅黑, 'Microsoft Yahei', 'Hiragino Sans GB', tahoma, arial, 宋体; background-image: url("/img/background.png"); }
+body {
+    font-family: 'Helvetica Neue', 'Luxi Sans', 'DejaVu Sans', Tahoma, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei';
+    background-image: url("/img/background.png");
+}
 a{ text-decoration: none; }
 
-#iTbl_stockInfoList{ font-size: 14px; }
+#iTbl_stockInfoList{ font-size: 12px; }
 #iTbl_stockInfoList tr td { padding: 5px 15px; text-align: right; }
-#iTbl_stockInfoList tr:not(.cTr_title) td { height:25px; }
-#iTbl_stockInfoList tr:nth-child(odd) { background-color: #F4F4F4; }
-#iTbl_stockInfoList tr:nth-child(even) { background-color: white; }
+#iTbl_stockInfoList tr:not(.cTr_title) td { height:22px; }
+#iTbl_stockInfoList tr:nth-child(odd) { background-color: #fff; }
+#iTbl_stockInfoList tr:nth-child(even) { background-color: #f8f9fb; }
 #iIpt_stockCode, #iIpt_stockName, #iIpt_buyPrice, #iIpt_buyDate { padding-left: 10px; height: 16px; width:120px; }
 #iTbl_stockInfoList tr td:nth-child(4), #iTbl_stockInfoList tr td:nth-child(5),
 #iTbl_stockInfoList tr td:nth-child(6), #iTbl_stockInfoList tr td:nth-child(7),
 #iTbl_stockInfoList tr td:nth-child(8) { display:none; }
-#iDiv_backgroundCoverLayer, #iDiv_addSelectedStockPanel_c,
-#iDiv_updateStockInfoPanel_c, #iDiv_addFollowedStockPanel_c { display: none; }
+#iDiv_backgroundCoverLayer, #iDiv_addSelectedStockPanel_c, #iDiv_updateStockInfoPanel_c, #iDiv_addFollowedStockPanel_c { display: none; }
 #iDiv_backgroundCoverLayer {
     position: absolute;
     z-index: 99;
@@ -25,13 +27,12 @@ a{ text-decoration: none; }
 
 
 tr.cTr_title td {
-    height:30px;
+    height:25px;
     color:white;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 14px;
     background-color: #43BFE3;
 }
-tr.cTr_data td { width:70px; }
+tr.cTr_data td { width:60px; }
 tr.cTr_data td:nth-child(2) { font-weight: bold; }
 td.cTd_stockNameAndCode { width:150px; }
 td.cTd_stockItemProcPanelColumn { width:100px; }
@@ -40,20 +41,21 @@ td.cTd_stockItemProcPanelColumn { width:100px; }
 .cTd_downStatus { color:green; }
 span.cSpan_comment { font-size: 12px; color:gray; }
 .cSpan_button { cursor:pointer; }
-.cSpan_mouseOverButton { font-weight: bold; color:darkred; }
+.cSpan_mouseOverButton { font-weight: bold; color:#ff4902; }
 .cTd_addStockButton_c { text-align: center; padding:5px 30px 10px 0px;}
 .cTbl_userInput_c {
-    border:1px solid gray;
+    color:#333;
+    border:1px solid #cccccc;
     border-radius: 5px;
     width:400px;
     height:170px;
+    padding-top: 15px;
 }
 .cTbl_userInput_c tr td:nth-child(1) { padding-left: 30px; }
-.cTbl_userInput_c { padding-top: 15px; }
 .cDiv_realTimeInfo_c{
-    color:darkblue;
+    color:#999999;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
     padding:10px 20px;
 }
 .cDiv_userProcPanel_c {
@@ -65,9 +67,64 @@ span.cSpan_comment { font-size: 12px; color:gray; }
     border-radius: 5px;
 }
 .cDiv_procPanel_c {
+    color:#666;
+    font-size: 14px;
     padding:10px 20px;
-    font-size: 16px;
+    background-color: #f8f9fb;
 }
-.cDiv_stockInfoList_c {
-    padding:10px 20px;
+.cDiv_stockInfoList_c { padding:10px 20px; }
+.cSpan_firstTitle { border-left: 2px solid #88B7E0; padding-left: 10px; }
+a.blueButton {
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 2px;
+    text-decoration: none;
+    border: 1px solid #2385d6;
+    background-color: #248be4;
+}
+a.blueButton:hover { background-color:#1e91f5; }
+a.firstBlueButton { margin-left: 0px; }
+.grayButton {
+    color: #333;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 2px;
+    margin-left: 20px;
+    text-decoration: none;
+    border: 1px solid #BCBCBC;
+}
+.grayButton:hover { background-color:#f1f1f1; }
+a.firstGrayButton { margin-left: 0px; }
+a.tabMenu {
+    color:#666;
+    width:150px;
+    height:22px;
+    display:block;
+    font-size: 14px;
+    padding:12px 0px;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid #DDD;
+    background-color: #FBFAF8;
+}
+a.tabMenuSelected {
+    width:150px;
+    display:block;
+    color:#01A2CA;
+    padding:12px 0px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #FFF;
+    border-left: 1px solid #DDD;
+    border-right: 1px solid #DDD;
+    border-top: 2px solid #01A2CA;
+    border-bottom: 1px solid #FFF;
+}
+a.tabMenu:hover { color:#01A2CA; }
+ul.tabContainer li {
+    list-style: none outside none;
+    float: left;
 }
