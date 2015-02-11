@@ -10,11 +10,11 @@ a{ text-decoration: none; }
 #iTbl_stockInfoList tr:not(.cTr_title) td { height:22px; }
 #iTbl_stockInfoList tr:nth-child(odd) { background-color: #fff; }
 #iTbl_stockInfoList tr:nth-child(even) { background-color: #f8f9fb; }
-#iIpt_stockCode, #iIpt_stockName, #iIpt_buyPrice, #iIpt_buyDate { padding-left: 10px; height: 16px; width:120px; }
+#iIpt_stockCode, #iIpt_stockName, #iIpt_buyPrice, #iIpt_gainPrice, #iIpt_losePrice, #iIpt_buyDate { padding-left: 10px; height: 16px; width:120px; }
 #iTbl_stockInfoList tr td:nth-child(4), #iTbl_stockInfoList tr td:nth-child(5),
 #iTbl_stockInfoList tr td:nth-child(6), #iTbl_stockInfoList tr td:nth-child(7),
 #iTbl_stockInfoList tr td:nth-child(8) { display:none; }
-#iDiv_backgroundCoverLayer, #iDiv_addSelectedStockPanel_c, #iDiv_updateStockInfoPanel_c, #iDiv_addFollowedStockPanel_c { display: none; }
+#iDiv_backgroundCoverLayer, #iDiv_editStockInfoPanel_c { display: none; }
 #iDiv_backgroundCoverLayer {
     position: absolute;
     z-index: 99;
@@ -34,7 +34,7 @@ tr.cTr_title td {
 }
 tr.cTr_data td { width:60px; }
 tr.cTr_data td:nth-child(2) { font-weight: bold; }
-td.cTd_stockNameAndCode { width:150px; }
+td.cTd_stockNameAndCode { width:200px; }
 td.cTd_stockItemProcPanelColumn { width:100px; }
 .cTd_upStatus { color:red; }
 .cTd_balanceStatus { color:gray }
@@ -48,7 +48,7 @@ span.cSpan_comment { font-size: 12px; color:gray; }
     border:1px solid #cccccc;
     border-radius: 5px;
     width:400px;
-    height:170px;
+    height:270px;
     padding-top: 15px;
 }
 .cTbl_userInput_c tr td:nth-child(1) { padding-left: 30px; }
@@ -62,7 +62,7 @@ span.cSpan_comment { font-size: 12px; color:gray; }
     z-index: 100;
     position: absolute;
     width:400px;
-    height:170px;
+    height:270px;
     background-color: #ffffff;
     border-radius: 5px;
 }
@@ -80,6 +80,7 @@ a.blueButton {
     font-size: 12px;
     padding: 6px 12px;
     border-radius: 2px;
+    margin-left: 20px;
     text-decoration: none;
     border: 1px solid #2385d6;
     background-color: #248be4;
@@ -128,3 +129,25 @@ ul.tabContainer li {
     list-style: none outside none;
     float: left;
 }
+.cImg_iconNotActive {
+    width: 15px;
+    height: 15px;
+    filter: alpha(opacity = 20);
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    opacity: 0.2;
+    margin-bottom: -3px;
+    margin-right: 6px;
+}
+.cImg_iconActive {
+    width:18px;
+    height:18px;
+    filter: alpha(opacity = 100);
+    -moz-opacity: 1.0;
+    -khtml-opacity: 1.0;
+    opacity: 1.0;
+    margin-bottom: -3px;
+    margin-right: 6px;
+}
+.cTd_gainStatus { font-weight: bold; color:red; font-size: 14px; }
+.cTd_loseStatus { font-weight: bold; color:green; font-size: 14px; }

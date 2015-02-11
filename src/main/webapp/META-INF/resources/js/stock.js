@@ -1,10 +1,14 @@
 
 // js class defined
-function StockData(stockCode, stockName, buyPrice, buyDate){
+function StockData(stockCode, stockName, buyPrice, buyDate, gainPrice, losePrice){
     this.stockCode = stockCode;
     this.stockName = stockName;
     this.buyPrice = buyPrice;
     this.buyDate = buyDate;
+    this.gainPrice = gainPrice;
+    this.losePrice = losePrice;
+    this.gainStatus = false;
+    this.loseStatus = false;
 }
 
 var g_NaN = "--";
@@ -21,13 +25,15 @@ var g_myStockDataInCookie = "";
 var g_myStockList = {};
 var g_shangHaiCurrentPrice = "";
 var g_shangHaiYesterdayPrice = "";
+var g_currentLoginUserName = "";
 
 var g_isTestMode = false;
-var g_publishVersion = "1.0.0";
+var g_publishVersion = "1.2.0";
 
 
 $(document).ready(function(){
     initPageDefaultJsEvents();
+    initPageDefaultCss();
     readStockDataFromCookieAndParseToStockList();
     getStockInfoFromSina();
     setTimeout(function() {
@@ -41,6 +47,12 @@ function initPageDefaultJsEvents(){
     }).mouseout(function(){
         $(this).removeClass("cSpan_mouseOverButton");
     });
+}
+
+function initPageDefaultCss(){
+    if ($("#hidden_stock_cookie").val() == ""){
+        $("#iA_recoverStockList_b").hide();
+    }
 }
 
 function getStockInfoFromSina(){
@@ -152,7 +164,9 @@ function addStockInfoIntoTableList(stockCode){
         var tdClassName4TodayOpenStatus = getTdClassName4TodayOpenStatus(todayOpenPrice, yesterdayClosePrice);
         var tdClassName4TodayIncrease = getTdClassName4TodayIncrease(currentPrice, yesterdayClosePrice);
         var tdClassName4TotalIncrease = getTdClassName4TotalIncrease(stockCode, currentPrice);
+        var tdClassName4GainAndLoseStatus = getTdClassName4GainAndLoseStatus(stockCode, currentPrice);
 
+        g_myStockList[stockCode].stockName = name;
         var stockInfoTdHtmlString = generateStockInfoTrHtmlString(
             stockCode,
             name,
@@ -167,7 +181,8 @@ function addStockInfoIntoTableList(stockCode){
             totalPercent,
             tdClassName4TodayIncrease,
             tdClassName4TodayOpenStatus,
-            tdClassName4TotalIncrease
+            tdClassName4TotalIncrease,
+            tdClassName4GainAndLoseStatus
         );
         $("#iTbl_stockInfoList tbody").append($(stockInfoTdHtmlString));
     }
@@ -320,6 +335,23 @@ function getTdClassNameByPrice(newPrice, oldPrice){
     return tdClassName;
 }
 
+function getTdClassName4GainAndLoseStatus(stockCode, currentPrice){
+    var tdClassName = "";
+    var currentPriceNum = Number(currentPrice);
+    var gainPriceNum = Number(g_myStockList[stockCode].gainPrice);
+    var losePriceNum = Number(g_myStockList[stockCode].losePrice);
+    var gainStatus = (currentPriceNum >= gainPriceNum) && gainPriceNum != 0;
+    var loseStatus = (currentPriceNum <= losePriceNum) && losePriceNum != 0;
+    g_myStockList[stockCode].gainStatus = gainStatus;
+    g_myStockList[stockCode].loseStatus = loseStatus;
+    if (gainStatus){
+        tdClassName = "cTd_gainStatus";
+    } else if (loseStatus){
+        tdClassName = "cTd_loseStatus";
+    }
+    return tdClassName;
+}
+
 function generateStockInfoTrHtmlString(stockCode,
                                        name,
                                        currentPrice,
@@ -333,7 +365,8 @@ function generateStockInfoTrHtmlString(stockCode,
                                        totalPercent,
                                        tdClassName4TodayIncrease,
                                        tdClassName4TodayOpenStatus,
-                                       tdClassName4TotalIncrease) {
+                                       tdClassName4TotalIncrease,
+                                       tdClassName4GainAndLoseStatus) {
 
     if (Number(currentPrice) == 0){
         currentPrice = "停牌";
@@ -347,11 +380,12 @@ function generateStockInfoTrHtmlString(stockCode,
         tdClassName4TodayOpenStatus = "cTd_balanceStatus";
         tdClassName4TotalIncrease = getTdClassName4TotalIncrease(stockCode, yesterdayClosePrice);
     }
-    var procPanelHtmlString = "<a href='#' onclick='confirmAndRemoveCurrentStockItem(\"" + stockCode + "\")'>[删除]</a>&nbsp;&nbsp;&nbsp;&nbsp;"
-        + "<a href='#' onclick='showUpdateStockInfoPanel(\"" + stockCode + "\")'>[设置]</a>";
+    var procPanelHtmlString = "<a href='#' onclick='confirmAndRemoveCurrentStockItem(\"" + stockCode + "\")'>[取消]</a>&nbsp;&nbsp;&nbsp;&nbsp;"
+        + "<a href='#' onclick='showUpdateStockInfoPanel(\"" + stockCode + "\")'>[调整]</a>";
+    var gainAndLoseIconHtmlString = getGainAndLoseIconHtml(stockCode);
 
     return "<tr class='cTr_data'>"
-        + "<td>" + stockCode + " | " + name + "</td>"
+        + "<td class='" + tdClassName4GainAndLoseStatus + "'>" + gainAndLoseIconHtmlString + "&nbsp;&nbsp;|&nbsp;" + stockCode + "&nbsp;|&nbsp;" + name + "</td>"
         + "<td class='" + tdClassName4TodayIncrease + "'>" + currentPrice + "</td>"
         + "<td class='" + tdClassName4TodayIncrease + "'>" + todayPercent + "</td>"
         + "<td class='" + tdClassName4TodayOpenStatus + "'>" + todayOpenStatus + "</td>"
@@ -365,40 +399,74 @@ function generateStockInfoTrHtmlString(stockCode,
         + "</tr>";
 }
 
+function getGainAndLoseIconHtml(stockCode){
+    var htmlString = "";
+    var gainPriceNum = Number(g_myStockList[stockCode].gainPrice);
+    var losePriceNum = Number(g_myStockList[stockCode].losePrice);
+    if (gainPriceNum > 0){
+        htmlString += "<img src='/img/gain.png' title='止盈目标[" + gainPriceNum + "]' alt='盈' ";
+        if (g_myStockList[stockCode].gainStatus){
+            htmlString += "class='cImg_iconActive'";
+        } else {
+            htmlString += "class='cImg_iconNotActive'";
+        }
+        htmlString += " />";
+    }
+    if (losePriceNum > 0){
+        htmlString += "<img src='/img/lose.png' title='止损目标[" + losePriceNum + "]' alt='损' ";
+        if (g_myStockList[stockCode].loseStatus){
+            htmlString += "class='cImg_iconActive'";
+        } else {
+            htmlString += "class='cImg_iconNotActive'";
+        }
+        htmlString += " />";
+    }
+    return htmlString;
+}
+
 function checkAndSaveStockData(){
     var stockCode = $("#iIpt_stockCode").val();
     var buyPrice = $("#iIpt_buyPrice").val();
     var buyDate = $("#iIpt_buyDate").val();
+    var gainPrice = $("#iIpt_gainPrice").val();
+    var losePrice = $("#iIpt_losePrice").val();
 
-    if (checkUserInputStockData(stockCode, buyPrice, buyDate)){
-        addStockDataToCookieAndRefreshPage(stockCode, buyPrice, buyDate);
+    if (checkUserInputStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice)){
+        addStockDataToCookieAndRefreshPage(stockCode, buyPrice, buyDate, gainPrice, losePrice);
     }
 }
 
 function checkAndUpdateStockData(){
-    var stockCode = $("#iSpan_currentUpdateStockCode").text();
-    var buyPrice = $("#iIpt_currentUpdateStockBuyPrice").val();
-    var buyDate = $("#iIpt_currentUpdateStockBuyDate").val();
-
-    if (checkUserInputStockData(stockCode, buyPrice, buyDate)){
-        addStockDataToCookieAndRefreshPage(stockCode, buyPrice, buyDate);
+    var stockCode = $("#iSpan_updateStockCode").text();
+    var buyPrice = $("#iIpt_buyPrice").val();
+    var gainPrice = $("#iIpt_gainPrice").val();
+    var losePrice = $("#iIpt_losePrice").val();
+    var buyDate = $("#iIpt_buyDate").val();
+    if (checkUserInputStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice)){
+        addStockDataToCookieAndRefreshPage(stockCode, buyPrice, buyDate, gainPrice, losePrice);
     }
 }
 
-function checkUserInputStockData(stockCode, buyPrice, buyDate){
+function checkUserInputStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice) {
     var passStatus = false;
     var errorMsg = "";
     var stockCodeReg = /^(sz|SZ|sh|SH)\d{6}$/;
     var priceReg = /^\d+(.\d{0,3})$/;
     var dateReg = /^\d{4}-\d{2}-\d{2}$/;
 
-    if(stockCode == "" || !stockCodeReg.test(stockCode)){
+    if (stockCode == "" || !stockCodeReg.test(stockCode)) {
         errorMsg = "股票代码输入有误，是不是忘了前缀了？";
-    } else if (buyPrice == "" || !priceReg.test(buyPrice)){
-        errorMsg = "买入价格输入有误";
-    } else if (buyDate == "" || !dateReg.test(buyDate)){
+    } else if (buyPrice == "" || !priceReg.test(buyPrice)) {
+        errorMsg = "成本价格输入有误";
+    } else if (gainPrice != "" && !priceReg.test(gainPrice)) {
+        errorMsg = "止盈价格输入有误";
+    } else if (losePrice != "" && !priceReg.test(losePrice)) {
+        errorMsg = "止损价格输入有误";
+    } else if (buyDate == "" || !dateReg.test(buyDate)) {
         errorMsg = "买入日期输入有误";
-    } else {
+    } else if (Number(gainPrice <= Number(losePrice))){
+        errorMsg = "止盈价格必须大于止损价格";
+    }else {
         passStatus = true;
     }
 
@@ -408,8 +476,8 @@ function checkUserInputStockData(stockCode, buyPrice, buyDate){
     return passStatus;
 }
 
-function updateGlobalStockData(stockCode, buyPrice, buyDate){
-    var newStockItemData = stockCode + "," + buyPrice + "," + buyDate;
+function updateGlobalStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice){
+    var newStockItemData = stockCode + "," + buyPrice + "," + buyDate + "," + gainPrice + "," + losePrice;
     if (g_myStockDataInCookie == "" || g_myStockDataInCookie == undefined){
         g_myStockDataInCookie = newStockItemData;
     } else {
@@ -446,7 +514,7 @@ function confirmAndRemoveCurrentStockItem(stockCode){
 }
 
 function clearAllStockItemInCookie(){
-    if (confirm("确定要清空本地全部自选股信息么？")){
+    if (confirm("确定要清空当前自选股列表信息么？")){
         $.cookie(g_userCookieName, "");
         reloadPage();
     }
@@ -459,8 +527,8 @@ function updateStockItemToCookie(stockCode, buyPrice, buyDate){
     }
 }
 
-function addStockDataToCookieAndRefreshPage(stockCode, buyPrice, buyDate){
-    updateGlobalStockData(stockCode, buyPrice, buyDate);
+function addStockDataToCookieAndRefreshPage(stockCode, buyPrice, buyDate, gainPrice, losePrice){
+    updateGlobalStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice);
     addStockDataToCookie();
     reloadPage();
 }
@@ -477,7 +545,9 @@ function parseStockDataIntoList(){
         for(var i = 0; i < stockArray.length; i++){
             if (stockArray[i] != "") {
                 var stockItems = stockArray[i].split(",");
-                g_myStockList[stockItems[0]] = new StockData(stockItems[0], "", stockItems[1], stockItems[2]);
+                if (stockItems.length == 5) {
+                    g_myStockList[stockItems[0]] = new StockData(stockItems[0], "", stockItems[1], stockItems[2], stockItems[3], stockItems[4]);
+                }
             }
         }
     }
@@ -489,7 +559,11 @@ function generateStockDataByList(){
         if (stockItemCode != undefined) {
             var stockItemObj = g_myStockList[stockItemCode];
             if (stockItemObj != null) {
-                allStockDataValue += stockItemObj.stockCode + "," + stockItemObj.buyPrice + "," + stockItemObj.buyDate + ";";
+                allStockDataValue += stockItemObj.stockCode + ","
+                                    + stockItemObj.buyPrice + ","
+                                    + stockItemObj.buyDate + ","
+                                    + stockItemObj.gainPrice + ","
+                                    + stockItemObj.losePrice + ";";
             }
         }
     }
@@ -539,20 +613,31 @@ function controlStockDetailColumnsByStatus(){
 
 function showAddSelectedStockPanel(){
     showBackgroundCoverLayer();
-    showProcPanelById("iDiv_addSelectedStockPanel_c");
+    showProcPanelById("iDiv_editStockInfoPanel_c");
+    $("#iDiv_updateStockCode_c").hide();
+    $("#iDiv_addStockCode_c").show();
+    $("#iA_updateStockInfo_b").hide();
+    $("#iA_addStockInfo_b").show();
 }
 
 function showUpdateStockInfoPanel(stockCode){
     showBackgroundCoverLayer();
-    showProcPanelById("iDiv_updateStockInfoPanel_c");
+    showProcPanelById("iDiv_editStockInfoPanel_c");
+    $("#iDiv_updateStockCode_c").show();
+    $("#iDiv_addStockCode_c").hide();
+    $("#iA_updateStockInfo_b").show();
+    $("#iA_addStockInfo_b").hide();
     autoFillStockInfoToUpdatedPanel(stockCode);
 }
 
 function autoFillStockInfoToUpdatedPanel(stockCode){
     var currentStockData = g_myStockList[stockCode];
-    $("#iSpan_currentUpdateStockCode").text(stockCode);
-    $("#iIpt_currentUpdateStockBuyPrice").attr("value", currentStockData.buyPrice);
-    $("#iIpt_currentUpdateStockBuyDate").attr("value", currentStockData.buyDate);
+    $("#iSpan_updateStockCode").text(stockCode);
+    $("#iSpan_updateStockName").text(currentStockData.stockName);
+    $("#iIpt_buyPrice").attr("value", currentStockData.buyPrice);
+    $("#iIpt_gainPrice").attr("value", currentStockData.gainPrice);
+    $("#iIpt_losePrice").attr("value", currentStockData.losePrice);
+    $("#iIpt_buyDate").attr("value", currentStockData.buyDate);
 }
 
 function showBackgroundCoverLayer(){
@@ -587,16 +672,55 @@ function hideBackgroundCoverLayerAndProcPanel(){
     $(".cDiv_userProcPanel_c").hide();
 }
 
+function backupSelectedStockDataToServer(){
+    if(!checkUserLoginStatus()){
+        return;
+    }
+    if (confirm("确认要备份当前自选股列表么？")) {
+        $.post("/stock/save_cookie.do", {"userName": g_currentLoginUserName, "stockCookie": g_myStockDataInCookie},
+            function (data) {
+                if (data == "success") {
+                    alert("备份成功");
+                } else {
+                    alert("备份失败");
+                }
+            });
+    }
+}
+
+function recoverSelectedStockDataFromServer(){
+    if (confirm("确认要恢复之前备份的自选股列表么？")) {
+        var stockCookie = $("#hidden_stock_cookie").val();
+        if (stockCookie != "") {
+            g_myStockDataInCookie = stockCookie;
+            addStockDataToCookie();
+            reloadPage();
+        }
+    }
+}
+
+function checkUserLoginStatus(){
+    var isLogin = false;
+    var userName = $("#hidden_user_name").val();
+    if (userName == ""){
+        alert("请先登录，再操作");
+        g_currentLoginUserName = "";
+    } else {
+        g_currentLoginUserName = userName;
+        isLogin = true;
+    }
+    return isLogin;
+}
 
 
 /* function for test */
 function addTestData(){
-    g_myStockList["sz000977"] = new StockData("sz000977", "浪潮信息", "38.888", "2014-11-11");
-    g_myStockList["sh603288"] = new StockData("sh603288", "海天味业", "42.341", "2014-12-03");
-    g_myStockList["sh600509"] = new StockData("sh600509", "天富能源", "10.581", "2014-12-16");
-    g_myStockList["sz000099"] = new StockData("sz000099", "中信海直", "14.62", "2014-12-22");
-    g_myStockList["sz000837"] = new StockData("sz000837", "秦川机床", "11.115", "2015-01-12");
-    g_myStockList["sh600597"] = new StockData("sh600597", "光明乳业", "18.311", "2015-01-14");
+    g_myStockList["sz000977"] = new StockData("sz000977", "浪潮信息", "38.888", "2014-11-11", "", "");
+    g_myStockList["sh603288"] = new StockData("sh603288", "海天味业", "42.341", "2014-12-03", "", "");
+    g_myStockList["sh600509"] = new StockData("sh600509", "天富能源", "10.581", "2014-12-16", "", "");
+    g_myStockList["sz000099"] = new StockData("sz000099", "中信海直", "14.62", "2014-12-22", "", "");
+    g_myStockList["sz000837"] = new StockData("sz000837", "秦川机床", "11.115", "2015-01-12", "", "");
+    g_myStockList["sh600597"] = new StockData("sh600597", "光明乳业", "18.311", "2015-01-14", "", "");
     generateStockDataByList();
     addStockDataToCookie();
     reloadPage();
