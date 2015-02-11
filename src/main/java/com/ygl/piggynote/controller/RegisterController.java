@@ -6,6 +6,7 @@ import com.ygl.piggynote.bean.UserBean;
 import com.ygl.piggynote.service.UserService;
 import com.ygl.piggynote.service.impl.CategoryServiceImpl;
 import com.ygl.piggynote.service.impl.CustomConfigServiceImpl;
+import com.ygl.piggynote.util.CommonUtil;
 import com.ygl.piggynote.util.Md5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by guilin on 2014/8/7.
@@ -86,5 +87,28 @@ public class RegisterController extends BaseController {
         setUserToSession(request, ub);
 
         return mav;
+    }
+
+    /**
+     * 用户注册
+     * @param ub    用户实例
+     */
+    @RequestMapping(value="/simple_register.do", method= RequestMethod.POST)
+    public void register(UserBean ub, HttpServletResponse response){
+        Boolean isSuccess = false;
+        String newPsw = Md5Util.getMD5Code(ub.getPassword());
+        ub.setPassword(newPsw);
+        try{
+            isSuccess = userService.add(ub);
+            if (isSuccess) {
+                CustomConfigBean ccb = new CustomConfigBean();
+                ccb.setUserName(ub.getUserName());
+                ccb.fillDefaultData();
+                customConfigService.add(ccb);
+            }
+        } catch(Exception e){
+            isSuccess = false;
+        }
+        CommonUtil.writeResponse4BooleanResult(isSuccess, response);
     }
 }

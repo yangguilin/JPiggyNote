@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -90,7 +92,13 @@ public class HomeController extends BaseController {
             // cookie中读取保存的用户名
             Cookie userNameCookie = CookieUtil.getCookieByName(request, CommonConstant.COOKIE_USER_NAME);
             if (userNameCookie != null && userNameCookie.getValue() != ""){
-                model.addAttribute("userNameInCookie", userNameCookie.getValue());
+                String userNameInCookie = "";
+                try {
+                    userNameInCookie = URLDecoder.decode(userNameCookie.getValue(), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                model.addAttribute("userNameInCookie", userNameInCookie);
             }
         }
 

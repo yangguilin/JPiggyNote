@@ -1,20 +1,25 @@
-
+/*
+    element
+*/
 body {
     font-family: 'Helvetica Neue', 'Luxi Sans', 'DejaVu Sans', Tahoma, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei';
     background-image: url("/img/background.png");
 }
 a{ text-decoration: none; }
+input[type=text], input[type=password]{ padding-left: 10px; height: 16px; width:120px; }
 
+/*
+    id
+*/
 #iTbl_stockInfoList{ font-size: 12px; }
 #iTbl_stockInfoList tr td { padding: 5px 15px; text-align: right; }
 #iTbl_stockInfoList tr:not(.cTr_title) td { height:22px; }
 #iTbl_stockInfoList tr:nth-child(odd) { background-color: #fff; }
 #iTbl_stockInfoList tr:nth-child(even) { background-color: #f8f9fb; }
-#iIpt_stockCode, #iIpt_stockName, #iIpt_buyPrice, #iIpt_gainPrice, #iIpt_losePrice, #iIpt_buyDate { padding-left: 10px; height: 16px; width:120px; }
 #iTbl_stockInfoList tr td:nth-child(4), #iTbl_stockInfoList tr td:nth-child(5),
 #iTbl_stockInfoList tr td:nth-child(6), #iTbl_stockInfoList tr td:nth-child(7),
 #iTbl_stockInfoList tr td:nth-child(8) { display:none; }
-#iDiv_backgroundCoverLayer, #iDiv_editStockInfoPanel_c { display: none; }
+#iDiv_backgroundCoverLayer, #iDiv_editStockInfoPanel_c, #iDiv_userRegisterPanel_c, #iDiv_userLoginPanel_c { display: none; }
 #iDiv_backgroundCoverLayer {
     position: absolute;
     z-index: 99;
@@ -24,8 +29,15 @@ a{ text-decoration: none; }
     -khtml-opacity: 0.7;
     opacity: 0.7;
 }
+#iA_userRegister_b, #iA_userLogin_b, #iA_userLogout_b {
+    font-size: 10px;
+    padding: 4px 10px;
+    font-weight: normal;
+}
 
-
+/*
+  class
+*/
 tr.cTr_title td {
     height:25px;
     color:white;
@@ -34,21 +46,19 @@ tr.cTr_title td {
 }
 tr.cTr_data td { width:60px; }
 tr.cTr_data td:nth-child(2) { font-weight: bold; }
-td.cTd_stockNameAndCode { width:200px; }
-td.cTd_stockItemProcPanelColumn { width:100px; }
+td.cTd_stockNameAndCode { width:190px; }
+td.cTd_stockItemProcPanelColumn { width:80px; }
 .cTd_upStatus { color:red; }
 .cTd_balanceStatus { color:gray }
 .cTd_downStatus { color:green; }
 span.cSpan_comment { font-size: 12px; color:gray; }
 .cSpan_button { cursor:pointer; }
 .cSpan_mouseOverButton { font-weight: bold; color:#ff4902; }
-.cTd_addStockButton_c { text-align: center; padding:5px 30px 10px 0px;}
+.cTd_addStockButton_c { text-align: center; padding:15px 30px 25px 0px;}
 .cTbl_userInput_c {
     color:#333;
     border:1px solid #cccccc;
     border-radius: 5px;
-    width:400px;
-    height:270px;
     padding-top: 15px;
 }
 .cTbl_userInput_c tr td:nth-child(1) { padding-left: 30px; }
@@ -61,8 +71,6 @@ span.cSpan_comment { font-size: 12px; color:gray; }
 .cDiv_userProcPanel_c {
     z-index: 100;
     position: absolute;
-    width:400px;
-    height:270px;
     background-color: #ffffff;
     border-radius: 5px;
 }
@@ -81,12 +89,13 @@ a.blueButton {
     padding: 6px 12px;
     border-radius: 2px;
     margin-left: 20px;
+    font-weight: normal;
     text-decoration: none;
     border: 1px solid #2385d6;
     background-color: #248be4;
 }
 a.blueButton:hover { background-color:#1e91f5; }
-a.firstBlueButton { margin-left: 0px; }
+a.firstButton { margin-left: 0px; }
 .grayButton {
     color: #333;
     cursor: pointer;
@@ -94,11 +103,11 @@ a.firstBlueButton { margin-left: 0px; }
     padding: 6px 12px;
     border-radius: 2px;
     margin-left: 20px;
+    font-weight: normal;
     text-decoration: none;
     border: 1px solid #BCBCBC;
 }
 .grayButton:hover { background-color:#f1f1f1; }
-a.firstGrayButton { margin-left: 0px; }
 a.tabMenu {
     color:#666;
     width:150px;

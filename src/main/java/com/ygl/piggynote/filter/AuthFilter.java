@@ -24,9 +24,10 @@ public class AuthFilter implements Filter {
      */
     private static final String[] NO_NEED_AUTH_URIS = {
             "/",
-            "/login",
             "/login.do",
             "/register",
+            "/user/exist.do",
+            "/simple_register.do",
             "/error",
             "/login_ajax.do",
             "/stock",

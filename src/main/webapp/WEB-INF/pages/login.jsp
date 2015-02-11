@@ -9,12 +9,9 @@
 <html>
 <head>
     <title>用户登录</title>
-
     <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
-
     <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="/js/login.js"></script>
-
     <link href="/css/login.css" rel="stylesheet" type="text/css">
     <link href="/css/shared/buttons.css" rel="stylesheet" type="text/css">
     <link href="/css/shared/screen.css" rel="stylesheet" type="text/css">

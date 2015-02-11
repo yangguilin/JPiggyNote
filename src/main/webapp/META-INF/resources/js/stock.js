@@ -13,7 +13,7 @@ function StockData(stockCode, stockName, buyPrice, buyDate, gainPrice, losePrice
 
 var g_NaN = "--";
 var g_freshIntervalMillisecond = 5000;
-var g_intervalBeforeShowStockList = 100;
+var g_intervalBeforeShowStockList = 300;
 var g_cookieSavedDaysNum = 90;
 var g_shangHaiCode = "sh000001";
 var g_userCookieName = "user_stock_data";
@@ -28,7 +28,7 @@ var g_shangHaiYesterdayPrice = "";
 var g_currentLoginUserName = "";
 
 var g_isTestMode = false;
-var g_publishVersion = "1.2.0";
+var g_publishVersion = "1.2.1";
 
 
 $(document).ready(function(){
@@ -132,8 +132,11 @@ function updateStockDataBetweenTradeTime(){
 
 function parseSinaStockDataAndInsertIntoTableList() {
     clearMyStockDataTableList();
-    for(var stockItemCode in g_myStockList){
+    for (var stockItemCode in g_myStockList) {
         addStockInfoIntoTableList(stockItemCode);
+    }
+    if ($("#iTbl_stockInfoList tr").length == 1){
+        addBlankInfoIntoTableList();
     }
 }
 
@@ -188,6 +191,11 @@ function addStockInfoIntoTableList(stockCode){
     }
 }
 
+function addBlankInfoIntoTableList(){
+    var blankInfoTdHtmlString = "<tr><td colspan='11' style='text-align: center;'><span>通过“添加自选”按钮添加个股，进行实时跟踪</span></td></tr>";
+    $("#iTbl_stockInfoList tbody").append($(blankInfoTdHtmlString));
+}
+
 function checkStockCodeAvailable(stockDataVarName){
     return ((stockDataVarName in window) && (window[stockDataVarName] != ""));
 }
@@ -207,7 +215,7 @@ function updateTableTitleAndDocumentTitle(){
 }
 
 function showPageTitle(){
-    document.title = "上证指数：" + g_shangHaiCurrentPrice;
+    document.title = "上证：" + g_shangHaiCurrentPrice;
 }
 
 function getShangHaiCurrentPrice(){
@@ -404,7 +412,7 @@ function getGainAndLoseIconHtml(stockCode){
     var gainPriceNum = Number(g_myStockList[stockCode].gainPrice);
     var losePriceNum = Number(g_myStockList[stockCode].losePrice);
     if (gainPriceNum > 0){
-        htmlString += "<img src='/img/gain.png' title='止盈目标[" + gainPriceNum + "]' alt='盈' ";
+        htmlString += "<img src='/img/gain.png' title='止盈目标：" + gainPriceNum + "' alt='盈' ";
         if (g_myStockList[stockCode].gainStatus){
             htmlString += "class='cImg_iconActive'";
         } else {
@@ -413,7 +421,7 @@ function getGainAndLoseIconHtml(stockCode){
         htmlString += " />";
     }
     if (losePriceNum > 0){
-        htmlString += "<img src='/img/lose.png' title='止损目标[" + losePriceNum + "]' alt='损' ";
+        htmlString += "<img src='/img/lose.png' title='止损目标：" + losePriceNum + "' alt='损' ";
         if (g_myStockList[stockCode].loseStatus){
             htmlString += "class='cImg_iconActive'";
         } else {
@@ -464,7 +472,7 @@ function checkUserInputStockData(stockCode, buyPrice, buyDate, gainPrice, losePr
         errorMsg = "止损价格输入有误";
     } else if (buyDate == "" || !dateReg.test(buyDate)) {
         errorMsg = "买入日期输入有误";
-    } else if (Number(gainPrice <= Number(losePrice))){
+    } else if ((Number(gainPrice) <= Number(losePrice)) && gainPrice != "" && losePrice != ""){
         errorMsg = "止盈价格必须大于止损价格";
     }else {
         passStatus = true;
@@ -489,6 +497,13 @@ function resetAllInputControls(){
     $("#iIpt_stockCode").val("");
     $("#iIpt_buyPrice").val("");
     $("#iIpt_buyDate").val("");
+    $("#iIpt_gainPrice").val("");
+    $("#iIpt_losePrice").val("");
+    $("#iIpt_userName4Register").val("");
+    $("#iIpt_psw4Register").val("");
+    $("#iIpt_pswConfirm4Register").val("");
+    $("#iIpt_userName4Login").val("");
+    $("#iIpt_psw4Login").val("");
 }
 
 function readStockDataFromCookie(){
@@ -654,17 +669,28 @@ function showBackgroundCoverLayer(){
 }
 
 function showProcPanelById(divId){
+    var fixTopHeight = 50;
     var $panelObj = $("#" + divId);
     var panelWidth = Number($panelObj.attr("panelWidth"));
     var panelHeight = Number($panelObj.attr("panelHeight"));
+    var panelWidthVal = panelWidth + "px";
+    var panelHeightVal = panelHeight + "px";
     var pageHeight = Number($(document).height());
     var pageWidth = Number($(document).width());
     var leftVal = ((pageWidth - panelWidth) / 2) + "px";
-    var topVal = ((pageHeight - panelHeight) / 2) + "px";
+    var topVal = ((pageHeight - panelHeight) / 2 - fixTopHeight) + "px";
     $panelObj.css({
         "left" : leftVal,
-        "top" : topVal
-    }).show().siblings(".cDiv_userProcPanel_c").hide();
+        "top" : topVal,
+        "width" : panelWidthVal,
+        "height" : panelHeightVal
+    }).show()
+        .children(".cTbl_userInput_c")
+        .css({
+            "width":panelWidthVal,
+            "height":panelHeightVal
+        })
+        .siblings(".cDiv_userProcPanel_c").hide();
 }
 
 function hideBackgroundCoverLayerAndProcPanel(){
@@ -710,6 +736,121 @@ function checkUserLoginStatus(){
         isLogin = true;
     }
     return isLogin;
+}
+
+function showRegisterPanel(){
+    showBackgroundCoverLayer();
+    showProcPanelById("iDiv_userRegisterPanel_c");
+}
+
+function showLoginPanel(){
+    showBackgroundCoverLayer();
+    showProcPanelById("iDiv_userLoginPanel_c");
+}
+
+function register(){
+    var userName = $("#iIpt_userName4Register").val();
+    var psw = $("#iIpt_psw4Register").val();
+    var confirmPsw = $("#iIpt_ConfirmPsw4Register").val();
+    if (checkBeforeRegister(userName, psw, confirmPsw)){
+        checkUserExistAndRegister(userName, psw);
+    }
+}
+
+function checkBeforeRegister(userName, psw, confirmPsw){
+    var pass = false;
+    var errorMsg = "";
+    if (userName == ""){
+        errorMsg = "账号不能为空";
+    } else if (psw != confirmPsw){
+        errorMsg = "两次输入口令不同";
+    } else {
+        pass = true;
+    }
+    if (errorMsg != "") {
+        alert(errorMsg);
+    }
+    return pass;
+}
+
+function checkUserExistAndRegister(userName, psw){
+    $.post("/user/exist.do", { "userName": userName },
+        function (data) {
+            if (data == "success") {
+                alert("账号[" + userName + "]已存在");
+            } else {
+                $.post("/simple_register.do", { "userName": userName, "password": psw },
+                    function (data) {
+                        if (data == "success") {
+                            alert("账号创建成功");
+                            reloadPage();
+                        } else {
+                            alert("账号创建失败");
+                        }
+                    });
+            }
+        });
+}
+
+function login(){
+    var userName = $("#iIpt_userName4Login").val();
+    var psw = $("#iIpt_psw4Login").val();
+    if(!checkBeforeLogin(userName, psw)){
+        return;
+    }
+    $.post("/login_ajax.do", { "userName": userName, "password": psw },
+        function (data) {
+            if (data == "success") {
+                reloadPage();
+            } else {
+                alert("账号/口令不匹配");
+                resetAllInputControls();
+            }
+        });
+}
+
+function checkBeforeLogin(userName, psw){
+    var pass = false;
+    var msg = "";
+    if (userName == "" && psw == ""){
+        msg = "账号/口令不能为空";
+    } else if (userName == ""){
+        msg = "账号不能为空";
+    } else if (psw == ""){
+        msg = "口令不能为空";
+    } else {
+        pass = true;
+    }
+    if (msg != "") {
+        alert(msg);
+    }
+    return pass;
+}
+
+function logout(){
+    var userName = $("#hidden_user_name").val();
+    if (userName == null || userName == ""){
+        return;
+    }
+    $.post("/logout.do", { "userName": userName },
+        function (data) {
+            if (data == "success") {
+                alert("成功退出");
+                reloadPage();
+            } else {
+                alert("退出失败");
+            }
+        });
+}
+
+function quickLogin(event){
+    var theEvent = window.event || event;
+    var code = theEvent.keyCode || theEvent.which;
+    if ($("#iIpt_psw4Login").val() != ""){
+        if (code == 13){
+            login();
+        }
+    }
 }
 
 

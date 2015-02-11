@@ -14,6 +14,7 @@
   <script type="text/javascript" src="/js/jquery.cookie.js"></script>
   <script type="text/javascript" src="/js/stock.js"></script>
   <link href="/css/stock.css" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/img/stock_page_icon.png">
 </head>
 <body>
 <c:if test="${empty userName}" var="notLogin"></c:if>
@@ -26,14 +27,22 @@
     <span class="cSpan_firstTitle"></span>
     <span id="iSpan_shangHaiZhiShuTitle">上证指数：</span>
     <span id="iSpan_shangHaiZhiShu"></span>&nbsp;&nbsp;|&nbsp;
-    <span id="iSpan_currentTime"></span>
+    <span id="iSpan_currentTime"></span>&nbsp;&nbsp;|&nbsp;
+    <c:if test="${!notLogin}">
+      <span>当前登录用户：${userName}</span>
+      <a id="iA_userLogout_b" href="javascript:;" class="grayButton" onclick="logout()">退出登录</a>
+    </c:if>
+    <c:if test="${notLogin}">
+      <a id="iA_userRegister_b" href="javascript:;" class="grayButton" onclick="showRegisterPanel()">用户注册</a>
+      <a id="iA_userLogin_b" href="javascript:;" class="grayButton" onclick="showLoginPanel()">用户登录</a>
+    </c:if>
   </div>
   <div class="cDiv_procPanel_c">
     <span class="cSpan_firstTitle"></span>
-    <a href="javascript:;" class="grayButton firstGrayButton" onclick="clearAllStockItemInCookie()">清空列表</a>
+    <a href="javascript:;" class="blueButton firstButton" onclick="clearAllStockItemInCookie()">清空列表</a>
     <c:if test="${!notLogin}">
-      <a href="javascript:;" class="grayButton" onclick="backupSelectedStockDataToServer()">备份列表</a>
-      <a id="iA_recoverStockList_b" href="javascript:;" class="grayButton" onclick="recoverSelectedStockDataFromServer()">恢复列表</a>
+      <a href="javascript:;" class="blueButton" onclick="backupSelectedStockDataToServer()">备份列表</a>
+      <a id="iA_recoverStockList_b" href="javascript:;" class="blueButton" onclick="recoverSelectedStockDataFromServer()">恢复列表</a>
     </c:if>
     <a id="iA_showMoreColumns" class="blueButton" href="javascript:;" onclick="showStockDetailColumnsInTable()">详细模式</a>
     <a href="javascript:;" class="blueButton" onclick="showAddSelectedStockPanel()">添加自选</a>
@@ -58,7 +67,7 @@
   <br/>
 </div>
 <div id="iDiv_backgroundCoverLayer"></div>
-<div id="iDiv_editStockInfoPanel_c" class="cDiv_userProcPanel_c" panelWidth="400" panelHeight="500">
+<div id="iDiv_editStockInfoPanel_c" class="cDiv_userProcPanel_c" panelWidth="400" panelHeight="280">
   <table class="cTbl_userInput_c">
     <tr>
       <td>股票代码：</td>
@@ -103,9 +112,59 @@
     </tr>
     <tr>
       <td class="cTd_addStockButton_c" colspan="2">
-        <a href="javascript:;" class="grayButton firstGrayButton" onclick="hideBackgroundCoverLayerAndProcPanel()">取消</a>
+        <a href="javascript:;" class="grayButton firstButton" onclick="hideBackgroundCoverLayerAndProcPanel()">取消</a>
         <a id="iA_addStockInfo_b" href="javascript:;" class="grayButton" onclick="checkAndSaveStockData()">添加</a>
         <a id="iA_updateStockInfo_b" href="javascript:;" class="grayButton" onclick="checkAndUpdateStockData()">更新</a>
+      </td>
+    </tr>
+  </table>
+</div>
+<div id="iDiv_userRegisterPanel_c" class="cDiv_userProcPanel_c" panelWidth="300" panelHeight="180">
+  <table class="cTbl_userInput_c">
+    <tr>
+      <td>用户账号：</td>
+      <td>
+        <input id="iIpt_userName4Register" type="text" />&nbsp;
+      </td>
+    </tr>
+    <tr>
+      <td>用户口令：</td>
+      <td>
+        <input id="iIpt_psw4Register" type="password" />
+      </td>
+    </tr>
+    <tr>
+      <td>确认口令：</td>
+      <td>
+        <input id="iIpt_ConfirmPsw4Register" type="password" />
+      </td>
+    </tr>
+    <tr>
+      <td class="cTd_addStockButton_c" colspan="2">
+        <a href="javascript:;" class="grayButton firstButton" onclick="hideBackgroundCoverLayerAndProcPanel()">取消</a>
+        <a href="javascript:;" class="grayButton" onclick="register()">注册</a>
+      </td>
+    </tr>
+  </table>
+</div>
+<div id="iDiv_userLoginPanel_c" class="cDiv_userProcPanel_c" panelWidth="300" panelHeight="150">
+  <table class="cTbl_userInput_c">
+    <tr>
+      <td>用户账号：</td>
+      <td>
+        <input id="iIpt_userName4Login" type="text" />&nbsp;
+      </td>
+    </tr>
+    <tr>
+      <td>用户口令：</td>
+      <td>
+        <input id="iIpt_psw4Login" type="password" onkeydown="quickLogin(event)" />
+      </td>
+    </tr>
+    <tr>
+      <td class="cTd_addStockButton_c" colspan="2">
+        <a href="javascript:;" class="grayButton firstButton" onclick="hideBackgroundCoverLayerAndProcPanel()">取消</a>
+        <a href="javascript:;" class="grayButton" onclick="login()">登录</a>
       </td>
     </tr>
   </table>
