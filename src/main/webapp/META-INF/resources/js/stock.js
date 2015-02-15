@@ -10,6 +10,12 @@ function StockData(stockCode, stockName, buyPrice, buyDate, gainPrice, losePrice
     this.gainStatus = false;
     this.loseStatus = false;
 }
+function FollowedStockData(stockCode, stockName, targetPrice, followedDate){
+    this.stockCode = stockCode;
+    this.stockName = stockName;
+    this.targetPrice = targetPrice;
+    this.followedDate = followedDate;
+}
 
 var g_NaN = "--";
 var g_freshIntervalMillisecond = 5000;
@@ -21,14 +27,17 @@ var g_stockDetailColumnsIndex = "4,5,6,7,8";
 var g_sinaStockVarPrefix = "hq_str_";
 var g_showStockDetailColumnsStatus = false;
 var g_isTradeTime = false;
+var g_myAllStockDataInCookie = "";
 var g_myStockDataInCookie = "";
+var g_myFollowedStockDataInCookie = "";
 var g_myStockList = {};
+var g_myFollowedStockList = {};
 var g_shangHaiCurrentPrice = "";
 var g_shangHaiYesterdayPrice = "";
 var g_currentLoginUserName = "";
 
 var g_isTestMode = false;
-var g_publishVersion = "1.2.1";
+var g_publishVersion = "1.3.0";
 
 
 $(document).ready(function(){
@@ -63,6 +72,9 @@ function getStockInfoFromSina(){
 function getSinaStockCodes(){
     var sinaStockCodes = "";
     for (var code in g_myStockList){
+        sinaStockCodes += code + ",";
+    }
+    for (var code in g_myFollowedStockList){
         sinaStockCodes += code + ",";
     }
     sinaStockCodes = removeLastWord4String(sinaStockCodes);
@@ -132,11 +144,18 @@ function updateStockDataBetweenTradeTime(){
 
 function parseSinaStockDataAndInsertIntoTableList() {
     clearMyStockDataTableList();
+    clearMyFollowedStockDataTableList();
     for (var stockItemCode in g_myStockList) {
         addStockInfoIntoTableList(stockItemCode);
     }
+    for (var stockItemCode in g_myFollowedStockList) {
+        addFollowedStockInfoIntoTableList(stockItemCode);
+    }
     if ($("#iTbl_stockInfoList tr").length == 1){
-        addBlankInfoIntoTableList();
+        addBlankInfoIntoTableList("iTbl_stockInfoList");
+    }
+    if ($("#iTbl_followedStockInfoList tr").length == 1){
+        addBlankInfoIntoTableList("iTbl_followedStockInfoList");
     }
 }
 
@@ -146,13 +165,19 @@ function clearMyStockDataTableList(){
     }
 }
 
+function clearMyFollowedStockDataTableList(){
+    if ($("#iTbl_followedStockInfoList tr").length > 1){
+        $("#iTbl_followedStockInfoList tr:gt(0)").remove();
+    }
+}
+
 function reloadPage(){
     window.location.reload();
 }
 
 function addStockInfoIntoTableList(stockCode){
     var stockDataVarName = g_sinaStockVarPrefix + stockCode;
-    if (checkStockCodeAvailable(stockDataVarName)) {
+    if (checkSinaStockCodeAvailable(stockDataVarName)) {
         var elements = window[stockDataVarName].split(",");
         var name = elements[0];
         var todayOpenPrice = elements[1];
@@ -168,6 +193,7 @@ function addStockInfoIntoTableList(stockCode){
         var tdClassName4TodayIncrease = getTdClassName4TodayIncrease(currentPrice, yesterdayClosePrice);
         var tdClassName4TotalIncrease = getTdClassName4TotalIncrease(stockCode, currentPrice);
         var tdClassName4GainAndLoseStatus = getTdClassName4GainAndLoseStatus(stockCode, currentPrice);
+        var isStopTrade = getStopTradeStatus(elements);
 
         g_myStockList[stockCode].stockName = name;
         var stockInfoTdHtmlString = generateStockInfoTrHtmlString(
@@ -185,18 +211,55 @@ function addStockInfoIntoTableList(stockCode){
             tdClassName4TodayIncrease,
             tdClassName4TodayOpenStatus,
             tdClassName4TotalIncrease,
-            tdClassName4GainAndLoseStatus
+            tdClassName4GainAndLoseStatus,
+            isStopTrade
         );
         $("#iTbl_stockInfoList tbody").append($(stockInfoTdHtmlString));
     }
 }
 
-function addBlankInfoIntoTableList(){
-    var blankInfoTdHtmlString = "<tr><td colspan='11' style='text-align: center;'><span>通过“添加自选”按钮添加个股，进行实时跟踪</span></td></tr>";
-    $("#iTbl_stockInfoList tbody").append($(blankInfoTdHtmlString));
+function addFollowedStockInfoIntoTableList(stockCode){
+    var stockDataVarName = g_sinaStockVarPrefix + stockCode;
+    if (checkSinaStockCodeAvailable(stockDataVarName)) {
+        var elements = window[stockDataVarName].split(",");
+        var name = elements[0];
+        var currentPrice = elements[3];
+        var yesterdayClosePrice = elements[2];
+        var targetPrice = g_myFollowedStockList[stockCode].targetPrice;
+        var holdStockDays = getHoldStockDaysNum(stockCode);
+        var gapPercent = getGapPercent(currentPrice, targetPrice);
+        var gapPrice = getGapPrice(currentPrice, targetPrice);
+        var tdClassName4TodayIncrease = getTdClassName4TodayIncrease(currentPrice, yesterdayClosePrice);
+        var tdClassName4TargetStatus = getTdClassName4TargetStatus(currentPrice, targetPrice);
+        var isStopTrade = getStopTradeStatus(elements);
+
+        g_myFollowedStockList[stockCode].stockName = name;
+        var followedStockInfoTdHtmlString = generateFollowedStockInfoTrHtmlString(
+            stockCode,
+            name,
+            currentPrice,
+            targetPrice,
+            gapPrice,
+            gapPercent,
+            holdStockDays,
+            tdClassName4TodayIncrease,
+            tdClassName4TargetStatus,
+            isStopTrade
+        );
+        $("#iTbl_followedStockInfoList tbody").append($(followedStockInfoTdHtmlString));
+    }
 }
 
-function checkStockCodeAvailable(stockDataVarName){
+function getStopTradeStatus(stockItems){
+    return (stockItems[4].toNumber() == 0 && stockItems[5].toNumber() == 0);
+}
+
+function addBlankInfoIntoTableList(tableId){
+    var blankInfoTdHtmlString = "<tr><td colspan='11' style='text-align: center; color:gray;'><span>暂无内容</span></td></tr>";
+    $("#" + tableId + " tbody").append($(blankInfoTdHtmlString));
+}
+
+function checkSinaStockCodeAvailable(stockDataVarName){
     return ((stockDataVarName in window) && (window[stockDataVarName] != ""));
 }
 
@@ -212,10 +275,16 @@ function updateTableTitleAndDocumentTitle(){
     $("#iSpan_shangHaiZhiShu").attr("class", shangHaiPriceStatus).text(tableTitleText4ShangHaiPrice);
     $("#iSpan_shangHaiZhiShuTitle").attr("class", shangHaiPriceStatus);
     showPageTitle();
+    showTabMenuNumber();
 }
 
 function showPageTitle(){
     document.title = "上证：" + g_shangHaiCurrentPrice;
+}
+
+function showTabMenuNumber(){
+    $("#iA_currentHoldStockTabMenu").text("目前持仓 ( " + arrayCount(g_myStockList) + " )");
+    $("#iA_trailAdjustHoldStockTabMenu").text("回调追踪 ( " + arrayCount(g_myFollowedStockList) + " )");
 }
 
 function getShangHaiCurrentPrice(){
@@ -303,8 +372,18 @@ function getHoldStockDaysNum(stockCode){
         var buyDateVal = g_myStockList[stockCode].buyDate;
         if (buyDateVal != "") {
             var todayDate = new Date();
-            var buyDate = new Date(g_myStockList[stockCode].buyDate);
+            var buyDate = new Date(buyDateVal);
             daysNum = parseInt((todayDate - buyDate) / (1000 * 60 * 60 * 24));
+        } else {
+            daysNum = g_NaN;
+        }
+    }
+    if (stockCode in g_myFollowedStockList) {
+        var followedDateVal = g_myFollowedStockList[stockCode].followedDate;
+        if (followedDateVal != "") {
+            var todayDate = new Date();
+            var followedDate = new Date(followedDateVal);
+            daysNum = parseInt((todayDate - followedDate) / (1000 * 60 * 60 * 24));
         } else {
             daysNum = g_NaN;
         }
@@ -360,6 +439,28 @@ function getTdClassName4GainAndLoseStatus(stockCode, currentPrice){
     return tdClassName;
 }
 
+function getTdClassName4TargetStatus(currentPrice, targetPrice){
+    var tdClassName = "";
+    var currentPriceNum = currentPrice.toNumber();
+    var targetPriceNum = targetPrice.toNumber();
+    if (currentPriceNum > 0 && targetPriceNum > 0){
+        if (currentPriceNum <= targetPriceNum){
+            tdClassName = "cTd_adjustTargetStatus";;
+        }
+    }
+    return tdClassName;
+}
+
+function getGapPercent(currentPrice, targetPrice){
+    var currentPriceNum = Number(currentPrice);
+    var targetPriceNum = Number(targetPrice);
+    return ((targetPriceNum - currentPriceNum) * 100 / currentPriceNum).toFixed(2) + "%";
+}
+
+function getGapPrice(currentPrice, targetPrice){
+    return (Number(targetPrice) - Number(currentPrice)).toFixed(2);
+}
+
 function generateStockInfoTrHtmlString(stockCode,
                                        name,
                                        currentPrice,
@@ -374,9 +475,10 @@ function generateStockInfoTrHtmlString(stockCode,
                                        tdClassName4TodayIncrease,
                                        tdClassName4TodayOpenStatus,
                                        tdClassName4TotalIncrease,
-                                       tdClassName4GainAndLoseStatus) {
+                                       tdClassName4GainAndLoseStatus,
+                                       isStopTrade) {
 
-    if (Number(currentPrice) == 0){
+    if (isStopTrade){
         currentPrice = "停牌";
         todayPercent = g_NaN;
         todayOpenStatus = g_NaN;
@@ -407,6 +509,36 @@ function generateStockInfoTrHtmlString(stockCode,
         + "</tr>";
 }
 
+function generateFollowedStockInfoTrHtmlString(stockCode,
+                                               name,
+                                               currentPrice,
+                                               targetPrice,
+                                               gapPrice,
+                                               gapPercent,
+                                               holdStockDays,
+                                               tdClassName4TodayIncrease,
+                                               tdClassName4TargetStatus,
+                                               isStopTrade) {
+
+    if (isStopTrade){
+        currentPrice = "停牌";
+        tdClassName4TodayIncrease = "cTd_balanceStatus";
+    }
+    var procPanelHtmlString = "<a href='#' onclick='confirmAndRemoveCurrentFollowedStockItem(\"" + stockCode + "\")'>[取消]</a>&nbsp;&nbsp;&nbsp;&nbsp;"
+        + "<a href='#' onclick='showUpdateFollowedStockInfoPanel(\"" + stockCode + "\")'>[调整]</a>";
+    var targetIconHtml = getAdjustTargetIconHtml(currentPrice, targetPrice);
+
+    return "<tr class='cTr_data'>"
+        + "<td class='" + tdClassName4TargetStatus + "'>" + targetIconHtml + "&nbsp;&nbsp;|&nbsp;" + stockCode + "&nbsp;|&nbsp;" + name + "</td>"
+        + "<td class='" + tdClassName4TodayIncrease + "'>" + currentPrice + "</td>"
+        + "<td>" + targetPrice + "</td>"
+        + "<td>" + gapPrice + "</td>"
+        + "<td>" + gapPercent + "</td>"
+        + "<td>" + holdStockDays + "</td>"
+        + "<td>" + procPanelHtmlString + "</td>"
+        + "</tr>";
+}
+
 function getGainAndLoseIconHtml(stockCode){
     var htmlString = "";
     var gainPriceNum = Number(g_myStockList[stockCode].gainPrice);
@@ -432,13 +564,25 @@ function getGainAndLoseIconHtml(stockCode){
     return htmlString;
 }
 
+function getAdjustTargetIconHtml(currentPrice, targetPrice){
+    var currentPriceNum = Number(currentPrice);
+    var targetPriceNum = Number(targetPrice);
+    var html = "<img src='/img/target.png' title='回调目标：" + targetPrice + "' alt='调' ";
+    if (currentPriceNum <= targetPriceNum){
+        html += "class='cImg_iconActive'";
+    } else {
+        html += "class='cImg_iconNotActive'";
+    }
+    html += " />";
+    return html;
+}
+
 function checkAndSaveStockData(){
     var stockCode = $("#iIpt_stockCode").val();
     var buyPrice = $("#iIpt_buyPrice").val();
     var buyDate = $("#iIpt_buyDate").val();
     var gainPrice = $("#iIpt_gainPrice").val();
     var losePrice = $("#iIpt_losePrice").val();
-
     if (checkUserInputStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice)){
         addStockDataToCookieAndRefreshPage(stockCode, buyPrice, buyDate, gainPrice, losePrice);
     }
@@ -455,22 +599,35 @@ function checkAndUpdateStockData(){
     }
 }
 
+function checkAndUpdateFollowedStockData(){
+    var stockCode = $("#iSpan_updateFollowedStockCode").text();
+    var targetPrice = $("#iIpt_followedTargetPrice").val();
+    if (checkUserInputFollowedStockData(stockCode, targetPrice)) {
+        addFollowedStockDataToCookieAndRefreshPage(stockCode, targetPrice);
+    }
+}
+
+function checkAndSaveFollowedStock(){
+    var stockCode = $("#iIpt_followedStockCode").val();
+    var targetPrice = $("#iIpt_followedTargetPrice").val();
+    if (checkUserInputFollowedStockData(stockCode, targetPrice)){
+        addFollowedStockDataToCookieAndRefreshPage(stockCode, targetPrice);
+    }
+}
+
 function checkUserInputStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice) {
     var passStatus = false;
     var errorMsg = "";
-    var stockCodeReg = /^(sz|SZ|sh|SH)\d{6}$/;
-    var priceReg = /^\d+(.\d{0,3})$/;
-    var dateReg = /^\d{4}-\d{2}-\d{2}$/;
 
-    if (stockCode == "" || !stockCodeReg.test(stockCode)) {
+    if (!checkStockCodeAvailable(stockCode)) {
         errorMsg = "股票代码输入有误，是不是忘了前缀了？";
-    } else if (buyPrice == "" || !priceReg.test(buyPrice)) {
+    } else if (!checkStockPriceAvailable(buyPrice)) {
         errorMsg = "成本价格输入有误";
-    } else if (gainPrice != "" && !priceReg.test(gainPrice)) {
+    } else if (!checkStockPriceAvailable(gainPrice) && gainPrice != "") {
         errorMsg = "止盈价格输入有误";
-    } else if (losePrice != "" && !priceReg.test(losePrice)) {
+    } else if (!checkStockPriceAvailable(losePrice) && losePrice != "") {
         errorMsg = "止损价格输入有误";
-    } else if (buyDate == "" || !dateReg.test(buyDate)) {
+    } else if (!checkDateAvailable(buyDate)) {
         errorMsg = "买入日期输入有误";
     } else if ((Number(gainPrice) <= Number(losePrice)) && gainPrice != "" && losePrice != ""){
         errorMsg = "止盈价格必须大于止损价格";
@@ -484,40 +641,81 @@ function checkUserInputStockData(stockCode, buyPrice, buyDate, gainPrice, losePr
     return passStatus;
 }
 
-function updateGlobalStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice){
-    var newStockItemData = stockCode + "," + buyPrice + "," + buyDate + "," + gainPrice + "," + losePrice;
-    if (g_myStockDataInCookie == "" || g_myStockDataInCookie == undefined){
-        g_myStockDataInCookie = newStockItemData;
-    } else {
-        g_myStockDataInCookie += ";" + newStockItemData;
+function checkStockCodeAvailable(stockCode){
+    var stockCodeReg = /^(sz|SZ|sh|SH)\d{6}$/;
+    return (stockCode != "" && stockCodeReg.test(stockCode));
+}
+
+function checkStockPriceAvailable(stockPrice){
+    var priceReg = /^\d+(.\d{0,3})$/;
+    return (stockPrice != "" && priceReg.test(stockPrice));
+}
+
+function checkDateAvailable(date){
+    var dateReg = /^\d{4}-\d{2}-\d{2}$/;
+    return (date != "" && dateReg.test(date));
+}
+
+function checkUserInputFollowedStockData(stockCode, targetPrice){
+    var passStatus = false;
+    var errorMsg = "";
+    if (!checkStockCodeAvailable(stockCode)) {
+        errorMsg = "股票代码输入有误，是不是忘了前缀了？";
+    } else if (!checkStockPriceAvailable(targetPrice)) {
+        errorMsg = "目标价格输入有误";
+    }else {
+        passStatus = true;
     }
+
+    if (!passStatus && errorMsg != ""){
+        alert(errorMsg);
+    }
+    return passStatus;
+}
+
+function updateGlobalStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice){
+    g_myStockList[stockCode] = new StockData(stockCode, "", buyPrice, buyDate, gainPrice, losePrice);
+}
+
+function updateGlobalFollowedStockData(stockCode, targetPrice){
+    g_myFollowedStockList[stockCode] = new FollowedStockData(stockCode, "", targetPrice, getTodayDateString());
+}
+
+function getTodayDateString(){
+    return new Date().format("yyyy-MM-dd");
 }
 
 function resetAllInputControls(){
-    $("#iIpt_stockCode").val("");
-    $("#iIpt_buyPrice").val("");
-    $("#iIpt_buyDate").val("");
-    $("#iIpt_gainPrice").val("");
-    $("#iIpt_losePrice").val("");
-    $("#iIpt_userName4Register").val("");
-    $("#iIpt_psw4Register").val("");
-    $("#iIpt_pswConfirm4Register").val("");
-    $("#iIpt_userName4Login").val("");
-    $("#iIpt_psw4Login").val("");
+    $("input").val("");
 }
 
 function readStockDataFromCookie(){
     var stockDataInCookie =  $.cookie(g_userCookieName);
-    g_myStockDataInCookie = (stockDataInCookie == undefined || stockDataInCookie == null) ? "" : stockDataInCookie;
+    g_myAllStockDataInCookie = (stockDataInCookie == undefined || stockDataInCookie == null) ? "" : stockDataInCookie;
+    if (g_myAllStockDataInCookie != ""){
+        var arr = g_myAllStockDataInCookie.split("::");
+        g_myStockDataInCookie = arr[0];
+        if (arr.length == 2){
+            g_myFollowedStockDataInCookie = arr[1];
+        }
+    }
+
 }
 
 function addStockDataToCookie(){
-    $.cookie(g_userCookieName, g_myStockDataInCookie, { expires: g_cookieSavedDaysNum });
+    $.cookie(g_userCookieName, g_myAllStockDataInCookie, { expires: g_cookieSavedDaysNum });
 }
 
 function removeStockItemFromCookie(stockCode){
     if (stockCode in g_myStockList){
         delete g_myStockList[stockCode];
+    }
+    updateStockDataToCookieAndRefreshPage();
+}
+
+function removeFollowedStockItemFromCookie(stockCode){
+    if (stockCode in g_myFollowedStockList){
+        delete g_myFollowedStockList[stockCode];
         updateStockDataToCookieAndRefreshPage();
     }
 }
@@ -525,6 +723,12 @@ function removeStockItemFromCookie(stockCode){
 function confirmAndRemoveCurrentStockItem(stockCode){
     if (confirm("确定要取消对自选股【" + stockCode + "】的关注么？")){
         removeStockItemFromCookie(stockCode);
+    }
+}
+
+function confirmAndRemoveCurrentFollowedStockItem(stockCode){
+    if (confirm("确定要取消对自选股【" + stockCode + "】的追踪么？")){
+        removeFollowedStockItemFromCookie(stockCode);
     }
 }
 
@@ -544,6 +748,14 @@ function updateStockItemToCookie(stockCode, buyPrice, buyDate){
 
 function addStockDataToCookieAndRefreshPage(stockCode, buyPrice, buyDate, gainPrice, losePrice){
     updateGlobalStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice);
+    generateStockDataByList();
+    addStockDataToCookie();
+    reloadPage();
+}
+
+function addFollowedStockDataToCookieAndRefreshPage(stockCode, targetPrice){
+    updateGlobalFollowedStockData(stockCode, targetPrice);
+    generateStockDataByList();
     addStockDataToCookie();
     reloadPage();
 }
@@ -555,13 +767,26 @@ function updateStockDataToCookieAndRefreshPage(){
 }
 
 function parseStockDataIntoList(){
-    if (g_myStockDataInCookie != undefined && g_myStockDataInCookie != ""){
-        var stockArray = g_myStockDataInCookie.split(";");
-        for(var i = 0; i < stockArray.length; i++){
-            if (stockArray[i] != "") {
-                var stockItems = stockArray[i].split(",");
-                if (stockItems.length == 5) {
-                    g_myStockList[stockItems[0]] = new StockData(stockItems[0], "", stockItems[1], stockItems[2], stockItems[3], stockItems[4]);
+    if (g_myAllStockDataInCookie != undefined && g_myAllStockDataInCookie != ""){
+        if (g_myStockDataInCookie != "") {
+            var selectedStockArray = g_myStockDataInCookie.split(";");
+            for (var i = 0; i < selectedStockArray.length; i++) {
+                if (selectedStockArray[i] != "") {
+                    var stockItems = selectedStockArray[i].split(",");
+                    if (stockItems.length == 5) {
+                        g_myStockList[stockItems[0]] = new StockData(stockItems[0], "", stockItems[1], stockItems[2], stockItems[3], stockItems[4]);
+                    }
+                }
+            }
+        }
+        if (g_myFollowedStockDataInCookie != ""){
+            var followedStockArray = g_myFollowedStockDataInCookie.split(";");
+            for(var i = 0; i < followedStockArray.length; i++){
+                if (followedStockArray[i] != "") {
+                    var stockItems = followedStockArray[i].split(",");
+                    if (stockItems.length == 3) {
+                        g_myFollowedStockList[stockItems[0]] = new FollowedStockData(stockItems[0], "", stockItems[1], stockItems[2]);
+                    }
                 }
             }
         }
@@ -570,11 +795,12 @@ function parseStockDataIntoList(){
 
 function generateStockDataByList(){
     var allStockDataValue = "";
+    var selectedStockVal = "";
     for(var stockItemCode in g_myStockList){
         if (stockItemCode != undefined) {
             var stockItemObj = g_myStockList[stockItemCode];
             if (stockItemObj != null) {
-                allStockDataValue += stockItemObj.stockCode + ","
+                selectedStockVal += stockItemObj.stockCode + ","
                                     + stockItemObj.buyPrice + ","
                                     + stockItemObj.buyDate + ","
                                     + stockItemObj.gainPrice + ","
@@ -582,10 +808,26 @@ function generateStockDataByList(){
             }
         }
     }
-    if (allStockDataValue != ""){
-        allStockDataValue = allStockDataValue.substring(0, allStockDataValue.length - 1);
+    if (selectedStockVal != ""){
+        selectedStockVal = selectedStockVal.substring(0, selectedStockVal.length - 1);
     }
-    g_myStockDataInCookie = allStockDataValue;
+    var followedStockVal = "";
+    for(var stockItemCode in g_myFollowedStockList){
+        if (stockItemCode != undefined) {
+            var stockItemObj = g_myFollowedStockList[stockItemCode];
+            if (stockItemObj != null) {
+                followedStockVal += stockItemObj.stockCode + ","
+                + stockItemObj.targetPrice + ","
+                + stockItemObj.followedDate + ";"
+            }
+        }
+    }
+    if (followedStockVal != ""){
+        followedStockVal = followedStockVal.substring(0, followedStockVal.length - 1);
+    }
+    g_myStockDataInCookie = selectedStockVal;
+    g_myFollowedStockDataInCookie = followedStockVal;
+    g_myAllStockDataInCookie = g_myStockDataInCookie + "::" + g_myFollowedStockDataInCookie;
 }
 
 function removeLastWord4String(str){
@@ -608,22 +850,25 @@ function hideStockDetailColumnsInTable(){
 
 function controlStockDetailColumnsByStatus(){
     var arr = g_stockDetailColumnsIndex.split(",");
-        for (var i = 0; i < arr.length; i++){
-            var $tds = $("#iTbl_stockInfoList tr td:nth-child(" + arr[i] + ")");
-            if (g_showStockDetailColumnsStatus){
-                $tds.show();
-                $("#iA_showMoreColumns")
-                    .unbind("click", showStockDetailColumnsInTable)
-                    .text("精简模式")
-                    .bind("click", hideStockDetailColumnsInTable);
-            } else {
-                $tds.hide();
-                $("#iA_showMoreColumns")
-                    .unbind("click")
-                    .text("详细模式", hideStockDetailColumnsInTable)
-                    .bind("click", showStockDetailColumnsInTable);
-            }
+    for (var i = 0; i < arr.length; i++){
+        var $td = $("#iTbl_stockInfoList tr td:nth-child(" + arr[i] + ")");
+        if (g_showStockDetailColumnsStatus){
+            $td.show();
+        } else {
+            $td.hide();
         }
+    }
+    if (g_showStockDetailColumnsStatus){
+        $("#iTd_showSelectedStockDetailList_b")
+            .unbind("click", showStockDetailColumnsInTable)
+            .text("收起")
+            .bind("click", hideStockDetailColumnsInTable);
+    } else {
+        $("#iTd_showSelectedStockDetailList_b")
+            .unbind("click")
+            .text("展开", hideStockDetailColumnsInTable)
+            .bind("click", showStockDetailColumnsInTable);
+    }
 }
 
 function showAddSelectedStockPanel(){
@@ -645,6 +890,25 @@ function showUpdateStockInfoPanel(stockCode){
     autoFillStockInfoToUpdatedPanel(stockCode);
 }
 
+function showUpdateFollowedStockInfoPanel(stockCode){
+    showBackgroundCoverLayer();
+    showProcPanelById("iDiv_addFollowedStockPanel_c");
+    $("#iDiv_updateFollowedStockCode_c").show();
+    $("#iDiv_addFollowedStockCode_c").hide();
+    $("#iA_updateFollowedStockInfo_b").show();
+    $("#iA_addFollowedStockInfo_b").hide();
+    autoFillFollowedStockInfoToUpdatedPanel(stockCode);
+}
+
+function showAddFollowedStockPanel(){
+    showBackgroundCoverLayer();
+    showProcPanelById("iDiv_addFollowedStockPanel_c");
+    $("#iDiv_updateFollowedStockCode_c").hide();
+    $("#iDiv_addFollowedStockCode_c").show();
+    $("#iA_updateFollowedStockInfo_b").hide();
+    $("#iA_addFollowedStockInfo_b").show();
+}
+
 function autoFillStockInfoToUpdatedPanel(stockCode){
     var currentStockData = g_myStockList[stockCode];
     $("#iSpan_updateStockCode").text(stockCode);
@@ -653,6 +917,13 @@ function autoFillStockInfoToUpdatedPanel(stockCode){
     $("#iIpt_gainPrice").attr("value", currentStockData.gainPrice);
     $("#iIpt_losePrice").attr("value", currentStockData.losePrice);
     $("#iIpt_buyDate").attr("value", currentStockData.buyDate);
+}
+
+function autoFillFollowedStockInfoToUpdatedPanel(stockCode){
+    var currentStockData = g_myFollowedStockList[stockCode];
+    $("#iSpan_updateFollowedStockCode").text(stockCode);
+    $("#iSpan_updateFollowedStockName").text(currentStockData.stockName);
+    $("#iIpt_followedTargetPrice").attr("value", currentStockData.targetPrice);
 }
 
 function showBackgroundCoverLayer(){
@@ -702,8 +973,9 @@ function backupSelectedStockDataToServer(){
     if(!checkUserLoginStatus()){
         return;
     }
+    generateStockDataByList();
     if (confirm("确认要备份当前自选股列表么？")) {
-        $.post("/stock/save_cookie.do", {"userName": g_currentLoginUserName, "stockCookie": g_myStockDataInCookie},
+        $.post("/stock/save_cookie.do", {"userName": g_currentLoginUserName, "stockCookie": g_myAllStockDataInCookie},
             function (data) {
                 if (data == "success") {
                     alert("备份成功");
@@ -718,7 +990,7 @@ function recoverSelectedStockDataFromServer(){
     if (confirm("确认要恢复之前备份的自选股列表么？")) {
         var stockCookie = $("#hidden_stock_cookie").val();
         if (stockCookie != "") {
-            g_myStockDataInCookie = stockCookie;
+            g_myAllStockDataInCookie = stockCookie;
             addStockDataToCookie();
             reloadPage();
         }
@@ -853,16 +1125,65 @@ function quickLogin(event){
     }
 }
 
+function showStockListByMenuName(obj, menuName){
+    var groupType = "";
+    var stockInfoTableId = "";
+    if (menuName == "selected"){
+        groupType = "selected";
+        stockInfoTableId = "iTbl_stockInfoList";
+    } else if (menuName == "followed"){
+        groupType = "followed";
+        stockInfoTableId = "iTbl_followedStockInfoList";
+    }
+    if (groupType != "" && stockInfoTableId != "") {
+        $(".cA_tabMenuSelected").removeClass("cA_tabMenuSelected").addClass("cA_tabMenu");
+        $(obj).removeClass("cA_tabMenu").addClass("cA_tabMenuSelected");
+        $("table[group_type]").hide();
+        $("table[group_type=" + groupType + "]").show();
+        $("a[group_type]").hide();
+        $("a[group_type=" + groupType + "]").show();
+    }
+}
 
-/* function for test */
-function addTestData(){
-    g_myStockList["sz000977"] = new StockData("sz000977", "浪潮信息", "38.888", "2014-11-11", "", "");
-    g_myStockList["sh603288"] = new StockData("sh603288", "海天味业", "42.341", "2014-12-03", "", "");
-    g_myStockList["sh600509"] = new StockData("sh600509", "天富能源", "10.581", "2014-12-16", "", "");
-    g_myStockList["sz000099"] = new StockData("sz000099", "中信海直", "14.62", "2014-12-22", "", "");
-    g_myStockList["sz000837"] = new StockData("sz000837", "秦川机床", "11.115", "2015-01-12", "", "");
-    g_myStockList["sh600597"] = new StockData("sh600597", "光明乳业", "18.311", "2015-01-14", "", "");
-    generateStockDataByList();
-    addStockDataToCookie();
-    reloadPage();
+
+Date.prototype.format =function(format)
+{
+    var o = {
+        "M+" : this.getMonth()+1, //month
+        "d+" : this.getDate(), //day
+        "h+" : this.getHours(), //hour
+        "m+" : this.getMinutes(), //minute
+        "s+" : this.getSeconds(), //second
+        "q+" : Math.floor((this.getMonth()+3)/3), //quarter
+        "S" : this.getMilliseconds() //millisecond
+    }
+    if(/(y+)/.test(format)) format=format.replace(RegExp.$1,
+        (this.getFullYear()+"").substr(4- RegExp.$1.length));
+    for(var k in o)if(new RegExp("("+ k +")").test(format))
+        format = format.replace(RegExp.$1,
+            RegExp.$1.length==1? o[k] :
+                ("00"+ o[k]).substr((""+ o[k]).length));
+    return format;
+}
+
+String.prototype.toNumber = function(){
+    var num = 0;
+    try {
+        num = Number(this);
+    }catch(e){
+        num = -1;
+    }
+    return num;
+}
+
+function arrayCount(o){
+    var t = typeof o;
+    if(t == 'string'){
+        return o.length;
+    }else if(t == 'object'){
+        var n = 0;
+        for(var i in o){n++;}
+        return n;
+    }
+    return false;
 }

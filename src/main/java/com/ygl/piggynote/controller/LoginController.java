@@ -124,7 +124,7 @@ public class LoginController extends BaseController {
         // 去除session
         session.removeAttribute(CommonConstant.SESSION_USER_CONTENT);
         // 清除cookie
-        CookieUtil.addCookie(response, CommonConstant.COOKIE_USER_NAME, null, 0);
+        CookieUtil.addCookie(response, CommonConstant.COOKIE_USER_NAME, "", 0);
 
         // 返回操作结果
         CommonUtil.writeResponse4BooleanResult(true, response);

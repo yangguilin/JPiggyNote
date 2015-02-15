@@ -23,32 +23,45 @@
     <input type="hidden" id="hidden_user_name" value="${userName}" />
     <input type="hidden" id="hidden_stock_cookie" value="${stockCookie}" />
   </div>
-  <div class="cDiv_realTimeInfo_c">
+  <div class="cDiv_systemInfo">
     <span class="cSpan_firstTitle"></span>
-    <span id="iSpan_shangHaiZhiShuTitle">上证指数：</span>
-    <span id="iSpan_shangHaiZhiShu"></span>&nbsp;&nbsp;|&nbsp;
-    <span id="iSpan_currentTime"></span>&nbsp;&nbsp;|&nbsp;
     <c:if test="${!notLogin}">
-      <span>当前登录用户：${userName}</span>
+      <span class="cSpan_loginInfo">当前登录用户：${userName}</span>
       <a id="iA_userLogout_b" href="javascript:;" class="grayButton" onclick="logout()">退出登录</a>
     </c:if>
     <c:if test="${notLogin}">
       <a id="iA_userRegister_b" href="javascript:;" class="grayButton" onclick="showRegisterPanel()">用户注册</a>
       <a id="iA_userLogin_b" href="javascript:;" class="grayButton" onclick="showLoginPanel()">用户登录</a>
     </c:if>
+    <c:if test="${!notLogin}">
+      <a href="javascript:;" class="grayButton" onclick="backupSelectedStockDataToServer()">备份全部列表</a>
+      <a id="iA_recoverStockList_b" href="javascript:;" class="grayButton" onclick="recoverSelectedStockDataFromServer()">恢复全部列表</a>
+      <a href="javascript:;" class="grayButton" onclick="clearAllStockItemInCookie()">清空全部列表</a>
+    </c:if>
+  </div>
+  <div class="cDiv_realTimeInfo_c">
+    <span class="cSpan_firstTitle"></span>
+    <span id="iSpan_shangHaiZhiShuTitle">上证指数：</span>
+    <span id="iSpan_shangHaiZhiShu"></span>&nbsp;&nbsp;|&nbsp;
+    <span id="iSpan_currentTime"></span>
+  </div>
+  <div class="cDiv_tabMenu_c">
+    <ul>
+      <li>
+        <a id="iA_currentHoldStockTabMenu" href="javascript:;" class="cA_tabMenuSelected" onclick="showStockListByMenuName(this, 'selected')">目前持仓</a>
+      </li>
+      <li>
+        <a id="iA_trailAdjustHoldStockTabMenu" href="javascript:;" class="cA_tabMenu" onclick="showStockListByMenuName(this, 'followed')">回调追踪</a>
+      </li>
+    </ul>
   </div>
   <div class="cDiv_procPanel_c">
     <span class="cSpan_firstTitle"></span>
-    <a href="javascript:;" class="blueButton firstButton" onclick="clearAllStockItemInCookie()">清空列表</a>
-    <c:if test="${!notLogin}">
-      <a href="javascript:;" class="blueButton" onclick="backupSelectedStockDataToServer()">备份列表</a>
-      <a id="iA_recoverStockList_b" href="javascript:;" class="blueButton" onclick="recoverSelectedStockDataFromServer()">恢复列表</a>
-    </c:if>
-    <a id="iA_showMoreColumns" class="blueButton" href="javascript:;" onclick="showStockDetailColumnsInTable()">详细模式</a>
-    <a href="javascript:;" class="blueButton" onclick="showAddSelectedStockPanel()">添加自选</a>
+    <a href="javascript:;" class="blueButton" group_type="selected" onclick="showAddSelectedStockPanel()">添加自选</a>
+    <a id="iA_addFollowedStock_b" href="javascript:;" class="blueButton" group_type="followed" onclick="showAddFollowedStockPanel()">添加追踪</a>
   </div>
   <div class="cDiv_stockInfoList_c">
-    <table id="iTbl_stockInfoList">
+    <table id="iTbl_stockInfoList" group_type="selected">
       <tr class="cTr_title">
         <td class="cTd_stockNameAndCode">股票名称</td>
         <td>当前价格</td>
@@ -63,8 +76,23 @@
         <td class="cTd_stockItemProcPanelColumn">功能操作</td>
       </tr>
     </table>
+    <table id="iTbl_showMore_c" group_type="selected">
+      <tr>
+        <td id="iTd_showSelectedStockDetailList_b" onclick="showStockDetailColumnsInTable()">展开</td>
+      </tr>
+    </table>
+    <table id="iTbl_followedStockInfoList" group_type="followed">
+      <tr class="cTr_title">
+        <td class="cTd_stockNameAndCode">股票名称</td>
+        <td>当前价格</td>
+        <td>目标价格</td>
+        <td>目标价差</td>
+        <td>目标幅差</td>
+        <td>跟踪天数</td>
+        <td class="cTd_stockItemProcPanelColumn">功能操作</td>
+      </tr>
+    </table>
   </div>
-  <br/>
 </div>
 <div id="iDiv_backgroundCoverLayer"></div>
 <div id="iDiv_editStockInfoPanel_c" class="cDiv_userProcPanel_c" panelWidth="400" panelHeight="280">
@@ -115,6 +143,37 @@
         <a href="javascript:;" class="grayButton firstButton" onclick="hideBackgroundCoverLayerAndProcPanel()">取消</a>
         <a id="iA_addStockInfo_b" href="javascript:;" class="grayButton" onclick="checkAndSaveStockData()">添加</a>
         <a id="iA_updateStockInfo_b" href="javascript:;" class="grayButton" onclick="checkAndUpdateStockData()">更新</a>
+      </td>
+    </tr>
+  </table>
+</div>
+<div id="iDiv_addFollowedStockPanel_c" class="cDiv_userProcPanel_c" panelWidth="400" panelHeight="180">
+  <table class="cTbl_userInput_c">
+    <tr>
+      <td>股票代码：</td>
+      <td>
+        <div id="iDiv_updateFollowedStockCode_c">
+          <span id="iSpan_updateFollowedStockCode"></span>
+          &nbsp;|&nbsp;
+          <span id="iSpan_updateFollowedStockName"></span>
+        </div>
+        <div id="iDiv_addFollowedStockCode_c">
+          <input id="iIpt_followedStockCode" type="text" />&nbsp;<span class="cSpan_comment">如：sz000099</span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>目标价格：</td>
+      <td>
+        <input id="iIpt_followedTargetPrice" type="text" />
+        &nbsp;<span class="cSpan_comment">如：11.123</span>
+      </td>
+    </tr>
+    <tr>
+      <td class="cTd_addStockButton_c" colspan="2">
+        <a href="javascript:;" class="grayButton firstButton" onclick="hideBackgroundCoverLayerAndProcPanel()">取消</a>
+        <a id="iA_addFollowedStockInfo_b" href="javascript:;" class="grayButton" onclick="checkAndSaveFollowedStock()">添加</a>
+        <a id="iA_updateFollowedStockInfo_b" href="javascript:;" class="grayButton" onclick="checkAndUpdateFollowedStockData()">更新</a>
       </td>
     </tr>
   </table>

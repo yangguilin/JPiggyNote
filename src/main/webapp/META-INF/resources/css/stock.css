@@ -11,15 +11,17 @@ input[type=text], input[type=password]{ padding-left: 10px; height: 16px; width:
 /*
     id
 */
-#iTbl_stockInfoList{ font-size: 12px; }
-#iTbl_stockInfoList tr td { padding: 5px 15px; text-align: right; }
-#iTbl_stockInfoList tr:not(.cTr_title) td { height:22px; }
-#iTbl_stockInfoList tr:nth-child(odd) { background-color: #fff; }
-#iTbl_stockInfoList tr:nth-child(even) { background-color: #f8f9fb; }
+#iTbl_stockInfoList, #iTbl_followedStockInfoList, #iTbl_showMore_c { font-size: 12px; display:inline-block; float:left; }
+#iTbl_stockInfoList tr td, #iTbl_followedStockInfoList tr td { padding: 5px 15px; text-align: right; }
+#iTbl_stockInfoList tr:not(.cTr_title) td, #iTbl_followedStockInfoList tr:not(.cTr_title) td { height:22px; }
+#iTbl_stockInfoList tr:nth-child(odd), #iTbl_followedStockInfoList tr:nth-child(odd) { background-color: #fff; }
+#iTbl_stockInfoList tr:nth-child(even), #iTbl_followedStockInfoList tr:nth-child(even) { background-color: #f8f9fb; }
 #iTbl_stockInfoList tr td:nth-child(4), #iTbl_stockInfoList tr td:nth-child(5),
 #iTbl_stockInfoList tr td:nth-child(6), #iTbl_stockInfoList tr td:nth-child(7),
 #iTbl_stockInfoList tr td:nth-child(8) { display:none; }
-#iDiv_backgroundCoverLayer, #iDiv_editStockInfoPanel_c, #iDiv_userRegisterPanel_c, #iDiv_userLoginPanel_c { display: none; }
+#iDiv_backgroundCoverLayer, #iDiv_editStockInfoPanel_c,
+#iDiv_userRegisterPanel_c, #iDiv_userLoginPanel_c,
+#iTbl_followedStockInfoList, #iA_addFollowedStock_b, #iDiv_addFollowedStockPanel_c { display: none; }
 #iDiv_backgroundCoverLayer {
     position: absolute;
     z-index: 99;
@@ -29,11 +31,22 @@ input[type=text], input[type=password]{ padding-left: 10px; height: 16px; width:
     -khtml-opacity: 0.7;
     opacity: 0.7;
 }
-#iA_userRegister_b, #iA_userLogin_b, #iA_userLogout_b {
-    font-size: 10px;
-    padding: 4px 10px;
-    font-weight: normal;
+#iTbl_showMore_c tr td {
+    width: 50px;
+    background-color: #ebebeb;
+    cursor: pointer;
+    font-weight: bold;
+    color: gray;
+    text-align: center;
+    border-radius: 5px;
+    padding:2px 8px;
+    height:30px;
 }
+#iTbl_showMore_c tr td:hover {
+    background-color: #d7d7d7;
+}
+
+
 
 /*
   class
@@ -62,6 +75,7 @@ span.cSpan_comment { font-size: 12px; color:gray; }
     padding-top: 15px;
 }
 .cTbl_userInput_c tr td:nth-child(1) { padding-left: 30px; }
+.cDiv_systemInfo { padding:10px 20px; background-color: #F8F9FB; }
 .cDiv_realTimeInfo_c{
     color:#999999;
     font-weight: bold;
@@ -78,7 +92,6 @@ span.cSpan_comment { font-size: 12px; color:gray; }
     color:#666;
     font-size: 14px;
     padding:10px 20px;
-    background-color: #f8f9fb;
 }
 .cDiv_stockInfoList_c { padding:10px 20px; }
 .cSpan_firstTitle { border-left: 2px solid #88B7E0; padding-left: 10px; }
@@ -108,23 +121,24 @@ a.firstButton { margin-left: 0px; }
     border: 1px solid #BCBCBC;
 }
 .grayButton:hover { background-color:#f1f1f1; }
-a.tabMenu {
+div.cDiv_tabMenu_c { height:50px; }
+div.cDiv_tabMenu_c ul { padding-left: 20px; }
+a.cA_tabMenu {
     color:#666;
-    width:150px;
     height:22px;
     display:block;
     font-size: 14px;
-    padding:12px 0px;
+    padding:8px 40px;
     text-align: center;
     text-decoration: none;
     border: 1px solid #DDD;
     background-color: #FBFAF8;
 }
-a.tabMenuSelected {
-    width:150px;
+a.cA_tabMenuSelected {
     display:block;
     color:#01A2CA;
-    padding:12px 0px;
+    font-size: 14px;
+    padding:8px 40px;
     text-align: center;
     text-decoration: none;
     background-color: #FFF;
@@ -133,8 +147,8 @@ a.tabMenuSelected {
     border-top: 2px solid #01A2CA;
     border-bottom: 1px solid #FFF;
 }
-a.tabMenu:hover { color:#01A2CA; }
-ul.tabContainer li {
+a.cA_tabMenu:hover { color:#01A2CA; }
+div.cDiv_tabMenu_c ul li {
     list-style: none outside none;
     float: left;
 }
@@ -160,3 +174,6 @@ ul.tabContainer li {
 }
 .cTd_gainStatus { font-weight: bold; color:red; font-size: 14px; }
 .cTd_loseStatus { font-weight: bold; color:green; font-size: 14px; }
+.cSpan_loginInfo { color:#999999; font-weight: bold; font-size: 14px; }
+.cTd_adjustTargetStatus { color:red; font-size: 14px; font-weight: bold; }
+
