@@ -24,7 +24,7 @@
     <input type="hidden" id="hidden_stock_cookie" value="${stockCookie}" />
   </div>
   <div class="cDiv_systemInfo">
-    <span class="cSpan_firstTitle"></span>
+    <img class="cImg_systemInfoLogo" src="/img/stock-logo.png"/>
     <c:if test="${!notLogin}">
       <span class="cSpan_loginInfo">当前登录用户：${userName}</span>
       <a id="iA_userLogout_b" href="javascript:;" class="grayButton" onclick="logout()">退出登录</a>
@@ -32,6 +32,7 @@
     <c:if test="${notLogin}">
       <a id="iA_userRegister_b" href="javascript:;" class="grayButton" onclick="showRegisterPanel()">用户注册</a>
       <a id="iA_userLogin_b" href="javascript:;" class="grayButton" onclick="showLoginPanel()">用户登录</a>
+      <span class="cSpan_procTips">西瓜温馨提示：登陆后可对全部列表进行清空、备份和恢复等操作。不登陆的话，请保证使用固定浏览器，且不清空浏览器cookie缓存。</span>
     </c:if>
     <c:if test="${!notLogin}">
       <a href="javascript:;" class="grayButton" onclick="backupSelectedStockDataToServer()">备份全部列表</a>
@@ -40,7 +41,7 @@
     </c:if>
   </div>
   <div class="cDiv_realTimeInfo_c">
-    <span class="cSpan_firstTitle"></span>
+    <img class="cImg_realTimeLogo" src="/img/clock.png"/>
     <span id="iSpan_shangHaiZhiShuTitle">上证指数：</span>
     <span id="iSpan_shangHaiZhiShu"></span>&nbsp;&nbsp;|&nbsp;
     <span id="iSpan_currentTime"></span>
@@ -57,8 +58,8 @@
   </div>
   <div class="cDiv_procPanel_c">
     <span class="cSpan_firstTitle"></span>
-    <a href="javascript:;" class="blueButton" group_type="selected" onclick="showAddSelectedStockPanel()">添加自选</a>
-    <a id="iA_addFollowedStock_b" href="javascript:;" class="blueButton" group_type="followed" onclick="showAddFollowedStockPanel()">添加追踪</a>
+    <a href="javascript:;" class="blueButton" group_type="selected" onclick="showAddSelectedStockPanel()">添加持仓股票</a>
+    <a id="iA_addFollowedStock_b" href="javascript:;" class="blueButton" group_type="followed" onclick="showAddFollowedStockPanel()">添加回调股票</a>
   </div>
   <div class="cDiv_stockInfoList_c">
     <table id="iTbl_stockInfoList" group_type="selected">
@@ -78,7 +79,7 @@
     </table>
     <table id="iTbl_showMore_c" group_type="selected">
       <tr>
-        <td id="iTd_showSelectedStockDetailList_b" onclick="showStockDetailColumnsInTable()">展开</td>
+        <td id="iTd_showSelectedStockDetailList_b" onclick="showStockDetailColumnsInTable()">更多</td>
       </tr>
     </table>
     <table id="iTbl_followedStockInfoList" group_type="followed">

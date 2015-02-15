@@ -75,12 +75,13 @@ span.cSpan_comment { font-size: 12px; color:gray; }
     padding-top: 15px;
 }
 .cTbl_userInput_c tr td:nth-child(1) { padding-left: 30px; }
-.cDiv_systemInfo { padding:10px 20px; background-color: #F8F9FB; }
+.cDiv_systemInfo { padding:10px 20px; }
 .cDiv_realTimeInfo_c{
     color:#999999;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px;
     padding:10px 20px;
+    margin-top: 15px;
 }
 .cDiv_userProcPanel_c {
     z-index: 100;
@@ -176,4 +177,12 @@ div.cDiv_tabMenu_c ul li {
 .cTd_loseStatus { font-weight: bold; color:green; font-size: 14px; }
 .cSpan_loginInfo { color:#999999; font-weight: bold; font-size: 14px; }
 .cTd_adjustTargetStatus { color:red; font-size: 14px; font-weight: bold; }
+.cSpan_procTips { color:gray; font-size: 12px; margin-left: 20px; }
+.cImg_realTimeLogo {
+    width:20px;
+    height:20px;
+    margin-bottom: -3px;
+    margin-right: 5px;
+}
+.cImg_systemInfoLogo { width:30px; height:30px; margin-bottom: -12px; }
 

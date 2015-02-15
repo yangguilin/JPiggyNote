@@ -37,7 +37,7 @@ var g_shangHaiYesterdayPrice = "";
 var g_currentLoginUserName = "";
 
 var g_isTestMode = false;
-var g_publishVersion = "1.3.0";
+var g_publishVersion = "1.3.1";
 
 
 $(document).ready(function(){
@@ -267,7 +267,7 @@ function updateTableTitleAndDocumentTitle(){
     checkTradeTimeStatus();
     getShangHaiCurrentPrice();
 
-    var tableTitleText4Time = getCurrentTime() + " - [ " + (g_isTradeTime ? "交易时间" : "闭市时间") + " ]";
+    var tableTitleText4Time = getCurrentTime();
     $("#iSpan_currentTime").text(tableTitleText4Time);
     var tableTitleText4ShangHaiPrice = g_shangHaiCurrentPrice + " - [ "
                             + getTodayPercent(g_shangHaiYesterdayPrice, g_shangHaiCurrentPrice) + " ]";
@@ -861,12 +861,12 @@ function controlStockDetailColumnsByStatus(){
     if (g_showStockDetailColumnsStatus){
         $("#iTd_showSelectedStockDetailList_b")
             .unbind("click", showStockDetailColumnsInTable)
-            .text("收起")
+            .text("精简")
             .bind("click", hideStockDetailColumnsInTable);
     } else {
         $("#iTd_showSelectedStockDetailList_b")
             .unbind("click")
-            .text("展开", hideStockDetailColumnsInTable)
+            .text("更多", hideStockDetailColumnsInTable)
             .bind("click", showStockDetailColumnsInTable);
     }
 }
