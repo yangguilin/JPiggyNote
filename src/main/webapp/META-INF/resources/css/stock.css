@@ -56,11 +56,12 @@ tr.cTr_title td {
     color:white;
     font-size: 14px;
     background-color: #43BFE3;
+    border-radius: 2px;
 }
 tr.cTr_data td { width:60px; }
 tr.cTr_data td:nth-child(2) { font-weight: bold; }
 td.cTd_stockNameAndCode { width:190px; }
-td.cTd_stockItemProcPanelColumn { width:80px; }
+td.cTd_stockItemProcPanelColumn { width:100px; }
 .cTd_upStatus { color:red; }
 .cTd_balanceStatus { color:gray }
 .cTd_downStatus { color:green; }
@@ -75,7 +76,7 @@ span.cSpan_comment { font-size: 12px; color:gray; }
     padding-top: 15px;
 }
 .cTbl_userInput_c tr td:nth-child(1) { padding-left: 30px; }
-.cDiv_systemInfo { padding:10px 20px; }
+.cDiv_systemInfo { padding:20px 20px; border-bottom: 1px solid lightgray; }
 .cDiv_realTimeInfo_c{
     color:#999999;
     font-weight: bold;

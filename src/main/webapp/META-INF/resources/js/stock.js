@@ -37,7 +37,7 @@ var g_shangHaiYesterdayPrice = "";
 var g_currentLoginUserName = "";
 
 var g_isTestMode = false;
-var g_publishVersion = "1.3.1";
+var g_publishVersion = "1.3.2";
 
 
 $(document).ready(function(){

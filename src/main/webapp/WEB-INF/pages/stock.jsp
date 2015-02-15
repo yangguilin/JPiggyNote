@@ -32,7 +32,7 @@
     <c:if test="${notLogin}">
       <a id="iA_userRegister_b" href="javascript:;" class="grayButton" onclick="showRegisterPanel()">用户注册</a>
       <a id="iA_userLogin_b" href="javascript:;" class="grayButton" onclick="showLoginPanel()">用户登录</a>
-      <span class="cSpan_procTips">西瓜温馨提示：登陆后可对全部列表进行清空、备份和恢复等操作。不登陆的话，请保证使用固定浏览器，且不清空浏览器cookie缓存。</span>
+      <span class="cSpan_procTips"><b>西瓜温馨提示：</b>登陆后可对全部列表进行清空、备份和恢复等操作。不登陆的话，请保证使用固定浏览器，且不清空浏览器cookie缓存。</span>
     </c:if>
     <c:if test="${!notLogin}">
       <a href="javascript:;" class="grayButton" onclick="backupSelectedStockDataToServer()">备份全部列表</a>
