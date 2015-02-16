@@ -186,4 +186,6 @@ div.cDiv_tabMenu_c ul li {
     margin-right: 5px;
 }
 .cImg_systemInfoLogo { width:30px; height:30px; margin-bottom: -12px; }
+.cSpan_upBreakThoughStatus { color: #f57635; }
+.cSpan_downBreakThoughStatus { color: #94c93a; }
 

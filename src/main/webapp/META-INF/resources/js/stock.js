@@ -25,7 +25,10 @@ var g_shangHaiCode = "sh000001";
 var g_userCookieName = "user_stock_data";
 var g_stockDetailColumnsIndex = "4,5,6,7,8";
 var g_sinaStockVarPrefix = "hq_str_";
+var g_upBreakThoughPercent = 4;
+var g_downBreakThoughPercent = 4;
 var g_showStockDetailColumnsStatus = false;
+var g_showLongPeriodStockRowsStatus = false;
 var g_isTradeTime = false;
 var g_myAllStockDataInCookie = "";
 var g_myStockDataInCookie = "";
@@ -193,6 +196,7 @@ function addStockInfoIntoTableList(stockCode){
         var tdClassName4TodayIncrease = getTdClassName4TodayIncrease(currentPrice, yesterdayClosePrice);
         var tdClassName4TotalIncrease = getTdClassName4TotalIncrease(stockCode, currentPrice);
         var tdClassName4GainAndLoseStatus = getTdClassName4GainAndLoseStatus(stockCode, currentPrice);
+        var tdClassName4TodayBreakThoughStatus = getTdClassName4TodayBreakThoughStatus(yesterdayClosePrice, todayMinPrice, todayMaxPrice);
         var isStopTrade = getStopTradeStatus(elements);
 
         g_myStockList[stockCode].stockName = name;
@@ -212,7 +216,8 @@ function addStockInfoIntoTableList(stockCode){
             tdClassName4TodayOpenStatus,
             tdClassName4TotalIncrease,
             tdClassName4GainAndLoseStatus,
-            isStopTrade
+            isStopTrade,
+            tdClassName4TodayBreakThoughStatus
         );
         $("#iTbl_stockInfoList tbody").append($(stockInfoTdHtmlString));
     }
@@ -223,14 +228,18 @@ function addFollowedStockInfoIntoTableList(stockCode){
     if (checkSinaStockCodeAvailable(stockDataVarName)) {
         var elements = window[stockDataVarName].split(",");
         var name = elements[0];
-        var currentPrice = elements[3];
+        var todayOpenPrice = elements[1];
         var yesterdayClosePrice = elements[2];
+        var currentPrice = elements[3];
+        var todayMaxPrice = elements[4];
+        var todayMinPrice = elements[5];
         var targetPrice = g_myFollowedStockList[stockCode].targetPrice;
         var holdStockDays = getHoldStockDaysNum(stockCode);
         var gapPercent = getGapPercent(currentPrice, targetPrice);
         var gapPrice = getGapPrice(currentPrice, targetPrice);
         var tdClassName4TodayIncrease = getTdClassName4TodayIncrease(currentPrice, yesterdayClosePrice);
         var tdClassName4TargetStatus = getTdClassName4TargetStatus(currentPrice, targetPrice);
+        var tdClassName4TodayBreakThoughStatus = getTdClassName4TodayBreakThoughStatus(yesterdayClosePrice, todayMinPrice, todayMaxPrice);
         var isStopTrade = getStopTradeStatus(elements);
 
         g_myFollowedStockList[stockCode].stockName = name;
@@ -244,7 +253,8 @@ function addFollowedStockInfoIntoTableList(stockCode){
             holdStockDays,
             tdClassName4TodayIncrease,
             tdClassName4TargetStatus,
-            isStopTrade
+            isStopTrade,
+            tdClassName4TodayBreakThoughStatus
         );
         $("#iTbl_followedStockInfoList tbody").append($(followedStockInfoTdHtmlString));
     }
@@ -451,6 +461,23 @@ function getTdClassName4TargetStatus(currentPrice, targetPrice){
     return tdClassName;
 }
 
+function getTdClassName4TodayBreakThoughStatus(yesterdayClosePrice, todayMinPrice, todayMaxPrice){
+    var tdClassName = "";
+    var closePriceNum = yesterdayClosePrice.toNumber();
+    var minPriceNum = todayMinPrice.toNumber();
+    var maxPriceNum = todayMaxPrice.toNumber();
+    if (maxPriceNum > closePriceNum){
+        if (((maxPriceNum - closePriceNum) * 100 / closePriceNum) >= g_upBreakThoughPercent){
+            tdClassName = "cSpan_upBreakThoughStatus";
+        }
+    } else if (closePriceNum > minPriceNum){
+        if (((closePriceNum - minPriceNum) * 100 / closePriceNum)>= g_downBreakThoughPercent){
+            tdClassName = "cSpan_downBreakThoughStatus";
+        }
+    }
+    return tdClassName;
+}
+
 function getGapPercent(currentPrice, targetPrice){
     var currentPriceNum = Number(currentPrice);
     var targetPriceNum = Number(targetPrice);
@@ -476,7 +503,8 @@ function generateStockInfoTrHtmlString(stockCode,
                                        tdClassName4TodayOpenStatus,
                                        tdClassName4TotalIncrease,
                                        tdClassName4GainAndLoseStatus,
-                                       isStopTrade) {
+                                       isStopTrade,
+                                       tdClassName4TodayBreakThoughStatus) {
 
     if (isStopTrade){
         currentPrice = "停牌";
@@ -490,23 +518,27 @@ function generateStockInfoTrHtmlString(stockCode,
         tdClassName4TodayOpenStatus = "cTd_balanceStatus";
         tdClassName4TotalIncrease = getTdClassName4TotalIncrease(stockCode, yesterdayClosePrice);
     }
+    if (tdClassName4GainAndLoseStatus != ""){
+        tdClassName4TodayBreakThoughStatus = "";
+    }
     var procPanelHtmlString = "<a href='#' onclick='confirmAndRemoveCurrentStockItem(\"" + stockCode + "\")'>[取消]</a>&nbsp;&nbsp;&nbsp;&nbsp;"
         + "<a href='#' onclick='showUpdateStockInfoPanel(\"" + stockCode + "\")'>[调整]</a>";
     var gainAndLoseIconHtmlString = getGainAndLoseIconHtml(stockCode);
 
     return "<tr class='cTr_data'>"
-        + "<td class='" + tdClassName4GainAndLoseStatus + "'>" + gainAndLoseIconHtmlString + "&nbsp;&nbsp;|&nbsp;" + stockCode + "&nbsp;|&nbsp;" + name + "</td>"
-        + "<td class='" + tdClassName4TodayIncrease + "'>" + currentPrice + "</td>"
-        + "<td class='" + tdClassName4TodayIncrease + "'>" + todayPercent + "</td>"
-        + "<td class='" + tdClassName4TodayOpenStatus + "'>" + todayOpenStatus + "</td>"
-        + "<td class='" + tdClassName4TodayOpenStatus + "'>" + todayOpenPrice + "</td>"
-        + "<td>" + yesterdayClosePrice + "</td>"
-        + "<td class='cTd_downStatus'>" + todayMinPrice + "</td>"
-        + "<td class='cTd_upStatus'>" + todayMaxPrice + "</td>"
-        + "<td>" + holdStockDays + "</td>"
-        + "<td class='" + tdClassName4TotalIncrease + "'>" + totalPercent + "</td>"
-        + "<td>" + procPanelHtmlString + "</td>"
-        + "</tr>";
+                + "<td class='" + tdClassName4GainAndLoseStatus + " " + tdClassName4TodayBreakThoughStatus +"'>"
+                    + gainAndLoseIconHtmlString + "&nbsp;&nbsp;|&nbsp;" + stockCode + "&nbsp;|&nbsp;" + name + "</td>"
+                + "<td class='" + tdClassName4TodayIncrease + "'>" + currentPrice + "</td>"
+                + "<td class='" + tdClassName4TodayIncrease + "'>" + todayPercent + "</td>"
+                + "<td class='" + tdClassName4TodayOpenStatus + "'>" + todayOpenStatus + "</td>"
+                + "<td class='" + tdClassName4TodayOpenStatus + "'>" + todayOpenPrice + "</td>"
+                + "<td>" + yesterdayClosePrice + "</td>"
+                + "<td class='cTd_downStatus'>" + todayMinPrice + "</td>"
+                + "<td class='cTd_upStatus'>" + todayMaxPrice + "</td>"
+                + "<td>" + holdStockDays + "</td>"
+                + "<td class='" + tdClassName4TotalIncrease + "'>" + totalPercent + "</td>"
+                + "<td>" + procPanelHtmlString + "</td>"
+            + "</tr>";
 }
 
 function generateFollowedStockInfoTrHtmlString(stockCode,
@@ -518,25 +550,29 @@ function generateFollowedStockInfoTrHtmlString(stockCode,
                                                holdStockDays,
                                                tdClassName4TodayIncrease,
                                                tdClassName4TargetStatus,
-                                               isStopTrade) {
+                                               isStopTrade,
+                                               tdClassName4TodayBreakThoughStatus) {
 
     if (isStopTrade){
         currentPrice = "停牌";
         tdClassName4TodayIncrease = "cTd_balanceStatus";
+    }
+    if (tdClassName4TargetStatus != ""){
+        tdClassName4TodayBreakThoughStatus = "";
     }
     var procPanelHtmlString = "<a href='#' onclick='confirmAndRemoveCurrentFollowedStockItem(\"" + stockCode + "\")'>[取消]</a>&nbsp;&nbsp;&nbsp;&nbsp;"
         + "<a href='#' onclick='showUpdateFollowedStockInfoPanel(\"" + stockCode + "\")'>[调整]</a>";
     var targetIconHtml = getAdjustTargetIconHtml(currentPrice, targetPrice);
 
     return "<tr class='cTr_data'>"
-        + "<td class='" + tdClassName4TargetStatus + "'>" + targetIconHtml + "&nbsp;&nbsp;|&nbsp;" + stockCode + "&nbsp;|&nbsp;" + name + "</td>"
-        + "<td class='" + tdClassName4TodayIncrease + "'>" + currentPrice + "</td>"
-        + "<td>" + targetPrice + "</td>"
-        + "<td>" + gapPrice + "</td>"
-        + "<td>" + gapPercent + "</td>"
-        + "<td>" + holdStockDays + "</td>"
-        + "<td>" + procPanelHtmlString + "</td>"
-        + "</tr>";
+                + "<td class='" + tdClassName4TargetStatus + " " + tdClassName4TodayBreakThoughStatus + "'>" + targetIconHtml + "&nbsp;&nbsp;|&nbsp;" + stockCode + "&nbsp;|&nbsp;" + name + "</td>"
+                + "<td class='" + tdClassName4TodayIncrease + "'>" + currentPrice + "</td>"
+                + "<td>" + targetPrice + "</td>"
+                + "<td>" + gapPrice + "</td>"
+                + "<td>" + gapPercent + "</td>"
+                + "<td>" + holdStockDays + "</td>"
+                + "<td>" + procPanelHtmlString + "</td>"
+            + "</tr>";
 }
 
 function getGainAndLoseIconHtml(stockCode){
@@ -843,9 +879,19 @@ function showStockDetailColumnsInTable(){
     controlStockDetailColumnsByStatus();
 }
 
+function showLongPeriodStockRows(){
+    g_showLongPeriodStockRowsStatus = true;
+    controlStockRowsByStatus();
+}
+
 function hideStockDetailColumnsInTable(){
     g_showStockDetailColumnsStatus = false;
     controlStockDetailColumnsByStatus();
+}
+
+function hideLongPeriodStockRows(){
+    g_showLongPeriodStockRowsStatus = false;
+    controlStockRowsByStatus();
 }
 
 function controlStockDetailColumnsByStatus(){
@@ -869,6 +915,10 @@ function controlStockDetailColumnsByStatus(){
             .text("更多", hideStockDetailColumnsInTable)
             .bind("click", showStockDetailColumnsInTable);
     }
+}
+
+function controlStockRowsByStatus(){
+
 }
 
 function showAddSelectedStockPanel(){

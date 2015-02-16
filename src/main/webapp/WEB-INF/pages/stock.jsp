@@ -81,6 +81,9 @@
       <tr>
         <td id="iTd_showSelectedStockDetailList_b" onclick="showStockDetailColumnsInTable()">更多</td>
       </tr>
+      <tr>
+        <td id="iTd_showLongPeriodStockRows_b" onclick="showLongPeriodStockRows()">中线</td>
+      </tr>
     </table>
     <table id="iTbl_followedStockInfoList" group_type="followed">
       <tr class="cTr_title">
