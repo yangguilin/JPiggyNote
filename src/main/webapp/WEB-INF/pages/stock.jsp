@@ -59,7 +59,7 @@
   <div class="cDiv_procPanel_c">
     <span class="cSpan_firstTitle"></span>
     <a href="javascript:;" class="blueButton" group_type="selected" onclick="showAddSelectedStockPanel()">添加持仓股票</a>
-    <a id="iA_addFollowedStock_b" href="javascript:;" class="blueButton" group_type="followed" onclick="showAddFollowedStockPanel()">添加回调股票</a>
+    <a id="iA_addFollowedStock_b" href="javascript:;" class="blueButton" group_type="followed" onclick="showAddFollowedStockPanel()">添加追踪股票</a>
   </div>
   <div class="cDiv_stockInfoList_c">
     <table id="iTbl_stockInfoList" group_type="selected">
@@ -79,18 +79,20 @@
     </table>
     <table id="iTbl_showMore_c" group_type="selected">
       <tr>
-        <td id="iTd_showSelectedStockDetailList_b" onclick="showStockDetailColumnsInTable()">更多</td>
+        <td id="iTd_showSelectedStockDetailList_b" onclick="showStockDetailColumnsInTable()">详细</td>
       </tr>
       <tr>
-        <td id="iTd_showLongPeriodStockRows_b" onclick="showLongPeriodStockRows()">中线</td>
+        <td id="iTd_showLongPeriodStockRows_b" onclick="showLongPeriodStockRows()">长线</td>
       </tr>
     </table>
     <table id="iTbl_followedStockInfoList" group_type="followed">
       <tr class="cTr_title">
         <td class="cTd_stockNameAndCode">股票名称</td>
         <td>当前价格</td>
+        <td>今日涨幅</td>
+        <td>今日最低</td>
+        <td>今日最高</td>
         <td>目标价格</td>
-        <td>目标价差</td>
         <td>目标幅差</td>
         <td>跟踪天数</td>
         <td class="cTd_stockItemProcPanelColumn">功能操作</td>
@@ -99,7 +101,7 @@
   </div>
 </div>
 <div id="iDiv_backgroundCoverLayer"></div>
-<div id="iDiv_editStockInfoPanel_c" class="cDiv_userProcPanel_c" panelWidth="400" panelHeight="280">
+<div id="iDiv_editStockInfoPanel_c" class="cDiv_userProcPanel_c" panelWidth="400" panelHeight="320">
   <table class="cTbl_userInput_c">
     <tr>
       <td>股票代码：</td>
@@ -140,6 +142,14 @@
       <td>
         <input id="iIpt_buyDate" type="text" />
         &nbsp;<span class="cSpan_comment">如：2015-01-11</span>
+      </td>
+    </tr>
+    <tr>
+      <td>持股类型：</td>
+      <td>
+        <a href="javascript:;" class="cA_radioSelected" onclick="selectStockHoldTypeRadio(this)" group="hold_type" value="short">短线</a>
+        <a href="javascript:;" class="cA_radio" onclick="selectStockHoldTypeRadio(this)" group="hold_type" value="long">中线</a>
+        &nbsp;<span class="cSpan_comment"></span>
       </td>
     </tr>
     <tr>

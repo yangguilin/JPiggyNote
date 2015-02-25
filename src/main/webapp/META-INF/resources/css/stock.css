@@ -42,9 +42,10 @@ input[type=text], input[type=password]{ padding-left: 10px; height: 16px; width:
     padding:2px 8px;
     height:30px;
 }
-#iTbl_showMore_c tr td:hover {
-    background-color: #d7d7d7;
-}
+#iTbl_showMore_c tr td:hover { background-color: #d7d7d7; }
+#iTbl_stockInfoList tr.cTr_data td:nth-child(2),  #iTbl_stockInfoList tr.cTr_data td:nth-child(10){ font-weight: bold; }
+#iTbl_followedStockInfoList tr.cTr_data td:nth-child(2),  #iTbl_followedStockInfoList tr.cTr_data td:nth-child(6),
+#iTbl_followedStockInfoList tr.cTr_data td:nth-child(7){ font-weight: bold; }
 
 
 
@@ -59,9 +60,8 @@ tr.cTr_title td {
     border-radius: 2px;
 }
 tr.cTr_data td { width:60px; }
-tr.cTr_data td:nth-child(2) { font-weight: bold; }
 td.cTd_stockNameAndCode { width:190px; }
-td.cTd_stockItemProcPanelColumn { width:100px; }
+td.cTd_stockItemProcPanelColumn { width:80px; }
 .cTd_upStatus { color:red; }
 .cTd_balanceStatus { color:gray }
 .cTd_downStatus { color:green; }
@@ -73,7 +73,7 @@ span.cSpan_comment { font-size: 12px; color:gray; }
     color:#333;
     border:1px solid #cccccc;
     border-radius: 5px;
-    padding-top: 15px;
+    padding-top: 25px;
 }
 .cTbl_userInput_c tr td:nth-child(1) { padding-left: 30px; }
 .cDiv_systemInfo { padding:20px 20px; border-bottom: 1px solid lightgray; }
@@ -188,4 +188,33 @@ div.cDiv_tabMenu_c ul li {
 .cImg_systemInfoLogo { width:30px; height:30px; margin-bottom: -12px; }
 .cSpan_upBreakThoughStatus { color: #f57635; }
 .cSpan_downBreakThoughStatus { color: #94c93a; }
-
+.cSpan_holdTypeText { font-size: 14px; margin-right: 35px; }
+.cA_radioSelected {
+    color: #fff;
+    background-color: #f2692c;
+    cursor: pointer;
+    font-size: 10px;
+    padding: 4px 16px;
+    border-radius: 2px;
+    margin-left: 8px;
+    font-weight: normal;
+    text-decoration: none;
+    border: 1px solid #f2692c;
+}
+.cA_radio {
+    color: #333;
+    cursor: pointer;
+    font-size: 10px;
+    padding: 4px 16px;
+    border-radius: 2px;
+    margin-left: 8px;
+    font-weight: normal;
+    text-decoration: none;
+    border: 1px solid #BCBCBC;
+}
+img.cImg_stockItemProc_b {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+    display:inline-block;
+}

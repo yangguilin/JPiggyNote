@@ -1,12 +1,13 @@
 
 // js class defined
-function StockData(stockCode, stockName, buyPrice, buyDate, gainPrice, losePrice){
+function StockData(stockCode, stockName, buyPrice, buyDate, gainPrice, losePrice, holdType){
     this.stockCode = stockCode;
     this.stockName = stockName;
     this.buyPrice = buyPrice;
     this.buyDate = buyDate;
     this.gainPrice = gainPrice;
     this.losePrice = losePrice;
+    this.holdType = holdType;
     this.gainStatus = false;
     this.loseStatus = false;
 }
@@ -116,6 +117,7 @@ function getLatestStockDataFromSinaAndFillTableList(){
     getStockInfoFromSina();
     updateTableTitleAndDocumentTitle();
     parseSinaStockDataAndInsertIntoTableList();
+    controlStockRowsByHoldTypeStatus();
 }
 
 function checkTradeTimeStatus(){
@@ -139,6 +141,7 @@ function updateStockDataBetweenTradeTime(){
             function () {
                 updateStockDataTableList();
                 controlStockDetailColumnsByStatus();
+                controlStockRowsByHoldTypeStatus();
             },
             g_freshIntervalMillisecond
         );
@@ -160,6 +163,7 @@ function parseSinaStockDataAndInsertIntoTableList() {
     if ($("#iTbl_followedStockInfoList tr").length == 1){
         addBlankInfoIntoTableList("iTbl_followedStockInfoList");
     }
+    showTabMenuNumber();
 }
 
 function clearMyStockDataTableList(){
@@ -220,6 +224,8 @@ function addStockInfoIntoTableList(stockCode){
             tdClassName4TodayBreakThoughStatus
         );
         $("#iTbl_stockInfoList tbody").append($(stockInfoTdHtmlString));
+    } else if (checkStockCodeAvailable(stockCode)){
+        delete g_myStockList[stockCode];
     }
 }
 
@@ -233,6 +239,7 @@ function addFollowedStockInfoIntoTableList(stockCode){
         var currentPrice = elements[3];
         var todayMaxPrice = elements[4];
         var todayMinPrice = elements[5];
+        var todayPercent = getTodayPercent(yesterdayClosePrice, currentPrice);
         var targetPrice = g_myFollowedStockList[stockCode].targetPrice;
         var holdStockDays = getHoldStockDaysNum(stockCode);
         var gapPercent = getGapPercent(currentPrice, targetPrice);
@@ -247,8 +254,10 @@ function addFollowedStockInfoIntoTableList(stockCode){
             stockCode,
             name,
             currentPrice,
+            todayPercent,
             targetPrice,
-            gapPrice,
+            todayMinPrice,
+            todayMaxPrice,
             gapPercent,
             holdStockDays,
             tdClassName4TodayIncrease,
@@ -257,6 +266,8 @@ function addFollowedStockInfoIntoTableList(stockCode){
             tdClassName4TodayBreakThoughStatus
         );
         $("#iTbl_followedStockInfoList tbody").append($(followedStockInfoTdHtmlString));
+    } else if (checkStockCodeAvailable(stockCode)){
+        delete g_myFollowedStockList[stockCode];
     }
 }
 
@@ -285,7 +296,6 @@ function updateTableTitleAndDocumentTitle(){
     $("#iSpan_shangHaiZhiShu").attr("class", shangHaiPriceStatus).text(tableTitleText4ShangHaiPrice);
     $("#iSpan_shangHaiZhiShuTitle").attr("class", shangHaiPriceStatus);
     showPageTitle();
-    showTabMenuNumber();
 }
 
 function showPageTitle(){
@@ -293,7 +303,18 @@ function showPageTitle(){
 }
 
 function showTabMenuNumber(){
-    $("#iA_currentHoldStockTabMenu").text("目前持仓 ( " + arrayCount(g_myStockList) + " )");
+    var shortPeriodStockNum = 0;
+    var longPeriodStockNum = 0;
+    for (var item in g_myStockList){
+        if (g_myStockList[item].holdType != undefined) {
+            if (g_myStockList[item].holdType == "long") {
+                longPeriodStockNum++;
+            } else {
+                shortPeriodStockNum++;
+            }
+        }
+    }
+    $("#iA_currentHoldStockTabMenu").text("目前持仓 ( " + shortPeriodStockNum + " | " + longPeriodStockNum + " )");
     $("#iA_trailAdjustHoldStockTabMenu").text("回调追踪 ( " + arrayCount(g_myFollowedStockList) + " )");
 }
 
@@ -521,11 +542,13 @@ function generateStockInfoTrHtmlString(stockCode,
     if (tdClassName4GainAndLoseStatus != ""){
         tdClassName4TodayBreakThoughStatus = "";
     }
-    var procPanelHtmlString = "<a href='#' onclick='confirmAndRemoveCurrentStockItem(\"" + stockCode + "\")'>[取消]</a>&nbsp;&nbsp;&nbsp;&nbsp;"
-        + "<a href='#' onclick='showUpdateStockInfoPanel(\"" + stockCode + "\")'>[调整]</a>";
+    var procPanelHtmlString = "<a href='#' onclick='confirmAndRemoveCurrentStockItem(\"" + stockCode + "\")'>"
+        + "<img src='/img/delete.png' alt='[取消]' title='取消关注' class='cImg_stockItemProc_b' /></a>&nbsp;&nbsp;&nbsp;&nbsp;"
+        + "<a href='#' onclick='showUpdateStockInfoPanel(\"" + stockCode + "\")'>"
+        + "<img src='/img/config.png' alt='[调整]' title='参数调整' class='cImg_stockItemProc_b' /></a>";
     var gainAndLoseIconHtmlString = getGainAndLoseIconHtml(stockCode);
 
-    return "<tr class='cTr_data'>"
+    return "<tr class='cTr_data' hold_type='" + g_myStockList[stockCode].holdType + "'>"
                 + "<td class='" + tdClassName4GainAndLoseStatus + " " + tdClassName4TodayBreakThoughStatus +"'>"
                     + gainAndLoseIconHtmlString + "&nbsp;&nbsp;|&nbsp;" + stockCode + "&nbsp;|&nbsp;" + name + "</td>"
                 + "<td class='" + tdClassName4TodayIncrease + "'>" + currentPrice + "</td>"
@@ -544,8 +567,10 @@ function generateStockInfoTrHtmlString(stockCode,
 function generateFollowedStockInfoTrHtmlString(stockCode,
                                                name,
                                                currentPrice,
+                                               todayPercent,
                                                targetPrice,
-                                               gapPrice,
+                                               todayMinPrice,
+                                               todayMaxPrice,
                                                gapPercent,
                                                holdStockDays,
                                                tdClassName4TodayIncrease,
@@ -560,15 +585,19 @@ function generateFollowedStockInfoTrHtmlString(stockCode,
     if (tdClassName4TargetStatus != ""){
         tdClassName4TodayBreakThoughStatus = "";
     }
-    var procPanelHtmlString = "<a href='#' onclick='confirmAndRemoveCurrentFollowedStockItem(\"" + stockCode + "\")'>[取消]</a>&nbsp;&nbsp;&nbsp;&nbsp;"
-        + "<a href='#' onclick='showUpdateFollowedStockInfoPanel(\"" + stockCode + "\")'>[调整]</a>";
+    var procPanelHtmlString = "<a href='#' onclick='confirmAndRemoveCurrentFollowedStockItem(\"" + stockCode + "\")'>"
+        + "<img src='/img/delete.png' alt='[取消]' title='取消关注' class='cImg_stockItemProc_b' /></a>&nbsp;&nbsp;&nbsp;&nbsp;"
+        + "<a href='#' onclick='showUpdateFollowedStockInfoPanel(\"" + stockCode + "\")'>"
+        + "<img src='/img/config.png' alt='[调整]' title='参数调整' class='cImg_stockItemProc_b' /></a>";
     var targetIconHtml = getAdjustTargetIconHtml(currentPrice, targetPrice);
 
     return "<tr class='cTr_data'>"
                 + "<td class='" + tdClassName4TargetStatus + " " + tdClassName4TodayBreakThoughStatus + "'>" + targetIconHtml + "&nbsp;&nbsp;|&nbsp;" + stockCode + "&nbsp;|&nbsp;" + name + "</td>"
                 + "<td class='" + tdClassName4TodayIncrease + "'>" + currentPrice + "</td>"
+                + "<td class='" + tdClassName4TodayIncrease + "'>" + todayPercent + "</td>"
+                + "<td class='cTd_downStatus'>" + todayMinPrice + "</td>"
+                + "<td class='cTd_upStatus'>" + todayMaxPrice + "</td>"
                 + "<td>" + targetPrice + "</td>"
-                + "<td>" + gapPrice + "</td>"
                 + "<td>" + gapPercent + "</td>"
                 + "<td>" + holdStockDays + "</td>"
                 + "<td>" + procPanelHtmlString + "</td>"
@@ -619,8 +648,9 @@ function checkAndSaveStockData(){
     var buyDate = $("#iIpt_buyDate").val();
     var gainPrice = $("#iIpt_gainPrice").val();
     var losePrice = $("#iIpt_losePrice").val();
-    if (checkUserInputStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice)){
-        addStockDataToCookieAndRefreshPage(stockCode, buyPrice, buyDate, gainPrice, losePrice);
+    var holdType = $("a.cA_radioSelected").attr("value");
+    if (checkUserInputStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice, holdType)){
+        addStockDataToCookieAndRefreshPage(stockCode, buyPrice, buyDate, gainPrice, losePrice, holdType);
     }
 }
 
@@ -630,8 +660,9 @@ function checkAndUpdateStockData(){
     var gainPrice = $("#iIpt_gainPrice").val();
     var losePrice = $("#iIpt_losePrice").val();
     var buyDate = $("#iIpt_buyDate").val();
-    if (checkUserInputStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice)){
-        addStockDataToCookieAndRefreshPage(stockCode, buyPrice, buyDate, gainPrice, losePrice);
+    var holdType = $("a.cA_radioSelected").attr("value");
+    if (checkUserInputStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice, holdType)){
+        addStockDataToCookieAndRefreshPage(stockCode, buyPrice, buyDate, gainPrice, losePrice, holdType);
     }
 }
 
@@ -651,7 +682,7 @@ function checkAndSaveFollowedStock(){
     }
 }
 
-function checkUserInputStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice) {
+function checkUserInputStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice, holdType) {
     var passStatus = false;
     var errorMsg = "";
 
@@ -665,8 +696,10 @@ function checkUserInputStockData(stockCode, buyPrice, buyDate, gainPrice, losePr
         errorMsg = "止损价格输入有误";
     } else if (!checkDateAvailable(buyDate)) {
         errorMsg = "买入日期输入有误";
-    } else if ((Number(gainPrice) <= Number(losePrice)) && gainPrice != "" && losePrice != ""){
+    } else if ((Number(gainPrice) <= Number(losePrice)) && gainPrice != "" && losePrice != "") {
         errorMsg = "止盈价格必须大于止损价格";
+    } else if (holdType != "short" && holdType != "long"){
+        errorMsg = "持股类型有误";
     }else {
         passStatus = true;
     }
@@ -709,8 +742,8 @@ function checkUserInputFollowedStockData(stockCode, targetPrice){
     return passStatus;
 }
 
-function updateGlobalStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice){
-    g_myStockList[stockCode] = new StockData(stockCode, "", buyPrice, buyDate, gainPrice, losePrice);
+function updateGlobalStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice, holdType){
+    g_myStockList[stockCode] = new StockData(stockCode, "", buyPrice, buyDate, gainPrice, losePrice, holdType);
 }
 
 function updateGlobalFollowedStockData(stockCode, targetPrice){
@@ -723,6 +756,7 @@ function getTodayDateString(){
 
 function resetAllInputControls(){
     $("input").val("");
+    selectStockHoldTypeRadio($("a[value='short']"));
 }
 
 function readStockDataFromCookie(){
@@ -735,7 +769,6 @@ function readStockDataFromCookie(){
             g_myFollowedStockDataInCookie = arr[1];
         }
     }
-
 }
 
 function addStockDataToCookie(){
@@ -782,8 +815,8 @@ function updateStockItemToCookie(stockCode, buyPrice, buyDate){
     }
 }
 
-function addStockDataToCookieAndRefreshPage(stockCode, buyPrice, buyDate, gainPrice, losePrice){
-    updateGlobalStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice);
+function addStockDataToCookieAndRefreshPage(stockCode, buyPrice, buyDate, gainPrice, losePrice, holdType){
+    updateGlobalStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice, holdType);
     generateStockDataByList();
     addStockDataToCookie();
     reloadPage();
@@ -809,8 +842,10 @@ function parseStockDataIntoList(){
             for (var i = 0; i < selectedStockArray.length; i++) {
                 if (selectedStockArray[i] != "") {
                     var stockItems = selectedStockArray[i].split(",");
-                    if (stockItems.length == 5) {
-                        g_myStockList[stockItems[0]] = new StockData(stockItems[0], "", stockItems[1], stockItems[2], stockItems[3], stockItems[4]);
+                    if (stockItems.length >= 5) {
+                        var stockData = new StockData(stockItems[0], "", stockItems[1], stockItems[2], stockItems[3], stockItems[4]);
+                        stockData.holdType = getStockHoldType(stockItems[5]);
+                        g_myStockList[stockItems[0]] = stockData;
                     }
                 }
             }
@@ -840,7 +875,8 @@ function generateStockDataByList(){
                                     + stockItemObj.buyPrice + ","
                                     + stockItemObj.buyDate + ","
                                     + stockItemObj.gainPrice + ","
-                                    + stockItemObj.losePrice + ";";
+                                    + stockItemObj.losePrice + ","
+                                    + stockItemObj.holdType + ";";
             }
         }
     }
@@ -877,21 +913,25 @@ function removeLastWord4String(str){
 function showStockDetailColumnsInTable(){
     g_showStockDetailColumnsStatus = true;
     controlStockDetailColumnsByStatus();
+    updateShowDetailColumnsMenuTextAndEvent();
 }
 
 function showLongPeriodStockRows(){
     g_showLongPeriodStockRowsStatus = true;
-    controlStockRowsByStatus();
+    controlStockRowsByHoldTypeStatus();
+    updateShowLongPeriodStockRowsMenuTextAndEvent();
 }
 
 function hideStockDetailColumnsInTable(){
     g_showStockDetailColumnsStatus = false;
     controlStockDetailColumnsByStatus();
+    updateShowDetailColumnsMenuTextAndEvent();
 }
 
 function hideLongPeriodStockRows(){
     g_showLongPeriodStockRowsStatus = false;
-    controlStockRowsByStatus();
+    controlStockRowsByHoldTypeStatus();
+    updateShowLongPeriodStockRowsMenuTextAndEvent();
 }
 
 function controlStockDetailColumnsByStatus(){
@@ -904,6 +944,9 @@ function controlStockDetailColumnsByStatus(){
             $td.hide();
         }
     }
+}
+
+function updateShowDetailColumnsMenuTextAndEvent(){
     if (g_showStockDetailColumnsStatus){
         $("#iTd_showSelectedStockDetailList_b")
             .unbind("click", showStockDetailColumnsInTable)
@@ -911,14 +954,31 @@ function controlStockDetailColumnsByStatus(){
             .bind("click", hideStockDetailColumnsInTable);
     } else {
         $("#iTd_showSelectedStockDetailList_b")
-            .unbind("click")
-            .text("更多", hideStockDetailColumnsInTable)
+            .unbind("click", hideStockDetailColumnsInTable)
+            .text("详细")
             .bind("click", showStockDetailColumnsInTable);
     }
 }
 
-function controlStockRowsByStatus(){
+function controlStockRowsByHoldTypeStatus(){
+    var showHoldType = g_showLongPeriodStockRowsStatus ? "long" : "short";
+    var hideHoldType = g_showLongPeriodStockRowsStatus ? "short" : "long";
+    $("tr[hold_type='" + showHoldType + "']").show();
+    $("tr[hold_type='" + hideHoldType + "']").hide();
+}
 
+function updateShowLongPeriodStockRowsMenuTextAndEvent(){
+    if (g_showLongPeriodStockRowsStatus){
+        $("#iTd_showLongPeriodStockRows_b")
+            .unbind("click", showLongPeriodStockRows)
+            .text("短线")
+            .bind("click", hideLongPeriodStockRows);
+    } else {
+        $("#iTd_showLongPeriodStockRows_b")
+            .unbind("click", hideLongPeriodStockRows)
+            .text("长线")
+            .bind("click", showLongPeriodStockRows);
+    }
 }
 
 function showAddSelectedStockPanel(){
@@ -928,6 +988,8 @@ function showAddSelectedStockPanel(){
     $("#iDiv_addStockCode_c").show();
     $("#iA_updateStockInfo_b").hide();
     $("#iA_addStockInfo_b").show();
+    $("#iIpt_buyDate").text(getTodayDateString());
+    resetAllInputControls();
 }
 
 function showUpdateStockInfoPanel(stockCode){
@@ -937,6 +999,7 @@ function showUpdateStockInfoPanel(stockCode){
     $("#iDiv_addStockCode_c").hide();
     $("#iA_updateStockInfo_b").show();
     $("#iA_addStockInfo_b").hide();
+    selectStockHoldTypeRadio($("a[value='" + g_myStockList[stockCode].holdType + "']"));
     autoFillStockInfoToUpdatedPanel(stockCode);
 }
 
@@ -1193,6 +1256,20 @@ function showStockListByMenuName(obj, menuName){
         $("a[group_type]").hide();
         $("a[group_type=" + groupType + "]").show();
     }
+}
+
+function selectStockHoldTypeRadio(obj){
+    if (!$(obj).hasClass("cA_radioSelected")){
+        $(obj).removeClass("cA_radio").addClass("cA_radioSelected").siblings("a").removeClass("cA_radioSelected").addClass("cA_radio");
+    }
+}
+
+function getStockHoldType(holdType){
+    var type = "short";
+    if (holdType != undefined && holdType == "long"){
+        type = holdType;
+    }
+    return type;
 }
 
 
