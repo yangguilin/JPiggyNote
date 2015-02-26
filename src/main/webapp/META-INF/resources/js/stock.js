@@ -24,7 +24,7 @@ var g_intervalBeforeShowStockList = 300;
 var g_cookieSavedDaysNum = 90;
 var g_shangHaiCode = "sh000001";
 var g_userCookieName = "user_stock_data";
-var g_stockDetailColumnsIndex = "4,5,6,7,8";
+var g_stockDetailColumnsIndex = "4,5,6,7,8,11";
 var g_sinaStockVarPrefix = "hq_str_";
 var g_upBreakThoughPercent = 4;
 var g_downBreakThoughPercent = 4;
@@ -41,7 +41,7 @@ var g_shangHaiYesterdayPrice = "";
 var g_currentLoginUserName = "";
 
 var g_isTestMode = false;
-var g_publishVersion = "1.3.2";
+var g_publishVersion = "1.4.1";
 
 
 $(document).ready(function(){
@@ -202,6 +202,7 @@ function addStockInfoIntoTableList(stockCode){
         var tdClassName4GainAndLoseStatus = getTdClassName4GainAndLoseStatus(stockCode, currentPrice);
         var tdClassName4TodayBreakThoughStatus = getTdClassName4TodayBreakThoughStatus(yesterdayClosePrice, todayMinPrice, todayMaxPrice);
         var isStopTrade = getStopTradeStatus(elements);
+        var totalPercentByMonth = getTotalPercentByMonth(totalPercent, holdStockDays);
 
         g_myStockList[stockCode].stockName = name;
         var stockInfoTdHtmlString = generateStockInfoTrHtmlString(
@@ -221,7 +222,8 @@ function addStockInfoIntoTableList(stockCode){
             tdClassName4TotalIncrease,
             tdClassName4GainAndLoseStatus,
             isStopTrade,
-            tdClassName4TodayBreakThoughStatus
+            tdClassName4TodayBreakThoughStatus,
+            totalPercentByMonth
         );
         $("#iTbl_stockInfoList tbody").append($(stockInfoTdHtmlString));
     } else if (checkStockCodeAvailable(stockCode)){
@@ -273,6 +275,11 @@ function addFollowedStockInfoIntoTableList(stockCode){
 
 function getStopTradeStatus(stockItems){
     return (stockItems[4].toNumber() == 0 && stockItems[5].toNumber() == 0);
+}
+
+function getTotalPercentByMonth(totalPercent, holdStockDays){
+    var totalPercentNum = totalPercent.substring(0, totalPercent.length - 1).toNumber();
+    return (totalPercentNum * 30 / holdStockDays).toFixed(2) + "%";
 }
 
 function addBlankInfoIntoTableList(tableId){
@@ -472,11 +479,14 @@ function getTdClassName4GainAndLoseStatus(stockCode, currentPrice){
 
 function getTdClassName4TargetStatus(currentPrice, targetPrice){
     var tdClassName = "";
-    var currentPriceNum = currentPrice.toNumber();
-    var targetPriceNum = targetPrice.toNumber();
-    if (currentPriceNum > 0 && targetPriceNum > 0){
-        if (currentPriceNum <= targetPriceNum){
-            tdClassName = "cTd_adjustTargetStatus";;
+    if (targetPrice != "") {
+        var currentPriceNum = currentPrice.toNumber();
+        var targetPriceNum = targetPrice.toNumber();
+        if (currentPriceNum > 0 && targetPriceNum > 0) {
+            if (currentPriceNum <= targetPriceNum) {
+                tdClassName = "cTd_adjustTargetStatus";
+                ;
+            }
         }
     }
     return tdClassName;
@@ -500,13 +510,21 @@ function getTdClassName4TodayBreakThoughStatus(yesterdayClosePrice, todayMinPric
 }
 
 function getGapPercent(currentPrice, targetPrice){
-    var currentPriceNum = Number(currentPrice);
-    var targetPriceNum = Number(targetPrice);
-    return ((targetPriceNum - currentPriceNum) * 100 / currentPriceNum).toFixed(2) + "%";
+    var gapPercent = "";
+    if (targetPrice != "") {
+        var currentPriceNum = Number(currentPrice);
+        var targetPriceNum = Number(targetPrice);
+        gapPercent = ((targetPriceNum - currentPriceNum) * 100 / currentPriceNum).toFixed(2) + "%";
+    }
+    return gapPercent;
 }
 
 function getGapPrice(currentPrice, targetPrice){
-    return (Number(targetPrice) - Number(currentPrice)).toFixed(2);
+    var gapPrice = "";
+    if (targetPrice != "") {
+        gapPrice = (Number(targetPrice) - Number(currentPrice)).toFixed(2);
+    }
+    return gapPrice;
 }
 
 function generateStockInfoTrHtmlString(stockCode,
@@ -525,7 +543,8 @@ function generateStockInfoTrHtmlString(stockCode,
                                        tdClassName4TotalIncrease,
                                        tdClassName4GainAndLoseStatus,
                                        isStopTrade,
-                                       tdClassName4TodayBreakThoughStatus) {
+                                       tdClassName4TodayBreakThoughStatus,
+                                       totalPercentByMonth) {
 
     if (isStopTrade){
         currentPrice = "停牌";
@@ -560,6 +579,7 @@ function generateStockInfoTrHtmlString(stockCode,
                 + "<td class='cTd_upStatus'>" + todayMaxPrice + "</td>"
                 + "<td>" + holdStockDays + "</td>"
                 + "<td class='" + tdClassName4TotalIncrease + "'>" + totalPercent + "</td>"
+                + "<td class='" + tdClassName4TotalIncrease + "'>" + totalPercentByMonth + "</td>"
                 + "<td>" + procPanelHtmlString + "</td>"
             + "</tr>";
 }
@@ -578,6 +598,11 @@ function generateFollowedStockInfoTrHtmlString(stockCode,
                                                isStopTrade,
                                                tdClassName4TodayBreakThoughStatus) {
 
+    if (targetPrice == ""){
+        targetPrice = g_NaN;
+        gapPercent = g_NaN;
+        tdClassName4TargetStatus = "";
+    }
     if (isStopTrade){
         currentPrice = "停牌";
         tdClassName4TodayIncrease = "cTd_balanceStatus";
@@ -730,7 +755,7 @@ function checkUserInputFollowedStockData(stockCode, targetPrice){
     var errorMsg = "";
     if (!checkStockCodeAvailable(stockCode)) {
         errorMsg = "股票代码输入有误，是不是忘了前缀了？";
-    } else if (!checkStockPriceAvailable(targetPrice)) {
+    } else if (!(checkStockPriceAvailable(targetPrice) || targetPrice == "")) {
         errorMsg = "目标价格输入有误";
     }else {
         passStatus = true;

@@ -18,7 +18,7 @@ input[type=text], input[type=password]{ padding-left: 10px; height: 16px; width:
 #iTbl_stockInfoList tr:nth-child(even), #iTbl_followedStockInfoList tr:nth-child(even) { background-color: #f8f9fb; }
 #iTbl_stockInfoList tr td:nth-child(4), #iTbl_stockInfoList tr td:nth-child(5),
 #iTbl_stockInfoList tr td:nth-child(6), #iTbl_stockInfoList tr td:nth-child(7),
-#iTbl_stockInfoList tr td:nth-child(8) { display:none; }
+#iTbl_stockInfoList tr td:nth-child(8), #iTbl_stockInfoList tr td:nth-child(11) { display:none; }
 #iDiv_backgroundCoverLayer, #iDiv_editStockInfoPanel_c,
 #iDiv_userRegisterPanel_c, #iDiv_userLoginPanel_c,
 #iTbl_followedStockInfoList, #iA_addFollowedStock_b, #iDiv_addFollowedStockPanel_c { display: none; }

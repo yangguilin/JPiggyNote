@@ -74,6 +74,7 @@
         <td>今日最高</td>
         <td>持股天数</td>
         <td>盈亏比例</td>
+        <td>月化盈亏</td>
         <td class="cTd_stockItemProcPanelColumn">功能操作</td>
       </tr>
     </table>
@@ -180,7 +181,7 @@
       <td>目标价格：</td>
       <td>
         <input id="iIpt_followedTargetPrice" type="text" />
-        &nbsp;<span class="cSpan_comment">如：11.123</span>
+        &nbsp;<span class="cSpan_comment">如：11.88 (可选)</span>
       </td>
     </tr>
     <tr>
