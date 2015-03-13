@@ -29,7 +29,6 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserBean get(String userName) {
-
         return (UserBean)jdbcTemplate.queryForObject("select * from pn_users where user_name=?",
                 new Object[]{userName},
                 new int[]{Types.VARCHAR},
@@ -43,11 +42,9 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Boolean add(UserBean bean) {
-
         int ret = jdbcTemplate.update("insert into pn_users(user_name, password, nike_name, email, mobile_phone, create_date, latest_login_date) value(?, ?, ?, ?, ?, now(), ?)",
                 new Object[]{bean.getUserName(), bean.getPassword(), bean.getNikeName(), bean.getEmail(), bean.getMobilePhone(), bean.getLatestLoginDate()},
                 new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.DATE});
-
         return ret == 1;
     }
 
@@ -58,7 +55,6 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Boolean delete(String userName) {
-
         int ret = jdbcTemplate.update("update pn_users set deleted=1 where user_name=?",
                 new Object[]{userName},
                 new int[]{Types.VARCHAR});
@@ -73,11 +69,9 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Boolean update(UserBean bean) {
-
         int ret = jdbcTemplate.update("update pn_users set password=?, nike_name=?, email=?, mobile_phone=?, latest_login_date=? where user_name=?",
                 new Object[]{ bean.getPassword(), bean.getNikeName(), bean.getEmail(), bean.getMobilePhone(), bean.getLatestLoginDate(), bean.getUserName()},
                 new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.DATE, Types.VARCHAR});
-
         return ret > 0;
     }
 
@@ -88,12 +82,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Boolean exist(String userName) {
-
         QueryCountBean qcb = (QueryCountBean)jdbcTemplate.queryForObject("select count(id) as num from pn_users where user_name=?",
                 new Object[]{userName},
                 new int[]{Types.VARCHAR},
                 new QueryCountRowMapper());
-
         return qcb.getNum() > 0;
     }
 }

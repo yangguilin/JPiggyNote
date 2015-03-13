@@ -143,7 +143,6 @@ public class DailyRecordServiceImpl implements DailyRecordService {
      */
     @Override
     public List<DailyRecordBean> getRecordsByDateRange(String beginDate, String endDate, String userName) {
-
         return (List<DailyRecordBean>)jdbcTemplate.query("select * from pn_daily_records where user_name=? and create_date between ? and ? order by create_date desc",
                 new Object[]{userName, beginDate, endDate},
                 new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR},

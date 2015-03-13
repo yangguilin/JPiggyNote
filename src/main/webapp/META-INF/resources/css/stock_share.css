@@ -1,0 +1,28 @@
+
+/*
+    id
+*/
+td.cTd_holdStockNameAndCode { width:120px; }
+td.cTd_holdStockItemProcPanelColumn { width:60px; }
+
+/*
+    class
+*/
+table.cTbl_dataList {
+    font-size: 12px;
+    display:inline-block;
+    float:left;
+    margin-right: 15px;
+}
+table.cTbl_dataList tr td { padding: 8px 15px; text-align: right; }
+table.cTbl_dataList tr:not(.cTr_title) td { height:22px; }
+table.cTbl_dataList tr:nth-child(odd) { background-color: #fff; }
+table.cTbl_dataList tr:nth-child(even) { background-color: #f8f9fb; }
+tr.cTr_greenTitle td {
+    height:25px;
+    color:white;
+    font-size: 14px;
+    background-color: #33cc01;
+    border-radius: 2px;
+}
+a.grayText { color:gray; }

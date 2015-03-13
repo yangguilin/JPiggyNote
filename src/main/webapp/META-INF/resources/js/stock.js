@@ -20,12 +20,10 @@ function FollowedStockData(stockCode, stockName, targetPrice, followedDate){
 
 var g_NaN = "--";
 var g_freshIntervalMillisecond = 5000;
-var g_intervalBeforeShowStockList = 300;
 var g_cookieSavedDaysNum = 90;
 var g_shangHaiCode = "sh000001";
 var g_userCookieName = "user_stock_data";
-var g_stockDetailColumnsIndex = "4,5,6,7,8,11";
-var g_sinaStockVarPrefix = "hq_str_";
+var g_stockDetailColumnsIndex = "4,5,6,7,8,9,11";
 var g_upBreakThoughPercent = 4;
 var g_downBreakThoughPercent = 4;
 var g_showStockDetailColumnsStatus = false;
@@ -39,6 +37,7 @@ var g_myFollowedStockList = {};
 var g_shangHaiCurrentPrice = "";
 var g_shangHaiYesterdayPrice = "";
 var g_currentLoginUserName = "";
+var g_laoNiuGroupId = 2;
 
 var g_isTestMode = false;
 var g_publishVersion = "1.4.1";
@@ -88,15 +87,6 @@ function getSinaStockCodes(){
         sinaStockCodes += "," + g_shangHaiCode;
     }
     return sinaStockCodes;
-}
-
-function addSinaStockScriptElement(sinaStockCodes){
-    var customScriptElement = document.createElement("script");
-    customScriptElement.type = "text/javascript";
-    customScriptElement.src = "http://hq.sinajs.cn/list=" + sinaStockCodes;
-    customScriptElement.charset = "gb2312";
-    var headElement = document.getElementsByTagName('head')[0];
-    headElement.appendChild(customScriptElement);
 }
 
 function removeSinaStockScriptElement(){
@@ -287,10 +277,6 @@ function addBlankInfoIntoTableList(tableId){
     $("#" + tableId + " tbody").append($(blankInfoTdHtmlString));
 }
 
-function checkSinaStockCodeAvailable(stockDataVarName){
-    return ((stockDataVarName in window) && (window[stockDataVarName] != ""));
-}
-
 function updateTableTitleAndDocumentTitle(){
     checkTradeTimeStatus();
     getShangHaiCurrentPrice();
@@ -411,9 +397,7 @@ function getHoldStockDaysNum(stockCode){
         if (buyDateVal != "") {
             var todayDate = new Date();
             var buyDate = new Date(buyDateVal);
-            daysNum = parseInt((todayDate - buyDate) / (1000 * 60 * 60 * 24));
-        } else {
-            daysNum = g_NaN;
+            daysNum = parseInt((todayDate - buyDate) / (1000 * 60 * 60 * 24)) + 1;
         }
     }
     if (stockCode in g_myFollowedStockList) {
@@ -421,9 +405,7 @@ function getHoldStockDaysNum(stockCode){
         if (followedDateVal != "") {
             var todayDate = new Date();
             var followedDate = new Date(followedDateVal);
-            daysNum = parseInt((todayDate - followedDate) / (1000 * 60 * 60 * 24));
-        } else {
-            daysNum = g_NaN;
+            daysNum = parseInt((todayDate - followedDate) / (1000 * 60 * 60 * 24)) + 1;
         }
     }
     return daysNum;
@@ -562,9 +544,9 @@ function generateStockInfoTrHtmlString(stockCode,
         tdClassName4TodayBreakThoughStatus = "";
     }
     var procPanelHtmlString = "<a href='#' onclick='confirmAndRemoveCurrentStockItem(\"" + stockCode + "\")'>"
-        + "<img src='/img/delete.png' alt='[取消]' title='取消关注' class='cImg_stockItemProc_b' /></a>&nbsp;&nbsp;&nbsp;&nbsp;"
+        + "<img src='/img/delete.png' alt='[取消]' title='删除' class='cImg_stockItemProc_b' /></a>&nbsp;&nbsp;&nbsp;&nbsp;"
         + "<a href='#' onclick='showUpdateStockInfoPanel(\"" + stockCode + "\")'>"
-        + "<img src='/img/config.png' alt='[调整]' title='参数调整' class='cImg_stockItemProc_b' /></a>";
+        + "<img src='/img/config.png' alt='[调整]' title='修改' class='cImg_stockItemProc_b' /></a>";
     var gainAndLoseIconHtmlString = getGainAndLoseIconHtml(stockCode);
 
     return "<tr class='cTr_data' hold_type='" + g_myStockList[stockCode].holdType + "'>"
@@ -611,9 +593,9 @@ function generateFollowedStockInfoTrHtmlString(stockCode,
         tdClassName4TodayBreakThoughStatus = "";
     }
     var procPanelHtmlString = "<a href='#' onclick='confirmAndRemoveCurrentFollowedStockItem(\"" + stockCode + "\")'>"
-        + "<img src='/img/delete.png' alt='[取消]' title='取消关注' class='cImg_stockItemProc_b' /></a>&nbsp;&nbsp;&nbsp;&nbsp;"
+        + "<img src='/img/delete.png' alt='[取消]' title='删除' class='cImg_stockItemProc_b' /></a>&nbsp;&nbsp;&nbsp;&nbsp;"
         + "<a href='#' onclick='showUpdateFollowedStockInfoPanel(\"" + stockCode + "\")'>"
-        + "<img src='/img/config.png' alt='[调整]' title='参数调整' class='cImg_stockItemProc_b' /></a>";
+        + "<img src='/img/config.png' alt='[调整]' title='修改' class='cImg_stockItemProc_b' /></a>";
     var targetIconHtml = getAdjustTargetIconHtml(currentPrice, targetPrice);
 
     return "<tr class='cTr_data'>"
@@ -694,16 +676,18 @@ function checkAndUpdateStockData(){
 function checkAndUpdateFollowedStockData(){
     var stockCode = $("#iSpan_updateFollowedStockCode").text();
     var targetPrice = $("#iIpt_followedTargetPrice").val();
+    var followedDate = g_myFollowedStockList[stockCode].followedDate;
     if (checkUserInputFollowedStockData(stockCode, targetPrice)) {
-        addFollowedStockDataToCookieAndRefreshPage(stockCode, targetPrice);
+        addFollowedStockDataToCookieAndRefreshPage(stockCode, targetPrice, followedDate);
     }
 }
 
 function checkAndSaveFollowedStock(){
     var stockCode = $("#iIpt_followedStockCode").val();
     var targetPrice = $("#iIpt_followedTargetPrice").val();
+    var followedDate = getTodayDateString();
     if (checkUserInputFollowedStockData(stockCode, targetPrice)){
-        addFollowedStockDataToCookieAndRefreshPage(stockCode, targetPrice);
+        addFollowedStockDataToCookieAndRefreshPage(stockCode, targetPrice, followedDate);
     }
 }
 
@@ -771,8 +755,8 @@ function updateGlobalStockData(stockCode, buyPrice, buyDate, gainPrice, losePric
     g_myStockList[stockCode] = new StockData(stockCode, "", buyPrice, buyDate, gainPrice, losePrice, holdType);
 }
 
-function updateGlobalFollowedStockData(stockCode, targetPrice){
-    g_myFollowedStockList[stockCode] = new FollowedStockData(stockCode, "", targetPrice, getTodayDateString());
+function updateGlobalFollowedStockData(stockCode, targetPrice, followedDate){
+    g_myFollowedStockList[stockCode] = new FollowedStockData(stockCode, "", targetPrice, followedDate);
 }
 
 function getTodayDateString(){
@@ -780,8 +764,9 @@ function getTodayDateString(){
 }
 
 function resetAllInputControls(){
-    $("input").val("");
+    $("input[type=text]").val("");
     selectStockHoldTypeRadio($("a[value='short']"));
+    resetQuickTargetPriceCalculator();
 }
 
 function readStockDataFromCookie(){
@@ -847,8 +832,8 @@ function addStockDataToCookieAndRefreshPage(stockCode, buyPrice, buyDate, gainPr
     reloadPage();
 }
 
-function addFollowedStockDataToCookieAndRefreshPage(stockCode, targetPrice){
-    updateGlobalFollowedStockData(stockCode, targetPrice);
+function addFollowedStockDataToCookieAndRefreshPage(stockCode, targetPrice, followedDate){
+    updateGlobalFollowedStockData(stockCode, targetPrice, followedDate);
     generateStockDataByList();
     addStockDataToCookie();
     reloadPage();
@@ -1007,14 +992,14 @@ function updateShowLongPeriodStockRowsMenuTextAndEvent(){
 }
 
 function showAddSelectedStockPanel(){
+    resetAllInputControls();
     showBackgroundCoverLayer();
     showProcPanelById("iDiv_editStockInfoPanel_c");
     $("#iDiv_updateStockCode_c").hide();
     $("#iDiv_addStockCode_c").show();
     $("#iA_updateStockInfo_b").hide();
     $("#iA_addStockInfo_b").show();
-    $("#iIpt_buyDate").text(getTodayDateString());
-    resetAllInputControls();
+    $("#iIpt_buyDate").val(getTodayDateString());
 }
 
 function showUpdateStockInfoPanel(stockCode){
@@ -1025,6 +1010,7 @@ function showUpdateStockInfoPanel(stockCode){
     $("#iA_updateStockInfo_b").show();
     $("#iA_addStockInfo_b").hide();
     selectStockHoldTypeRadio($("a[value='" + g_myStockList[stockCode].holdType + "']"));
+    resetQuickTargetPriceCalculator();
     autoFillStockInfoToUpdatedPanel(stockCode);
 }
 
@@ -1113,7 +1099,7 @@ function backupSelectedStockDataToServer(){
     }
     generateStockDataByList();
     if (confirm("确认要备份当前自选股列表么？")) {
-        $.post("/stock/save_cookie.do", {"userName": g_currentLoginUserName, "stockCookie": g_myAllStockDataInCookie},
+        $.post("stock/save_cookie.do", {"userName": g_currentLoginUserName, "stockCookie": g_myAllStockDataInCookie},
             function (data) {
                 if (data == "success") {
                     alert("备份成功");
@@ -1184,12 +1170,12 @@ function checkBeforeRegister(userName, psw, confirmPsw){
 }
 
 function checkUserExistAndRegister(userName, psw){
-    $.post("/user/exist.do", { "userName": userName },
+    $.post("user/exist.do", { "userName": userName },
         function (data) {
             if (data == "success") {
                 alert("账号[" + userName + "]已存在");
             } else {
-                $.post("/simple_register.do", { "userName": userName, "password": psw },
+                $.post("simple_register.do", { "userName": userName, "password": psw },
                     function (data) {
                         if (data == "success") {
                             alert("账号创建成功");
@@ -1208,7 +1194,7 @@ function login(){
     if(!checkBeforeLogin(userName, psw)){
         return;
     }
-    $.post("/login_ajax.do", { "userName": userName, "password": psw },
+    $.post("login_ajax.do", { "userName": userName, "password": psw },
         function (data) {
             if (data == "success") {
                 reloadPage();
@@ -1242,7 +1228,7 @@ function logout(){
     if (userName == null || userName == ""){
         return;
     }
-    $.post("/logout.do", { "userName": userName },
+    $.post("logout.do", { "userName": userName },
         function (data) {
             if (data == "success") {
                 alert("成功退出");
@@ -1289,6 +1275,10 @@ function selectStockHoldTypeRadio(obj){
     }
 }
 
+function resetQuickTargetPriceCalculator(){
+    $("select.cSel_quickCalculator").val("");
+}
+
 function getStockHoldType(holdType){
     var type = "short";
     if (holdType != undefined && holdType == "long"){
@@ -1297,45 +1287,75 @@ function getStockHoldType(holdType){
     return type;
 }
 
-
-Date.prototype.format =function(format)
-{
-    var o = {
-        "M+" : this.getMonth()+1, //month
-        "d+" : this.getDate(), //day
-        "h+" : this.getHours(), //hour
-        "m+" : this.getMinutes(), //minute
-        "s+" : this.getSeconds(), //second
-        "q+" : Math.floor((this.getMonth()+3)/3), //quarter
-        "S" : this.getMilliseconds() //millisecond
+function quickAddTargetPriceByBuyPrice(obj){
+    var $buyPriceObj = $("#iIpt_buyPrice");
+    var buyPrice = $buyPriceObj.val();
+    if (buyPrice != "" && checkStockPriceAvailable(buyPrice)){
+        var multiplier = $(obj).val();
+        if (multiplier != "") {
+            var targetPrice = (buyPrice.toNumber() * multiplier.toNumber()).toFixed(2);
+            $(obj).siblings("input").val(targetPrice);
+        }
+    } else {
+        $buyPriceObj.val("");
     }
-    if(/(y+)/.test(format)) format=format.replace(RegExp.$1,
-        (this.getFullYear()+"").substr(4- RegExp.$1.length));
-    for(var k in o)if(new RegExp("("+ k +")").test(format))
-        format = format.replace(RegExp.$1,
-            RegExp.$1.length==1? o[k] :
-                ("00"+ o[k]).substr((""+ o[k]).length));
-    return format;
 }
 
-String.prototype.toNumber = function(){
-    var num = 0;
-    try {
-        num = Number(this);
-    }catch(e){
-        num = -1;
+function checkBuyPriceAndAutoUpdateTargetPrice(){
+    var $buyPriceObj = $("#iIpt_buyPrice");
+    var buyPrice = $buyPriceObj.val();
+    if (buyPrice != ""){
+        var priceColor = "black";
+        if (!checkStockPriceAvailable(buyPrice)){
+            priceColor = "red";
+        } else {
+            var $gainPriceObj = $("#iIpt_gainPrice");
+            var $lostPriceObj = $("#iIpt_losePrice");
+            var quickGainMultiplier = $gainPriceObj.siblings("select").val();
+            var quickLostMultiplier = $lostPriceObj.siblings("select").val();
+            var gainTargetPrice = "";
+            var lostTargetPrice = "";
+            if (quickGainMultiplier != ""){
+                gainTargetPrice = (quickGainMultiplier.toNumber() * buyPrice.toNumber()).toFixed(2);
+            }
+            if (quickLostMultiplier != ""){
+                lostTargetPrice = (quickLostMultiplier.toNumber() * buyPrice.toNumber()).toFixed(2);
+            }
+            $gainPriceObj.val(gainTargetPrice);
+            $lostPriceObj.val(lostTargetPrice);
+        }
+        $buyPriceObj.css("color", priceColor);
     }
-    return num;
 }
 
-function arrayCount(o){
-    var t = typeof o;
-    if(t == 'string'){
-        return o.length;
-    }else if(t == 'object'){
-        var n = 0;
-        for(var i in o){n++;}
-        return n;
+function shareMyShortHoldStocksToLaoNiu(){
+    if(!checkUserLoginStatus()){
+        return;
     }
-    return false;
+    $.post("group_member/add.do", { "userName": g_currentLoginUserName, "groupId":g_laoNiuGroupId },
+        function (data) {
+            if (data == "success") {
+                reloadPage();
+            } else {
+                alert("添加分享群失败");
+            }
+        });
+}
+
+function stopShareMyShortHoldStocksToLaoNiu(){
+    if(!checkUserLoginStatus()){
+        return;
+    }
+    $.post("group_member/quite.do", { "userName": g_currentLoginUserName, "groupId":g_laoNiuGroupId },
+        function (data) {
+            if (data == "success") {
+                reloadPage();
+            } else {
+                alert("退出分享群失败");
+            }
+        });
+}
+
+function goFriendSharePage(){
+    window.location.href = "/stock/share/" + g_laoNiuGroupId;
 }

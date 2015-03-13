@@ -18,7 +18,8 @@ input[type=text], input[type=password]{ padding-left: 10px; height: 16px; width:
 #iTbl_stockInfoList tr:nth-child(even), #iTbl_followedStockInfoList tr:nth-child(even) { background-color: #f8f9fb; }
 #iTbl_stockInfoList tr td:nth-child(4), #iTbl_stockInfoList tr td:nth-child(5),
 #iTbl_stockInfoList tr td:nth-child(6), #iTbl_stockInfoList tr td:nth-child(7),
-#iTbl_stockInfoList tr td:nth-child(8), #iTbl_stockInfoList tr td:nth-child(11) { display:none; }
+#iTbl_stockInfoList tr td:nth-child(8), #iTbl_stockInfoList tr td:nth-child(9),
+#iTbl_stockInfoList tr td:nth-child(11) { display:none; }
 #iDiv_backgroundCoverLayer, #iDiv_editStockInfoPanel_c,
 #iDiv_userRegisterPanel_c, #iDiv_userLoginPanel_c,
 #iTbl_followedStockInfoList, #iA_addFollowedStock_b, #iDiv_addFollowedStockPanel_c { display: none; }
@@ -46,7 +47,7 @@ input[type=text], input[type=password]{ padding-left: 10px; height: 16px; width:
 #iTbl_stockInfoList tr.cTr_data td:nth-child(2),  #iTbl_stockInfoList tr.cTr_data td:nth-child(10){ font-weight: bold; }
 #iTbl_followedStockInfoList tr.cTr_data td:nth-child(2),  #iTbl_followedStockInfoList tr.cTr_data td:nth-child(6),
 #iTbl_followedStockInfoList tr.cTr_data td:nth-child(7){ font-weight: bold; }
-
+#iIpt_gainPrice, #iIpt_losePrice { width:50px; }
 
 
 /*
@@ -218,3 +219,4 @@ img.cImg_stockItemProc_b {
     margin-right: 6px;
     display:inline-block;
 }
+.cSel_quickCalculator { width:60px; }

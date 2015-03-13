@@ -18,4 +18,8 @@ public class CommonConstant {
      * 保存到COOKIE中的用户名key
      */
     public static String COOKIE_USER_NAME = "cookie_user_name";
+    /**
+     * 老牛分享群号
+     */
+    public static int LAONIU_GROUP_ID = 2;
 }

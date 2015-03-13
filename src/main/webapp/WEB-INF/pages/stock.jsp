@@ -13,6 +13,7 @@
   <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
   <script type="text/javascript" src="/js/jquery.cookie.js"></script>
   <script type="text/javascript" src="/js/stock.js"></script>
+  <script type="text/javascript" src="/js/stock_common.js"></script>
   <link href="/css/stock.css" rel="stylesheet" type="text/css">
   <link rel="shortcut icon" href="/img/stock_page_icon.png">
 </head>
@@ -38,6 +39,15 @@
       <a href="javascript:;" class="grayButton" onclick="backupSelectedStockDataToServer()">备份全部列表</a>
       <a id="iA_recoverStockList_b" href="javascript:;" class="grayButton" onclick="recoverSelectedStockDataFromServer()">恢复全部列表</a>
       <a href="javascript:;" class="grayButton" onclick="clearAllStockItemInCookie()">清空全部列表</a>
+        <c:if test="${beLaoNiuGroupMember}">
+            <a href="javascript:;" class="grayButton" onclick="stopShareMyShortHoldStocksToLaoNiu()">退出老牛分享群</a>
+        </c:if>
+        <c:if test="${!beLaoNiuGroupMember}">
+            <a href="javascript:;" class="grayButton" onclick="shareMyShortHoldStocksToLaoNiu()">加入老牛分享群</a>
+        </c:if>
+        <c:if test="${beLaoNiuGroupMember}">
+            <a href="javascript:;" class="grayButton" onclick="goFriendSharePage()">跳转到老牛分享群</a>
+        </c:if>
     </c:if>
   </div>
   <div class="cDiv_realTimeInfo_c">
@@ -120,22 +130,41 @@
     <tr>
       <td>成本价格：</td>
       <td>
-        <input id="iIpt_buyPrice" type="text" />
+        <input id="iIpt_buyPrice" type="text" onblur="checkBuyPriceAndAutoUpdateTargetPrice()" />
         &nbsp;<span class="cSpan_comment">如：11.123</span>
       </td>
     </tr>
     <tr>
       <td>止盈价格：</td>
       <td>
-        <input id="iIpt_gainPrice" type="text" />
-        &nbsp;<span class="cSpan_comment">如：15.67 (可选)</span>
+        <input id="iIpt_gainPrice" type="text" />&nbsp;
+        <select class="cSel_quickCalculator" onchange="quickAddTargetPriceByBuyPrice(this)">
+            <option value="">输入</option>
+            <option value="1.03">3%</option>
+            <option value="1.05">5%</option>
+            <option value="1.07">7%</option>
+            <option value="1.09">9%</option>
+            <option value="1.11">11%</option>
+            <option value="1.15">15%</option>
+            <option value="1.17">17%</option>
+            <option value="1.20">20%</option>
+            <option value="1.3">30%</option>
+            <option value="1.5">50%</option>
+        </select>
+        &nbsp;<span class="cSpan_comment">(选填)</span>
       </td>
     </tr>
     <tr>
       <td>止损价格：</td>
       <td>
-        <input id="iIpt_losePrice" type="text" />
-        &nbsp;<span class="cSpan_comment">如：10.0 (可选)</span>
+        <input id="iIpt_losePrice" type="text" />&nbsp;
+        <select class="cSel_quickCalculator" onchange="quickAddTargetPriceByBuyPrice(this)">
+            <option value="">输入</option>
+            <option value="0.97">-3%</option>
+            <option value="0.96">-4%</option>
+            <option value="0.90">-10%</option>
+        </select>
+        &nbsp;<span class="cSpan_comment">(选填)</span>
       </td>
     </tr>
     <tr>
@@ -149,7 +178,7 @@
       <td>持股类型：</td>
       <td>
         <a href="javascript:;" class="cA_radioSelected" onclick="selectStockHoldTypeRadio(this)" group="hold_type" value="short">短线</a>
-        <a href="javascript:;" class="cA_radio" onclick="selectStockHoldTypeRadio(this)" group="hold_type" value="long">中线</a>
+        <a href="javascript:;" class="cA_radio" onclick="selectStockHoldTypeRadio(this)" group="hold_type" value="long">长线</a>
         &nbsp;<span class="cSpan_comment"></span>
       </td>
     </tr>
@@ -181,7 +210,7 @@
       <td>目标价格：</td>
       <td>
         <input id="iIpt_followedTargetPrice" type="text" />
-        &nbsp;<span class="cSpan_comment">如：11.88 (可选)</span>
+        &nbsp;<span class="cSpan_comment">如：11.88 (选填)</span>
       </td>
     </tr>
     <tr>

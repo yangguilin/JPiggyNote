@@ -2,6 +2,8 @@ package com.ygl.piggynote.controller;
 
 import com.ygl.piggynote.bean.StockCookieBean;
 import com.ygl.piggynote.bean.UserBean;
+import com.ygl.piggynote.common.CommonConstant;
+import com.ygl.piggynote.service.impl.GroupMemberServiceImpl;
 import com.ygl.piggynote.service.impl.StockCookieServiceImpl;
 import com.ygl.piggynote.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +23,15 @@ import javax.servlet.http.HttpServletResponse;
 public class StockController extends BaseController {
     @Autowired
     private StockCookieServiceImpl stockCookieService;
+    @Autowired
+    private GroupMemberServiceImpl groupMemberService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String show(ModelMap model, HttpServletRequest request){
         String userName = "";
         String stockCookieVal = "";
+        Boolean beLaoNiuGroupMember = false;
+        Boolean isLaoNiuLogin = false;
         UserBean ub = getUserFromSession(request);
         if (ub != null) {
             userName = ub.getUserName();
@@ -33,9 +39,13 @@ public class StockController extends BaseController {
             if (exist) {
                 stockCookieVal = stockCookieService.get(userName).getStockCookie();
             }
+            // just for laoniu
+            beLaoNiuGroupMember = checkLaoNiuGroupMember(userName);
         }
         model.addAttribute("userName", userName);
         model.addAttribute("stockCookie", stockCookieVal);
+        model.addAttribute("beLaoNiuGroupMember", beLaoNiuGroupMember);
+        model.addAttribute("");
         return "/stock";
     }
 
@@ -66,5 +76,9 @@ public class StockController extends BaseController {
             }
         }
         CommonUtil.writeResponse4ReturnStrResult(exist, stockCookie, response);
+    }
+
+    private Boolean checkLaoNiuGroupMember(String userName){
+        return groupMemberService.exist(userName, CommonConstant.LAONIU_GROUP_ID);
     }
 }
