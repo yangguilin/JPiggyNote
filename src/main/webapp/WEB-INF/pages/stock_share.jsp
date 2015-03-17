@@ -9,7 +9,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-    <title>好友持股分享</title>
+    <title>持股分享群</title>
     <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="/js/jquery.cookie.js"></script>
     <script type="text/javascript" src="/js/stock_share.js"></script>
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/stock_page_icon.png">
 </head>
 <body>
-    <div>
+    <div class="cDiv_container">
         <div>
             <input type="hidden" id="iIpt_curUserName_h" value="${userName}" />
             <input type="hidden" id="iIpt_stockCodes_h" value="${stockCodes}" />
@@ -37,13 +37,14 @@
                 <tr class="cTr_title">
                     <td class="cTd_holdStockNameAndCode">股票名称</td>
                     <td>当前价格</td>
-                    <td>持股学员</td>
+                    <td>今日涨幅</td>
+                    <td>用户合计</td>
                     <td class="cTd_holdStockItemProcPanelColumn">功能操作</td>
                 </tr>
             </table>
             <table id="iTbl_holderDetailList" class="cTbl_dataList">
                 <tr class="cTr_greenTitle">
-                    <td>持股学员</td>
+                    <td class="cTd_holdStockUser">持股用户</td>
                     <td>成本价格</td>
                     <td>盈利幅度</td>
                 </tr>

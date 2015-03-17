@@ -60,34 +60,57 @@ function addStockInfoIntoTableList(stockCode){
     if (checkSinaStockCodeAvailable(stockDataVarName)) {
         var elements = window[stockDataVarName].split(",");
         var stockName = elements[0];
+        var todayOpenPrice = elements[1];
+        var yesterdayClosePrice = elements[2];
         var currentPrice = elements[3];
-        var holdFriendNum = arrayCount(g_stockHoldInfoList[stockCode].holderList);
+        var todayPercent = getTodayPercent(yesterdayClosePrice, currentPrice);
+        var holderNum = arrayCount(g_stockHoldInfoList[stockCode].holderList);
+        var tdClassName4TodayIncrease = getTdClassName4TodayIncrease(currentPrice, yesterdayClosePrice);
 
-        var htmlString = generateTableRowHtmlString(stockCode, stockName, currentPrice, holdFriendNum);
+        var htmlString = generateTableRowHtmlString(stockCode, stockName, todayOpenPrice, currentPrice, yesterdayClosePrice,
+                                                    todayPercent, holderNum, tdClassName4TodayIncrease);
         $("#iTbl_stockHolderInfoList tbody").append($(htmlString));
     }
 }
 
 function generateTableRowHtmlString(stockCode,
                                        stockName,
+                                       todayOpenPrice,
                                        currentPrice,
-                                       holdFriendNum) {
+                                       yesterdayClosePrice,
+                                       todayPercent,
+                                       holderNum,
+                                       tdClassName4TodayIncrease) {
 
-    var procPanelHtmlString = "<a href='javascript:;' stock_code='" + stockCode + "' current_price='" + currentPrice + "' onclick='showHolderListByStockCode(this)'>查看详情</a>";
+    if (todayOpenPrice.toNumber() == 0){
+        currentPrice = "停牌";
+        todayPercent = g_NaN;
+        tdClassName4TodayIncrease = "cTd_balanceStatus";
+    }
+    var procPanelHtmlString = "<a href='javascript:;' stock_code='" + stockCode
+                                + "' yesterday_close_price='" + yesterdayClosePrice
+                                + "' current_price='" + currentPrice
+                                + "' onclick='showHolderListByStockCode(this)'>查看详情</a>";
     return "<tr class='cTr_data'>"
         + "<td>" + stockCode + "&nbsp;|&nbsp;" + stockName + "</td>"
-        + "<td>" + currentPrice + "</td>"
-        + "<td>" + holdFriendNum + "</td>"
+        + "<td class='" + tdClassName4TodayIncrease + "'>" + currentPrice + "</td>"
+        + "<td class='" + tdClassName4TodayIncrease + "'>" + todayPercent + "</td>"
+        + "<td>" + holderNum + "</td>"
         + "<td>" + procPanelHtmlString + "</td>"
         + "</tr>";
 }
 
 function showHolderListByStockCode(obj){
     changeDetailButtonStatus(obj);
+    autoSetDetailTablePosition();
     clearHolderDetailList("iTbl_holderDetailList");
     var stockCode = $(obj).attr("stock_code");
     var holderArr = g_stockHoldInfoList[stockCode].holderList;
     var currentPrice = $(obj).attr("current_price");
+    var yesterdayClosePrice = $(obj).attr("yesterday_close_price");
+    if (currentPrice == "停牌"){
+        currentPrice = yesterdayClosePrice;
+    }
     for (var index in holderArr){
         addHolderDataTolist(holderArr[index].userName, holderArr[index].buyPrice, currentPrice);
     }
@@ -104,7 +127,13 @@ function getTotalPercent(buyPrice, currentPrice){
 
 function changeDetailButtonStatus(obj){
     $("a[stock_code]").removeClass("grayText").text("查看详情");
-    $(obj).unbind("click", showHolderListByStockCode).text("详情 ==>").addClass("grayText");
+    $(obj).text("详情 ==>").addClass("grayText");
+    $(obj).parent().parent().addClass("cTr_selectedRow").siblings("tr").removeClass("cTr_selectedRow");
+}
+
+function autoSetDetailTablePosition(){
+    var scrollTopVal = $(document).scrollTop() + "px";
+    $("#iTbl_holderDetailList").css({"position":"relative", "top":scrollTopVal});
 }
 
 function clearHolderDetailList(tableId){

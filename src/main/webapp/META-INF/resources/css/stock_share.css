@@ -2,7 +2,7 @@
 /*
     id
 */
-td.cTd_holdStockNameAndCode { width:120px; }
+td.cTd_holdStockNameAndCode { width:150px; }
 td.cTd_holdStockItemProcPanelColumn { width:60px; }
 
 /*
@@ -26,3 +26,6 @@ tr.cTr_greenTitle td {
     border-radius: 2px;
 }
 a.grayText { color:gray; }
+.cDiv_container { display:inline-block; margin-bottom: 60px; }
+tr.cTr_selectedRow { background-color: lightpink !important; font-weight: bold; }
+td.cTd_holdStockUser { width:80px; }

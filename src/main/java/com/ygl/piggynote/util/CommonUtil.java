@@ -49,4 +49,8 @@ public class CommonUtil {
         pw.write(res);
         pw.flush();
     }
+
+    public static String removeLastWord(String content){
+        return ((content != "") ? content.substring(0, content.length() - 1) : "");
+    }
 }

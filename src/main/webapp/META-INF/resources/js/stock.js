@@ -18,7 +18,7 @@ function FollowedStockData(stockCode, stockName, targetPrice, followedDate){
     this.followedDate = followedDate;
 }
 
-var g_NaN = "--";
+
 var g_freshIntervalMillisecond = 5000;
 var g_cookieSavedDaysNum = 90;
 var g_shangHaiCode = "sh000001";
@@ -354,15 +354,6 @@ function getCurrentTime() {
     return(clock);
 }
 
-function getTodayPercent(yesterdayClosePrice, currentPrice){
-    var currentPriceNum = Number(currentPrice);
-    var yesterdayClosePriceNum = Number(yesterdayClosePrice);
-    if (currentPriceNum <= 0 || yesterdayClosePriceNum <= 0){
-        return 0;
-    }
-    return ((currentPriceNum - yesterdayClosePriceNum) * 100 / yesterdayClosePriceNum).toFixed(2) + "%";
-}
-
 function getTodayOpenStatus(todayOpenPrice, yesterdayClosePrice){
     var todayOpenPriceNum = Number(todayOpenPrice);
     var yesterdayClosePriceNum = Number(yesterdayClosePrice);
@@ -415,10 +406,6 @@ function getTdClassName4TodayOpenStatus(todayOpenPrice, yesterdayClosePrice){
     return getTdClassNameByPrice(todayOpenPrice, yesterdayClosePrice);
 }
 
-function getTdClassName4TodayIncrease(currentPrice, yesterdayClosePrice){
-    return getTdClassNameByPrice(currentPrice, yesterdayClosePrice);
-}
-
 function getTdClassName4TotalIncrease(stockCode, currentPrice){
     var tdClassName = "";
     if (stockCode in g_myStockList){
@@ -426,18 +413,6 @@ function getTdClassName4TotalIncrease(stockCode, currentPrice){
     }
     if (buyPriceVal != ""){
         tdClassName = getTdClassNameByPrice(currentPrice, buyPriceVal);
-    }
-    return tdClassName;
-}
-
-function getTdClassNameByPrice(newPrice, oldPrice){
-    var tdClassName = "cTd_balanceStatus";
-    var newPriceNum = Number(newPrice);
-    var oldPriceNum = Number(oldPrice);
-    if (newPriceNum > oldPriceNum){
-        tdClassName = "cTd_upStatus";
-    } else if (newPriceNum < oldPriceNum){
-        tdClassName = "cTd_downStatus";
     }
     return tdClassName;
 }

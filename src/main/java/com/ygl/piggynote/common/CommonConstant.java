@@ -22,4 +22,6 @@ public class CommonConstant {
      * 老牛分享群号
      */
     public static int LAONIU_GROUP_ID = 2;
+    public static int SESSION_KEEP_SECOND = 120 * 60;
+
 }

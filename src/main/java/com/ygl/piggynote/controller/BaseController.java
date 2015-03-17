@@ -5,6 +5,7 @@ import com.ygl.piggynote.common.CommonConstant;
 import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by guilin on 2014/8/5.
@@ -19,7 +20,6 @@ public class BaseController {
      * @return  用户实例
      */
     protected UserBean getUserFromSession(HttpServletRequest request){
-
         return (UserBean)request.getSession().getAttribute(CommonConstant.SESSION_USER_CONTENT);
     }
 
@@ -29,8 +29,9 @@ public class BaseController {
      * @param user  用户实例
      */
     protected void setUserToSession(HttpServletRequest request, UserBean user) {
-
-        request.getSession().setAttribute(CommonConstant.SESSION_USER_CONTENT, user);
+        HttpSession session = request.getSession();
+        session.setAttribute(CommonConstant.SESSION_USER_CONTENT, user);
+        session.setMaxInactiveInterval(CommonConstant.SESSION_KEEP_SECOND);
     }
 
     /**
