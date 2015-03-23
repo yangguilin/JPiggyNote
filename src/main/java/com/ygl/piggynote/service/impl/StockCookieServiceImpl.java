@@ -31,9 +31,9 @@ public class StockCookieServiceImpl implements StockCookieService {
 
     @Override
     public Boolean add(StockCookieBean bean) {
-        int ret = jdbcTemplate.update("insert into pn_stock_cookie(user_name, stock_cookie, saved_date) value(?, ?, now())",
-                new Object[]{ bean.getUserName(), bean.getStockCookie() },
-                new int[]{Types.VARCHAR, Types.VARCHAR});
+        int ret = jdbcTemplate.update("insert into pn_stock_cookie(user_name, stock_cookie, saved_date, quick_cookie) value(?, ?, now(), ?)",
+                new Object[]{ bean.getUserName(), bean.getStockCookie(),bean.getQuickCookie() },
+                new int[]{Types.VARCHAR, Types.VARCHAR}, Types.VARCHAR);
         return ret == 1;
     }
 
@@ -47,9 +47,9 @@ public class StockCookieServiceImpl implements StockCookieService {
 
     @Override
     public Boolean update(StockCookieBean bean) {
-        int ret = jdbcTemplate.update("update pn_stock_cookie set stock_cookie=?, saved_date=now() where user_name=?",
-                new Object[]{ bean.getStockCookie(), bean.getUserName() },
-                new int[]{Types.VARCHAR, Types.VARCHAR});
+        int ret = jdbcTemplate.update("update pn_stock_cookie set stock_cookie=?, saved_date=now(), quick_cookie=? where user_name=?",
+                new Object[]{ bean.getStockCookie(), bean.getQuickCookie(), bean.getUserName() },
+                new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR});
         return ret > 0;
     }
 

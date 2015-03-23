@@ -61,7 +61,7 @@ tr.cTr_title td {
     border-radius: 2px;
 }
 tr.cTr_data td { width:60px; }
-td.cTd_stockNameAndCode { width:190px; }
+td.cTd_stockNameAndCode { width:200px; }
 td.cTd_stockItemProcPanelColumn { width:80px; }
 .cTd_upStatus { color:red; }
 .cTd_balanceStatus { color:gray }
@@ -175,8 +175,8 @@ div.cDiv_tabMenu_c ul li {
     margin-bottom: -3px;
     margin-right: 6px;
 }
-.cTd_gainStatus { font-weight: bold; color:red; font-size: 14px; }
-.cTd_loseStatus { font-weight: bold; color:green; font-size: 14px; }
+.cTr_gainStatus { font-weight: bold; color:red; background-color: lightpink !important; }
+.cTr_loseStatus { font-weight: bold; color:green; background-color: lightgreen !important; }
 .cSpan_loginInfo { color:#999999; font-weight: bold; font-size: 14px; }
 .cTd_adjustTargetStatus { color:red; font-size: 14px; font-weight: bold; }
 .cSpan_procTips { color:gray; font-size: 12px; margin-left: 20px; }
@@ -220,3 +220,5 @@ img.cImg_stockItemProc_b {
     display:inline-block;
 }
 .cSel_quickCalculator { width:60px; }
+.cTd_cursorDefault { cursor: default; }
+.cTd_cursorDefault:hover { background-color: #dff4bc; }

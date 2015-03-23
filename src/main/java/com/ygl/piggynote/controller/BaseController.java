@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 public class BaseController {
 
     protected static final String ERROR_MSG_KEY = "errorMsg";
+    public String curLoginUserName = "";
 
     /**
      * 从Session中获取用户实例
@@ -45,5 +46,16 @@ public class BaseController {
         Assert.hasLength(url, "url不能为空");
         Assert.isTrue(url.startsWith("/"), "必须以/开头");
         return request.getContextPath() + url;
+    }
+
+    public Boolean checkUserLoginStatus(HttpServletRequest request){
+        Boolean beLogin = false;
+        String userName = request.getParameter("userName");
+        UserBean ub = getUserFromSession(request);
+        if (ub != null && ub.getUserName().equals(userName)){
+            curLoginUserName = userName;
+            beLogin = true;
+        }
+        return beLogin;
     }
 }

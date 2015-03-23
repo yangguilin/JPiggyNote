@@ -54,6 +54,7 @@ public class StockController extends BaseController {
         Boolean ret = false;
         UserBean ub = getUserFromSession(request);
         if (stockCookieBean != null && ub != null && ub.getUserName().equals(stockCookieBean.getUserName())){
+            stockCookieBean.setQuickCookie(stockCookieBean.getStockCookie());
             if (stockCookieService.exist(ub.getUserName())){
                 ret = stockCookieService.update(stockCookieBean);
             } else {
@@ -76,6 +77,17 @@ public class StockController extends BaseController {
             }
         }
         CommonUtil.writeResponse4ReturnStrResult(exist, stockCookie, response);
+    }
+
+    @RequestMapping(value="/update_quick_cookie.do", method=RequestMethod.POST)
+    public void updateQuickCookie(HttpServletRequest request, HttpServletResponse response){
+        if (checkUserLoginStatus(request)){
+            String quickStockCookie = request.getParameter("quickCookie");
+            StockCookieBean scb = stockCookieService.get(curLoginUserName);
+            scb.setQuickCookie(quickStockCookie);
+            stockCookieService.update(scb);
+        }
+        CommonUtil.writeResponse4BooleanResult(true, response);
     }
 
     private Boolean checkLaoNiuGroupMember(String userName){

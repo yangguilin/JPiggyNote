@@ -1,9 +1,11 @@
 package com.ygl.piggynote.controller;
 
+import com.ygl.piggynote.bean.GroupBean;
 import com.ygl.piggynote.bean.GroupMemberBean;
 import com.ygl.piggynote.bean.StockCookieBean;
 import com.ygl.piggynote.bean.UserBean;
 import com.ygl.piggynote.service.impl.GroupMemberServiceImpl;
+import com.ygl.piggynote.service.impl.GroupServiceImpl;
 import com.ygl.piggynote.service.impl.StockCookieServiceImpl;
 import com.ygl.piggynote.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class StockShareController extends BaseController {
     private StockCookieServiceImpl stockCookieService;
     @Autowired
     private GroupMemberServiceImpl groupMemberService;
+    @Autowired
+    private GroupServiceImpl groupService;
+
     private List<GroupMemberBean> memberList = new ArrayList<GroupMemberBean>();
     private HashMap<String, List<String>> groupMemberHoldStockDataList = new HashMap<String, List<String>>();
     private List<Map.Entry<String, List<String>>> orderedDataList = new ArrayList<Map.Entry<String, List<String>>>();
@@ -35,11 +40,21 @@ public class StockShareController extends BaseController {
         String userName = "";
         String stockCodes = "";
         String friendHoldStockData = "";
+        String groupName = "";
+        Boolean beGroupMember = false;
+        GroupBean gb = null;
         UserBean ub = getUserFromSession(request);
         if (ub != null) {
             userName = ub.getUserName();
+            if (groupService.exist(groupId)) {
+                gb = groupService.get(groupId);
+            }
+            memberList = groupMemberService.getListByGroupId(groupId);
             if (groupMemberService.exist(userName, groupId)) {
-                memberList = groupMemberService.getListByGroupId(groupId);
+                beGroupMember = true;
+                gb.setActiveNum(gb.getActiveNum() + 1);
+                groupService.update(gb);
+                groupName = gb.getGroupName();
                 getAllMembersHoldStockCookieData(userName);
                 sortGroupMemberHoldStockDataList();
                 stockCodes = getAllStockCodes();
@@ -47,6 +62,9 @@ public class StockShareController extends BaseController {
             }
         }
         model.addAttribute("userName", userName);
+        model.addAttribute("beGroupMember", beGroupMember);
+        model.addAttribute("groupName", groupName);
+        model.addAttribute("groupMemberNum", memberList.size());
         model.addAttribute("stockCodes", stockCodes);
         model.addAttribute("friendHoldStockData", friendHoldStockData);
         return "stock_share";

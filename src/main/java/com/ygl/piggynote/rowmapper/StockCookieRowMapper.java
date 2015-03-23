@@ -17,6 +17,7 @@ public class StockCookieRowMapper implements RowMapper {
         bean.setUserName(rs.getString("user_name"));
         bean.setStockCookie(rs.getString("stock_cookie"));
         bean.setSavedDate(rs.getDate("saved_date"));
+        bean.setQuickCookie(rs.getString("quick_cookie"));
         return bean;
     }
 }

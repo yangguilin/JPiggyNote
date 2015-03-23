@@ -9,6 +9,7 @@ public class StockCookieBean {
     private String userName;
     private String stockCookie;
     private Date savedDate;
+    private String quickCookie;
 
     public String getUserName() {
         return userName;
@@ -32,5 +33,13 @@ public class StockCookieBean {
 
     public void setSavedDate(Date savedDate) {
         this.savedDate = savedDate;
+    }
+
+    public String getQuickCookie() {
+        return quickCookie;
+    }
+
+    public void setQuickCookie(String quickCookie) {
+        this.quickCookie = quickCookie;
     }
 }

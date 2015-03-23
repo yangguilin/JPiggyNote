@@ -49,6 +49,7 @@ $(document).ready(function(){
     readStockDataFromCookieAndParseToStockList();
     getStockInfoFromSina();
     setTimeout(function() {
+        updateQuickStockCookieData();
         initStockDataTableList();
     }, g_intervalBeforeShowStockList);
 });
@@ -172,6 +173,15 @@ function reloadPage(){
     window.location.reload();
 }
 
+function updateQuickStockCookieData(){
+    if (checkUserLoginStatus()) {
+        $.post("stock/update_quick_cookie.do", {
+            "userName": g_currentLoginUserName,
+            "quickCookie": g_myAllStockDataInCookie
+        });
+    }
+}
+
 function addStockInfoIntoTableList(stockCode){
     var stockDataVarName = g_sinaStockVarPrefix + stockCode;
     if (checkSinaStockCodeAvailable(stockDataVarName)) {
@@ -189,7 +199,7 @@ function addStockInfoIntoTableList(stockCode){
         var tdClassName4TodayOpenStatus = getTdClassName4TodayOpenStatus(todayOpenPrice, yesterdayClosePrice);
         var tdClassName4TodayIncrease = getTdClassName4TodayIncrease(currentPrice, yesterdayClosePrice);
         var tdClassName4TotalIncrease = getTdClassName4TotalIncrease(stockCode, currentPrice);
-        var tdClassName4GainAndLoseStatus = getTdClassName4GainAndLoseStatus(stockCode, currentPrice);
+        var trClassName4GainAndLoseStatus = getTrClassName4GainAndLoseStatus(stockCode, currentPrice);
         var tdClassName4TodayBreakThoughStatus = getTdClassName4TodayBreakThoughStatus(yesterdayClosePrice, todayMinPrice, todayMaxPrice);
         var isStopTrade = getStopTradeStatus(elements);
         var totalPercentByMonth = getTotalPercentByMonth(totalPercent, holdStockDays);
@@ -210,7 +220,7 @@ function addStockInfoIntoTableList(stockCode){
             tdClassName4TodayIncrease,
             tdClassName4TodayOpenStatus,
             tdClassName4TotalIncrease,
-            tdClassName4GainAndLoseStatus,
+            trClassName4GainAndLoseStatus,
             isStopTrade,
             tdClassName4TodayBreakThoughStatus,
             totalPercentByMonth
@@ -233,7 +243,7 @@ function addFollowedStockInfoIntoTableList(stockCode){
         var todayMinPrice = elements[5];
         var todayPercent = getTodayPercent(yesterdayClosePrice, currentPrice);
         var targetPrice = g_myFollowedStockList[stockCode].targetPrice;
-        var holdStockDays = getHoldStockDaysNum(stockCode);
+        var holdStockDays = getFollowedStockDaysNum(stockCode);
         var gapPercent = getGapPercent(currentPrice, targetPrice);
         var gapPrice = getGapPrice(currentPrice, targetPrice);
         var tdClassName4TodayIncrease = getTdClassName4TodayIncrease(currentPrice, yesterdayClosePrice);
@@ -391,6 +401,11 @@ function getHoldStockDaysNum(stockCode){
             daysNum = parseInt((todayDate - buyDate) / (1000 * 60 * 60 * 24)) + 1;
         }
     }
+    return daysNum;
+}
+
+function getFollowedStockDaysNum(stockCode){
+    var daysNum = "0";
     if (stockCode in g_myFollowedStockList) {
         var followedDateVal = g_myFollowedStockList[stockCode].followedDate;
         if (followedDateVal != "") {
@@ -417,8 +432,8 @@ function getTdClassName4TotalIncrease(stockCode, currentPrice){
     return tdClassName;
 }
 
-function getTdClassName4GainAndLoseStatus(stockCode, currentPrice){
-    var tdClassName = "";
+function getTrClassName4GainAndLoseStatus(stockCode, currentPrice){
+    var trClassName = "";
     var currentPriceNum = Number(currentPrice);
     var gainPriceNum = Number(g_myStockList[stockCode].gainPrice);
     var losePriceNum = Number(g_myStockList[stockCode].losePrice);
@@ -427,11 +442,11 @@ function getTdClassName4GainAndLoseStatus(stockCode, currentPrice){
     g_myStockList[stockCode].gainStatus = gainStatus;
     g_myStockList[stockCode].loseStatus = loseStatus;
     if (gainStatus){
-        tdClassName = "cTd_gainStatus";
+        trClassName = "cTr_gainStatus";
     } else if (loseStatus){
-        tdClassName = "cTd_loseStatus";
+        trClassName = "cTr_loseStatus";
     }
-    return tdClassName;
+    return trClassName;
 }
 
 function getTdClassName4TargetStatus(currentPrice, targetPrice){
@@ -498,7 +513,7 @@ function generateStockInfoTrHtmlString(stockCode,
                                        tdClassName4TodayIncrease,
                                        tdClassName4TodayOpenStatus,
                                        tdClassName4TotalIncrease,
-                                       tdClassName4GainAndLoseStatus,
+                                       trClassName4GainAndLoseStatus,
                                        isStopTrade,
                                        tdClassName4TodayBreakThoughStatus,
                                        totalPercentByMonth) {
@@ -515,7 +530,7 @@ function generateStockInfoTrHtmlString(stockCode,
         tdClassName4TodayOpenStatus = "cTd_balanceStatus";
         tdClassName4TotalIncrease = getTdClassName4TotalIncrease(stockCode, yesterdayClosePrice);
     }
-    if (tdClassName4GainAndLoseStatus != ""){
+    if (trClassName4GainAndLoseStatus != ""){
         tdClassName4TodayBreakThoughStatus = "";
     }
     var procPanelHtmlString = "<a href='#' onclick='confirmAndRemoveCurrentStockItem(\"" + stockCode + "\")'>"
@@ -523,9 +538,10 @@ function generateStockInfoTrHtmlString(stockCode,
         + "<a href='#' onclick='showUpdateStockInfoPanel(\"" + stockCode + "\")'>"
         + "<img src='/img/config.png' alt='[调整]' title='修改' class='cImg_stockItemProc_b' /></a>";
     var gainAndLoseIconHtmlString = getGainAndLoseIconHtml(stockCode);
+    var gainAndLoseTip = getGainAndLoseTip(stockCode);
 
-    return "<tr class='cTr_data' hold_type='" + g_myStockList[stockCode].holdType + "'>"
-                + "<td class='" + tdClassName4GainAndLoseStatus + " " + tdClassName4TodayBreakThoughStatus +"'>"
+    return "<tr class='cTr_data " + trClassName4GainAndLoseStatus + "' hold_type='" + g_myStockList[stockCode].holdType + "'>"
+                + "<td class='" + tdClassName4TodayBreakThoughStatus +"'>"
                     + gainAndLoseIconHtmlString + "&nbsp;&nbsp;|&nbsp;" + stockCode + "&nbsp;|&nbsp;" + name + "</td>"
                 + "<td class='" + tdClassName4TodayIncrease + "'>" + currentPrice + "</td>"
                 + "<td class='" + tdClassName4TodayIncrease + "'>" + todayPercent + "</td>"
@@ -535,7 +551,7 @@ function generateStockInfoTrHtmlString(stockCode,
                 + "<td class='cTd_downStatus'>" + todayMinPrice + "</td>"
                 + "<td class='cTd_upStatus'>" + todayMaxPrice + "</td>"
                 + "<td>" + holdStockDays + "</td>"
-                + "<td class='" + tdClassName4TotalIncrease + "'>" + totalPercent + "</td>"
+                + "<td class='" + tdClassName4TotalIncrease + " cTd_cursorDefault' title='" + gainAndLoseTip + "'>" + totalPercent + "</td>"
                 + "<td class='" + tdClassName4TotalIncrease + "'>" + totalPercentByMonth + "</td>"
                 + "<td>" + procPanelHtmlString + "</td>"
             + "</tr>";
@@ -586,6 +602,26 @@ function generateFollowedStockInfoTrHtmlString(stockCode,
             + "</tr>";
 }
 
+function getGainAndLoseTip(stockCode){
+    var content = "";
+    var stockObj = g_myStockList[stockCode];
+    if (stockObj != null){
+        var buyPriceNum = stockObj.buyPrice.toNumber();
+        var gainPriceNum = stockObj.gainPrice.toNumber();
+        var losePriceNum = stockObj.losePrice.toNumber();
+        if (gainPriceNum > 0) {
+            content += "止盈：" + ((gainPriceNum - buyPriceNum) * 100 / buyPriceNum).toFixed(0) + "%";
+        }
+        if (losePriceNum > 0) {
+            if (content != ""){
+                content += " | ";
+            }
+            content += "止损：" + ((buyPriceNum - losePriceNum) * 100 / buyPriceNum).toFixed(0) + "%";
+        }
+    }
+    return content;
+}
+
 function getGainAndLoseIconHtml(stockCode){
     var htmlString = "";
     var gainPriceNum = Number(g_myStockList[stockCode].gainPrice);
@@ -625,11 +661,11 @@ function getAdjustTargetIconHtml(currentPrice, targetPrice){
 }
 
 function checkAndSaveStockData(){
-    var stockCode = $("#iIpt_stockCode").val();
-    var buyPrice = $("#iIpt_buyPrice").val();
-    var buyDate = $("#iIpt_buyDate").val();
-    var gainPrice = $("#iIpt_gainPrice").val();
-    var losePrice = $("#iIpt_losePrice").val();
+    var stockCode = $("#iIpt_stockCode").val().trim();
+    var buyPrice = $("#iIpt_buyPrice").val().trim();
+    var buyDate = $("#iIpt_buyDate").val().trim();
+    var gainPrice = $("#iIpt_gainPrice").val().trim();
+    var losePrice = $("#iIpt_losePrice").val().trim();
     var holdType = $("a.cA_radioSelected").attr("value");
     if (checkUserInputStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice, holdType)){
         addStockDataToCookieAndRefreshPage(stockCode, buyPrice, buyDate, gainPrice, losePrice, holdType);
@@ -638,10 +674,10 @@ function checkAndSaveStockData(){
 
 function checkAndUpdateStockData(){
     var stockCode = $("#iSpan_updateStockCode").text();
-    var buyPrice = $("#iIpt_buyPrice").val();
-    var gainPrice = $("#iIpt_gainPrice").val();
-    var losePrice = $("#iIpt_losePrice").val();
-    var buyDate = $("#iIpt_buyDate").val();
+    var buyPrice = $("#iIpt_buyPrice").val().trim();
+    var gainPrice = $("#iIpt_gainPrice").val().trim();
+    var losePrice = $("#iIpt_losePrice").val().trim();
+    var buyDate = $("#iIpt_buyDate").val().trim();
     var holdType = $("a.cA_radioSelected").attr("value");
     if (checkUserInputStockData(stockCode, buyPrice, buyDate, gainPrice, losePrice, holdType)){
         addStockDataToCookieAndRefreshPage(stockCode, buyPrice, buyDate, gainPrice, losePrice, holdType);
@@ -650,7 +686,7 @@ function checkAndUpdateStockData(){
 
 function checkAndUpdateFollowedStockData(){
     var stockCode = $("#iSpan_updateFollowedStockCode").text();
-    var targetPrice = $("#iIpt_followedTargetPrice").val();
+    var targetPrice = $("#iIpt_followedTargetPrice").val().trim();
     var followedDate = g_myFollowedStockList[stockCode].followedDate;
     if (checkUserInputFollowedStockData(stockCode, targetPrice)) {
         addFollowedStockDataToCookieAndRefreshPage(stockCode, targetPrice, followedDate);
@@ -658,8 +694,8 @@ function checkAndUpdateFollowedStockData(){
 }
 
 function checkAndSaveFollowedStock(){
-    var stockCode = $("#iIpt_followedStockCode").val();
-    var targetPrice = $("#iIpt_followedTargetPrice").val();
+    var stockCode = $("#iIpt_followedStockCode").val().trim();
+    var targetPrice = $("#iIpt_followedTargetPrice").val().trim();
     var followedDate = getTodayDateString();
     if (checkUserInputFollowedStockData(stockCode, targetPrice)){
         addFollowedStockDataToCookieAndRefreshPage(stockCode, targetPrice, followedDate);
@@ -696,17 +732,17 @@ function checkUserInputStockData(stockCode, buyPrice, buyDate, gainPrice, losePr
 
 function checkStockCodeAvailable(stockCode){
     var stockCodeReg = /^(sz|SZ|sh|SH)\d{6}$/;
-    return (stockCode != "" && stockCodeReg.test(stockCode));
+    return (stockCode != "" && stockCodeReg.test(stockCode.trim()));
 }
 
 function checkStockPriceAvailable(stockPrice){
     var priceReg = /^\d+(.\d{0,3})$/;
-    return (stockPrice != "" && priceReg.test(stockPrice));
+    return (stockPrice != "" && priceReg.test(stockPrice.trim()));
 }
 
 function checkDateAvailable(date){
     var dateReg = /^\d{4}-\d{2}-\d{2}$/;
-    return (date != "" && dateReg.test(date));
+    return (date != "" && dateReg.test(date.trim()));
 }
 
 function checkUserInputFollowedStockData(stockCode, targetPrice){
@@ -740,6 +776,7 @@ function getTodayDateString(){
 
 function resetAllInputControls(){
     $("input[type=text]").val("");
+    $("input[type=password]").val("");
     selectStockHoldTypeRadio($("a[value='short']"));
     resetQuickTargetPriceCalculator();
 }
@@ -1074,7 +1111,7 @@ function backupSelectedStockDataToServer(){
     }
     generateStockDataByList();
     if (confirm("确认要备份当前自选股列表么？")) {
-        $.post("stock/save_cookie.do", {"userName": g_currentLoginUserName, "stockCookie": g_myAllStockDataInCookie},
+        $.post("stock/save_cookie.do", {"userName": g_currentLoginUserName, "stockCookie": g_myAllStockDataInCookie, "quickCookie":g_myAllStockDataInCookie},
             function (data) {
                 if (data == "success") {
                     alert("备份成功");
@@ -1100,7 +1137,6 @@ function checkUserLoginStatus(){
     var isLogin = false;
     var userName = $("#hidden_user_name").val();
     if (userName == ""){
-        alert("请先登录，再操作");
         g_currentLoginUserName = "";
     } else {
         g_currentLoginUserName = userName;
@@ -1120,9 +1156,9 @@ function showLoginPanel(){
 }
 
 function register(){
-    var userName = $("#iIpt_userName4Register").val();
-    var psw = $("#iIpt_psw4Register").val();
-    var confirmPsw = $("#iIpt_ConfirmPsw4Register").val();
+    var userName = $("#iIpt_userName4Register").val().trim();
+    var psw = $("#iIpt_psw4Register").val().trim();
+    var confirmPsw = $("#iIpt_ConfirmPsw4Register").val().trim();
     if (checkBeforeRegister(userName, psw, confirmPsw)){
         checkUserExistAndRegister(userName, psw);
     }
@@ -1164,8 +1200,8 @@ function checkUserExistAndRegister(userName, psw){
 }
 
 function login(){
-    var userName = $("#iIpt_userName4Login").val();
-    var psw = $("#iIpt_psw4Login").val();
+    var userName = $("#iIpt_userName4Login").val().trim();
+    var psw = $("#iIpt_psw4Login").val().trim();
     if(!checkBeforeLogin(userName, psw)){
         return;
     }
@@ -1217,7 +1253,7 @@ function logout(){
 function quickLogin(event){
     var theEvent = window.event || event;
     var code = theEvent.keyCode || theEvent.which;
-    if ($("#iIpt_psw4Login").val() != ""){
+    if ($("#iIpt_psw4Login").val().trim() != ""){
         if (code == 13){
             login();
         }
@@ -1264,7 +1300,7 @@ function getStockHoldType(holdType){
 
 function quickAddTargetPriceByBuyPrice(obj){
     var $buyPriceObj = $("#iIpt_buyPrice");
-    var buyPrice = $buyPriceObj.val();
+    var buyPrice = $buyPriceObj.val().trim();
     if (buyPrice != "" && checkStockPriceAvailable(buyPrice)){
         var multiplier = $(obj).val();
         if (multiplier != "") {
@@ -1278,7 +1314,7 @@ function quickAddTargetPriceByBuyPrice(obj){
 
 function checkBuyPriceAndAutoUpdateTargetPrice(){
     var $buyPriceObj = $("#iIpt_buyPrice");
-    var buyPrice = $buyPriceObj.val();
+    var buyPrice = $buyPriceObj.val().trim();
     if (buyPrice != ""){
         var priceColor = "black";
         if (!checkStockPriceAvailable(buyPrice)){

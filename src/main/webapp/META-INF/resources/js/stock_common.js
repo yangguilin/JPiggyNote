@@ -73,6 +73,10 @@ String.prototype.toNumber = function(){
     return num;
 }
 
+String.prototype.trim = function(){
+    return this.replace(/(^\s*)|(\s*$)/g, "");
+}
+
 function arrayCount(o){
     var t = typeof o;
     if(t == 'string'){

@@ -28,4 +28,5 @@ tr.cTr_greenTitle td {
 a.grayText { color:gray; }
 .cDiv_container { display:inline-block; margin-bottom: 60px; }
 tr.cTr_selectedRow { background-color: lightpink !important; font-weight: bold; }
+tr.cTr_mouseOverRow { font-weight: bold !important; }
 td.cTd_holdStockUser { width:80px; }

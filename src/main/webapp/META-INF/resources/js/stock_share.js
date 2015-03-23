@@ -11,12 +11,27 @@ function StockHolder(userName, buyPrice){
 var g_stockHoldInfoList = {};
 
 $(document).ready(function(){
+    checkGroupMember();
     initData();
     getLatestStockPriceFromSina();
     setTimeout(function() {
         initFriendsHoldStockTableList();
     }, g_intervalBeforeShowStockList);
 });
+
+function checkGroupMember(){
+    var beGroupMember = false;
+    if ($("#iIpt_curUserName_h").val() == ""){
+        alert("您尚未登录，不能查看群组信息");
+    } else if ($("#iIpt_beGroupMember_h").val() == "false"){
+        alert("您不属于该群组，页面会自动跳到您的持股页面");
+    } else {
+        beGroupMember = true;
+    }
+    if (!beGroupMember){
+        window.location.href = "/stock";
+    }
+}
 
 /*
 * 持股信息字符串格式：stockCode1::userName1:buyPrice1,userName2:buyPrice2,...;stockCode2::...
@@ -167,4 +182,8 @@ function getClassName4TotalPercent(buyPrice, currentPrice){
 
 function backToMyStockPage(){
     window.location.href = "/stock";
+}
+
+function refreshGroupDataPage(){
+    window.location.reload();
 }
