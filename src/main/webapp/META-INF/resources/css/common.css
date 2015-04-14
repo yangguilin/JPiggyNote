@@ -6,8 +6,12 @@
 /**
     element part
 **/
-body { background: url(/img/background.png) repeat!important; }
+body {
+    background: url(/img/background.png) repeat!important;
+    font-family: 'Helvetica Neue', 'Luxi Sans', 'DejaVu Sans', Tahoma, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei';
+}
 table { border-collapse:collapse; border-spacing:0; }
+a { text-decoration: none; }
 
 
 
@@ -26,3 +30,64 @@ table { border-collapse:collapse; border-spacing:0; }
 
 a.cA_statMenu_b { text-decoration: none; }
 a.cA_statMenuSelected_b { color:darkred; font-weight:bold; }
+/*
+    按钮：蓝色按钮与白色按钮
+*/
+a.blueButton {
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 2px;
+    margin-left: 20px;
+    font-weight: normal;
+    text-decoration: none;
+    border: 1px solid #2385d6;
+    background-color: #248be4;
+}
+a.blueButton:hover { background-color:#1e91f5; }
+a.firstButton { margin-left: 0px; }
+.grayButton {
+    color: #333;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 2px;
+    margin-left: 20px;
+    font-weight: normal;
+    text-decoration: none;
+    border: 1px solid #BCBCBC;
+}
+.grayButton:hover { background-color:#f1f1f1; }
+
+/*
+    Tab导航菜单
+*/
+div.cDiv_tabMenu_c { height:50px; }
+div.cDiv_tabMenu_c ul { padding-left: 20px; }
+a.cA_tabMenu {
+    color:#666;
+    height:22px;
+    display:block;
+    font-size: 14px;
+    padding:8px 40px;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid #DDD;
+    background-color: #FBFAF8;
+}
+a.cA_tabMenuSelected {
+    display:block;
+    color:#01A2CA;
+    font-size: 14px;
+    padding:8px 40px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #FFF;
+    border-left: 1px solid #DDD;
+    border-right: 1px solid #DDD;
+    border-top: 2px solid #01A2CA;
+    border-bottom: 1px solid #FFF;
+}
+a.cA_tabMenu:hover { color:#01A2CA; }
+div.cDiv_tabMenu_c ul li { list-style: none outside none; float: left; }

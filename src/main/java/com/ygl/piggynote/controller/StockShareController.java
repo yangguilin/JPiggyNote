@@ -90,7 +90,11 @@ public class StockShareController extends BaseController {
     }
 
     private void parseCookieDataAndSetToList(StockCookieBean scb){
-        String stockCookieData = scb.getStockCookie();
+        String stockCookieData = scb.getQuickCookie();
+        // when quick cookie is empty, use stock cookie instead.
+        if (stockCookieData == null || stockCookieData.isEmpty()){
+            stockCookieData = scb.getStockCookie();
+        }
         if (!stockCookieData.isEmpty() && !stockCookieData.equals("::")) {
             String userName = scb.getUserName();
             String[] arr = stockCookieData.split("::");

@@ -34,7 +34,8 @@ public class AuthFilter implements Filter {
             "/stock/save_cookie.do",
             "/stock/get_cookie.do",
             "/snwt/user/register.do",
-            "/snwt/user/verification.do"
+            "/snwt/user/verification.do",
+            "/fcmg/add_record.do"
     };
 
 

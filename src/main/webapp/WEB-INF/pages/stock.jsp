@@ -12,6 +12,7 @@
   <title>我的股票</title>
   <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
   <script type="text/javascript" src="/js/jquery.cookie.js"></script>
+  <script type="text/javascript" src="/js/common.js"></script>
   <script type="text/javascript" src="/js/stock.js"></script>
   <script type="text/javascript" src="/js/stock_common.js"></script>
   <link href="/css/stock.css" rel="stylesheet" type="text/css">
@@ -51,10 +52,13 @@
     </c:if>
   </div>
   <div class="cDiv_realTimeInfo_c">
-    <img class="cImg_realTimeLogo" src="/img/clock.png"/>
-    <span id="iSpan_shangHaiZhiShuTitle">上证指数：</span>
-    <span id="iSpan_shangHaiZhiShu"></span>&nbsp;&nbsp;|&nbsp;
-    <span id="iSpan_currentTime"></span>
+      <img class="cImg_realTimeLogo" src="/img/clock.png"/>
+      <span id="iSpan_shangHaiZhiShuTitle">上证指数：</span>
+      <span id="iSpan_shangHaiZhiShu"></span>&nbsp;&nbsp;|&nbsp;
+      <img class="cImg_totalValueLogo" src="/img/moneybag.png"/>
+      <span id="iSpan_holdStocksTotalValueTitle">持股市值：</span>
+      <span id="iSpan_userHoldStocksTotalValue"></span>&nbsp;&nbsp;|&nbsp;
+      <span id="iSpan_currentTime"></span>
   </div>
   <div class="cDiv_tabMenu_c">
     <ul>
@@ -130,8 +134,8 @@
     <tr>
       <td>成本价格：</td>
       <td>
-        <input id="iIpt_buyPrice" type="text" onblur="checkBuyPriceAndAutoUpdateTargetPrice()" />
-        &nbsp;<span class="cSpan_comment">如：11.123</span>
+        <input id="iIpt_buyPrice" type="text" onblur="checkBuyPriceAndAutoUpdateTargetPrice()" />&nbsp;
+        <input id="iIpt_holdNum" type="text" placeholder="持股数" />&nbsp;<span class="cSpan_comment">股</span>
       </td>
     </tr>
     <tr>

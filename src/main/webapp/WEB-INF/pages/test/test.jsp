@@ -9,8 +9,10 @@
 <html>
 <head>
     <title>用户相关操作调用测试页面</title>
-    <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.remodal.min.js"></script>
     <script type="text/javascript" src="/js/test.js"></script>
+    <link href="/css/jquery.remodal.css" rel="stylesheet" type="text/css">
     <style type="text/css">
         .button {
             font-family: 'Helvetica Neue', 'Luxi Sans', 'DejaVu Sans', Tahoma, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei';
@@ -78,6 +80,14 @@
             float: left;
         }
     </style>
+    <script>
+        window.remodalGlobals = {
+            namespace: "modal",
+            defaults: {
+                hashTracking: false
+            }
+        };
+    </script>
 </head>
 <body>
 <h2>自定义配置</h2>
@@ -121,6 +131,20 @@
             <a href="javascript:;" class="tabMenu">社区</a>
         </li>
     </ul>
+</div>
+<a class="" href="#modal">Popup</a>
+<div class="remodal-bg">
+    <a href="#modal">Call the modal with data-remodal-id="modal"</a>
+</div>
+<div class="remodal" data-remodal-id="modal">
+    <h1>Remodal</h1>
+    <p>
+        Flat, responsive, lightweight, fast, easy customizable modal window plugin
+        with declarative state notation and hash tracking.
+    </p>
+    <br>
+    <a class="remodal-cancel" href="#">Cancel</a>
+    <a class="remodal-confirm" href="#">OK</a>
 </div>
 </body>
 </html>

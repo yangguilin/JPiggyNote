@@ -47,7 +47,9 @@ input[type=text], input[type=password]{ padding-left: 10px; height: 16px; width:
 #iTbl_stockInfoList tr.cTr_data td:nth-child(2),  #iTbl_stockInfoList tr.cTr_data td:nth-child(10){ font-weight: bold; }
 #iTbl_followedStockInfoList tr.cTr_data td:nth-child(2),  #iTbl_followedStockInfoList tr.cTr_data td:nth-child(6),
 #iTbl_followedStockInfoList tr.cTr_data td:nth-child(7){ font-weight: bold; }
-#iIpt_gainPrice, #iIpt_losePrice { width:50px; }
+#iIpt_gainPrice, #iIpt_losePrice, #iIpt_buyPrice { width:50px; }
+#iIpt_holdNum { width:45px; }
+#iSpan_holdStocksTotalValueTitle, #iSpan_userHoldStocksTotalValue { color:#f3a664; }
 
 
 /*
@@ -180,7 +182,7 @@ div.cDiv_tabMenu_c ul li {
 .cSpan_loginInfo { color:#999999; font-weight: bold; font-size: 14px; }
 .cTd_adjustTargetStatus { color:red; font-size: 14px; font-weight: bold; }
 .cSpan_procTips { color:gray; font-size: 12px; margin-left: 20px; }
-.cImg_realTimeLogo {
+.cImg_realTimeLogo, .cImg_totalValueLogo {
     width:20px;
     height:20px;
     margin-bottom: -3px;
