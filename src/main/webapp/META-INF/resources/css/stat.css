@@ -66,6 +66,9 @@ a.cA_topMenu_b { font-size: 16px; }
     font-weight: bold;
     text-align: left;
 }
+tr.cTr_monthAverageRow { border-top:2px solid darkgray; }
+tr.cTr_monthAverageIncomeRow { border-bottom:2px solid darkgray; background-color: #e1e1e1; }
+.cTr_monthAverageIncomeRow td { text-align: center;}
 
 tr.cTr_totalSurplusItemFooter td { color: green; }
 
@@ -82,7 +85,7 @@ tr.cTr_totalSurplusItemFooter td { color: green; }
     width:260px;
 }
 
-.cC_itemTitle {
+.cC_itemTitle, .cTd_emptyItemTitle {
     padding:8px 5px 5px 5px;
     text-align: center;
     font-weight: bold;
@@ -123,7 +126,7 @@ td.cTd_payback_d { color: #a5cb5e; }
 
 #iTr_incomeDetail_c, #iTr_costDetail_c { display: none; }
 
-#iTbl_incomeData_l, #iTbl_costData_l, #iTbl_monthList_c, #iTbl_monthPrepayList_c { margin-top: 15px; margin-bottom: 20px; }
+#iTbl_incomeData_l, #iTbl_costData_l, #iTbl_monthList_c, #iTbl_monthPrepayList_c, #iTbl_emptyData_l { margin-top: 15px; margin-bottom: 20px; }
 #iTd_incomeData_t { background-color: #a5cb5e; }
 #iTd_costData_t { background-color: #e1e1e1 }
 

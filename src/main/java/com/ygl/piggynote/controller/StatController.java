@@ -5,6 +5,7 @@ import com.ygl.piggynote.enums.MoneyTypeEnum;
 import com.ygl.piggynote.service.impl.CustomConfigServiceImpl;
 import com.ygl.piggynote.service.impl.DailyRecordServiceImpl;
 import com.ygl.piggynote.util.DateUtil;
+import com.ygl.piggynote.util.PiggyNotesExcelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -67,6 +68,17 @@ public class StatController extends BaseController {
         }
 
         return "stat";
+    }
+
+    @RequestMapping(value="/download", method = RequestMethod.GET)
+    public void downloadPiggyNotesExcelFile(HttpServletRequest request, HttpServletResponse response){
+        UserBean ub = getUserFromSession(request);
+        if (checkUserLoginStatus(request)){
+            List<DailyRecordBean> allRecords = dailyRecordService.getAllRecords(ub.getUserName());
+            PiggyNotesExcelUtil.writeAllRecordsToExcelAndResponseFile(response, ub.getUserName(), allRecords);
+        } else {
+            redirectToHomePage(response);
+        }
     }
 
     /**

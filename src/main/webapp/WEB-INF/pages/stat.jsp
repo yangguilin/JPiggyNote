@@ -54,7 +54,7 @@
         <div class="cDiv_globalMenu_c">
             <a href="#" class="cA_statMenu_b" onclick="window.location.href='/'">首页</a>
             &nbsp;/&nbsp;
-            <a href="#" class="cA_statMenu_b cA_statMenuSelected_b">统计</a>
+            <a href="#" class="cA_statMenu_b cA_statMenuSelected_b" title="下载全部记录" onclick="window.location.href='/stat/download'">统计</a>
             &nbsp;/&nbsp;
             <a href="#" class="cA_statMenu_b" onclick="window.location.href='/custom_config'">设置</a>
             &nbsp;/&nbsp;
@@ -141,12 +141,21 @@
                         </tr>
                     </table>
                 </c:if>
+                <c:if test="${statData.getCurMonthIncomeList().size() == 0 && statData.getCurMonthCostList().size() == 0}">
+                        <table id="iTbl_emptyData_l">
+                        <tr>
+                            <td class="cTd_emptyItemTitle">
+                                本月暂无任何记录
+                            </td>
+                        </tr>
+                    </table>
+                </c:if>
             </div>
             <div id="iDiv_monthStatInfo_c">
                 <table id="iTbl_monthList_c">
                     <tr>
                         <td class="cC_totalItemTitle <c:choose><c:when test="${statData.getFinalTotal()>0}">cTd_totalMoneySurplus_t</c:when><c:otherwise>cTd_totalMoneyDebt_t</c:otherwise></c:choose>" colspan="4">
-                            全部收支&nbsp;&nbsp;|&nbsp;&nbsp;${statData.getFinalTotal()}&nbsp;元
+                            全部盈余&nbsp;&nbsp;|&nbsp;&nbsp;${statData.getFinalTotal()}&nbsp;元
                         </td>
                     </tr>
                     <tr>
@@ -158,6 +167,14 @@
                         <td>支出:</td>
                         <td>${statData.getFinalCostTotal()}&nbsp;元</td>
                     </tr>
+                    <tr class="cC_totalItemFooter cTr_monthAverageRow">
+                        <td>月入:</td>
+                        <td>${statData.getFinalIncomeTotal() / statData.getMonthStatDataList().size()}&nbsp;元</td>
+                        <td>月出:</td>
+                        <td>${statData.getFinalCostTotal() / statData.getMonthStatDataList().size()}&nbsp;元</td>
+                    </tr>
+                    <tr class="cC_totalItemFooter cTr_monthAverageIncomeRow">
+                        <td colspan="4">月均盈余：${(statData.getFinalIncomeTotal()-statData.getFinalCostTotal()) / statData.getMonthStatDataList().size()}&nbsp;元</td>
                     <tr>
                         <td class="cC_itemSplitSpace" colspan="4"></td>
                     </tr>

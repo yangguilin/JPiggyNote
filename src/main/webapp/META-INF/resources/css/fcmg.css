@@ -2,7 +2,7 @@
 #iDiv_overlook_c { padding:60px 20px 30px 20px; }
 #iA_hint, #iDiv_menuBar_c, #iDiv_overlook_c, #iDiv_userOperatePanel_c, #iDiv_popup, #iA_uploadAchievement { display:none; }
 #iDiv_operateMenus_c { margin-top:30px; }
-#iDiv_userOperatePanel_c { text-align: center; }
+#iDiv_userOperatePanel_c { text-align: center; padding-top:20px; }
 #iDiv_userOperatePanel_c table { display:inline-block; }
 #iDiv_userOperatePanel_c table tr td { width:80px; height:80px; text-align: center; }
 #iSpan_moveStepNum { font-size:14px; color:green; font-weight: bold; }
@@ -15,6 +15,20 @@
     padding-left:30px;
 }
 #iP_uploadAchievement_c， #iP_uploadResult_c { padding-top:20px; }
+#iTbl_top10Records {
+    background-color: #f4f4f4;
+    display:inline-block;
+    font-size: 12px;
+}
+#iTbl_top10Records tr:first-child td:nth-child(1) { width: 40px; }
+#iTbl_top10Records tr:first-child td:nth-child(2) { width:150px; }
+#iTbl_top10Records tr:first-child td:nth-child(3) { width:80px; }
+#iTbl_top10Records tr:first-child td:nth-child(4) { width: 80px; }
+#iTbl_top10Records tr:first-child td:nth-child(5) { width: 80px; }
+#iTbl_top10Records tr td, #iSpan_difficulty, .remodal h1, .remodal p * { font-family: 'Microsoft YaHei', 'Helvetica Neue', 'Luxi Sans', 'DejaVu Sans', Tahoma, 'Hiragino Sans GB', STHeiti !important; }
+#iSpan_difficulty { font-size:18px; color:darkred; font-weight:bold; }
+#iDiv_honeycombView { padding:10px;}
+#iSel_difficultySelect { width:60px; height:30px; }
 
 
 .cSpan_numberUnit {
@@ -26,8 +40,8 @@
 .cSpan_imgUnit {
     display: inline-block;
     text-align: center;
-    margin-top: -6px;
-    width:32px;
+    margin-top: -5px;
+    width:33px;
 }
 .cImg_unit { width:30px; height:33px; }
 .cImg_door { width:60px; height:90px; }
@@ -92,8 +106,7 @@
 .cA_startGame_b:hover, .cA_startGame_b:active { background: #e74c3c; }
 
 .cA_position_b {
-    font-family: 'Lobster', cursive;
-    font-size: 14px;
+    font-size: 10px;
     display: inline-block;
     width: 50px;
     height: 50px;
@@ -114,14 +127,28 @@
 .cA_remarkText, .cP_remarkText { color:#95A5A6; font-size: 12px; }
 .cImg_beeLogo { height:35px; width: 43px; }
 .cSpan_titleText { color:#95A5A6; font-size: 16px; }
-.cDiv_rememberTimer { width:150px; height:80px; margin: 0 auto; }
-.cA_gameRuleLink { color:#95A5A6; font-size: 12px; text-decoration: underline !important; }
+.cDiv_rememberTimer { width:150px; height:80px; margin: 0 auto; padding-bottom: 10px; }
+.cA_gameRuleLink, .cA_top10RecordsLink { color:#95A5A6; font-size: 12px; text-decoration: underline !important; }
 .cP_left { text-align: left !important; }
 .cTr_playerRow td { height:45px !important; }
 .cSpan_successTitle { color:darkred; }
+.cSpan_successInfo { font-weight:bold; color:green; }
 .cSpan_failTitle { color:gray; }
 .cSpan_uploadSuccess { color:green; font-weight:bold; }
 .cSpan_uploadFail { color:darkred; font-weight:bold; }
-
+tr.cTr_title td {
+    height:25px;
+    color:green;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 2px;
+    text-align: center;
+}
+tr.cTr_content td { text-align: center; padding:6px 10px;}
+.cTd_noRecords { padding:12px 10px; color:gray; text-align: center; }
+.cImg_small { width:17px; height:20px; }
+.remodal p { font-size:12px; line-height: 20px; }
+.cTd_orangeText { color: orange; font-weight: bold;}
+.cSpan_difficultyText { color:#95A5A6; font-size: 12px; font-weight:bold; }
 
 

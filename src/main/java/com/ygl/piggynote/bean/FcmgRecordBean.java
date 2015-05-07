@@ -13,6 +13,7 @@ public class FcmgRecordBean {
     private int glanceTime;
     private int costSecond;
     private Date createTime;
+    private int moveStepNum;
 
     public int getId() {
         return id;
@@ -68,5 +69,13 @@ public class FcmgRecordBean {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public int getMoveStepNum() {
+        return moveStepNum;
+    }
+
+    public void setMoveStepNum(int moveStepNum) {
+        this.moveStepNum = moveStepNum;
     }
 }

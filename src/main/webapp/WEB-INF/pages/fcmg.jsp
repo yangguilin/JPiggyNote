@@ -49,17 +49,30 @@
           <p>
             <a class="cA_startGame_b" href="javascript:;" onclick="showHoneycombViewToUser()">Start</a>
           </p>
-          <br>
+          <p>
+            <span class="cSpan_difficultyText">当前难度：</span>
+            <select id="iSel_difficultySelect" onchange="updateDifficultyDegree(this)">
+              <option value="1">1星</option>
+              <option value="2">2星</option>
+              <option value="3">3星</option>
+              <option value="4">4星</option>
+              <option value="5">5星</option>
+              <option value="6">6星</option>
+              <option value="7">7星</option>
+            </select>
+          </p>
           <p>
             <a class="cA_remarkText" href="javascript:;">仅以拙作，献给@丽君，普通大脑同样需要锻炼！</a>
           </p>
           <p>
             <a class="cA_gameRuleLink" href="#showGameRule">游戏咋玩</a>
+            &nbsp;&nbsp;
+            <a class="cA_top10RecordsLink" href="#" onclick="showTop10RecordsModal()"><span id="iSpan_difficultyDegree">1</span>星排行榜</a>
           </p>
         </div>
         <div id="iDiv_overlook_c">
           <div>
-            <span class="cSpan_titleText">时间在飞快地奔跑着</span>
+            <span class="cSpan_titleText"></span>
             <div class="cDiv_rememberTimer"></div>
           </div>
           <div id="iDiv_honeycombView"></div>
@@ -109,9 +122,9 @@
             </table>
           </div>
           <div id="iDiv_operateMenus_c">
-            <a id="iA_restart" href="javascript:;" class="grayButton firstButton" onclick="reloadCurrentPage()">重新开始</a>
-            <a id="iA_start" href="javascript:;" class="grayButton" onclick="startGame()">开始挑战</a>
-            <a id="iA_hint" href="javascript:;" class="grayButton" onclick="showHoneycomb4AMoment()">偷看一眼</a>
+            <a id="iA_restart" href="javascript:;" class="blueButton firstButton" onclick="reloadCurrentPage()">重开一局</a>
+            <a id="iA_start" href="javascript:;" class="blueButton" onclick="startGame()">开始挑战</a>
+            <a id="iA_hint" href="javascript:;" class="blueButton" onclick="showHoneycomb4AMoment()">偷看一眼</a>
           </div>
         </div>
       </div>
@@ -121,16 +134,16 @@
   <div class="remodal" data-remodal-id="showGameRule" data-remodal-options="closeOnAnyClick:false">
     <h1>蜂巢迷宫 - 玩法说明</h1>
     <p class="cP_left">
-      1. 每局游戏开始时，系统随时生成玩家的起始点（起点为粉色，终点为绿色），同时根据难度系数来随机生成1至N个蜂蜜标记房间（橙色）
+      1. 每局游戏，会随时生成起点(&nbsp;<img class="cImg_small" src="/img/honeycombunit_start.png" />&nbsp;)和终点(&nbsp;<img class="cImg_small" src="/img/honeycombunit_finish.png" />&nbsp;)，并依难度系数随机生成1至N个蜂蜜点(&nbsp;<img class="cImg_small" src="/img/honeycombunit_gold.png" />&nbsp;)
     </p>
     <p class="cP_left">
-      2. 游戏分两步：首先，记忆起始点和蜂蜜位置，然后点击“<b>开始挑战</b>”，通过留个方向移动，收集到所有的蜂蜜，且顺利达到终点，即挑战成功
+      2. 游戏开始，先记忆起始点及蜂蜜位置信息，就绪后点击<b>“开始挑战”</b>，通过方向指示按钮移动位置(每点击一次，移动一个格子)，收集所有蜂蜜且达到终点，挑战成功(耗时越少，排名越靠前)。
     </p>
     <p class="cP_left">
-      3. 游戏过程中，玩家可随时通过“<b>偷看一眼</b>”，快速查看自己的位置，不过只有1秒哦
+      3. <b>“偷看一眼”</b>，真的只能偷看一眼哈
     </p>
-    <p>
-      <b>小提示：</b>玩家在起点时，默认右侧为正前方，切记哦
+    <p class="cP_left">
+      4. 玩家在起点时，<b>默认右侧为正前方</b>，切记！
     </p>
     <br>
     <a class="remodal-confirm" href="#">明白了</a>
@@ -146,9 +159,32 @@
     </p>
     <p id="iP_uploadResult_c"></p>
     <br>
-    <a id="iA_playAgain" class="remodal-confirm" href="javascript:;" onclick="reloadCurrentPage()">再玩一次</a>
+    <a id="iA_playAgain" class="remodal-confirm" href="javascript:;" onclick="playThisDifficultyGameAgain()">再玩一次</a>
     <a id="iA_addDifficulty" class="remodal-confirm" href="javascript:;" onclick="increaseDifficulty()">增加难度</a>
     <a id="iA_reduceDifficulty" class="remodal-confirm" href="javascript:;" onclick="reduceDifficulty()">降低难度</a>
+    <a class="remodal-confirm" href="javascript:;">复一下盘</a>
+  </div>
+  <div class="remodal" data-remodal-id="showTop10Records" data-remodal-options="closeOnAnyClick:false">
+    <h1>排行榜</h1>
+    <p>
+      <span id="iSpan_difficulty"></span>
+    </p>
+    <p>
+      <table id="iTbl_top10Records">
+        <tr class="cTr_title">
+          <td>名次</td>
+          <td>玩家昵称</td>
+          <td>耗时(秒)</td>
+          <td>偷看(次)</td>
+          <td>移动(步)</td>
+        </tr>
+        <tr>
+          <td class='cTd_noRecords' colspan='5'>读取数据中...</td>
+        </tr>
+      </table>
+    </p>
+    <br>
+    <a class="remodal-confirm" href="#">我要挑战</a>
   </div>
 </body>
 </html>

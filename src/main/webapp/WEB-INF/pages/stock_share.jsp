@@ -12,8 +12,9 @@
     <title>我的群组</title>
     <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="/js/jquery.cookie.js"></script>
-    <script type="text/javascript" src="/js/stock_share.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
     <script type="text/javascript" src="/js/stock_common.js"></script>
+    <script type="text/javascript" src="/js/stock_share.js"></script>
     <link href="/css/stock.css" rel="stylesheet" type="text/css">
     <link href="/css/stock_share.css" rel="stylesheet" type="text/css">
     <link rel="shortcut icon" href="/img/stock_page_icon.png">

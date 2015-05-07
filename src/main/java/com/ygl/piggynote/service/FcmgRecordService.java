@@ -10,4 +10,5 @@ import java.util.List;
 public interface FcmgRecordService {
     public Boolean add(FcmgRecordBean bean);
     public List<FcmgRecordBean> getTop10Record(int sideNum, int goldNum, int glanceTime);
+    public List<FcmgRecordBean> getTop10GlanceRecord(int sideNum, int goldNum);
 }

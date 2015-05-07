@@ -20,6 +20,7 @@ public class FcmgRecordRowMapper implements RowMapper {
         bean.setGoldNum(rs.getInt("gold_num"));
         bean.setGlanceTime(rs.getInt("glance_time"));
         bean.setCreateTime(rs.getDate("create_time"));
+        bean.setMoveStepNum(rs.getInt("move_step_num"));
         return bean;
     }
 }

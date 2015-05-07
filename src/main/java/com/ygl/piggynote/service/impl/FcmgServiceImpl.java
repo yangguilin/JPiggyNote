@@ -176,7 +176,7 @@ public class FcmgServiceImpl implements FcmgService {
         while (list.size() < totalGoldUnitNum){
             int n = (int)(totalUnitNum * Math.random());
             String randomIndex = n + "";
-            if (!randomIndex.equals(startIndex) && !randomIndex.equals(finishIndex)){
+            if (!randomIndex.equals(startIndex) && !randomIndex.equals(finishIndex) && !list.contains(randomIndex)){
                 list.add(n);
             }
         }

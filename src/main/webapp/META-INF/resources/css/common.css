@@ -8,7 +8,7 @@
 **/
 body {
     background: url(/img/background.png) repeat!important;
-    font-family: 'Helvetica Neue', 'Luxi Sans', 'DejaVu Sans', Tahoma, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei';
+    font-family: 'Microsoft YaHei', 'Helvetica Neue', 'Luxi Sans', 'DejaVu Sans', Tahoma, 'Hiragino Sans GB', STHeiti;
 }
 table { border-collapse:collapse; border-spacing:0; }
 a { text-decoration: none; }

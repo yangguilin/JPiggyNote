@@ -20,10 +20,18 @@ function HoneycombUnit4User(index, front, frontRight, backRight, back, backLeft,
 }
 
 
+var g_const_honeycombUnitImgSrc_empty = "/img/honeycombunit_empty.png";
+var g_const_honeycombUnitImgSrc_start = "/img/honeycombunit_start.png";
+var g_const_honeycombUnitImgSrc_finish = "/img/honeycombunit_finish.png";
+var g_const_honeycombUnitImgSrc_pass = "/img/honeycombunit_pass.png";
+var g_const_honeycombUnitImgSrc_player = "/img/honeycombunit_player.png";
+var g_const_honeycombUnitImgSrc_gold = "/img/honeycombunit_gold.png";
+
 var g_playerCurrentUnit = null;
 var g_playerLastUnitIndex = -1;
 var g_finishUnitIndex = -1;
 var g_honeycombUnitList = {};
+var g_singleSideUnitNum = 0;
 var g_goldUnitTotalNum = 0;
 var g_getGoldUnitNum = 0;
 var g_userMoveStepNum = 0;
@@ -33,11 +41,20 @@ var g_gameFinishStatus = ""; // "success":成功，"fail"：没有到达终点�
 
 
 $(document).ready(function(){
+    initPageData();
     initHoneycombUnitList();
     showHoneycombImageView();
     showStartAndFinishUnit();
     showGoldUnit();
 });
+
+function initPageData(){
+    var goldUnitData = $("#iIpt_goldUnitData").val();
+    var arr = goldUnitData.split(':');
+    g_goldUnitTotalNum = arr[0].toNumber();
+    $("#iSel_difficultySelect").val(g_goldUnitTotalNum);
+    $("#iSpan_difficultyDegree").text(g_goldUnitTotalNum);
+}
 
 function showGoldUnit(){
     var goldUnitData = $("#iIpt_goldUnitData").val();
@@ -46,7 +63,7 @@ function showGoldUnit(){
     if (g_goldUnitTotalNum > 0){
         var arr2 = arr[1].split(',');
         for (var i = 0; i < arr2.length; i++){
-            $("img[unit_index=" + arr2[i] + "]").attr("src", "/img/honeycombunit_gold.png");
+            $("img[unit_index=" + arr2[i] + "]").attr("src", g_const_honeycombUnitImgSrc_gold);
         }
     }
     $("#iSpan_goldUnitTotalNum").text(" / " + g_goldUnitTotalNum);
@@ -70,8 +87,8 @@ function showStartAndFinishUnit(){
     if (startSideVal != "" && finishSideVal != ""){
         var startUnitIndex = startSideVal.split(',')[0];
         var finishUnitIndex = finishSideVal.split(',')[0];
-        $("img[unit_index=" + startUnitIndex + "]").attr("src", "/img/honeycombunit_player_start.png");
-        $("img[unit_index=" + finishUnitIndex + "]").attr("src", "/img/honeycombunit_finish.png");
+        $("img[unit_index=" + startUnitIndex + "]").attr("src", g_const_honeycombUnitImgSrc_start);
+        $("img[unit_index=" + finishUnitIndex + "]").attr("src", g_const_honeycombUnitImgSrc_finish);
         g_finishUnitIndex = finishUnitIndex;
 
         var curUnit = g_honeycombUnitList[startUnitIndex];
@@ -107,10 +124,10 @@ function showHoneycombNumberView(){
 
 function showHoneycombImageView(){
     var viewData = $("#iIpt_viewData").val();
-    var singleSideUnitNum = $("#iIpt_singleSideUnitNum").val().toNumber();
+    g_singleSideUnitNum = $("#iIpt_singleSideUnitNum").val().toNumber();
     var totalUnitNum = $("#iIpt_totalUnitNum").val().toNumber();
     var viewHtml = "";
-    if (viewData != "" && singleSideUnitNum != -1 && totalUnitNum != -1) {
+    if (viewData != "" && g_singleSideUnitNum != -1 && totalUnitNum != -1) {
         var arr = viewData.split(',');
         var rowIndex = 1;
         var rowUnitNum = 7;
@@ -119,14 +136,14 @@ function showHoneycombImageView(){
             if (arr[i] == "-"){
                 viewHtml += "<span></span>";
             } else if (arr[i] == "|"){
-                (rowIndex < singleSideUnitNum) ? rowUnitNum++ : rowUnitNum--;
+                (rowIndex < g_singleSideUnitNum) ? rowUnitNum++ : rowUnitNum--;
                 rowIndex++;
-                viewHtml += "</span><br/><span style='margin-left:" + getMarginLeftVal(singleSideUnitNum, rowUnitNum) + "px'>";
+                viewHtml += "</span><br/><span>";
             } else {
                 if (honeycombIndex == 0){
-                    viewHtml = "<span style='margin-left:" + getMarginLeftVal(singleSideUnitNum, rowUnitNum) + "px'>"
+                    viewHtml = "<span>"
                 }
-                viewHtml += "<span class='cSpan_imgUnit'><img unit_index='" + arr[i] + "' class='cImg_unit' src='/img/honeycombunit_empty.png'/></span>";
+                viewHtml += "<span class='cSpan_imgUnit'><img unit_index='" + arr[i] + "' class='cImg_unit' src='" + g_const_honeycombUnitImgSrc_empty + "'/></span>";
                 if (honeycombIndex == (totalUnitNum - 1)){
                     viewHtml += "</span><br/>"
                 }
@@ -134,10 +151,6 @@ function showHoneycombImageView(){
             }
         }
         $("#iDiv_honeycombView").html(viewHtml);
-    }
-
-    function getMarginLeftVal(singleSideUnitNum, rowUnitNum){
-        return (((4 * singleSideUnitNum - 3) - ((rowUnitNum) * 2 - 1)) / 2);
     }
 }
 
@@ -161,9 +174,9 @@ function goToNextUnit(position){
     checkGoldUnit(targetUnitIndex);
     updateUserActionData();
     if (g_userMoveStepNum > 1) {
-        $("img[unit_index=" + g_playerCurrentUnit.index + "]").attr("src", "/img/honeycombunit_pass.png");
+        $("img[unit_index=" + g_playerCurrentUnit.index + "]").attr("src", g_const_honeycombUnitImgSrc_pass);
     }
-    $("img[unit_index=" + targetUnitIndex + "]").attr("src", "/img/honeycombunit_player.png");
+    $("img[unit_index=" + targetUnitIndex + "]").attr("src", g_const_honeycombUnitImgSrc_player);
     if (!checkPlayerFinishGame(targetUnitIndex)) {
         var targetSideVal = arr[1] + "," + arr[0];
         g_playerLastUnitIndex = g_playerCurrentUnit.index;
@@ -174,7 +187,7 @@ function goToNextUnit(position){
 }
 
 function checkGoldUnit(unitIndex){
-    var beGoldUnit = $("img[unit_index=" + unitIndex + "]").attr("src") == "/img/honeycombunit_gold.png";
+    var beGoldUnit = $("img[unit_index=" + unitIndex + "]").attr("src") == g_const_honeycombUnitImgSrc_gold;
     if (beGoldUnit){
         g_getGoldUnitNum++;
     }
@@ -300,12 +313,12 @@ function showRememberTimer(){
             },
             Minutes: {
                 show: true,
-                text: "分",
+                text: "",
                 color: "#BFB"
             },
             Seconds: {
                 show: true,
-                text: "秒",
+                text: "",
                 color: "#F99"
             }
         },
@@ -324,7 +337,7 @@ function showGameResult(){
     var retDesc = "";
     if (g_gameFinishStatus == "success"){
         retTitle = "<span class='cSpan_successTitle'>挑战成功</span>";
-        retDesc = "<b>挑战难度：</b>" + g_getGoldUnitNum + " 星，<b>用时：</b>" + g_playerCostSecond + " 秒";
+        retDesc = "<span class='cSpan_successInfo'>难度：" + g_getGoldUnitNum + "&nbsp;星，&nbsp;&nbsp;用时：" + g_playerCostSecond + "&nbsp;秒,&nbsp;&nbsp;移动：" + g_userMoveStepNum + "&nbsp;步</span>";
     } else if (g_gameFinishStatus == "fail"){
         retDesc = "亲没有到达指定终点";
     } else if (g_gameFinishStatus == "fail2"){
@@ -360,6 +373,10 @@ function reduceDifficulty(){
     window.location.href = "/fcmg/" + (--g_goldUnitTotalNum);
 }
 
+function playThisDifficultyGameAgain(){
+    window.location.href = "/fcmg/" + g_goldUnitTotalNum;
+}
+
 function checkNikeName(obj){
     if ($(obj).val() != ""){
         $("#iA_uploadAchievement").show();
@@ -378,17 +395,59 @@ function uploadCurrentAchievement(){
     var sideNum = $("#iIpt_singleSideUnitNum").val();
     var goldNum = g_goldUnitTotalNum;
     var glanceTime = g_glanceTimeDuringGame;
-    $.post("fcmg/add_record.do", {
+    var moveStepNum = g_userMoveStepNum;
+    $.post("/fcmg/add_record.do", {
             "playerName": playerName,
             "costSecond": costSecond,
             "sideNum": sideNum,
             "goldNum": goldNum,
-            "glanceTime": glanceTime
+            "glanceTime": glanceTime,
+            "moveStepNum": moveStepNum
         },
         function (data) {
             var html = (data == "success") ?
                 "<span class='cSpan_uploadSuccess'>上传成功!</span>" : "<span class='cSpan_uploadFail'>上传失败!</span>";
+            $("#iIpt_nikeName").val("");
             $("#iP_uploadResult_c").html(html);
         });
+}
+
+function showTop10RecordsModal(){
+    getTop10RecordsDataAndFillData();
+    ($.remodal.lookup[$('[data-remodal-id=showTop10Records]').data('remodal')]).open();
+}
+
+function getTop10RecordsDataAndFillData(){
+    $.post("/fcmg/get_top10.do", { "sideNum": g_singleSideUnitNum, "goldNum": g_goldUnitTotalNum },
+        function (data) {
+            showTop10Records(data);
+        });
+}
+
+function showTop10Records(data){
+    var recordsHtml = "";
+    if (data != "fail") {
+        if (data != "") {
+            var arr = data.split(";");
+            for (var i = 0; i < arr.length; i++) {
+                if (i < 10) {
+                    var arr2 = arr[i].split(',');
+                    recordsHtml += "<tr class='cTr_content'><td>" + (i + 1) + "</td><td>" + arr2[0] + "</td><td class='cTd_orangeText'>" + arr2[1] + "s</td><td>" + (arr2[2]=="0"?"--":arr2[2]) + "</td><td>" + (arr2[3]=="0"?"--":arr2[3]) + "</td></tr>";
+                }
+            }
+        } else {
+            recordsHtml = "<tr><td class='cTd_noRecords' colspan='5'>前无古人，后待来者</td></tr>";
+        }
+    } else {
+        recordsHtml = "<tr><td class='cTd_noRecords' colspan='5'>获取排行榜信息失败，请稍后重试！</td></tr>";
+    }
+    $("#iSpan_difficulty").text("难度系数：" + g_goldUnitTotalNum + "星");
+    $("#iTbl_top10Records tr:gt(0)").remove();
+    $("#iTbl_top10Records tbody").append($(recordsHtml));
+}
+
+function updateDifficultyDegree(obj){
+    var degree = $(obj).val();
+    window.location.href = "/fcmg/" + degree;
 }
 

@@ -5,7 +5,9 @@ import com.ygl.piggynote.common.CommonConstant;
 import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 /**
  * Created by guilin on 2014/8/5.
@@ -50,12 +52,19 @@ public class BaseController {
 
     public Boolean checkUserLoginStatus(HttpServletRequest request){
         Boolean beLogin = false;
-        String userName = request.getParameter("userName");
         UserBean ub = getUserFromSession(request);
-        if (ub != null && ub.getUserName().equals(userName)){
-            curLoginUserName = userName;
+        if (ub != null){
+            curLoginUserName = ub.getUserName();
             beLogin = true;
         }
         return beLogin;
+    }
+
+    public void redirectToHomePage(HttpServletResponse response){
+        try {
+            response.sendRedirect("/");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

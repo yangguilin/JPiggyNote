@@ -20,6 +20,9 @@ public enum MoneyTypeEnum {
     public String getValue() {
         return value;
     }
+    public String getDes(){
+        return des;
+    }
 
     MoneyTypeEnum(String value, String des) {
         this.value = value;
