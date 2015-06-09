@@ -80,3 +80,11 @@ function arrayCount(o){
     }
     return false;
 }
+
+String.prototype.isIntegerNumber = function(){
+    return !isNaN((Number(this) && parseInt(this)));
+}
+
+String.prototype.isFloatPointNumber = function(){
+    return !isNaN((Number(this) && parseFloat(this)));
+}

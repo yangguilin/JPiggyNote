@@ -86,9 +86,8 @@ public class HomeController extends BaseController {
             // config
             CustomConfigBean ccb = customConfigService.get(ub.getUserName());
             model.addAttribute("customConfig", ccb);
-
+            return "home";
         } else {
-
             // cookie中读取保存的用户名
             Cookie userNameCookie = CookieUtil.getCookieByName(request, CommonConstant.COOKIE_USER_NAME);
             if (userNameCookie != null && userNameCookie.getValue() != ""){
@@ -100,14 +99,7 @@ public class HomeController extends BaseController {
                 }
                 model.addAttribute("userNameInCookie", userNameInCookie);
             }
+            return "login";
         }
-
-		return "home";
 	}
-
-    @RequestMapping(value="/mobile", method=RequestMethod.GET)
-    public String mobileShow(){
-
-        return "home_mobile";
-    }
 }

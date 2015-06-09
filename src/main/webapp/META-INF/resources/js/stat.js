@@ -100,7 +100,7 @@ $(document).ready(function(){
 
     // 本月计划支出进度条
     showCurMonthPlanProcessBar();
-
+    calculateAndShowMonthStatData();
 
 
     /**
@@ -117,6 +117,18 @@ $(document).ready(function(){
      */
     function showDetailData(id){
         $("#" + id).css({"font-size":"16px", "color":"darkred"}).parent().next("tr").show("fast");
+    }
+
+    function calculateAndShowMonthStatData(){
+        var totalIncome = $("#iIpt_totalIncome_h").val().toNumber();
+        var totalCost = $("#iIpt_totalCost_h").val().toNumber();
+        var monthNum = $("#iIpt_curMonthNum_h").val().toNumber();
+        var monthIncome = (totalIncome / monthNum).toFixed(2);
+        var monthCost = (totalCost / monthNum).toFixed(2);
+        var monthAvg = monthIncome - monthCost;
+        $("#iSpan_monthIncome").text(monthIncome);
+        $("#iSpan_monthCost").text(monthCost);
+        $("#iSpan_monthAvg").text(monthAvg);
     }
 });
 

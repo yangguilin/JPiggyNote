@@ -38,3 +38,17 @@ function login(){
         document.forms[0].submit();
     }
 }
+
+/**
+ * 密码输入框回车快捷登陆
+ */
+function quickLogin(event){
+    var theEvent = window.event || event;
+    var code = theEvent.keyCode || theEvent.which;
+    if ($("#psw").val() != ""){
+        // 回车键
+        if (code == 13){
+            login();
+        }
+    }
+}

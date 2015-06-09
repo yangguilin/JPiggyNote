@@ -9,7 +9,7 @@ import java.sql.SQLException;
 /**
  * Created by yanggavin on 15/3/17.
  */
-public class GroupRowMapper  implements RowMapper {
+public class GroupRowMapper implements RowMapper {
     @Override
     public Object mapRow(ResultSet rs, int i) throws SQLException {
         GroupBean bean = new GroupBean();

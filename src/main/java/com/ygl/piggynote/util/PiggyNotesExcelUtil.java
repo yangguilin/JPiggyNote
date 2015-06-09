@@ -66,7 +66,7 @@ public class PiggyNotesExcelUtil {
         DailyRecordBean drb = null;
         for (int i = 0; i < records.size(); i++) {
             drb = records.get(i);
-            rowIndex = ++i;
+            rowIndex++;
             moneyType = drb.getMoneyType().getDes();
             amount = drb.getAmount() + "";
             createDate = DateUtil.getShortDateStr(drb.getCreateDate());

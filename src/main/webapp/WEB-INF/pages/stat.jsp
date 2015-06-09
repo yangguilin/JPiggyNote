@@ -30,6 +30,7 @@
         b:  button（按钮）
         f:  footer（底部）
         h:  hidden（隐藏）
+        mk: mark（仅标记）
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -49,6 +50,9 @@
         <input type="hidden" id="hidden_userName" value="${curUser.getUserName()}" />
         <input type="hidden" id="iIpt_monthCostPlan_h" value="${monthCostPlan}" />
         <input type="hidden" id="iIpt_curMonthCost_h" value="${statData.getCurMonthCostTotal()}" />
+        <input type="hidden" id="iIpt_totalIncome_h" value="${statData.getFinalIncomeTotal()}" />
+        <input type="hidden" id="iIpt_totalCost_h" value="${statData.getFinalCostTotal()}" />
+        <input type="hidden" id="iIpt_curMonthNum_h" value="${statData.getMonthStatDataList().size()}" />
     </div>
     <div class="cDiv_main_c">
         <div class="cDiv_globalMenu_c">
@@ -169,12 +173,12 @@
                     </tr>
                     <tr class="cC_totalItemFooter cTr_monthAverageRow">
                         <td>月入:</td>
-                        <td>${statData.getFinalIncomeTotal() / statData.getMonthStatDataList().size()}&nbsp;元</td>
+                        <td><span id="iSpan_monthIncome"></span>&nbsp;元</td>
                         <td>月出:</td>
-                        <td>${statData.getFinalCostTotal() / statData.getMonthStatDataList().size()}&nbsp;元</td>
+                        <td><span id="iSpan_monthCost"></span>&nbsp;元</td>
                     </tr>
                     <tr class="cC_totalItemFooter cTr_monthAverageIncomeRow">
-                        <td colspan="4">月均盈余：${(statData.getFinalIncomeTotal()-statData.getFinalCostTotal()) / statData.getMonthStatDataList().size()}&nbsp;元</td>
+                        <td colspan="4">月均盈余：<span id="iSpan_monthAvg"></span>&nbsp;元</td>
                     <tr>
                         <td class="cC_itemSplitSpace" colspan="4"></td>
                     </tr>
