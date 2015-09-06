@@ -7,7 +7,6 @@ import com.ygl.piggynote.bean.*;
  * Created by yanggavin on 14-7-18.
  */
 public interface UserService {
-
     public UserBean get(String userName);
     public Boolean add(UserBean bean);
     public Boolean delete(String userName);

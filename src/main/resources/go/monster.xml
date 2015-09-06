@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <item>
+        <id>a_001</id>
+        <name>小白兔</name>
+        <life>1</life>
+        <attack>0</attack>
+        <defend>0</defend>
+        <speed>1</speed>
+        <growFactor>1</growFactor>
+    </item>
+    <item>
+        <id>a_002</id>
+        <name>小狼崽</name>
+        <life>5</life>
+        <attack>1</attack>
+        <defend>0</defend>
+        <speed>1</speed>
+        <growFactor>1</growFactor>
+    </item>
+    <item>
+        <id>b_003</id>
+        <name>野狼</name>
+        <life>50</life>
+        <attack>10</attack>
+        <defend>5</defend>
+        <speed>3</speed>
+        <growFactor>0.2</growFactor>
+    </item>
+</root>

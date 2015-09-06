@@ -88,3 +88,8 @@ String.prototype.isIntegerNumber = function(){
 String.prototype.isFloatPointNumber = function(){
     return !isNaN((Number(this) && parseFloat(this)));
 }
+
+// 给日期类对象添加日期差方法，返回日期与diff参数日期的时间差，单位为天
+Date.prototype.diff = function(date){
+    return ((this.getTime() - date.getTime())/(24 * 60 * 60 * 1000)).toFixed(0);
+}

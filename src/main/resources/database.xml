@@ -13,7 +13,9 @@
           p:initialSize="1"
           p:maxActive="500"
           p:maxIdle="2"
-          p:minIdle="1"/>
+          p:minIdle="1"
+          p:validationQuery="SELECT 1"
+          p:testOnBorrow="true"/>
 
     <bean id="dataSourceSnwt" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
           p:driverClassName="com.mysql.jdbc.Driver"
@@ -23,7 +25,9 @@
           p:initialSize="1"
           p:maxActive="500"
           p:maxIdle="2"
-          p:minIdle="1"/>
+          p:minIdle="1"
+          p:validationQuery="SELECT 1"
+          p:testOnBorrow="true"/>
 
 
     <!--jdbcTemplate bean-->

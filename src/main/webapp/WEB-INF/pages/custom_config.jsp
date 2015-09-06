@@ -31,9 +31,9 @@
         &nbsp;/&nbsp;
         <a href="#" class="cA_statMenu_b" onclick="window.location.href='/stat'">统计</a>
         &nbsp;/&nbsp;
-        <a href="#" class="cA_statMenu_b cA_statMenuSelected_b">设置</a>
+        <a href="#" class="cA_statMenu_b" onclick="window.location.href='/investment'">理财</a>
         &nbsp;/&nbsp;
-        <a href="#" class="cA_statMenu_b" onclick="logout()">退出</a>
+        <a href="#" class="cA_statMenu_b cA_statMenuSelected_b">设置</a>
     </div>
     <table class="table_options">
         <tr>

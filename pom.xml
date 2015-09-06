@@ -9,6 +9,8 @@
 
     <properties>
         <spring.version>3.2.0.RELEASE</spring.version>
+        <!--mybatis版本号-->
+        <mybatis.version>3.2.8</mybatis.version>
         <org.slf4j.version>1.6.1</org.slf4j.version>
     </properties>
 
@@ -98,6 +100,29 @@
             <groupId>net.sourceforge.jexcelapi</groupId>
             <artifactId>jxl</artifactId>
             <version>2.6.12</version>
+        </dependency>
+
+        <!--httpclient-->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.3</version>
+        </dependency>
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>2.0.0-RC1</version>
         </dependency>
 
         <!--log4j-->

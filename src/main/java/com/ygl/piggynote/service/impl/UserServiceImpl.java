@@ -58,7 +58,6 @@ public class UserServiceImpl implements UserService {
         int ret = jdbcTemplate.update("update pn_users set deleted=1 where user_name=?",
                 new Object[]{userName},
                 new int[]{Types.VARCHAR});
-
         return ret > 0;
     }
 

@@ -132,3 +132,26 @@ function deleteRecord(){
             }
         });
 }
+
+function sendWeiXinPostMsg() {
+    var url1 = "../weixin?signature=4831bfd4d48f5730c3f44a5f0011b54d9a2a6f3e&timestamp=1435222462&nonce=1847001623";
+    var url2 = "http://www.piggylife.com/weixin?signature=4831bfd4d48f5730c3f44a5f0011b54d9a2a6f3e&timestamp=1435222462&nonce=1847001623";
+    var xmlData = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><xml><URL><![CDATA[http://localhost:8080/weixin]]></URL><ToUserName><![CDATA[stxg2015]]></ToUserName><FromUserName><![CDATA[11111]]></FromUserName><CreateTime>1435199696</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[aaa]]></Content><MsgId>1234567</MsgId></xml>";
+    var userXmlData = "<xml><ToUserName><![CDATA[gh_3be816dd0023]]></ToUserName><FromUserName><![CDATA[oFdYyt7lkbvdNIMr3ssF-1ufgdco]]></FromUserName><CreateTime>1435899493</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[#账号关联#ygl:123]]></Content><MsgId>6167141362987789850</MsgId></xml>";
+    var costXmlData = "<xml><ToUserName><![CDATA[gh_3be816dd0023]]></ToUserName><FromUserName><![CDATA[oFdYyt7lkbvdNIMr3ssF-1ufgdco]]></FromUserName><CreateTime>1435904770</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[¥60]]></Content><MsgId>6167164027530213425</MsgId></xml>";
+    var helpXmlData = "<xml><ToUserName><![CDATA[gh_3be816dd0023]]></ToUserName><FromUserName><![CDATA[oFdYyt5tStjh0OHQTHFk47GYFOpg]]></FromUserName><CreateTime>1435828256</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[#帮助#]]></Content><MsgId>6166835402402493623</MsgId></xml>";
+    var showXmlData = "<xml><ToUserName><![CDATA[gh_3be816dd0023]]></ToUserName><FromUserName><![CDATA[oFdYyt5tStjh0OHQTHFk47GYFOpg]]></FromUserName><CreateTime>1435828256</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[#记录#]]></Content><MsgId>6166835402402493623</MsgId></xml>";
+
+    $.ajax({
+        type: "POST",
+        dataType: 'xml',
+        url: url1,
+        processData: false,
+        data: costXmlData,
+        async: true,
+        success: function (d) {
+            alert("ok");
+        }
+    });
+
+}

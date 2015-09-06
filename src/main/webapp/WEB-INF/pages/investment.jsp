@@ -26,9 +26,9 @@
       &nbsp;/&nbsp;
       <a href="#" class="cA_menuItem_b" onclick="window.location.href='/stat'">统计</a>
       &nbsp;/&nbsp;
-      <a href="#" class="cA_menuItem_b" onclick="window.location.href='/custom_config'">设置</a>
-      &nbsp;/&nbsp;
       <a href="#" class="cA_menuItem_b cA_menuItemSelected_b" onclick="">理财</a>
+      &nbsp;/&nbsp;
+      <a href="#" class="cA_menuItem_b" onclick="window.location.href='/custom_config'">设置</a>
     </div>
     <div class="cDiv_content_c">
       <div>

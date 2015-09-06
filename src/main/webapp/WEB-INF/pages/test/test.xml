@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <Servers>
+        <Server key="F3new" displayText="佛山标建y(192.168.100.10)" domain="gddx-mynet.cloudsvc1.mynet.cn" serverName="gddx"
+                roles="SVR,DB,OEM">
+            <IPPool>
+                <IP>119.145.145.23</IP>
+            </IPPool>
+            <Location>佛山机房gddx</Location>
+        </Server>
+        <Server key="M7" displayText="铁通标建(192.168.100.35)" domain="bjtt-mynet.cloudsvc1.mynet.cn" serverName="bjtt"
+                roles="SVR,DB,OEM">
+            <IPPool>
+                <IP>121.199.64.97</IP>
+            </IPPool>
+            <Location>雅虎bjtt</Location>
+        </Server>
+        <Server key="Y2" displayText="雅虎标建1(192.168.100.34)" domain="yh-mynet.cloudsvcyhbj.mynet.cn" serverName="bjcn3"
+                roles="SVR,DB,OEM">
+            <IPPool>
+                <IP>112.126.1.22</IP>
+            </IPPool>
+            <Location>雅虎机房mynet</Location>
+        </Server>
+        <Server key="bigsite_ttmyent" displayText="大标建(192.168.100.34)" domain="bigsite-ttmynet.cloudsvc1.mynet.cn"
+                serverName="bigsite" roles="SVR,DB,OEM">
+            <IPPool>
+                <IP>112.126.1.256</IP>
+            </IPPool>
+            <Location>雅虎机房mynet</Location>
+        </Server>
+        <Server key="Y2_hichina" displayText="雅虎速成Y(192.168.100.11)" domain="myhichina.cloudsvc1.mynet.cn"
+                serverName="bjcn3hichina" roles="DB">
+            <IPPool>
+                <IP>112.126.1.22</IP>
+            </IPPool>
+            <Location>雅虎机房myhichina</Location>
+        </Server>
+        <Server key="Y2_hichina_old" displayText="铁通速成Y(192.168.100.1)" domain="bjtt-myhichina.cloudsvc1.mynet.cn"
+                serverName="bjcn3hichina-old" roles="SVC,DB">
+            <IPPool>
+                <IP>112.126.1.27</IP>
+            </IPPool>
+            <Location>雅虎机房Y7-myhichina</Location>
+        </Server>
+        <Server key="Y2_t" displayText="雅虎淘里淘外(192.168.100.11)" domain="tltw.cloudsvc1.mynet.cn" serverName="bjcn3tltw"
+                roles="DB">
+            <IPPool>
+                <IP>112.126.1.22</IP>
+            </IPPool>
+            <Location>雅虎机房tltw</Location>
+        </Server>
+        <Server key="Y2_t_old" displayText="铁通淘里淘外(192.168.100.7)" domain="bjtt-tltw.cloudsvc1.mynet.cn"
+                serverName="bjcn3tltw-old" roles="DB">
+            <IPPool>
+                <IP>112.126.1.22</IP>
+            </IPPool>
+            <Location>雅虎机房Y7-tltw</Location>
+        </Server>
+        <Server key="bjcn3sg" displayText="傻瓜版Y(mynet001-mynet5001)" domain="sg-mynet.cloudsvc1.mynet.cn"
+                serverName="bjcn3sg" roles="DB">
+            <IPPool>
+                <IP>121.199.64.82</IP>
+            </IPPool>
+            <Location>雅虎机房傻瓜版服务器bjcn3sg</Location>
+        </Server>
+        <Server key="gddx-hs" displayText="好商网Y(192.168.100.29)" domain="hs-mynet.cloudsvc1.mynet.cn"
+                serverName="gddx-hs" roles="DB">
+            <Location>雅虎机房好商服务器gddx-hs</Location>
+        </Server>
+        <Server key="bjcn3aliawai" displayText="新阿里阿外(192.168.100.29)" domain="yh-aliawai.cloudsvc1.mynet.cn"
+                serverName="bjcn3aliawai" roles="DB">
+            <Location>雅虎阿里阿外</Location>
+        </Server>
+        <Server key="Y2_designer" displayText="设计师平台y(192.168.100.1)" domain="yh-designer.cloudsvc1.mynet.cn"
+                serverName="bjcn3designer" roles="DB">
+            <Location>雅虎设计师</Location>
+        </Server>
+        <Server key="alaw_mynet" displayText="阿里(192.168.100.2)" domain="alaw-mynet.cloudsvc1.mynet.cn"
+                serverName="hzali" roles="DB">
+            <Location>阿里</Location>
+        </Server>
+        <Server key="scmz" displayText="标准网站412Y(192.168.100.182)" domain="scmz.cloudsvc1.mynet.cn"
+                serverName="bjcn3scmz" roles="DB">
+            <Location>scmz</Location>
+        </Server>
+        <Server key="new_designer" displayText="new-designerY(192.168.100.30)" domain="new-designer.cloudsvc1.mynet.cn"
+                serverName="cpw" roles="DB">
+            <Location>cpw</Location>
+        </Server>
+    </Servers>
+</root>

@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>网站建设产品停止续费说明及迁移方案</title>
+    <script type="text/javascript" src="http://www.aliyun.com/rgn/aliyun_assets?renderer=js"></script>
+    <link rel="stylesheet" href="//g.alicdn.com/hichina/home/4.0.1/dpl/style/base.css">
+    <style>
+        body, table {
+            font-size: 12px;
+        }
+
+        .move-wrap {
+            width: 993px;
+            margin: 0 auto;
+            background: #FFF;
+        }
+
+        h2.tit-move {
+            font-size: 24px;
+            line-height: 24px;
+            color: #000;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        .module-preface {
+            border: 1px solid #ECECEC;
+            padding: 35px 40px;
+            margin-bottom: 35px;
+        }
+
+        .box-welcome {
+            border-bottom: 1px dashed #E3E3E3;
+            padding-bottom: 30px;
+        }
+
+        .box-welcome p {
+            font-size: 14px;
+            line-height: 25px;
+            color: #000;
+            margin-bottom: 5px;
+        }
+
+        .box-welcome p b {
+            font-size: 16px;
+            font-weight: normal;
+        }
+
+        .box-feature {
+            padding: 15px 0 0;
+            text-align: center;
+        }
+
+        .box-feature h5 {
+            font-size: 14px;
+            line-height: 14px;
+            margin-bottom: 15px;
+            font-weight: normal;
+        }
+
+        .box-feature img {
+            display: block;
+            margin: 0 auto 25px;
+        }
+
+        a.btn {
+            height: 30px;
+            line-height: 30px;
+            padding: 0 25px;
+            background: #FF2A19;
+            color: #FFF;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 3px;
+            display: block;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+
+        a.btn-move {
+            margin: 0 auto;
+            width: 60px;
+        }
+
+        .module-plan {
+            margin-bottom: 35px;
+        }
+
+        .tit-mod {
+            margin-bottom: 40px;
+            border-bottom: 2px solid #DDD;
+            height: 12px;
+        }
+
+        .tit-mod h3 {
+            font-size: 20px;
+            line-height: 25px;
+            float: left;
+            padding-right: 10px;
+            background: #FFF;
+            font-weight: normal;
+        }
+
+        .box-plan-list {
+            margin-bottom: 35px;
+        }
+
+        .box-plan-list li {
+            line-height: 28px;
+            font-size: 14px;
+        }
+
+        .box-plan-list li i {
+            width: 15px;
+            height: 15px;
+            display: inline-block;
+            background: url(http://gtms01.alicdn.com/tps/i1/TB1FK0AHpXXXXc5apXXawywFXXX-15-15.png) no-repeat;
+            text-align: center;
+            line-height: 15px;
+            color: #FFF;
+            font-style: normal;
+            margin-right: 5px;
+            font-size: 12px;
+        }
+
+        .module-plan h4 {
+            font-size: 16px;
+            line-height: 25px;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        .table-adv {
+            border: 1px solid #ECECEC;
+            border-collapse: collapse;
+            margin-bottom: 35px;
+        }
+
+        .table-adv thead td {
+            height: 45px;
+            line-height: 45px;
+            border: 1px solid #ECECEC;
+            padding-left: 5px;
+            background: #F5F7FF;
+        }
+
+        .table-adv tbody td {
+            line-height: 20px;
+            border: 1px solid #ECECEC;
+            padding-left: 5px;
+            background: #FFF;
+            padding: 10px 5px;
+        }
+
+        .lmm-tips {
+            line-height: 35px;
+            padding: 0 10px;
+            background: #F2FFEA;
+            border: 1px solid #C7DDBA;
+            color: #336600;
+            border-radius: 2px;
+            margin: 0 0 20px 0;
+        }
+
+        .lmm-tips-close {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            float: right;
+            background: url(http://gtms02.alicdn.com/tps/i2/TB1K5QsHXXXXXXSXVXX.uTD.FXX-10-10.png) no-repeat 5px 5px;
+            margin-top: 7px;
+        }
+
+        .table-lmm {
+            border-collapse: collapse;
+            border: none;
+            width: 100%;
+        }
+
+        .table-lmm td {
+            line-height: 45px;
+            height: 45px;
+        }
+
+        .table-lmm td.lmm-row-label {
+            text-align: right;
+            width: 15%;
+            padding-right: 10px;
+        }
+
+        .color-red {
+            color: #F00;
+        }
+
+        .mr10 {
+            margin-right: 10px;
+        }
+
+        .fb {
+            font-weight: bold;
+        }
+
+        .ml10 {
+            margin-left: 10px;
+        }
+
+        .ipt-lmm {
+            width: 190px;
+            height: 22px;
+            line-height: 22px;
+            padding: 0 5px;
+            border: 1px solid #BBB;
+            border-radius: 2px;
+            background: #FFF;
+        }
+
+        .ipt-lmm-over {
+            border: 1px solid #FFAB9F;
+        }
+
+        .tips-err {
+            line-height: 24px;
+            height: 24px;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .tips-err i {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            margin-right: 5px;
+            background: url(http://gtms03.alicdn.com/tps/i3/TB1_LOqHpXXXXcrXpXXAz6UFXXX-16-16.png) no-repeat;
+            vertical-align: -3px;
+        }
+
+        .ipt-choose {
+            vertical-align: -3px;
+            margin-right: 5px;
+        }
+
+        .btn {
+            height: 24px;
+            line-height: 24px;
+            padding: 0 20px;
+            background: #FF2A19;
+            color: #FFF;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 2px;
+            display: block;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            border: none;
+        }
+
+        .agree-txt {
+            display: block;
+            margin-top: -15px;
+        }
+
+        .box-step {
+            background: #F9F9F9;
+            padding: 40px 20px 30px;
+        }
+
+        .box-step li {
+            float: left;
+            width: 20%;
+        }
+
+        .box-step li.step-arr {
+            width: 24px;
+            height: 20px;
+            background: url(http://gtms02.alicdn.com/tps/i2/TB1bwI6GVXXXXbLapXX2BeMFFXX-24-20.png) no-repeat;
+            margin: 10px 0 0 -24px;
+        }
+
+        .box-step li .move-step {
+            width: 44px;
+            height: 44px;
+            line-height: 44px;
+            background: url(http://gtms03.alicdn.com/tps/i3/TB1i5eFHXXXXXXpaXXXiC47GVXX-44-44.png) no-repeat;
+            display: block;
+            text-align: center;
+            color: #666;
+            font-size: 30px;
+            margin: 0 auto 20px;
+        }
+
+        .box-step li h4 {
+            font-size: 14px;
+            line-height: 14px;
+            background: url(http://gtms04.alicdn.com/tps/i4/TB1idL3HXXXXXXeapXXpwSwJFXX-3-3.png) no-repeat 0 6px;
+            padding-left: 10px;
+            margin-bottom: 10px;
+            margin-left: 20px;
+        }
+
+        .box-step li p {
+            font-size: 12px;
+            line-height: 22px;
+            color: #666;
+            margin-left: 30px;
+        }
+
+        .module-problem {
+        }
+
+        .box-faq {
+            padding: 20px 0;
+            border-bottom: 1px dashed #E3E3E3;
+        }
+
+        .box-faq-nobd {
+            border-bottom: none;
+        }
+
+        .box-faq dt {
+            font-size: 16px;
+            line-height: 25px;
+            color: #000;
+            margin-bottom: 15px;
+        }
+
+        .box-faq dt i {
+            width: 23px;
+            height: 23px;
+            line-height: 23px;
+            display: inline-block;
+            background: url(http://gtms04.alicdn.com/tps/i4/TB1VNNYHXXXXXaDaXXXcyXpFFXX-23-23.png) no-repeat;
+            text-align: center;
+            font-size: 16px;
+            color: #FFF;
+            text-align: center;
+            margin-right: 10px;
+            font-style: normal;
+        }
+
+        .box-faq dd {
+            font-size: 14px;
+            line-height: 25px;
+            color: #666;
+            padding-left: 33px;
+        }
+    </style>
+    <script>
+        window.initNaviTabIndex = 5;
+        window.setPageNarrow = true;
+    </script>
+
+
+</head>
+<body>
+<script type="text/javascript" src="http://www.aliyun.com/rgn/aliyun_topbar_simple/index.js"></script>
+<script type="text/javascript" src="http://www.aliyun.com/rgn/aliyun_header?renderer=js"></script>
+<div class="move-wrap">
+    <h2 class="tit-move">网站建设产品停止续费说明及迁移方案</h2>
+    <div class="module-preface">
+        <div class="box-welcome">
+            <p><b>尊敬的用户，您好！</b></p>
+            <p>
+                您使用的网站建设产品系统已过于陈旧，无法持续升级来满足现在互联网环境用户的需求，因此抱歉的通知您该产品不再继续维护并<span class="color-red">停止续费</span>；<br>
+                同时，为满足您在服务到期后继续正常运行网站的需求，建站市场两家服务商可以提供<span class="color-red">免费迁移网站</span>服务。
+            </p>
+        </div>
+        <div class="box-feature">
+            <h5>迁移服务特点</h5>
+            <img src="http://gtms01.alicdn.com/tps/i1/TB1sdSaHXXXXXakaXXXliJZ8pXX-815-90.png" alt="迁移服务特点">
+            <a href="#table-lmm" class="btn btn-move">立即迁移</a>
+        </div>
+    </div>
+    <div class="module-plan">
+        <div class="tit-mod"><h3>免费迁移方案</h3></div>
+        <ul class="box-plan-list">
+            <li><i>1</i>保持网站页面原貌，免费迁移网站至建站市场服务商所属的网站建设产品下；</li>
+            <li><i>2</i>迁移后服务和系统将由服务商直接提供，标配万网主机。</li>
+            <li><i>3</i>如您对迁移成果审核满意，向服务商交纳<b>周期使用服务费</b>后网站正式迁移成功，周期使用服务费<b>不高于原万网产品续费价格</b>（超级战车产品除外）</li>
+            <li><i>4</i>请您在网站到期前申请免费迁移服务（网站到期后数据保留30天），以免网站过期无法访问或数据清除无法迁移；</li>
+        </ul>
+        <h4>以下是服务商商品特点及服务对比说明，详细请您联系服务商咨询：</h4>
+        <table class="table-adv">
+            <thead>
+            <tr>
+                <td width="18%">建站市场服务商</td>
+                <td width="35%">迁移后的商品及服务特点</td>
+                <td width="11%">迁移所需时间</td>
+                <td width="6%">迁移费用</td>
+                <td width="11%">商品收费标准</td>
+                <td width="19%">联系方式</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><a href="http://market.aliyun.com/store/57801.html" target="_blank">北京云梦网络科技有限公司</a></td>
+                <td>
+                    1、网站数据同步（网站页面，新闻，产品等全部数据）<br>2、页面维护，所见即所得，简单操作<br>3、赠送手机网站和网站后台管理APP<br>4、专属客户经理一对一服务<br>5、售后5X8小时电话支持，提供系统操作培训<br>6、如迁移后的云梦微站一次续费3年，赠送网站改版服务<br>
+                    速成官网（速成网站迁移专用） <a href="http://market.aliyun.com/products/52738005/cmjz000370.html" target="_blank">立即查看</a><br>云.企业官网（标准网站迁移专用） <a href="http://market.aliyun.com/products/52738005/cmjz000371.html" target="_blank">立即查看</a>
+                </td>
+                <td rowspan="2">约1-5工作日<br>具体根据您的站点情况联系服务商评估</td>
+                <td rowspan="2">免费</td>
+                <td rowspan="2">不高于原万网续费价（“超级战车”产品名称除外）</td>
+                <td>电话：4008 564 566 转 3<br>Email：<a href="mailto:guol@clouddream.net">liujj@clouddream.net</a><br>旺旺：<a target="_blank" href="http://www.taobao.com/webww/ww.php?ver=3&touid=%E4%BA%91%E6%A2%A6%E7%BD%91%E7%BB%9C%E5%BB%BA%E7%AB%99%E6%9C%8D%E5%8A%A1&siteid=cntaobao&status=1&charset=utf-8"><img border="0" src="http://amos.alicdn.com/realonline.aw?v=2&uid=%E4%BA%91%E6%A2%A6%E7%BD%91%E7%BB%9C%E5%BB%BA%E7%AB%99%E6%9C%8D%E5%8A%A1&site=cntaobao&s=1&charset=utf-8" alt="点击这里给我发消息" /></a></td>
+            </tr>
+            <tr>
+                <td><a href="http://market.aliyun.com/store/20052.html" target="_blank">北京云邦网络科技有限公司</a></td>
+                <td>
+                    1、保持网站原貌，将原有网站页面及网站数据迁移<br>2、后台操作简单，易于上手<br>3、精美手机模板<br>4、专职客服人员一对一指导<br>5、服务期内，免费获得banner图片修改和网站布局调整次数<br>
+                    云帮（速成网站迁移专用） <a href="http://market.aliyun.com/products/52738005/cmjz000372.html" target="_blank">立即查看</a><br>云帮（标准网站迁移专用） <a href="http://market.aliyun.com/products/52738005/cmjz000373.html" target="_blank">立即查看</a>
+                </td>
+                <td>电话：4008 770 550<br>Email：<a href="mailto:fuwu@z2china.com">fuwu@z2china.com</a><br>旺旺：<a target="_blank" href="http://www.taobao.com/webww/ww.php?ver=3&touid=siteservercms&siteid=cntaobao&status=1&charset=utf-8"><img border="0" src="http://amos.alicdn.com/realonline.aw?v=2&uid=siteservercms&site=cntaobao&s=1&charset=utf-8" alt="点击这里给我发消息" /></a></td>
+            </tr>
+            </tbody>
+        </table>
+        <h4 id="table-lmm">立即授权申请免费迁移</h4>
+        <div class="lmm-tips">
+            <span>提示：如需要迁移其他网建业务，请重新进入“<a href="http://netcn.console.aliyun.com/core/website/list" target="_blank">会员中心 标准网站</a>”页面勾选业务“续费”</span>
+            <a href="#" class="lmm-tips-close"></a>
+        </div>
+        <input type="hidden" id="iIpt_userId_h" value="test-api" />
+        <table class="table-lmm">
+            <tbody>
+            <tr>
+                <td class="lmm-row-label">原万网产品名称：</td>
+                <td><input type="text" class="ipt-lmm" id="iIpt_productName"></td>
+            </tr>
+            <tr>
+                <td class="lmm-row-label">原产品续费价格：</td>
+                <td><input type="text" class="ipt-lmm" id="iIpt_productPrice"><!--<div class="tips-err color-red"><i></i>请点击上面“会员中心－标准网站“页面勾选业务“续费”</div>--></td>
+            </tr>
+            <tr>
+                <td class="lmm-row-label">需要迁移的网址：</td>
+                <td><input type="text" class="ipt-lmm" id="iIpt_userDomain"></td>
+            </tr>
+            <tr>
+                <td class="lmm-row-label">业务到期日：</td>
+                <td><input type="text" class="ipt-lmm" id="iIpt_expiredDate"></td>
+            </tr>
+            <tr>
+                <td class="lmm-row-label"><span class="color-red mr10 fb">*</span>我的联系电话：</td>
+                <td><input type="text" class="ipt-lmm" id="iIpt_userPhone"></td>
+            </tr>
+            <tr>
+                <td class="lmm-row-label"><span class="color-red mr10 fb">*</span>姓名：</td>
+                <td><input type="text" class="ipt-lmm" id="iIpt_userName"></td>
+            </tr>
+            <tr>
+                <td class="lmm-row-label"><span class="color-red mr10 fb">*</span>选择迁移服务商：</td>
+                <td>
+                    <input type="radio" id="comp1" value="yunmeng" class="ipt-choose" name="comp-box"><label for="comp1">北京云梦网络科技有限公司</label>
+                    <input type="radio" id="comp2" value="bairong" class="ipt-choose ml10" name="comp-box"><label for="comp2">北京云邦网络科技有限公司</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="lmm-row-label"></td>
+                <td>
+                    <input type="checkbox" class="ipt-choose" value="agree" checked="checked">
+                    <span>我已阅读<a href="http://wanwang.aliyun.com/jianzhan/move-plan-agreement/" target="_blank">《网站数据迁移提示》</a></span><br>
+                            <span class="color-red agree-txt">
+                                提交申请后，取得您授权的服务商将有权调取您的个人信息和网站数据，本操作不可撤销或逆转。
+                            </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="lmm-row-label"></td>
+                <td><button class="btn btn-subit" onclick="submitUserRequest()">提交申请</button></td>
+            </tr>
+            </tbody>
+        </table>
+        <h4>迁移流程</h4>
+        <div class="box-step">
+            <ul class="clearfix">
+                <li>
+                    <span class="move-step">1</span>
+                    <h4>提交授权迁移申请表</h4>
+                </li>
+                <li class="step-arr"></li>
+                <li>
+                    <span class="move-step">2</span>
+                    <h4>服务商操作迁移</h4>
+                    <p>服务商预计在<br>1-5天内迁移完毕</p>
+                </li>
+                <li class="step-arr"></li>
+                <li>
+                    <span class="move-step">3</span>
+                    <h4>查看迁移结果</h4>
+                    <p>服务商会提供迁移后的站点地址给您查看</p>
+                </li>
+                <li class="step-arr"></li>
+                <li>
+                    <span class="move-step">4</span>
+                    <h4>购买订单</h4>
+                    <p>如您对迁移成果满意，服务商给您提供建站市场商品购买链接，价格不高于原万网续费价。</p>
+                </li>
+                <li class="step-arr"></li>
+                <li>
+                    <span class="move-step">5</span>
+                    <h4>域名解析/绑定</h4>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="module-problem">
+        <div class="tit-mod"><h3>迁移常见问题</h3></div>
+        <dl class="box-faq">
+            <dt><i>1</i>迁移后的网站是否和现在的一致？</dt>
+            <dd>服务商会尽力按照您原有的网站原貌进行迁移，但可能会有个别细节之处无法保障完全一致，请您认真查看服务商提供的迁移成果，对迁移成果满意后再交纳新产品的周期使用服务费。</dd>
+        </dl>
+        <dl class="box-faq">
+            <dt><i>2</i>迁移价格怎么收取？</dt>
+            <dd>您好，将您的网站原貌迁移到另外一个产品上的服务是免费的，但是迁移完成后，如果您确定需要使用，需要向服务商单独支付产品周期使用服务费，该价格不超过原万网续费价格（“超级战车”产品名称除外）。</dd>
+        </dl>
+        <dl class="box-faq">
+            <dt><i>3</i>多语言网站价格需要单独支付费用吗？</dt>
+            <dd>需要，是按照一个独立站点向服务商交纳产品周期使用服务费。</dd>
+        </dl>
+        <dl class="box-faq">
+            <dt><i>4</i>迁移需要多少时间完成？</dt>
+            <dd>服务商平均迁移时间是2天，一般不超过5天，具体请联系服务商咨询，服务商会根据用户站点的难易程度给予评估迁移时间。</dd>
+        </dl>
+        <dl class="box-faq">
+            <dt><i>5</i>迁移产品的服务器什么配置？</dt>
+            <dd>标配使用万网主机，具体配置会根据您所购买的万网建站产品型号而定，请联系服务商咨询。另外，按照建站市场平台规则是不对用户独立开放主机管理信息，请知晓。</dd>
+        </dl>
+        <dl class="box-faq">
+            <dt><i>6</i>迁移后怎么开通新网站？</dt>
+            <dd>您需要重新操作域名解析，以及域名绑定，请联系服务商，服务商会提供指导服务。</dd>
+        </dl>
+        <dl class="box-faq">
+            <dt><i>7</i>如果我自行建站，原网站数据能提取么？</dt>
+            <dd>非常抱歉，由于您所购买的万网建站产品属于SAAS系统，从技术角度数据无法单独剥离提取。</dd>
+        </dl>
+        <dl class="box-faq">
+            <dt><i>8</i>服务商有保障吗？</dt>
+            <dd>“北京云梦”和”北京云邦”这两家建站服务商在建站市场平台创建以来就已经入驻，建站市场平台有一套完善的服务保障体系来保障用户的权益，详细请查看《<a href="http://market.aliyun.com/service.html" target="_blank">服务保障体系</a>》。</dd>
+        </dl>
+        <dl class="box-faq">
+            <dt><i>9</i>如何选择网站迁移的服务商？</dt>
+            <dd>请您查看页面上方迁移方案服务商信息表中的“迁移商品特性及服务商特性、迁移时间等”内容，如有疑问也可分别致电两家服务商进行详细咨询后，再选择一家服务商来为您迁移服务。</dd>
+        </dl>
+        <dl class="box-faq box-faq-nobd">
+            <dt><i>10</i>网站是否需要重新备案？</dt>
+            <dd>如果之前做了“经营性ICP备案”的需要变更服务器IP地址，常规的网站备案不需要变更。</dd>
+        </dl>
+    </div>
+</div>
+<script type="text/javascript" src="http://www.aliyun.com/rgn/aliyun_footer?renderer=js"></script>
+<script src="http://g.alicdn.com/hichina/home/4.0.2/dpl/script/all.js"></script>
+<script type="text/javascript">
+
+    var g_userAuthIpAddress = "http://123.56.131.57";
+    var g_checkUserLoginStatusUrl = "http://netcn.console.aliyun.com/core/customerapi/baseinfo";
+    var g_getProductInfoUrl = "http://netcn.console.aliyun.com/core/getproductinfo";
+    var g_webListUrl = "http://netcn.console.aliyun.com/core/website/list";
+
+    Date.prototype.diff = function(date){
+        return ((this.getTime() - date.getTime())/(24 * 60 * 60 * 1000)).toFixed(0);
+    }
+
+    $(document).ready(function () {
+        checkUserLoginStatusAndGetProductInfo();
+    });
+
+    function checkUserLoginStatusAndGetProductInfo() {
+        $.ajax({
+            url: g_checkUserLoginStatusUrl,
+            type: "GET",
+            dataType: "jsonp",
+            jsonp: "callback",
+            contentType: "application/json",
+            data: {},
+            success: function (data) {
+                if (data.code == "200") {
+                    $("#iIpt_userId_h").val(data.data.userID)
+                    getProductInfoAndFillData(data.data.userID);
+                } else {
+                    goToWebListPage();
+                }
+            }
+        });
+    }
+
+    function getProductInfoAndFillData(userID) {
+        var saleID = getQueryString("saleID");
+        $.ajax({
+            url: g_getProductInfoUrl,
+            type: "GET",
+            dataType: "jsonp",
+            jsonp: "callback",
+            contentType: "application/json",
+            data: { "saleID": saleID, "userID": userID },
+            success: function (data) {
+                if (data.status == "success" && data.code == "200") {
+                    $("#iIpt_productName").val(data.data.productName).attr("disabled", "true");
+                    $("#iIpt_productPrice").val(data.data.renewPrice + "/年").attr("disabled", "true");
+                    $("#iIpt_userDomain").val(data.data.domain).attr("disabled", "true");
+                    $("#iIpt_expiredDate").val(data.data.deadDate).attr("disabled", "true");
+                } else {
+                    popGetProductInfoFail();
+                    goToWebListPage();
+                }
+            }
+        });
+    }
+
+    function submitUserRequest() {
+        var userId = $("#iIpt_userId_h").val();
+        var userName = encodeURIComponent($("#iIpt_userName").val());
+        var productName = encodeURIComponent($("#iIpt_productName").val());
+        var productPrice = encodeURIComponent($("#iIpt_productPrice").val());
+        var userDomain = encodeURIComponent($("#iIpt_userDomain").val());
+        var expiredDate = $("#iIpt_expiredDate").val();
+        var userPhone = $("#iIpt_userPhone").val();
+        var supportCompany = $("input[type=radio]:checked").val();
+        var agreeArticle = $("input[type=checkbox]:checked").val();
+        if (checkFormData(userId, userName, userDomain, userPhone, productName, productPrice, expiredDate, supportCompany, agreeArticle)) {
+            checkUserAuthDataExist(userId, userDomain, function () {
+                $.ajax({
+                    url: g_userAuthIpAddress + "/add.do",
+                    type: "GET",
+                    dataType: "jsonp",
+                    jsonp: "callback",
+                    contentType: "application/json",
+                    data: {
+                        "userId": userId,
+                        "userName": userName,
+                        "userPhone": userPhone,
+                        "userDomain": userDomain,
+                        "productName": productName,
+                        "productPrice": productPrice,
+                        "supportCompany": supportCompany,
+                        "productExpiredDate": expiredDate
+                    },
+                    success: function (rs) {
+                        if (rs == "success") {
+                            popAuthSuccess();
+                        } else {
+                            popAuthFail();
+                        }
+                    }
+                });
+            });
+        };
+    };
+
+    function checkFormData(userId, userName, userDomain, userPhone, productName, productPrice, expiredDate, supportCompany, agreeArticle) {
+        var ret = false;
+        if (agreeArticle == undefined) {
+            popcheckFormFail();
+        } else if (userId == "" || userName == "" || userDomain == "" || userPhone == ""
+                || productName == "" || productPrice == "" || expiredDate == "" || (supportCompany == undefined || supportCompany == "")) {
+            popcheckFormFail();
+        } else if (checkExpiredDateBeyondMaxNum(expiredDate)) {
+            popcheckExpiredDateFail();
+        } else {
+            ret = true;
+        }
+        return ret;
+    }
+
+    function checkExpiredDateBeyondMaxNum(expiredDate){
+        var now = new Date();
+        var diff = now.diff(new Date(expiredDate));
+        return (Number(diff) > 30);  // 已过期30天站点无法进行迁移
+    }
+
+    function checkUserAuthDataExist(userId, userDomain, cbNoRepeat) {
+        cbNoRepeat = cbNoRepeat || function () { };
+        $.ajax({
+            url: g_userAuthIpAddress + "/exist.do",
+            type: "GET",
+            dataType: "jsonp",
+            jsonp: "callback",
+            contentType: "application/json",
+            data: { "userId": userId, "userDomain": encodeURIComponent(userDomain) },
+            success: function (rs) {
+                if (rs == "success") {
+                    popAuthRepeat();
+                } else {
+                    cbNoRepeat();
+                }
+            }
+        });
+    }
+
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+
+    function goToWebListPage() {
+        if(window.location.href.indexOf('wanwang.aliyun.com') >= 0){
+            window.location.href = g_webListUrl;
+        }
+    }
+
+    var popAuthSuccess = function () {
+        HiChina.popup.dialog({
+            title: '提醒',
+            contIcon: 'icon-yes3',
+            contIconColor: 'w-color-green',
+            contTitle: '您的申请已经提交给服务商，服务商会尽快给您操作网站迁移，您也可以拨打服务商服务热线查询迁移进度，谢谢！',
+            btnYes: '',
+            btnNo: '确定'
+        })
+    };
+    var popAuthFail = function () {
+        HiChina.popup.dialog({
+            title: '提醒',
+            contIcon: 'icon-no3',
+            contIconColor: 'w-color-red',
+            contTitle: '您提交的申请没有发送成功，请稍后重试，谢谢！',
+            btnYes: '',
+            btnNo: ''
+        })
+    };
+    var popcheckFormFail = function () {
+        HiChina.popup.dialog({
+            title: '提醒',
+            contIcon: 'icon-no3',
+            contIconColor: 'w-color-red',
+            contTitle: '您有信息没填写或未勾选，请完善后再提交，谢谢！',
+            btnYes: '',
+            btnNo: ''
+        })
+    };
+    var popAuthRepeat = function () {
+        HiChina.popup.dialog({
+            title: '提醒',
+            contIcon: 'icon-no3',
+            contIconColor: 'w-color-red',
+            contTitle: '您已经提交过该站点的迁移申请，请勿重复提交，如需要提交其他站点迁移，请进入 “<a href=\"http://netcn.console.aliyun.com/core/website/list\" target=\"_blank\">会员中心 标准网站</a>”页面勾选业务点击“续费”再次进行申请迁移。',
+            btnYes: '',
+            btnNo: ''
+        })
+    };
+    var popGetProductInfoFail = function () {
+        HiChina.popup.dialog({
+            title: '提醒',
+            contIcon: 'icon-no3',
+            contIconColor: 'w-color-red',
+            contTitle: '获取产品信息失败，请尝试重新刷新页面，谢谢！',
+            btnYes: '',
+            btnNo: ''
+        })
+    };
+    var popcheckExpiredDateFail = function () {
+        HiChina.popup.dialog({
+            title: '提醒',
+            contIcon: 'icon-no3',
+            contIconColor: 'w-color-red',
+            contTitle: '您好，您的业务已经过期超过30天，已无法提交迁移网站申请，您可以直接联系建站公司新建网站。',
+            btnYes: '',
+            btnNo: ''
+        })
+    };
+
+</script>
+</body>
+</html>

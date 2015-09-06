@@ -146,5 +146,8 @@
     <a class="remodal-cancel" href="#">Cancel</a>
     <a class="remodal-confirm" href="#">OK</a>
 </div>
+<div>
+    <a href="javascript:;" class="blueButton" onclick="sendWeiXinPostMsg()">测试微信接收POST请求</a>
+</div>
 </body>
 </html>

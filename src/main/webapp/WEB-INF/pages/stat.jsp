@@ -60,9 +60,9 @@
             &nbsp;/&nbsp;
             <a href="#" class="cA_statMenu_b cA_statMenuSelected_b" title="下载全部记录" onclick="window.location.href='/stat/download'">统计</a>
             &nbsp;/&nbsp;
-            <a href="#" class="cA_statMenu_b" onclick="window.location.href='/custom_config'">设置</a>
+            <a href="#" class="cA_statMenu_b" onclick="window.location.href='/investment'">理财</a>
             &nbsp;/&nbsp;
-            <a href="#" class="cA_statMenu_b" onclick="logout()">退出</a>
+            <a href="#" class="cA_statMenu_b" onclick="window.location.href='/custom_config'">设置</a>
         </div>
         <div class="cDiv_content_c">
             <div>

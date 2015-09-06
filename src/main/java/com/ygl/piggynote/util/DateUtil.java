@@ -25,7 +25,6 @@ public class DateUtil {
     private static String monthDateFormatStr = "yyyy年MM月";
 
 
-
     /**
      * 格式化日期字符串
      * 形如：“2014-07-18 12:11:11”
@@ -47,6 +46,10 @@ public class DateUtil {
 
         DateFormat df = new SimpleDateFormat(shortDateFormatStr);
         return df.format(date);
+    }
+
+    public static String getDayStr(Date date){
+        return (new SimpleDateFormat("dd日")).format(date);
     }
 
     /**
@@ -95,6 +98,7 @@ public class DateUtil {
         SimpleDateFormat sdf = new SimpleDateFormat(shortDateFormatStr);
         return sdf.format(newDate);
     }
+
 
     /**
      * 按照统一的格式将字符串解析为日期实例
