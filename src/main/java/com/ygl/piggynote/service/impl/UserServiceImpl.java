@@ -17,10 +17,8 @@ import java.sql.Types;
  */
 @Service("pnUserService")
 public class UserServiceImpl implements UserService {
-
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
 
     /**
      * 通过用户名获取用户实例

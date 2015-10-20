@@ -5,7 +5,6 @@
 <head>
     <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
     <meta property="wb:webmaster" content="eeb9f7fdacccbe7e" />
-
     <title>聪明账，糊涂算</title>
     <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="/js/common.js"></script>

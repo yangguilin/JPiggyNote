@@ -7,9 +7,9 @@ import com.ygl.piggynote.bean.*;
  * Created by yanggavin on 14-7-18.
  */
 public interface UserService {
-    public UserBean get(String userName);
-    public Boolean add(UserBean bean);
-    public Boolean delete(String userName);
-    public Boolean update(UserBean bean);
-    public Boolean exist(String userName);
+    UserBean get(String userName);
+    Boolean add(UserBean bean);
+    Boolean delete(String userName);
+    Boolean update(UserBean bean);
+    Boolean exist(String userName);
 }

@@ -1,5 +1,8 @@
 package com.ygl.piggynote.util;
 
+import com.google.gson.Gson;
+import com.ygl.piggynote.bean.HttpResContentBean;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -52,5 +55,24 @@ public class CommonUtil {
 
     public static String removeLastWord(String content){
         return ((content != "") ? content.substring(0, content.length() - 1) : "");
+    }
+
+    public static void writeResJsonResult(Boolean ret, Object jsonContent, HttpServletResponse response){
+        HttpResContentBean resContent = new HttpResContentBean();
+        resContent.setCode((ret ? "1" : "0"));
+        resContent.setMessage(jsonContent);
+        Gson gson = new Gson();
+        String jsonRes = gson.toJson(resContent);
+
+        response.setContentType("application/json");
+        PrintWriter pw = null;
+        try {
+            pw = response.getWriter();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        pw.write(jsonRes);
+        pw.close();
+        pw.flush();
     }
 }
