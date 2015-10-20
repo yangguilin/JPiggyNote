@@ -24,12 +24,13 @@
     <div class="cDiv_content">
       <div>
         <span>
-          <input type="text" id="iIpt_searchContent" class="cIpt_searchContent" />
+          <input type="text" id="iIpt_searchContent" class="cIpt_searchContent" onkeydown="quickSearch(event)" />
         </span>
         <span>
           <a href="#" class="cA_searchButton_b" onclick="searchShowName()">找找看</a>
         </span>
       </div>
+      <div id="iDiv_searchResult" class="cDiv_searchResult"></div>
     </div>
     <div class="cDiv_foot"></div>
   </div>

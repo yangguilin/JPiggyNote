@@ -393,7 +393,6 @@ function login(){
  * 密码输入框回车快捷登陆
  */
 function quickLogin(event){
-
     var theEvent = window.event || event;
     var code = theEvent.keyCode || theEvent.which;
 

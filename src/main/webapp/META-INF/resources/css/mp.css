@@ -2,7 +2,32 @@
 .cDiv_container { text-align: center; }
 .cDiv_top { height: 200px; }
 .cDiv_content { height:300px; padding-top: 10px; }
-.cIpt_searchContent { width:200px; height:30px; padding:4px 5px; }
+.cDiv_searchResult { padding-top: 30px; }
+.cTbl_searchResult {
+    display: inline-block;
+    font-size: 14px;
+    border:1px solid lightgray;
+    border-radius: 5px;
+}
+.cTbl_searchResult tr td:first-child {
+    background-color: #ededed;
+    padding:4px 10px;
+    font-weight:bold;
+    color:gray;
+    height:38px;
+}
+.cTbl_searchResult tr td:nth-child(2) { padding:10px 20px; color:dimgray; }
+.cTbl_searchResult span {
+    border: 1px solid green;
+    padding: 2px 4px 3px 6px;
+    border-radius: 5px;
+    margin-left:2px;
+}
+.cIpt_searchContent {
+    width:100px;
+    height:30px;
+    padding:4px 20px 4px 20px;
+}
 .cA_searchButton_b {
     color: #333;
     cursor: pointer;
@@ -13,3 +38,4 @@
     text-decoration: none;
     border: 1px solid #E1E1E1;
 }
+.cTd_dottedSplit { border-bottom:1px dotted lightgray; }
