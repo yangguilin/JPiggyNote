@@ -18,6 +18,7 @@
   <link href="/css/go.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+  <span>${msg}</span>
   <div id="iDiv_userMessageWindow">
     <ul></ul>
   </div>

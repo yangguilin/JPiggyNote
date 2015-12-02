@@ -19,6 +19,7 @@ public class MpMyPasswordRowMapper implements RowMapper {
         bean.setShowName(rs.getString("show_name"));
         bean.setCreateTime(rs.getDate("create_time"));
         bean.setLatestUpdateTime(rs.getDate("latest_update_time"));
+        bean.setAccountId(rs.getInt("account_id"));
         return bean;
     }
 }

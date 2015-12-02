@@ -20,17 +20,17 @@ public class MpMyPasswordServiceImpl implements MpMyPasswordService {
 
     @Override
     public boolean add(MyPasswordBean bean) {
-        int ret = jdbcTemplate.update("insert into mp_my_passwords(user_id, password, show_name, latest_update_time) value(?, ?, ?, now())",
-                new Object[]{bean.getUserId(), bean.getPassword(), bean.getShowName()},
-                new int[]{Types.INTEGER, Types.VARCHAR, Types.VARCHAR});
+        int ret = jdbcTemplate.update("insert into mp_my_passwords(user_id, password, show_name, latest_update_time, account_id) value(?, ?, ?, now(), ?)",
+                new Object[]{bean.getUserId(), bean.getPassword(), bean.getShowName(), bean.getAccountId()},
+                new int[]{Types.INTEGER, Types.VARCHAR, Types.VARCHAR, Types.INTEGER});
         return ret == 1;
     }
 
     @Override
     public boolean update(MyPasswordBean bean) {
-        int ret = jdbcTemplate.update("update mp_my_passwords set password=?, show_name=?, latest_update_time=now() where id=? and user_id=?",
-                new Object[]{bean.getPassword(), bean.getShowName(), bean.getId(), bean.getUserId()},
-                new int[]{Types.VARCHAR, Types.VARCHAR, Types.INTEGER, Types.INTEGER});
+        int ret = jdbcTemplate.update("update mp_my_passwords set password=?, show_name=?, latest_update_time=now(), account_id=? where id=? and user_id=?",
+                new Object[]{bean.getPassword(), bean.getShowName(), bean.getAccountId(), bean.getId(), bean.getUserId()},
+                new int[]{Types.VARCHAR, Types.VARCHAR, Types.INTEGER, Types.INTEGER, Types.INTEGER});
         return ret == 1;
     }
 

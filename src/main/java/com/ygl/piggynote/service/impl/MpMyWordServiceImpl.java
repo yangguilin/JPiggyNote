@@ -43,10 +43,18 @@ public class MpMyWordServiceImpl implements MpMyWordService {
     }
 
     @Override
-    public List<MyWordBean> getByUserId(int userId) {
+    public List<MyWordBean> get(int userId) {
         return (List<MyWordBean>)jdbcTemplate.query("select * from mp_my_words where user_id=?",
                 new Object[]{userId},
                 new int[]{Types.INTEGER},
+                new MpMyWordRowMapper());
+    }
+
+    @Override
+    public MyWordBean get(int userId, String showName) {
+        return (MyWordBean)jdbcTemplate.queryForObject("select * from mp_my_words where user_id=? and show_name=?",
+                new Object[]{userId, showName},
+                new int[]{Types.INTEGER, Types.VARCHAR},
                 new MpMyWordRowMapper());
     }
 }

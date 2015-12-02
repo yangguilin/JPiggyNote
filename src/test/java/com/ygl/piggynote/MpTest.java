@@ -62,7 +62,7 @@ public class MpTest {
         bean.setShowName("常用数字");
         Assert.isTrue(mpMyWordService.add(bean));
 
-        List<MyWordBean> list = mpMyWordService.getByUserId(userId);
+        List<MyWordBean> list = mpMyWordService.get(userId);
         Assert.isTrue(list.size() == 1);
         MyWordBean nBean = list.get(0);
         nBean.setShowName("我的姓");

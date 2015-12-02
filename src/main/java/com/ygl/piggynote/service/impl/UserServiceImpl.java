@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Boolean add(UserBean bean) {
-        int ret = jdbcTemplate.update("insert into pn_users(user_name, password, nike_name, email, mobile_phone, create_date, latest_login_date) value(?, ?, ?, ?, ?, now(), ?)",
+        int ret = jdbcTemplate.update("insert into pn_users(user_name, password, nike_name, email, mobile_phone, create_date, latest_login_date, deleted) value(?, ?, ?, ?, ?, now(), ?, 0)",
                 new Object[]{bean.getUserName(), bean.getPassword(), bean.getNikeName(), bean.getEmail(), bean.getMobilePhone(), bean.getLatestLoginDate()},
                 new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.DATE});
         return ret == 1;

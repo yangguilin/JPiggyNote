@@ -12,6 +12,7 @@ public class MyPasswordBean {
     private String showName;
     private Date createTime;
     private Date latestUpdateTime;
+    private int accountId;
 
     public int getId() {
         return id;
@@ -59,5 +60,13 @@ public class MyPasswordBean {
 
     public void setLatestUpdateTime(Date latestUpdateTime) {
         this.latestUpdateTime = latestUpdateTime;
+    }
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
 }

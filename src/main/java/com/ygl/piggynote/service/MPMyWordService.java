@@ -11,5 +11,6 @@ public interface MpMyWordService {
     boolean add(MyWordBean bean);
     boolean update(MyWordBean bean);
     boolean delete(int id, int userId);
-    List<MyWordBean> getByUserId(int userId);
+    List<MyWordBean> get(int userId);
+    MyWordBean get(int userId, String showName);
 }

@@ -1,10 +1,12 @@
 
+/* class */
 .cDiv_container { text-align: center; }
 .cDiv_top { height: 200px; }
 .cDiv_content { height:300px; padding-top: 10px; }
+.cTbl_searchPanel, .cTbl_searchResult, .cTbl_newItem, #iDiv_editPanel table { display: inline-block; }
+.cTbl_searchPanel tr td:first-child { padding-right: 10px; }
 .cDiv_searchResult { padding-top: 30px; }
 .cTbl_searchResult {
-    display: inline-block;
     font-size: 14px;
     border:1px solid lightgray;
     border-radius: 5px;
@@ -16,26 +18,93 @@
     color:gray;
     height:38px;
 }
-.cTbl_searchResult tr td:nth-child(2) { padding:10px 20px; color:dimgray; }
-.cTbl_searchResult span {
+.cTbl_searchResult tr td { padding:10px 20px; color:dimgray; }
+
+/*添加结果框*/
+.cTbl_newItem {
+    font-size: 14px;
+    border:1px solid lightgray;
+    border-radius: 5px;
+}
+.cTbl_newItem tr td:first-child {
+    background-color: #ededed;
+    padding:4px 10px;
+    font-weight:bold;
+    color:gray;
+    height:38px;
+}
+.cTbl_newItem tr td { padding:10px 20px; color:dimgray; }
+
+.cSpan_tipWord {
     border: 1px solid green;
     padding: 2px 4px 3px 6px;
     border-radius: 5px;
-    margin-left:2px;
+    margin-left:5px;
+    cursor: pointer;
+    display: inline-flex;
 }
-.cIpt_searchContent {
+.cSpan_tipWord:hover { border:1px solid orange; background-color: #C7DDBA; }
+.cSpan_showContent { font-weight:bold; color:palevioletred; }
+.cIpt_mainInputBox {
     width:100px;
     height:30px;
     padding:4px 20px 4px 20px;
+    font-size: 16px;
 }
-.cA_searchButton_b {
+.cA_blockBtn {
     color: #333;
     cursor: pointer;
     font-size: 14px;
-    padding: 9px 15px 12px 15px;
-    margin-left: -6px;
+    padding: 11px 15px 10px 15px;
+    margin-left: -3px;
     font-weight: normal;
     text-decoration: none;
     border: 1px solid #E1E1E1;
 }
-.cTd_dottedSplit { border-bottom:1px dotted lightgray; }
+.cTd_bottomDottedSplit { border-bottom:1px dotted lightgray; }
+.cTd_rightDottedSplit { border-right:1px dotted lightgray; }
+.cImg_plus {
+    width:36px;
+    height: 36px;
+    cursor: pointer;
+    -moz-opacity:0.3;
+    -khtml-opacity:0.3;
+    opacity: 0.3;
+}
+.cImg_search {
+    height:36px;
+    cursor: pointer;
+    -moz-opacity:0.3;
+    -khtml-opacity:0.3;
+    opacity: 0.3;
+    display: none;
+}
+.cImg_plus:hover { -moz-opacity:1;-khtml-opacity:1;opacity: 1; }
+.cImg_search:hover { -moz-opacity:1;-khtml-opacity:1;opacity: 1; }
+.cIpt_newItem { width:180px; height:18px; font-size:14px; }
+.cSel_chooseList { width:180px; height:30px; font-size:14px; }
+.cTbl_operatePanel {
+    border: 1px dotted lightgray;
+    padding: 10px 15px 0px 15px;
+    border-radius: 5px;
+    font-size:14px;
+}
+.cTbl_operatePanel caption {
+    font-size:16px;
+    color:darkgreen;
+    border-bottom: 1px dotted lightgray;
+    padding-bottom:8px;
+}
+.cTbl_operatePanel td span.cSpan_tipWord { margin-top: 8px; }
+.cTd_bottomRow { height:36px; border-top:1px dotted lightgray; }
+.cTd_firstTitleTd { width:100px; border-right:1px dotted lightgray; }
+
+/* id */
+#iDiv_editModulePanel {
+    font-size:14px;
+    margin-top:20px;
+}
+#iDiv_editPanel table td {
+    padding:10px 20px; color:dimgray;
+}
+#iDiv_addNewResultPanel, #iDiv_editModulePanel, #iA_add_b { display: none; }

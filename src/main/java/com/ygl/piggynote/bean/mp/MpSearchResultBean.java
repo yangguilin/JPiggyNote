@@ -6,6 +6,7 @@ package com.ygl.piggynote.bean.mp;
 public class MpSearchResultBean {
     private int id;
     private String showName;
+    private String accountTip;
     private String passwordTip;
 
     public int getId() {
@@ -30,5 +31,13 @@ public class MpSearchResultBean {
 
     public void setPasswordTip(String passwordTip) {
         this.passwordTip = passwordTip;
+    }
+
+    public String getAccountTip() {
+        return accountTip;
+    }
+
+    public void setAccountTip(String accountTip) {
+        this.accountTip = accountTip;
     }
 }
