@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.List;
 
 /**
  * Created by yanggavin on 15/10/22.
@@ -26,7 +27,7 @@ public class MpMyAccountContentServiceImpl implements MpMyAccountContentService 
     @Override
     public int add(MyAccountContentBean bean) {
         final MyAccountContentBean fBean = bean;
-        final String sql = "insert into mp_my_account_contents(user_id, content, show_name) value(?, ?, ?)";
+        final String sql = "insert into mp_my_account_contents(user_id, content, show_name, create_time) value(?, ?, ?, now())";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 new PreparedStatementCreator() {
@@ -34,9 +35,9 @@ public class MpMyAccountContentServiceImpl implements MpMyAccountContentService 
                     public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
                         PreparedStatement ps = jdbcTemplate.getDataSource().getConnection()
                                 .prepareStatement(sql, new String[]{"user_id", "content", "show_name"});
-                        ps.setString(1, fBean.getUserId() + "");
+                        ps.setInt(1, fBean.getUserId());
                         ps.setString(2, fBean.getContent());
-                        ps.setString(2, fBean.getShowName());
+                        ps.setString(3, fBean.getShowName());
                         return ps;
                     }
                 }
@@ -73,6 +74,30 @@ public class MpMyAccountContentServiceImpl implements MpMyAccountContentService 
         return (MyAccountContentBean)jdbcTemplate.queryForObject("select * from mp_my_account_contents where user_id=? and show_name=?",
                 new Object[]{userId, showName},
                 new int[]{Types.INTEGER, Types.VARCHAR},
+                new MpMyAccountContentRowMapper());
+    }
+
+    @Override
+    public MyAccountContentBean get(int userId, int id) {
+        return (MyAccountContentBean)jdbcTemplate.queryForObject("select * from mp_my_account_contents where user_id=? and id=?",
+                new Object[]{userId, id},
+                new int[]{Types.INTEGER, Types.INTEGER},
+                new MpMyAccountContentRowMapper());
+    }
+
+    @Override
+    public List<MyAccountContentBean> getByUserId(int userId) {
+        return (List<MyAccountContentBean>)jdbcTemplate.query("select * from mp_my_account_contents where user_id=?",
+                new Object[]{userId},
+                new int[]{Types.INTEGER},
+                new MpMyAccountContentRowMapper());
+    }
+
+    @Override
+    public List<MyAccountContentBean> getByContent(String content) {
+        return (List<MyAccountContentBean>)jdbcTemplate.query("select * from mp_my_account_contents where content=?",
+                new Object[]{content},
+                new int[]{Types.VARCHAR},
                 new MpMyAccountContentRowMapper());
     }
 }

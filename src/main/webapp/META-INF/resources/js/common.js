@@ -12,14 +12,12 @@ function logout(){
     // 调用ajax请求
     $.post("/logout.do", { "userName": userName },
         function (data) {
-
-            if (data == "success") {
-
-                alert("成功退出");
-                window.location.href = "/";
-            } else {
-                alert("退出失败");
-            }
+            //if (data == "success") {
+            //    alert("成功退出");
+            //} else {
+            //    alert("退出失败");
+            //}
+            reloadCurrentPage();
         });
 }
 

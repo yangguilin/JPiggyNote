@@ -8,6 +8,8 @@ public class MpSearchResultBean {
     private String showName;
     private String accountTip;
     private String passwordTip;
+    private int accountId;
+    private String passwordIds;
 
     public int getId() {
         return id;
@@ -39,5 +41,21 @@ public class MpSearchResultBean {
 
     public void setAccountTip(String accountTip) {
         this.accountTip = accountTip;
+    }
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getPasswordIds() {
+        return passwordIds;
+    }
+
+    public void setPasswordIds(String passwordIds) {
+        this.passwordIds = passwordIds;
     }
 }

@@ -19,6 +19,9 @@
   <link href="/css/shared/buttons.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+  <div>
+    <input type="hidden" id="iIpt_accountTotalNum_h" value="${myAccountTotalNum}" />
+  </div>
   <div class="cDiv_container">
     <div class="cDiv_top">
       <div class="cDiv_logo">
@@ -29,12 +32,12 @@
         <table class="cTbl_searchPanel">
           <tr>
             <td>
-              <img src="/img/mp_plus.png" class="cImg_plus" onclick="showAddNewPanel()" />
-              <img src="/img/mp_search.png" class="cImg_search" onclick="showSearchPanel()" />
+              <img src="/img/mp_search.png" class="cImg_search" onclick="showAddNewPanel()" />
+              <img src="/img/mp_plus.png" class="cImg_plus" onclick="showSearchPanel()" />
             </td>
             <td>
-              <input type="text" id="iIpt_searchContent" class="cIpt_mainInputBox" />
-              <input type="text" id="iIpt_addContentName" class="cIpt_mainInputBox" />
+              <input type="text" id="iIpt_searchContent" class="cIpt_mainInputBox" onkeydown="quickSearch(event)" />
+              <input type="text" id="iIpt_addContentName" class="cIpt_mainInputBox" onkeydown="quickAddNewContent(event)"/>
             </td>
             <td>
               <a href="#" id="iA_search_b" class="cA_blockBtn">找找</a>
@@ -47,83 +50,92 @@
       <div id="iDiv_addNewResultPanel">
         <table class='cTbl_newItem'>
           <tr id="iTr_newPasswordInfo">
-            <td class="cTd_bottomDottedSplit">微信</td>
+            <td id="iTd_newItemShowName" class="cTd_bottomDottedSplit">微信</td>
             <td class="cTd_rightDottedSplit">
-              <span class="cSpan_tipWord">修改账号信息</span>
+              <span id="iSpn_newAccountInfo" class="cSpan_tipWord" value="" onclick="curPage.showAccountEditor()">修改账号信息</span>
             </td>
             <td class="cTd_rightDottedSplit">
-              <span class="cSpan_tipWord">修改密码组合</span>
+              <span id="iSpn_newPswInfo" class="cSpan_tipWord" value="" ondblclick="curPage.resetNewPswInfo(this)" onclick="curPage.showPasswordSelector()">修改密码组合</span>
             </td>
             <td class="cTd_bottomDottedSplit">
-              <a href="#" class="firstButton blueButton">保存</a>
+              <a href="#" class="firstButton blueButton" onclick="curPage.finishNewAccountInfo()">保存</a>
+            </td>
+          </tr>
+        </table>
+        <table class="cTbl_newItemResultMsg">
+          <tr>
+            <td>
+              <span id="iSpan_newItemResultMsg"></span>
             </td>
           </tr>
         </table>
       </div>
       <div id="iDiv_editModulePanel">
-        <table class="cTbl_operatePanel">
+        <table id="iTbl_AccountEditor" class="cTbl_operatePanel">
           <caption>账号信息</caption>
+          <tr><td colspan="2"></td></tr>
           <tr>
             <td>已用提示：</td>
-            <td>
-              <select class="cSel_chooseList">
-                <option>快乐17</option>
-                <option>gmail邮箱</option>
-                <option>hotmail邮箱</option>
+            <td style="margin-top: 5px;">
+              <select id="iSel_existAccount" class="cSel_chooseList" onchange="curPage.changeAccountInfo()">
+                <option value="new">新账号</option>
+                <c:forEach items="${showAccountList}" var="item">
+                  <option value="${item.getId()}">${item.getShowName()}</option>
+                </c:forEach>
               </select>
             </td>
           </tr>
-          <tr>
+          <tr tag="new_item">
             <td>账号提示：</td>
             <td>
-              <input type="text" class="cIpt_newItem" />
+              <input type="text" id="iIpt_newAccount" class="cIpt_newItem" placeholder="可选填" />
             </td>
           </tr>
-          <tr>
+          <tr tag="new_item">
             <td>账号原值：</td>
             <td>
-              <input type="text" class="cIpt_newItem" />
+              <input type="text" id="iIpt_newAccountOriginalVal" class="cIpt_newItem" />
             </td>
           </tr>
+          <tr><td colspan="2"></td></tr>
           <tr>
             <td colspan="2" class="cTd_bottomRow">
-              <a href="#" class="firstButton blueButton">添加</a>
+              <a href="#" class="blueButton" onclick="curPage.hideAccountEditor()">取消</a>&nbsp;&nbsp;&nbsp;&nbsp;
+              <a href="#" class="firstButton blueButton" onclick="curPage.confirmNewAccount()">添加</a>
             </td>
           </tr>
         </table>
-        <table class="cTbl_operatePanel">
+        <table id="iTbl_pswCombination" class="cTbl_operatePanel">
           <caption>密码组合</caption>
           <tr>
-            <td class="cTd_firstTitleTd">常用提示词：</td>
-            <td style="width:300px;">
-              <span class="cSpan_tipWord">数字</span>
-              <span class="cSpan_tipWord">姓名</span>
-              <span class="cSpan_tipWord">一百万</span>
-              <span class="cSpan_tipWord">分隔符</span>
-              <span class="cSpan_tipWord">分隔符分隔符</span>
-              <span class="cSpan_tipWord">分隔符aaaaa</span>
-              <span class="cSpan_tipWord">好的</span>
-              <span class="cSpan_tipWord">分隔符aaaaa</span>
+            <td class="cTd_firstTitleTd">
+              <a href="javascript:;" class="firstButton grayButton" onclick="curPage.showNewPswPartEditor()">新密码块</a>
+            </td>
+            <td style="width:300px; padding: 10px 5px 10px 5px;">
+              <c:forEach items="${showWordList}" var="item">
+                <span onclick="curPage.addPasswordPart(this)" value="${item.getId()}" class="cSpan_tipWord">${item.getShowName()}</span>
+              </c:forEach>
             </td>
           </tr>
         </table>
-        <table class="cTbl_operatePanel">
+        <table id="iTbl_pswEditor" class="cTbl_operatePanel">
           <caption>新的密码块</caption>
           <tr>
             <td>密码块提示：</td>
             <td>
-              <input type="text" class="cIpt_newItem" />
+              <input type="text" id="iIpt_newPswPartText" class="cIpt_newItem" placeholder="可选填" />
             </td>
           </tr>
           <tr>
             <td>密码块原值：</td>
             <td>
-              <input type="text" class="cIpt_newItem" />
+              <input type="text" id="iIpt_newPswPartVal" class="cIpt_newItem" />
             </td>
           </tr>
           <tr>
             <td colspan="2" class="cTd_bottomRow">
-              <a href="#" class="firstButton blueButton">保存</a>
+              <a href="#" class="blueButton" onclick="curPage.hideNewPswPartEditor()">取消</a>&nbsp;&nbsp;&nbsp;&nbsp;
+              <a href="#" class="firstButton blueButton" onclick="curPage.confirmNewPswPart()">保存</a>
             </td>
           </tr>
         </table>

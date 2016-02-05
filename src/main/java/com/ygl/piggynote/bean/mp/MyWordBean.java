@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by yanggavin on 15/10/15.
  */
-public class MyWordBean {
+public class MyWordBean implements Comparable<MyWordBean> {
     private int id;
     private int userId;
     private String showName;
@@ -50,5 +50,10 @@ public class MyWordBean {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    @Override
+    public int compareTo(MyWordBean o) {
+        return this.getShowName().length() - o.getShowName().length();
     }
 }

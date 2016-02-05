@@ -2,7 +2,6 @@ package com.ygl.piggynote.controller;
 
 import com.ygl.piggynote.bean.UserBean;
 import com.ygl.piggynote.common.CommonConstant;
-import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +15,7 @@ public class BaseController {
 
     protected static final String ERROR_MSG_KEY = "errorMsg";
     public String curLoginUserName = "";
+    public int curLoginUserId = -1;
 
     /**
      * 从Session中获取用户实例
@@ -37,24 +37,12 @@ public class BaseController {
         session.setMaxInactiveInterval(CommonConstant.SESSION_KEEP_SECOND);
     }
 
-    /**
-     * 获取基于应用程序的url绝对路径
-     * @param request   request
-     * @param url   相对url
-     * @return  绝对url
-     */
-    public final String getAppBaseUrl(HttpServletRequest request, String url){
-
-        Assert.hasLength(url, "url不能为空");
-        Assert.isTrue(url.startsWith("/"), "必须以/开头");
-        return request.getContextPath() + url;
-    }
-
     public Boolean checkUserLoginStatus(HttpServletRequest request){
         Boolean beLogin = false;
         UserBean ub = getUserFromSession(request);
         if (ub != null){
             curLoginUserName = ub.getUserName();
+            curLoginUserId = ub.getId();
             beLogin = true;
         }
         return beLogin;

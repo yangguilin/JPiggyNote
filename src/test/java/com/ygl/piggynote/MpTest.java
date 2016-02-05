@@ -60,7 +60,7 @@ public class MpTest {
         bean.setUserId(userId);
         bean.setContentId(1);
         bean.setShowName("常用数字");
-        Assert.isTrue(mpMyWordService.add(bean));
+        Assert.isTrue(mpMyWordService.add(bean) > 0);
 
         List<MyWordBean> list = mpMyWordService.get(userId);
         Assert.isTrue(list.size() == 1);

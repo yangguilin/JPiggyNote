@@ -1,7 +1,9 @@
 package com.ygl.piggynote.service.impl;
 
+import com.ygl.piggynote.bean.QueryCountBean;
 import com.ygl.piggynote.bean.mp.MyPasswordBean;
 import com.ygl.piggynote.rowmapper.MpMyPasswordRowMapper;
+import com.ygl.piggynote.rowmapper.QueryCountRowMapper;
 import com.ygl.piggynote.service.MpMyPasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -48,5 +50,14 @@ public class MpMyPasswordServiceImpl implements MpMyPasswordService {
                 new Object[]{userId},
                 new int[]{Types.INTEGER},
                 new MpMyPasswordRowMapper());
+    }
+
+    @Override
+    public boolean existShowName(int userId, String showName){
+        QueryCountBean qcb = (QueryCountBean)jdbcTemplate.queryForObject("select count(*) as num from mp_my_passwords where user_id=? and show_name=?",
+                new Object[]{userId, showName},
+                new int[]{Types.INTEGER, Types.VARCHAR},
+                new QueryCountRowMapper());
+        return qcb.getNum() > 0;
     }
 }

@@ -23,7 +23,7 @@ function addRecord(){
             if (data == "success") {
                 alert("操作成功!");
             } else {
-                alert("操作失败！" + data);
+                alert("操作失败！");
             }
         });
 }

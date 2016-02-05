@@ -8,9 +8,10 @@ import java.util.List;
  * Created by yanggavin on 15/10/15.
  */
 public interface MpMyWordService {
-    boolean add(MyWordBean bean);
+    int add(MyWordBean bean);
     boolean update(MyWordBean bean);
     boolean delete(int id, int userId);
     List<MyWordBean> get(int userId);
     MyWordBean get(int userId, String showName);
+    MyWordBean get(int userId, int id);
 }

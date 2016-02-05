@@ -1,12 +1,19 @@
 package com.ygl.piggynote.service.impl;
 
 import com.ygl.piggynote.bean.mp.MyWordBean;
+import com.ygl.piggynote.bean.mp.MyWordContentBean;
 import com.ygl.piggynote.rowmapper.MpMyWordRowMapper;
 import com.ygl.piggynote.service.MpMyWordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
 
@@ -19,11 +26,24 @@ public class MpMyWordServiceImpl implements MpMyWordService {
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public boolean add(MyWordBean bean) {
-        int ret = jdbcTemplate.update("insert into mp_my_words(user_id, show_name, content_id) value(?, ?, ?)",
-                new Object[]{bean.getUserId(), bean.getShowName(), bean.getContentId()},
-                new int[]{Types.INTEGER, Types.VARCHAR, Types.INTEGER});
-        return ret == 1;
+    public int add(MyWordBean bean) {
+        final MyWordBean fBean = bean;
+        final String sql = "insert into mp_my_words(user_id, show_name, content_id) value(?, ?, ?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+                new PreparedStatementCreator() {
+                    @Override
+                    public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                        PreparedStatement ps = jdbcTemplate.getDataSource().getConnection()
+                                .prepareStatement(sql, new String[]{"user_id", "show_name", "content_id"});
+                        ps.setInt(1, fBean.getUserId());
+                        ps.setString(2, fBean.getShowName());
+                        ps.setInt(3, fBean.getContentId());
+                        return ps;
+                    }
+                }
+                , keyHolder);
+        return keyHolder.getKey().intValue();
     }
 
     @Override
@@ -55,6 +75,14 @@ public class MpMyWordServiceImpl implements MpMyWordService {
         return (MyWordBean)jdbcTemplate.queryForObject("select * from mp_my_words where user_id=? and show_name=?",
                 new Object[]{userId, showName},
                 new int[]{Types.INTEGER, Types.VARCHAR},
+                new MpMyWordRowMapper());
+    }
+
+    @Override
+    public MyWordBean get(int userId, int id) {
+        return (MyWordBean)jdbcTemplate.queryForObject("select * from mp_my_words where user_id=? and id=?",
+                new Object[]{userId, id},
+                new int[]{Types.INTEGER, Types.INTEGER},
                 new MpMyWordRowMapper());
     }
 }

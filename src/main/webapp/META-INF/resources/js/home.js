@@ -232,7 +232,8 @@ function addNewRecord(obj){
                 $("#tr_remark").hide("fast");
 
             } else {
-                alert("操作失败！" + data);
+                alert("操作失败！");
+                reloadCurrentPage();
             }
         });
 }
@@ -329,7 +330,8 @@ function deleteRecord(obj){
                 // 更新标题
                 updateHistoryTitleNum(titleId);
             } else {
-                alert("操作失败！" + data);
+                alert("操作失败！");
+                reloadCurrentPage();
             }
         });
 }

@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.List;
 
 /**
  * Created by yanggavin on 15/10/15.
@@ -64,6 +65,22 @@ public class MpMyWordContentServiceImpl implements MpMyWordContentService {
         return (MyWordContentBean)jdbcTemplate.queryForObject("select * from mp_my_word_contents where id=?",
                 new Object[]{id},
                 new int[]{Types.INTEGER},
+                new MpMyWordContentRowMapper());
+    }
+
+    @Override
+    public List<MyWordContentBean> getByUserId(int userId) {
+        return (List<MyWordContentBean>)jdbcTemplate.query("select * from mp_my_word_contents where user_id=?",
+                new Object[]{userId},
+                new int[]{Types.INTEGER},
+                new MpMyWordContentRowMapper());
+    }
+
+    @Override
+    public List<MyWordContentBean> getByContent(String content) {
+        return (List<MyWordContentBean>)jdbcTemplate.query("select * from mp_my_word_contents where content=?",
+                new Object[]{content},
+                new int[]{Types.VARCHAR},
                 new MpMyWordContentRowMapper());
     }
 }

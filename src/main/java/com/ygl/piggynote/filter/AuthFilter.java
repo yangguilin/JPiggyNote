@@ -56,22 +56,17 @@ public class AuthFilter implements Filter {
      */
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-
         HttpServletRequest httpRequest = (HttpServletRequest)servletRequest;
         HttpServletResponse httpResponse = (HttpServletResponse)servletResponse;
-
         // 检查是否不需要检查用户信息
         if (noNeedToAuthUser(httpRequest) == false) {
-
             // 从session中获取用户信息
             UserBean ub = (UserBean)httpRequest.getSession().getAttribute(CommonConstant.SESSION_USER_CONTENT);
-
             // 根据用户信息是否存在进行跳转
             if (ub == null) {
                 httpResponse.sendRedirect("/");
             }
         }
-
         // let it go
         filterChain.doFilter(servletRequest, servletResponse);
     }

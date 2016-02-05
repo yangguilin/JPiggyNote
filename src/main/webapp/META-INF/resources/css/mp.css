@@ -21,10 +21,12 @@
 .cTbl_searchResult tr td { padding:10px 20px; color:dimgray; }
 
 /*添加结果框*/
-.cTbl_newItem {
+.cTbl_newItem, .cTbl_newItemResultMsg {
     font-size: 14px;
     border:1px solid lightgray;
     border-radius: 5px;
+    display: inline-block;
+    margin-top: 20px;
 }
 .cTbl_newItem tr td:first-child {
     background-color: #ededed;
@@ -33,17 +35,18 @@
     color:gray;
     height:38px;
 }
-.cTbl_newItem tr td { padding:10px 20px; color:dimgray; }
+.cTbl_newItem tr td, .cTbl_newItemResultMsg tr td { padding:10px 20px; color:dimgray; }
 
 .cSpan_tipWord {
     border: 1px solid green;
     padding: 2px 4px 3px 6px;
     border-radius: 5px;
-    margin-left:5px;
     cursor: pointer;
     display: inline-flex;
+    margin:5px 3px 5px 3px;
 }
 .cSpan_tipWord:hover { border:1px solid orange; background-color: #C7DDBA; }
+.cSpan_tipWordSelected { background-color: #C7DDBA !important; }
 .cSpan_showContent { font-weight:bold; color:palevioletred; }
 .cIpt_mainInputBox {
     width:100px;
@@ -70,6 +73,7 @@
     -moz-opacity:0.3;
     -khtml-opacity:0.3;
     opacity: 0.3;
+    display: none;
 }
 .cImg_search {
     height:36px;
@@ -77,17 +81,17 @@
     -moz-opacity:0.3;
     -khtml-opacity:0.3;
     opacity: 0.3;
-    display: none;
 }
 .cImg_plus:hover { -moz-opacity:1;-khtml-opacity:1;opacity: 1; }
 .cImg_search:hover { -moz-opacity:1;-khtml-opacity:1;opacity: 1; }
 .cIpt_newItem { width:180px; height:18px; font-size:14px; }
-.cSel_chooseList { width:180px; height:30px; font-size:14px; }
+.cSel_chooseList { width:180px; height:30px; font-size:16px; }
 .cTbl_operatePanel {
     border: 1px dotted lightgray;
     padding: 10px 15px 0px 15px;
     border-radius: 5px;
     font-size:14px;
+    display:inline-block;
 }
 .cTbl_operatePanel caption {
     font-size:16px;
@@ -95,9 +99,14 @@
     border-bottom: 1px dotted lightgray;
     padding-bottom:8px;
 }
-.cTbl_operatePanel td span.cSpan_tipWord { margin-top: 8px; }
+.cTbl_operatePanel td {
+    padding:5px 5px;
+    font-size: 14px;
+}
+.cTbl_operatePanel td { margin-top: 6px; margin-bottom:6px; }
 .cTd_bottomRow { height:36px; border-top:1px dotted lightgray; }
-.cTd_firstTitleTd { width:100px; border-right:1px dotted lightgray; }
+.cTd_firstTitleTd { width:100px; border-right:1px dotted lightgray; padding: 15px 5px !important; }
+.cSpn_customPart { color:orangered !important; }
 
 /* id */
 #iDiv_editModulePanel {

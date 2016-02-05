@@ -42,6 +42,7 @@
           <element id="library" level="project" name="Maven: xpp3:xpp3:1.1.4c" />
           <element id="library" level="project" name="Maven: javax.xml.stream:stax-api:1.0-2" />
           <element id="library" level="project" name="Maven: javax.xml.bind:jaxb-api:2.2.12" />
+          <element id="library" level="project" name="Maven: com.alibaba.citrus.tool:antx-autoconfig:1.2" />
         </element>
       </element>
       <element id="directory" name="META-INF">

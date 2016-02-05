@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by yanggavin on 15/10/22.
  */
-public class MyAccountContentBean {
+public class MyAccountContentBean implements Comparable<MyAccountContentBean> {
     private int id;
     private int userId;
     private String content;
@@ -50,5 +50,10 @@ public class MyAccountContentBean {
 
     public void setShowName(String showName) {
         this.showName = showName;
+    }
+
+    @Override
+    public int compareTo(MyAccountContentBean o) {
+        return this.getShowName().length() - o.getShowName().length();
     }
 }
