@@ -1,0 +1,116 @@
+body { background: url(/img/background.png) repeat!important; font-family: 'Microsoft YaHei', 'Helvetica Neue', 'Luxi Sans', 'DejaVu Sans', Tahoma, 'Hiragino Sans GB', STHeiti; }
+table { border-collapse:collapse; border-spacing:0; }
+a { text-decoration: none; }
+
+
+.cDiv_main_c { text-align: center; }
+.cDiv_top_m {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px dotted #ccc;
+    font-weight: normal;
+    display:block;
+    color:#666;
+    font:20px Arial, Helvetica, sans-serif;
+}
+a.cA_menuItem_b { text-decoration: none; }
+a.cA_menuItemSelected_b { color:darkred; font-weight:bold; }
+.cDiv_content_c { width: 260px; display:inline-block; }
+.cDiv_content_c div:first-child { text-align: center; }
+a.firstButton { margin-left: 0px; }
+.grayButton {
+    color: #333;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 2px;
+    margin-left: 20px;
+    font-weight: normal;
+    text-decoration: none;
+    border: 1px solid #BCBCBC;
+}
+.grayButton:hover { background-color:#f1f1f1; }
+
+.cTr_formItem td:first-child {
+    font-size:14px;
+    font-weight:bold;
+    color:gray;
+    height:30px;
+    width:90px;
+    padding:6px 12px 6px 6px;
+    text-align: right;
+}
+.cTr_formItem td:last-child { text-align: left; padding:6px; }
+.cTr_formItem input[type=text] { height:22px; width:100px; border-radius: 5px; }
+.cTr_formItem textarea { height:44px; width:100px; border-radius: 5px; }
+.cTr_formButton td { padding-top:20px; height:40px; text-align: center; }
+
+.cTr_totalTitle td {
+    padding:8px 5px 5px 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    height:32px;
+    color: gray;
+    width:260px;
+}
+.cTr_totalFooter td { padding:5px 5px; color: gray; font-size:12px; }
+.cTr_totalFooter td:nth-child(odd) { width:50px; text-align: center; }
+.cTr_totalFooter td:nth-child(even) {
+    width:60px;
+    font-weight: bold;
+    text-align: left;
+}
+.cTr_totalGraySplit { height:2px; background-color: gray; }
+.cTr_totalGreenSplit { height:2px; background-color: green; }
+tr.cTr_green td { color: green; }
+tr.cTr_gray td { color: gray; }
+tr.cTr_greenBg td { background-color: #a5cb5e; }
+tr.cTr_grayBg td { background-color: #e1e1e1; }
+.cTr_splitSpace td { height:20px; }
+.cTr_itemTitle td {
+    padding:8px 5px 5px 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    height:32px;
+    color: gray;
+    width:260px;
+    border-radius: 8px 8px 2px 2px;
+}
+.cTr_itemTitle:hover { cursor:pointer; }
+.cTr_itemDetail_c { display:none; }
+.cTbl_itemDetail_d {
+    margin:3px 0px;
+    background-color: #ffffff;
+    border:1px solid darkgray;
+}
+.cTbl_itemDetail_d td {
+    text-align: center;
+    font-size: 12px;
+    color:gray;
+    padding:8px 5px;
+}
+.cTbl_itemDetail_d tr td:nth-child(1) { width: 80px; }
+.cTbl_itemDetail_d tr td:nth-child(2) { width: 50px; font-weight: bold; }
+.cTbl_itemDetail_d tr td:nth-child(3) { width: 100px; word-break: break-all; }
+.cTbl_itemDetail_d tr:nth-child(odd) { background-color: #F7F7F7; }
+.cTbl_itemDetail_d a { color:gray; }
+.cTr_itemFooter { background-color: #eed8ae; font-size: 12px; }
+.cTr_itemFooter td { padding:5px 5px; color: gray; }
+.cTr_itemFooter td:nth-child(odd) { width:50px; text-align: center; }
+.cTr_itemFooter td:nth-child(even) {
+    width:60px;
+    font-weight: bold;
+    text-align: left;
+}
+.cTr_itemFooter td:nth-child(1) { border-radius: 1px 0px 0px 5px; }
+.cTr_itemFooter td:nth-child(4) { border-radius: 0px 1px 5px 0px; }
+.cIpt_newItemVal { width:70px; height:26px; font-size:12px; }
+.cA_smallBtn { width:30px; font-size:12px; }
+.cTr_detailProcPanel td:first-child { border-top:1px solid darkgray; }
+
+#iDiv_newInvestmentPanel_c, #iDiv_currentInvestmentPanel_c, #iDiv_finishedInvestmentPanel_c { padding-top: 20px; }
+#iDiv_newInvestmentPanel_c table, #iDiv_currentInvestmentPanel_c table, #iDiv_finishedInvestmentPanel_c table { margin:0px 0px 0px 0px; width:100%; }
+#iDiv_finishedInvestmentPanel_c, #iDiv_newInvestmentPanel_c, #iDiv_finishedInvestmentPanel_c { display:none; }

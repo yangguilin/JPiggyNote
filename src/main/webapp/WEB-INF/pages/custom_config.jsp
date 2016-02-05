@@ -12,54 +12,48 @@
     <title>个性化设置</title>
     <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
     <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
     <script type="text/javascript" src="/js/custom_config.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/custom_config.css">
+    <link href="/css/common.css" rel="stylesheet" type="text/css">
     <link href="/css/shared/buttons.css" rel="stylesheet" type="text/css">
     <link href="/css/shared/screen.css" rel="stylesheet" type="text/css">
-    <link href="/css/mmenu/jquery.mmenu.all.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<div>
+    <input id="hidden_userName" type="hidden" value="${customConfig.getUserName()}" />
+    <input id="iIpt_monthCostPlan_h" type="hidden" value="${customConfig.getMonthCostPlan()}" />
+    <input id="iIpt_remarkAmount_h" type="hidden" value="${customConfig.getRemarkAmount()}" />
+</div>
 <div id="div_container">
-    <h1>看看能配置啥</h1>
+    <div class="cDiv_globalMenu_c">
+        <a href="#" class="cA_statMenu_b" onclick="window.location.href='/'">首页</a>
+        &nbsp;/&nbsp;
+        <a href="#" class="cA_statMenu_b" onclick="window.location.href='/stat'">统计</a>
+        &nbsp;/&nbsp;
+        <a href="#" class="cA_statMenu_b" onclick="window.location.href='/investment'">理财</a>
+        &nbsp;/&nbsp;
+        <a href="#" class="cA_statMenu_b cA_statMenuSelected_b">设置</a>
+    </div>
     <table class="table_options">
         <tr>
-            <td class="td_title">月计划消费额</td>
+            <td class="td_title">月计划消费额：</td>
             <td>
-                <input id="input_month_cost_plan" type="text" class="input_text" value="${customConfig.getMonthCostPlan()}" />
+                <input id="input_month_cost_plan" type="text" class="input_text" placeholder="${customConfig.getMonthCostPlan()}" value="" onkeyup="check()" />
             </td>
         </tr>
-        <%--<tr>--%>
-            <%--<td class="td_title">日常记录分类</td>--%>
-            <%--<td>--%>
-                <%--<select id="select_category_switch" class="input_text">--%>
-                    <%--<option value="0" <c:if test="${customConfig.getCategorySwitch() == 0}">selected</c:if>>关闭</option>--%>
-                    <%--<option value="1" <c:if test="${customConfig.getCategorySwitch() == 1}">selected</c:if>>开启</option>--%>
-                <%--</select>--%>
-            <%--</td>--%>
-        <%--</tr>--%>
-        <%--<tr>--%>
-            <%--<td class="td_title">垫付报销功能</td>--%>
-            <%--<td>--%>
-                <%--<select id="select_prepay_switch" class="input_text">--%>
-                    <%--<option value="0" <c:if test="${customConfig.getPrepaySwitch() == 0}">selected</c:if>>关闭</option>--%>
-                    <%--<option value="1" <c:if test="${customConfig.getPrepaySwitch() == 1}">selected</c:if>>开启</option>--%>
-                <%--</select>--%>
-            <%--</td>--%>
-        <%--</tr>--%>
         <tr>
-            <td class="td_title">备注显示金额</td>
+            <td class="td_title">备注显示金额：</td>
             <td>
-                <input id="input_remark_show_amount" type="text" class="input_text" value="${customConfig.getRemarkAmount()}" />
+                <input id="input_remark_show_amount" type="text" class="input_text" placeholder="${customConfig.getRemarkAmount()}" value="" onkeyup="check()" />
             </td>
         </tr>
         <tr>
             <td colspan="2" style="height:10px;"></td>
         </tr>
         <tr>
-            <td colspan="2">
-                <a href="#" style="font-size:18px; margin-left: 22px;" class="button green" onclick="backToMenu()">返回</a>
-                <a href="#" style="font-size:18px; margin-left: 30px;" class="button green" onclick="update()">更新</a>
-                <input id="hidden_curUserName" type="hidden" value="${customConfig.getUserName()}" />
+            <td colspan="2" style="text-align: center;">
+                <a href="#" id="iA_update_b" class="button green cA_update_b" onclick="update()">更新</a>
             </td>
         </tr>
     </table>

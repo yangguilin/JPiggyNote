@@ -7,14 +7,15 @@
     <!--mysql connection bean-->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
           p:driverClassName="com.mysql.jdbc.Driver"
-          p:url="jdbc:mysql://115.29.44.125:3306/piggy_note"
+          p:url="jdbc:mysql://123.57.163.18:3306/piggy_note?useUnicode=true&amp;characterEncoding=UTF-8"
           p:username="piggy"
           p:password="198396_db_piggy"
           p:initialSize="1"
           p:maxActive="500"
           p:maxIdle="2"
-          p:minIdle="1"/>
-
+          p:minIdle="1"
+          p:validationQuery="SELECT 1"
+          p:testOnBorrow="true"/>
 
     <!--jdbcTemplate bean-->
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"

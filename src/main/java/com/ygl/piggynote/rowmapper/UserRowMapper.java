@@ -11,10 +11,8 @@ import java.sql.SQLException;
  * Created by yanggavin on 14-7-18.
  */
 public class UserRowMapper implements RowMapper {
-
     @Override
     public Object mapRow(ResultSet rs, int i) throws SQLException {
-
         UserBean bean = new UserBean();
         bean.setId(rs.getInt("id"));
         bean.setEmail(rs.getString("email"));
@@ -24,7 +22,6 @@ public class UserRowMapper implements RowMapper {
         bean.setMobilePhone(rs.getString("mobile_phone"));
         bean.setCreateDate(rs.getDate("create_date"));
         bean.setLatestLoginDate(rs.getDate("latest_login_date"));
-
         return bean;
     }
 }

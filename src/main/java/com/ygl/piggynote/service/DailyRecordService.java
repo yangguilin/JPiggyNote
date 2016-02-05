@@ -47,4 +47,11 @@ public interface DailyRecordService {
      * @return              记录列表
      */
     public List<DailyRecordBean> getRecordsByDateRange(String beginDate, String endDate, String userName);
+
+    /**
+     * 获取用户全部记录数据
+     * @param userName      用户名
+     * @return              记录列表
+     */
+    public List<DailyRecordBean> getAllRecords(String userName);
 }

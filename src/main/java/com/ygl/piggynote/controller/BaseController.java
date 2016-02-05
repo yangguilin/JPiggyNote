@@ -2,9 +2,11 @@ package com.ygl.piggynote.controller;
 
 import com.ygl.piggynote.bean.UserBean;
 import com.ygl.piggynote.common.CommonConstant;
-import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 /**
  * Created by guilin on 2014/8/5.
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 public class BaseController {
 
     protected static final String ERROR_MSG_KEY = "errorMsg";
+    public String curLoginUserName = "";
+    public int curLoginUserId = -1;
 
     /**
      * 从Session中获取用户实例
@@ -19,7 +23,6 @@ public class BaseController {
      * @return  用户实例
      */
     protected UserBean getUserFromSession(HttpServletRequest request){
-
         return (UserBean)request.getSession().getAttribute(CommonConstant.SESSION_USER_CONTENT);
     }
 
@@ -29,20 +32,27 @@ public class BaseController {
      * @param user  用户实例
      */
     protected void setUserToSession(HttpServletRequest request, UserBean user) {
-
-        request.getSession().setAttribute(CommonConstant.SESSION_USER_CONTENT, user);
+        HttpSession session = request.getSession();
+        session.setAttribute(CommonConstant.SESSION_USER_CONTENT, user);
+        session.setMaxInactiveInterval(CommonConstant.SESSION_KEEP_SECOND);
     }
 
-    /**
-     * 获取基于应用程序的url绝对路径
-     * @param request   request
-     * @param url   相对url
-     * @return  绝对url
-     */
-    public final String getAppBaseUrl(HttpServletRequest request, String url){
+    public Boolean checkUserLoginStatus(HttpServletRequest request){
+        Boolean beLogin = false;
+        UserBean ub = getUserFromSession(request);
+        if (ub != null){
+            curLoginUserName = ub.getUserName();
+            curLoginUserId = ub.getId();
+            beLogin = true;
+        }
+        return beLogin;
+    }
 
-        Assert.hasLength(url, "url不能为空");
-        Assert.isTrue(url.startsWith("/"), "必须以/开头");
-        return request.getContextPath() + url;
+    public void redirectToHomePage(HttpServletResponse response){
+        try {
+            response.sendRedirect("/");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -11,7 +11,7 @@
  Target Server Version : 50615
  File Encoding         : utf-8
 
- Date: 07/21/2014 17:22:28 PM
+ Date: 12/11/2014 11:07:31 AM
 */
 
 SET NAMES utf8;
@@ -30,7 +30,8 @@ CREATE TABLE `pn_users` (
   `mobile_phone` varchar(20) DEFAULT NULL,
   `create_date` datetime NOT NULL,
   `latest_login_date` datetime DEFAULT NULL,
+  `deleted` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=76 DEFAULT CHARSET=gbk;
+) ENGINE=MyISAM AUTO_INCREMENT=123 DEFAULT CHARSET=gbk;
 
 SET FOREIGN_KEY_CHECKS = 1;

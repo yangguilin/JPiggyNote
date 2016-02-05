@@ -5,6 +5,10 @@ import com.ygl.piggynote.bean.UserBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by yanggavin on 14-7-22.
@@ -12,6 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/test")
 public class TestController {
+    @RequestMapping(method = RequestMethod.GET)
+    public String index(){
+        // 只查发布开始时间为近60天的数据
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.DAY_OF_YEAR, -60);
+        Date beforeDate = cal.getTime();
+
+        return "test";
+    }
 
     @RequestMapping(value="/category_test")
     public String categoryPage(ModelMap model){

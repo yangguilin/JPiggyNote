@@ -11,7 +11,7 @@
  Target Server Version : 50615
  File Encoding         : utf-8
 
- Date: 07/18/2014 16:06:33 PM
+ Date: 12/11/2014 11:07:16 AM
 */
 
 SET NAMES utf8;
@@ -24,6 +24,9 @@ DROP TABLE IF EXISTS `pn_custom_config`;
 CREATE TABLE `pn_custom_config` (
   `user_name` varchar(50) COLLATE gbk_bin NOT NULL,
   `month_cost_plan` float(11,0) NOT NULL,
+  `category_switch` tinyint(255) NOT NULL DEFAULT '0',
+  `prepay_switch` tinyint(255) NOT NULL DEFAULT '0',
+  `remark_amount` float NOT NULL,
   PRIMARY KEY (`user_name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=gbk COLLATE=gbk_bin;
 

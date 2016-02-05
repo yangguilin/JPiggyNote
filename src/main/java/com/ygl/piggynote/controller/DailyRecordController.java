@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
 
 /**
  * 日常账目记录管理
@@ -46,9 +45,11 @@ public class DailyRecordController extends BaseController {
      * @param response  response
      */
     @RequestMapping(value = "/add.do", method = RequestMethod.POST)
-    public void add(DailyRecordBean drb, HttpServletResponse response){
-
-        Boolean ret = dailyRecordService.add(drb);
+    public void add(DailyRecordBean drb, HttpServletRequest request, HttpServletResponse response){
+        boolean ret = false;
+        if (checkUserLoginStatus(request)) {
+            ret = dailyRecordService.add(drb);
+        }
         CommonUtil.writeResponse4BooleanResult(ret, response);
     }
 
@@ -59,14 +60,15 @@ public class DailyRecordController extends BaseController {
      * @param response  response
      */
     @RequestMapping(value="/add2.do", method=RequestMethod.POST)
-    public void addByDate(DailyRecordBean drb, int index, HttpServletResponse response){
-
-        // 如果有日期参数，调整创建日期参数
-        if (index < 0){
-            drb.setCreateDate(DateUtil.getDateByIndex(index));
+    public void addByDate(DailyRecordBean drb, int index, HttpServletRequest request, HttpServletResponse response){
+        boolean ret = false;
+        if (checkUserLoginStatus(request)) {
+            // 如果有日期参数，调整创建日期参数
+            if (index < 0) {
+                drb.setCreateDate(DateUtil.getDateByIndex(index));
+            }
+            ret = dailyRecordService.addByCreateDate(drb);
         }
-
-        Boolean ret = dailyRecordService.addByCreateDate(drb);
         CommonUtil.writeResponse4BooleanResult(ret, response);
     }
 
@@ -76,9 +78,11 @@ public class DailyRecordController extends BaseController {
      * @param response  response
      */
     @RequestMapping(value = "/update.do", method = RequestMethod.POST)
-    public void update(DailyRecordBean drb, HttpServletResponse response){
-
-        Boolean ret = dailyRecordService.update(drb);
+    public void update(DailyRecordBean drb, HttpServletRequest request, HttpServletResponse response){
+        boolean ret = false;
+        if (checkUserLoginStatus(request)) {
+            ret = dailyRecordService.update(drb);
+        }
         CommonUtil.writeResponse4BooleanResult(ret, response);
     }
 
@@ -89,9 +93,11 @@ public class DailyRecordController extends BaseController {
      * @param response  response
      */
     @RequestMapping(value = "/delete.do", method = RequestMethod.POST)
-    public void delete(int id, String userName, HttpServletResponse response){
-
-        Boolean ret = dailyRecordService.delete(id, userName);
+    public void delete(int id, String userName, HttpServletRequest request, HttpServletResponse response){
+        boolean ret = false;
+        if (checkUserLoginStatus(request)) {
+            ret = dailyRecordService.delete(id, userName);
+        }
         CommonUtil.writeResponse4BooleanResult(ret, response);
     }
 }
