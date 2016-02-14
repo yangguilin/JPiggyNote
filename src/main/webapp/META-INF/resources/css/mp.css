@@ -107,6 +107,10 @@
 .cTd_bottomRow { height:36px; border-top:1px dotted lightgray; }
 .cTd_firstTitleTd { width:100px; border-right:1px dotted lightgray; padding: 15px 5px !important; }
 .cSpn_customPart { color:orangered !important; }
+.cTd_searchResultShowName { cursor: pointer; }
+.cTd_searchResultShowName:hover {
+    background-color: #bbd6af !important;
+}
 
 /* id */
 #iDiv_editModulePanel {

@@ -12,5 +12,6 @@ public interface MpMyPasswordService {
     boolean update(MyPasswordBean bean);
     boolean delete(int id, int userId);
     List<MyPasswordBean> getByUserId(int userId);
+    MyPasswordBean get(int userId, String showName);
     boolean existShowName(int userId, String showName);
 }

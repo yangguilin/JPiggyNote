@@ -14,7 +14,7 @@ function updateSearchResult(resultArr){
         for (var index in resultArr){
             curNum++;
             var dottedSplitClass = getDottedSplitClass(curNum, rowNum);
-            searchResultHtml += "<tr><td class='" + dottedSplitClass + "'>" + resultArr[index].showName + "</td>";
+            searchResultHtml += "<tr><td class='" + dottedSplitClass + " cTd_searchResultShowName' value='" + resultArr[index].id + "' onclick='curPage.deleteSearchItem(this)'>" + resultArr[index].showName + "</td>";
             searchResultHtml += "<td class='cTd_rightDottedSplit cTd_bottomDottedSplit'><span class='" + getSpanClass4tipWord(resultArr[index].accountTip) + "' value='" + resultArr[index].accountId + "' onclick='showContent(this)' type='account'>" + resultArr[index].accountTip + "</span></td>";
             var arr = resultArr[index].passwordTip.split(',');
             var valArr = resultArr[index].passwordIds.split(',');
@@ -122,7 +122,8 @@ var curPage = {
     searchByShowName:function(){
         var showName = $.trim($("#iIpt_searchContent").val());
         if (showName == "") {
-            $("#iDiv_searchResult").empty().append($("<table class='cTbl_searchResult'><tr><td colspan='2'>账号总数:&nbsp;" + $("#iIpt_accountTotalNum_h").val() + "</td></tr></table>"));
+            var totalHtml = "账号总数:&nbsp;" + $("#iIpt_accountTotalNum_h").val();
+            curPage.pShowSearchResultMsg(totalHtml);
         } else {
             $.post("/mp/search.do", {"showName": showName},
                 function (data) {
@@ -300,11 +301,34 @@ var curPage = {
             alert("账号/密码信息不完整");
         }
     },
+    deleteSearchItem: function(obj){
+        var id = $(obj).attr("value");
+        var showName = $(obj).text().trim();
+        if (id != "" && showName != ""){
+            if (confirm("确认删除该条记录?")) {
+                $.post("/mp/delete_my_password.do", {"id": id, "showName": showName}, function (d) {
+                    if (d && d.code != undefined && d.code == "1") {
+                        if (d.message.toLowerCase() == "true") {
+                            curPage.pShowSearchResultMsg("删除成功");
+                        } else {
+                            curPage.pShowSearchResultMsg("删除失败");
+                        }
+                    }
+                });
+            }
+        }
+    },
+    editSearchItem: function(obj){
+        // 暂未实现修改逻辑
+    },
     pCheckNewAccountInfo : function(){
         return ($("#iSel_existAccount option:selected").val() == "new");
     },
     pCheckNewPswPart: function(){
         return ($("#iIpt_newPswPartVal").val() != "")
+    },
+    pShowSearchResultMsg: function(msg){
+        $("#iDiv_searchResult").empty().append($("<table class='cTbl_searchResult'><tr><td colspan='2'>" + msg + "</td></tr></table>"));
     }
 };
 

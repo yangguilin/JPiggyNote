@@ -53,6 +53,14 @@ public class MpMyPasswordServiceImpl implements MpMyPasswordService {
     }
 
     @Override
+    public MyPasswordBean get(int userId, String showName){
+        return (MyPasswordBean)jdbcTemplate.queryForObject("select * from mp_my_passwords where user_id=? and show_name=?",
+                new Object[]{userId, showName},
+                new int[]{Types.INTEGER, Types.VARCHAR},
+                new MpMyPasswordRowMapper());
+    }
+
+    @Override
     public boolean existShowName(int userId, String showName){
         QueryCountBean qcb = (QueryCountBean)jdbcTemplate.queryForObject("select count(*) as num from mp_my_passwords where user_id=? and show_name=?",
                 new Object[]{userId, showName},

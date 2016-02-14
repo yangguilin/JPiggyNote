@@ -150,6 +150,51 @@ public class MpController extends BaseController {
         CommonUtil.writeResJsonResult(ret, content, response);
     }
 
+    @RequestMapping(value = "/delete_my_password.do", method = RequestMethod.POST)
+    public void deleteMyPassword(HttpServletRequest request, HttpServletResponse response){
+        boolean ret = false;
+        String content = "";
+        if (checkUserLoginStatus(request)){
+            String id = request.getParameter("id").toString();
+            String showName = request.getParameter("showName").toString();
+            if (!id.isEmpty() && CommonUtil.isNumeric(id) && !showName.isEmpty()){
+                if (myPasswordService.existShowName(curLoginUserId, showName)){
+                    ret = myPasswordService.delete(Integer.parseInt(id), curLoginUserId);
+                    content = ret + "";
+                } else {
+                    content = "参数错误";
+                }
+            } else {
+                content = "参数错误";
+            }
+        } else {
+            content = "尚未登录";
+        }
+        CommonUtil.writeResJsonResult(ret, content, response);
+    }
+
+    @RequestMapping(value = "/update_my_password.do", method = RequestMethod.POST)
+    public void updateMyPassword(HttpServletRequest request, HttpServletResponse response){
+        boolean ret = false;
+        String content = "参数错误";
+        if (checkUserLoginStatus(request)){
+            String showName = request.getParameter("showName");
+            String id = request.getParameter("id");
+            String pswIds = request.getParameter("pswIds");
+            if (!showName.isEmpty() && !id.isEmpty() && CommonUtil.isNumeric(id) && !pswIds.isEmpty()) {
+                if (myPasswordService.existShowName(curLoginUserId, showName)) {
+                    MyPasswordBean mpb = myPasswordService.get(curLoginUserId, showName);
+                    if (mpb.getId() == Integer.parseInt(id)){
+                        mpb.setPassword(pswIds);
+                        ret = myPasswordService.update(mpb);
+                        content = ret + "";
+                    }
+                }
+            }
+        }
+        CommonUtil.writeResJsonResult(ret, content, response);
+    }
+
     @RequestMapping(value="/new_psw_part.do", method = RequestMethod.POST)
     public void addNewPswPart(HttpServletRequest request, HttpServletResponse response){
         boolean ret = false;
