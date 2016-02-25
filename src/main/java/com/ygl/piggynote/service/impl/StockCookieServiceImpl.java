@@ -33,7 +33,7 @@ public class StockCookieServiceImpl implements StockCookieService {
     public Boolean add(StockCookieBean bean) {
         int ret = jdbcTemplate.update("insert into pn_stock_cookie(user_name, stock_cookie, saved_date, quick_cookie) value(?, ?, now(), ?)",
                 new Object[]{ bean.getUserName(), bean.getStockCookie(),bean.getQuickCookie() },
-                new int[]{Types.VARCHAR, Types.VARCHAR}, Types.VARCHAR);
+                new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR});
         return ret == 1;
     }
 

@@ -7,9 +7,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.Calendar;
-import java.util.Date;
-
 /**
  * Created by yanggavin on 14-7-22.
  */
@@ -18,16 +15,52 @@ import java.util.Date;
 public class TestController {
     @RequestMapping(method = RequestMethod.GET)
     public String index(){
-        // 只查发布开始时间为近60天的数据
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        cal.add(Calendar.DAY_OF_YEAR, -60);
-        Date beforeDate = cal.getTime();
+//        // 只查发布开始时间为近60天的数据
+//        Calendar cal = Calendar.getInstance();
+//        cal.setTime(new Date());
+//        cal.add(Calendar.DAY_OF_YEAR, -60);
+//        Date beforeDate = cal.getTime();
+
+        String ret = "";
+        ret = encodeAccountId("guilin.gavin@gmail.com");
+        ret = encodeAccountId("gui@gmail.com");
+        ret = encodeAccountId("@gmail.com");
+        ret = encodeAccountId("guilin.gavin@");
+        ret = encodeAccountId("guilin.gavin");
+        ret = encodeAccountId("gui");
 
         return "test";
     }
 
-    @RequestMapping(value="/category_test")
+    private String encodeAccountId(String accountId){
+        String split = "@";
+        String ret = "";
+        if (!accountId.isEmpty()){
+            if (accountId.indexOf(split) != -1){ // 含有分隔符@的账号,只对前缀后三位或一位进行星化
+                int i = accountId.indexOf(split);
+                if (i > 0) {
+                    String prefix = accountId.substring(0, i);
+                    String suffix = accountId.substring(i + 1);
+                    if (prefix.length() > 3) {
+                        ret = prefix.substring(0, prefix.length() - 3) + "***" + split + suffix;
+                    } else if (prefix.length() > 0 && prefix.length() <= 3) {
+                        ret = prefix.substring(0, prefix.length() - 1) + "*" + split + suffix;
+                    }
+                } else {
+                    ret = "*" + accountId.substring(1);
+                }
+            } else { // 不含@的账号,对末尾三位或一位进行星化
+                if (accountId.length() > 3){
+                    ret = accountId.substring(0, accountId.length() - 3) + "***";
+                } else {
+                    ret = accountId.substring(0, accountId.length() - 1) + "*";
+                }
+            }
+        }
+        return ret;
+    }
+
+    @RequestMapping(value = "/category_test")
     public String categoryPage(ModelMap model){
 
         CategoryBean cb = new CategoryBean();
@@ -62,3 +95,5 @@ public class TestController {
         return "/test/test";
     }
 }
+
+

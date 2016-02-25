@@ -41,13 +41,13 @@
       <a id="iA_recoverStockList_b" href="javascript:;" class="grayButton" onclick="recoverSelectedStockDataFromServer()">恢复全部列表</a>
       <a href="javascript:;" class="grayButton" onclick="clearAllStockItemInCookie()">清空全部列表</a>
         <c:if test="${beLaoNiuGroupMember}">
-            <a href="javascript:;" class="grayButton" onclick="stopShareMyShortHoldStocksToLaoNiu()">退出老牛分享群</a>
+            <a href="javascript:;" class="grayButton" onclick="stopShareMyShortHoldStocksToLaoNiu()">退出分享群</a>
         </c:if>
         <c:if test="${!beLaoNiuGroupMember}">
-            <a href="javascript:;" class="grayButton" onclick="shareMyShortHoldStocksToLaoNiu()">加入老牛分享群</a>
+            <a href="javascript:;" class="grayButton" onclick="shareMyShortHoldStocksToLaoNiu()">加入分享群</a>
         </c:if>
         <c:if test="${beLaoNiuGroupMember}">
-            <a href="javascript:;" class="grayButton" onclick="goFriendSharePage()">跳转到老牛分享群</a>
+            <a href="javascript:;" class="grayButton" onclick="goFriendSharePage()">跳转到分享群</a>
         </c:if>
     </c:if>
   </div>
