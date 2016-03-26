@@ -9,6 +9,10 @@ public class SearchTranBean implements Serializable {
     private int id;
     private String wordName;
     private String chineseMeaning;
+    private String clsChineseMeaning;
+    private String englishMeaning;
+    private String chineseEx;
+    private String englishEx;
     private String type;
 
     public int getId() {
@@ -41,5 +45,37 @@ public class SearchTranBean implements Serializable {
 
     public void setWordName(String wordName) {
         this.wordName = wordName;
+    }
+
+    public String getEnglishMeaning() {
+        return englishMeaning;
+    }
+
+    public void setEnglishMeaning(String englishMeaning) {
+        this.englishMeaning = englishMeaning;
+    }
+
+    public String getChineseEx() {
+        return chineseEx;
+    }
+
+    public void setChineseEx(String chineseEx) {
+        this.chineseEx = chineseEx;
+    }
+
+    public String getEnglishEx() {
+        return englishEx;
+    }
+
+    public void setEnglishEx(String englishEx) {
+        this.englishEx = englishEx;
+    }
+
+    public String getClsChineseMeaning() {
+        return clsChineseMeaning;
+    }
+
+    public void setClsChineseMeaning(String clsChineseMeaning) {
+        this.clsChineseMeaning = clsChineseMeaning;
     }
 }

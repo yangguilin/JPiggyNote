@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
     <title>根据中文匹配英文翻译</title>
@@ -17,7 +18,10 @@
 </head>
 <body>
     <div>
-        <input id="iIpt_btn" type="button" value="click" />
+        <span>总数:${count}</span>
+        <span>成功:${success}</span>
+        <span>查询无结果:${noResult}</span>
+        <span>失败:${fail}</span>
     </div>
 </body>
 </html>

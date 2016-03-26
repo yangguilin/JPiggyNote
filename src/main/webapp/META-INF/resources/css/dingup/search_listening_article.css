@@ -1,0 +1,55 @@
+.cDiv_split {
+    height:1px;
+    background-color: gray;
+    margin:5px 0px;
+    margin: 20px 0px;
+}
+.cDiv_checkWordBox {
+    float: left;
+    padding: 10px 20px;
+    border-right: 1px solid lightgray;
+}
+.cIpt_searchedWord { width:150px; height:32px !important; font-size: 14px; }
+.cSpan_blue { color: darkblue; font-weight: bold; }
+.cTbl_wordTranItem {
+    font-size: 12px !important;
+    width:460px;
+}
+.cTbl_wordTranItem tr td {
+    border-bottom: 1px solid darkgray;
+    padding:10px 2px;
+}
+.cTbl_wordTranItem tr:first-child {
+    background-color: #ededed;
+}
+.cTr_data:hover {
+    background-color: #C7DDBA;
+    cursor: pointer;
+}
+.cTr_selected { font-weight:bold; background-color:#C7DDBA; }
+.cTr_title {
+    font-size: 14px !important;
+    color: darkred;
+    padding:4px 2px;
+    font-weight: bold;
+}
+.cDiv_selectTranBox {
+    float: left;
+    padding: 10px 20px;
+    width: 600px;
+    /*height:1000px;*/
+    /*overflow-y: scroll;*/
+}
+.cDiv_checkWordBox h3 { color:green !important; }
+.cDiv_checkWordBox h4 { color:gray !important; }
+.cSpan_selected {
+    color: darkred;
+    font-size:18px;
+    background-color: #dff4bc;
+    font-weight:bold;
+    margin: 0px 5px;
+}
+.cP_show { padding:10px 0px; }
+
+
+#iDiv_articleContent { font-size:14px; }

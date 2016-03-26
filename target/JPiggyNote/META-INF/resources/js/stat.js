@@ -125,7 +125,7 @@ $(document).ready(function(){
         var monthNum = $("#iIpt_curMonthNum_h").val().toNumber();
         var monthIncome = (totalIncome / monthNum).toFixed(2);
         var monthCost = (totalCost / monthNum).toFixed(2);
-        var monthAvg = monthIncome - monthCost;
+        var monthAvg = (monthIncome - monthCost).toFixed(2);
         $("#iSpan_monthIncome").text(monthIncome);
         $("#iSpan_monthCost").text(monthCost);
         $("#iSpan_monthAvg").text(monthAvg);

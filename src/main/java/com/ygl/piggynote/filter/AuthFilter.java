@@ -37,7 +37,15 @@ public class AuthFilter implements Filter {
             "/snwt/user/verification.do",
             "/fcmg/add_record.do",
             "/fcmg/get_top10.do",
-            "/mp/search.do"
+            "/mp/search.do",
+            "/dingup/update_word.do",
+            "/dingup/update_record_time.do",
+            "/dingup/update_word_name.do",
+            "/dingup/delete_word.do",
+            "/dingup/update_phrase_record_time.do",
+            "/dingup/update_phrase.do",
+            "/dingup/update_phrase_name.do",
+            "/dingup/search_listening_article/get_article_content.do"
     };
 
 

@@ -29,6 +29,9 @@ public class TestController {
         ret = encodeAccountId("guilin.gavin");
         ret = encodeAccountId("gui");
 
+
+
+
         return "test";
     }
 

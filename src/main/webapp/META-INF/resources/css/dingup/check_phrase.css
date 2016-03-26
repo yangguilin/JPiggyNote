@@ -1,0 +1,70 @@
+.cTbl_currentWord {
+    font-size: 12px;
+    font-family: 'Microsoft YaHei', 'Helvetica Neue', 'Luxi Sans', 'DejaVu Sans', Tahoma, 'Hiragino Sans GB', STHeiti;
+    display: inline-block;
+}
+.cTbl_currentWord caption {
+    font-size: 24px;
+    font-weight: bold;
+    color:darkred;
+    padding:10px 0px;
+}
+.cTbl_currentWord tr td:first-child {
+    text-align: right;
+    font-weight: bold;
+    padding-right: 10px;
+}
+.cIpt_small {
+    width: 200px;
+    height: 32px;
+    margin: 6px 10px;
+    padding-left: 6px;
+    font-size: 14px;
+}
+.cIpt_short { width:200px; height: 24px; margin: 6px 10px; padding-left:6px; }
+.cIpt_normal { width:400px; height: 24px; margin: 6px 10px; padding-left:6px; }
+.cIpt_long { width:400px; height: 72px; margin: 6px 10px; padding-left:6px; }
+.cSpan_green { color: darkgreen; font-weight: bold; }
+.cSpan_blue { color: darkblue; font-weight: bold; }
+.cDiv_split {
+    height:1px;
+    background-color: gray;
+    margin:5px 0px;
+    margin: 20px 0px;
+}
+.cDiv_selectTranBox {
+    float: left;
+    padding: 10px 50px;
+    width: 500px;
+}
+.cDiv_selectTranBox h3 { color:green !important; }
+.cDiv_selectTranBox h4 { color:gray !important; }
+.cTbl_wordTranItem {
+    border: solid 1px darkgray;
+    font-size: 12px !important;
+    margin:30px 0px;
+    width: 500px;
+}
+.cTbl_wordTranItem td {
+    padding:10px 15px;
+}
+.cTbl_wordTranItem:hover{ cursor: pointer; border: 2px solid orangered; }
+.cTd_def { border-bottom: 1px dotted darkgray; }
+.cSpan_tranWord { font-weight: bold; color:darkred; font-size: 14px; }
+.cTd_example_ex { border-top:2px solid lightgray; }
+.cTd_example_ex, .cTd_example_tran { color: gray; }
+.cTd_title { font-weight:bold; color:darkcyan; background-color: #eee; }
+.cDiv_menuBar {
+    padding-bottom:20px;
+    margin-top:-10px;
+    text-align: right;
+    border-bottom: 1px dotted gray;
+    margin-bottom: 5px;
+}
+.cDiv_hidden { display: none; }
+.cDiv_checkWordBox {
+    float: left;
+    padding: 10px 50px;
+    border-right: 1px solid lightgray;
+}
+.cIpt_searchedWord { width:150px; height:32px !important; font-size: 14px; }

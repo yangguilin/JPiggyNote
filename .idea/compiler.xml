@@ -24,8 +24,17 @@
         <processorPath useClasspath="true" />
         <module name="JPiggyNote" />
       </profile>
+      <profile default="false" name="Annotation profile for dp-onlinetest" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="dp-onlinetest" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="DingupOnlineTest" target="1.7" />
+      <module name="dp-onlinetest" target="1.7" />
       <module name="JPiggyNote" target="1.6" />
     </bytecodeTargetLevel>
   </component>
