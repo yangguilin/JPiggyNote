@@ -13,7 +13,7 @@ import java.util.List;
  * Created by yanggavin on 16/3/4.
  */
 public class CollinsDicUtil {
-    private static String COLLINS_SEARCH_API_URL = "http://www.topschool.com/aj/collins/fetchword?word=";
+    private static String COLLINS_SEARCH_API_URL = "http://study.topschool.com/aj/collins/fetchword?word=";
     /**
      * 查询单词
      * @param word 单词

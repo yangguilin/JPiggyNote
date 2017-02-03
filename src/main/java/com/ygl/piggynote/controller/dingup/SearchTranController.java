@@ -14,6 +14,7 @@ import com.ygl.piggynote.util.CommonUtil;
 import com.ygl.piggynote.util.HttpRequestUtils;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -44,6 +45,18 @@ public class SearchTranController {
         return "/dingup/searchTran";
     }
 
+    @RequestMapping(value = "/search_word", method = RequestMethod.GET)
+    public String searchWord(ModelMap model, HttpServletRequest request){
+        String word = request.getParameter("word");
+        if (StringUtils.isNotBlank(word)){
+            CollinsSearchResult csr = CollinsDicUtil.searchWordFromWebApi(word);
+            model.addAttribute("collinsSenseList", csr.getSenseList());
+            model.addAttribute("searchWordPron", csr.getHeadWord().getPron());
+            model.addAttribute("searchWord", word);
+        }
+        return "dingup/search_word";
+    }
+
     @RequestMapping(value = "/check_word", method = RequestMethod.GET)
     public String checkWord(ModelMap model, HttpServletRequest request){
         try {
@@ -58,7 +71,7 @@ public class SearchTranController {
                     waiting++;
                 }
             }
-            List<WordTranBean> searchResultList = new ArrayList<WordTranBean>();
+            List<WordTranBean> searchResultList;
             WordTranBean curWordTranBean = new WordTranBean();
             String searchWord = request.getParameter("search_word");
             String latestUpdateIndex = request.getParameter("latest_update_index");
@@ -464,7 +477,7 @@ public class SearchTranController {
 
     private JSONObject searchWordFromRemoteServer(SearchTranBean bean){
         if (bean.getWordName().indexOf(" ") == -1) { // 有空格的暂且归为短语
-            String url = "http://www.topschool.com/aj/collins/fetchword?word=" + bean.getWordName();
+            String url = "http://study.topschool.com/aj/collins/fetchword?word=" + bean.getWordName();
             return HttpRequestUtils.httpGet(url);
         } else {
             return null;

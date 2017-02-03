@@ -6,7 +6,6 @@ package com.ygl.piggynote.enums;
  * Created by yanggavin on 14-7-18.
  */
 public enum StatTypeEnum {
-
     SIMPLE("0", "精简模式"),
     NORMAL("1", "日常"),
     PERIOD("2", "阶段"),
