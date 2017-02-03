@@ -33,6 +33,10 @@ public class MonthStatData {
      */
     private float otherIncomeTotal;
     /**
+     * 本月日常支出合计
+     */
+    private float curMonthDailyCostTotal;
+    /**
      * 详细记录列表
      */
     private List<DailyRecordBean> detailList;
@@ -93,5 +97,13 @@ public class MonthStatData {
 
     public void setOtherIncomeTotal(float otherIncomeTotal) {
         this.otherIncomeTotal = otherIncomeTotal;
+    }
+
+    public float getCurMonthDailyCostTotal() {
+        return curMonthDailyCostTotal;
+    }
+
+    public void setCurMonthDailyCostTotal(float curMonthDailyCostTotal) {
+        this.curMonthDailyCostTotal = curMonthDailyCostTotal;
     }
 }

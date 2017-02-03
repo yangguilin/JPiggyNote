@@ -60,7 +60,6 @@ public class HomeController extends BaseController {
             String yesterdayStr = DateUtil.getDateStr(0, 0, -1);
             String dayBeforeYesterdayStr = DateUtil.getDateStr(0, 0, -2);
             for (DailyRecordBean drb : records){
-
                 String createDateStr = DateUtil.getShortDateStr(drb.getCreateDate());
                 if (createDateStr.equals(todayStr)){
                     todayList.add(drb);

@@ -6,7 +6,6 @@ package com.ygl.piggynote.enums;
  * Created by yanggavin on 14-7-18.
  */
 public enum MoneyTypeEnum {
-
     COST("0", "支出"),
     INCOME("1", "收入"),
     PREPAY("2", "垫付"),

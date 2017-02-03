@@ -2,6 +2,7 @@ package com.ygl.piggynote.controller;
 
 import com.ygl.piggynote.bean.*;
 import com.ygl.piggynote.enums.MoneyTypeEnum;
+import com.ygl.piggynote.enums.StatTypeEnum;
 import com.ygl.piggynote.service.impl.CustomConfigServiceImpl;
 import com.ygl.piggynote.service.impl.DailyRecordServiceImpl;
 import com.ygl.piggynote.util.DateUtil;
@@ -87,18 +88,13 @@ public class StatController extends BaseController {
      * @return  统计数据实例
      */
     private StatData queryAndStatUserData(String userName){
-
         StatData sd = new StatData();
-
         // 查询并统计月份数据
         queryAndStatMonthsData(userName, sd);
-
         // 查询并统计本月数据
         queryAndStatCurMonthData(userName, sd);
-
         // 查询垫付收回数据
         queryAndStatPrepayData(userName, sd);
-
         return sd;
     }
 
@@ -118,23 +114,18 @@ public class StatController extends BaseController {
      * @param sd    统计数据对象
      */
     private void queryAndStatMonthsData(String userName, StatData sd) {
-
         // 获取用户所有数据
         List<DailyRecordBean> allRecords = dailyRecordService.getAllRecords(userName);
-
         // 将数据按照月份保存
         HashMap<String, List<DailyRecordBean>> monthDataMap = new HashMap<String, List<DailyRecordBean>>();
         String monthStr = "";
         String curMonthStr = DateUtil.getMonthStr(Calendar.getInstance().getTime());
         for (DailyRecordBean drb : allRecords){
-
             monthStr = DateUtil.getMonthStr(drb.getCreateDate());
-
             // 当月数据
             if (monthStr.endsWith(curMonthStr)){
                 _curMonthDataList.add(drb);
             }
-
             // 月份不存在，添加新数组
             if (!monthDataMap.containsKey(monthStr)){
                 monthDataMap.put(monthStr, new ArrayList<DailyRecordBean>());
@@ -161,37 +152,35 @@ public class StatController extends BaseController {
             float mOtherIncomeTotal = 0.0f;
             float mPrepayTotal = 0.0f;
             float mPaybackTotal = 0.0f;
+            float mDailyCostTotal = 0.0f;
             List<DailyRecordBean> detailList = new ArrayList<DailyRecordBean>();
             List<DailyRecordBean> prepayDetailList = new ArrayList<DailyRecordBean>();
 
             // 数据统计
             for (DailyRecordBean record : entry.getValue()){
-
                 MoneyTypeEnum mt = record.getMoneyType();
                 float amount = record.getAmount();
-
                 // 累加
                 if (mt == MoneyTypeEnum.COST){
                     mCostTotal += amount;
+                    if (record.getStatType() == StatTypeEnum.NORMAL || record.getStatType() == StatTypeEnum.SIMPLE){
+                        mDailyCostTotal += amount;
+                    }
                 } else if (mt == MoneyTypeEnum.INCOME){
                     mIncomeTotal += amount;
                 } else if (mt == MoneyTypeEnum.PREPAY){
-
                     mPrepayTotal += amount;
                     prepayDetailList.add(record);
                 } else if (mt == MoneyTypeEnum.PAYBACK){
-
                     mPaybackTotal += amount;
                     prepayDetailList.add(record);
                 }
 
                 // 含备注记录（仅对收入和支出项，不含垫付和收回项）
                 if (mt == MoneyTypeEnum.INCOME || mt == MoneyTypeEnum.COST) {
-
                     if (!record.getRemark().isEmpty()) {
                         detailList.add(record);
                     } else {
-
                         // 按类型累加无备注记录合计
                         if (mt == MoneyTypeEnum.COST) {
                             mOtherCostTotal += amount;
@@ -217,7 +206,7 @@ public class StatController extends BaseController {
             msd.setDetailList(detailList);
             msd.setOtherCostTotal(mOtherCostTotal);
             msd.setOtherIncomeTotal(mOtherIncomeTotal);
-
+            msd.setCurMonthDailyCostTotal(mDailyCostTotal);
             monthStatDataList.add(msd);
 
             // 赋值按月份统计垫付数据
@@ -227,7 +216,6 @@ public class StatController extends BaseController {
             mpsd.setPaybackTotal(mPaybackTotal);
             mpsd.setTotal(mPaybackTotal - mPrepayTotal);
             mpsd.setDetailList(prepayDetailList);
-
             monthPrepayStatDataList.add(mpsd);
         }
 
@@ -277,8 +265,6 @@ public class StatController extends BaseController {
      * @param sd    统计数据对象
      */
     private void queryAndStatCurMonthData(String userName, StatData sd) {
-
-        //
         // 遍历本月数据
         float curMonthOtherCostTotal = 0.0f;
         float curMonthCostTotal = 0.0f;
@@ -290,35 +276,27 @@ public class StatController extends BaseController {
         List<DailyRecordBean> curMonthCostList = new ArrayList<DailyRecordBean>();
         List<DailyRecordBean> curMonthIncomeList = new ArrayList<DailyRecordBean>();
         for (DailyRecordBean drb : _curMonthDataList){
-
             MoneyTypeEnum moneyType = drb.getMoneyType();
             float amount = drb.getAmount();
             if (moneyType == MoneyTypeEnum.COST || moneyType == MoneyTypeEnum.PREPAY) {
-
                 // 根据备注金额进行不同的数据累加
                 if (!drb.getRemark().isEmpty()) {
                     curMonthCostList.add(drb);
                 } else {
                     curMonthOtherCostTotal += amount;
                 }
-
                 // 累加总数
                 curMonthCostTotal += amount;
                 curMonthCostCount++;
-
                 // 垫付部分累加
                 if (moneyType == MoneyTypeEnum.PREPAY){
                     curMonthPrepayTotal += amount;
                 }
-
             } else if (moneyType == MoneyTypeEnum.INCOME || moneyType == MoneyTypeEnum.PAYBACK){
-
                 // 插入数组
                 curMonthIncomeList.add(drb);
-
                 // 累加总数
                 curMonthIncomeTotal += amount;
-
                 // 收回部分累加
                 if (moneyType == MoneyTypeEnum.PAYBACK){
                     curMonthPayBackTotal += amount;

@@ -93,6 +93,8 @@
                             <td>
                                 <div id="div_pro_buttons" class="clear">
                                     <a id="btn_cost" href="#" style="font-size: 20px;" class="button grey" onclick="addNewRecord(this)">支出</a>
+                                    <a id="btn_cost_period" href="#" style="font-size: 20px;" class="button grey" onclick="addNewRecord(this)">阶段</a>
+                                    <a id="btn_cost_big" href="#" style="font-size: 20px;" class="button grey" onclick="addNewRecord(this)">大额</a>
                                     <a id="btn_income" href="#" style="font-size: 20px;" class="button green" onclick="addNewRecord(this)">收入</a>
                                     <a id="btn_prepay" href="#" style="font-size: 20px;" class="button grey" onclick="addNewRecord(this)">垫付</a>
                                     <a id="btn_prepay_back" href="#" style="font-size: 20px;" class="button green" onclick="addNewRecord(this)">收回</a>
@@ -114,7 +116,20 @@
                             <tr>
                                 <td>
                                     <div class="div_record_item">
-                                        <input record_id="${item.getId()}" title_id="h3_today" type="button" value="删除" onclick="deleteRecord(this)" />&nbsp;&nbsp;&nbsp;&nbsp;${moneyTypeMap.get(item.getMoneyType())}&nbsp;&nbsp;|&nbsp;&nbsp;${item.getAmount()}&nbsp;元<c:if test="${item.getRemark() != ''}">&nbsp;&nbsp;|&nbsp;&nbsp;${item.getRemark()}</c:if>
+                                        <input record_id="${item.getId()}" title_id="h3_today" type="button" value="删除" onclick="deleteRecord(this)" />
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <c:if test="${item.getMoneyType() == 'COST'}">
+                                            <c:choose>
+                                                <c:when test="${item.getStatType() == 'NORMAL'}">支出</c:when>
+                                                <c:when test="${item.getStatType() == 'PERIOD'}">分期</c:when>
+                                                <c:when test="${item.getStatType() == 'SPECIAL'}">特殊</c:when>
+                                            </c:choose>
+                                        </c:if>
+                                        <c:if test="${item.getMoneyType() != 'COST'}">
+                                            ${moneyTypeMap.get(item.getMoneyType())}
+                                        </c:if>
+                                        &nbsp;&nbsp;|&nbsp;&nbsp;${item.getAmount()}&nbsp;元
+                                        <c:if test="${item.getRemark() != ''}">&nbsp;&nbsp;|&nbsp;&nbsp;${item.getRemark()}</c:if>
                                     </div>
                                 </td>
                             </tr>
@@ -126,7 +141,20 @@
                             <tr>
                                 <td>
                                     <div class="div_record_item">
-                                        <input record_id="${item.getId()}" title_id="h3_yesterday" type="button" value="删除" onclick="deleteRecord(this)" />&nbsp;&nbsp;&nbsp;&nbsp;${moneyTypeMap.get(item.getMoneyType())}&nbsp;&nbsp;|&nbsp;&nbsp;${item.getAmount()}&nbsp;元<c:if test="${item.getRemark() != ''}">&nbsp;&nbsp;|&nbsp;&nbsp;${item.getRemark()}</c:if>
+                                        <input record_id="${item.getId()}" title_id="h3_yesterday" type="button" value="删除" onclick="deleteRecord(this)" />
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <c:if test="${item.getMoneyType() == 'COST'}">
+                                            <c:choose>
+                                                <c:when test="${item.getStatType() == 'NORMAL'}">支出</c:when>
+                                                <c:when test="${item.getStatType() == 'PERIOD'}">分期</c:when>
+                                                <c:when test="${item.getStatType() == 'SPECIAL'}">特殊</c:when>
+                                            </c:choose>
+                                        </c:if>
+                                        <c:if test="${item.getMoneyType() != 'COST'}">
+                                            ${moneyTypeMap.get(item.getMoneyType())}
+                                        </c:if>
+                                        &nbsp;&nbsp;|&nbsp;&nbsp;${item.getAmount()}&nbsp;元
+                                        <c:if test="${item.getRemark() != ''}">&nbsp;&nbsp;|&nbsp;&nbsp;${item.getRemark()}</c:if>
                                     </div>
                                 </td>
                             </tr>
@@ -138,7 +166,20 @@
                             <tr>
                                 <td>
                                     <div class="div_record_item">
-                                        <input record_id="${item.getId()}" title_id="h3_dayafteryesterday" type="button" value="删除" onclick="deleteRecord(this)" />&nbsp;&nbsp;&nbsp;&nbsp;${moneyTypeMap.get(item.getMoneyType())}&nbsp;&nbsp;|&nbsp;&nbsp;${item.getAmount()}&nbsp;元<c:if test="${item.getRemark() != ''}">&nbsp;&nbsp;|&nbsp;&nbsp;${item.getRemark()}</c:if>
+                                        <input record_id="${item.getId()}" title_id="h3_dayafteryesterday" type="button" value="删除" onclick="deleteRecord(this)" />
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <c:if test="${item.getMoneyType() == 'COST'}">
+                                            <c:choose>
+                                                <c:when test="${item.getStatType() == 'NORMAL'}">支出</c:when>
+                                                <c:when test="${item.getStatType() == 'PERIOD'}">分期</c:when>
+                                                <c:when test="${item.getStatType() == 'SPECIAL'}">特殊</c:when>
+                                            </c:choose>
+                                        </c:if>
+                                        <c:if test="${item.getMoneyType() != 'COST'}">
+                                            ${moneyTypeMap.get(item.getMoneyType())}
+                                        </c:if>
+                                        &nbsp;&nbsp;|&nbsp;&nbsp;${item.getAmount()}&nbsp;元
+                                        <c:if test="${item.getRemark() != ''}">&nbsp;&nbsp;|&nbsp;&nbsp;${item.getRemark()}</c:if>
                                     </div>
                                 </td>
                             </tr>

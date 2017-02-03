@@ -17,6 +17,10 @@ public class StatData {
      */
     private int curMonthCostCount;
     /**
+     * 本月日常支出合计
+     */
+    private float curMonthDailyCostTotal;
+    /**
      * 本月份收入合计
      */
     private float curMonthIncomeTotal;
@@ -200,6 +204,14 @@ public class StatData {
 
     public void setMonthPrepayStatDataList(List<MonthPrepayStatData> monthPrepayStatDataList) {
         this.monthPrepayStatDataList = monthPrepayStatDataList;
+    }
+
+    public float getCurMonthDailyCostTotal() {
+        return curMonthDailyCostTotal;
+    }
+
+    public void setCurMonthDailyCostTotal(float curMonthDailyCostTotal) {
+        this.curMonthDailyCostTotal = curMonthDailyCostTotal;
     }
 
     public StatData(){

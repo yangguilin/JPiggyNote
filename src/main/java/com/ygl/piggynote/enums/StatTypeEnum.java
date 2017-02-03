@@ -9,7 +9,7 @@ public enum StatTypeEnum {
     SIMPLE("0", "精简模式"),
     NORMAL("1", "日常"),
     PERIOD("2", "阶段"),
-    BIG("3", "大额");
+    SPECIAL("3", "特殊");
 
 
     private String value;

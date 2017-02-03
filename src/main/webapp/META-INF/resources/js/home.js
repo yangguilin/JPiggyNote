@@ -117,17 +117,22 @@ function checkAmountAndAdd(event){
  * @param obj
  */
 function selectImgButton(obj){
-
     var selectImgBtnId = $(obj).attr("id");
     if (selectImgBtnId == g_curImgButtonId){
-
         // 如果为临时类型，可再次切换“垫付/收回”按钮
         if (selectImgBtnId == "img_prepay_button"){
-
             if ($("#btn_prepay").is(":visible")){
                 $("#btn_prepay_back").show().css("margin-left", "-25px").siblings("a").hide();
             } else {
                 $("#btn_prepay").show().siblings("a").hide();
+            }
+        } else if (selectImgBtnId == "img_cost_button") {
+            if ($("#btn_cost").is(":visible")){
+                $("#btn_cost_period").show().siblings("a").hide();
+            } else if ($("#btn_cost_period").is(":visible")) {
+                $("#btn_cost_big").show().siblings("a").hide();
+            } else if ($("#btn_cost_big").is(":visible")){
+                $("#btn_cost").show().siblings("a").hide();
             }
         } else {
             return;
@@ -158,12 +163,10 @@ function selectImgButton(obj){
  * 添加一条记录
  */
 function addNewRecord(obj){
-
     // 金额
     var amount = 0;
     var $amountObj = $("#txt_amount");
     if ($amountObj.hasClass("txt_error")){
-
         alert("请输入正确的金额");
         return;
     }
@@ -173,7 +176,7 @@ function addNewRecord(obj){
     var remark = "";
     var $remarkObj = $("#input_remark");
     if ($remarkObj.is(":visible")){
-        remark = $remarkObj.val();
+        remark = $.trim($remarkObj.val());
     }
 
     // moneyType
@@ -196,7 +199,12 @@ function addNewRecord(obj){
     // default
     var categoryId = "0";
     var categoryName = "";
-    var statType = "SIMPLE";
+    var statType = "NORMAL";
+    if (curId == "btn_cost_big"){
+        statType = "SPECIAL";
+    } else if (curId == "btn_cost_period"){
+        statType = "PERIOD";
+    }
 
     var requestUrl = "/daily_record/add.do";
     var dayIndex = 0;
@@ -223,11 +231,12 @@ function addNewRecord(obj){
             if (data == "success") {
 
                 // 列表中添加数据
-                addItemIntoTable(userName, moneyType, amount, remark);
+                addItemIntoTable(userName, statType, moneyType, amount, remark);
                 // 恢复初始值
                 $amountObj.val("");
                 $remarkObj.val("");
                 $("#img_cost_button").click();
+                $("#btn_cost").show().siblings("a").hide();
                 // 隐藏备注栏
                 $("#tr_remark").hide("fast");
 
@@ -242,10 +251,16 @@ function addNewRecord(obj){
 /**
  * 向列页面表中添加一条记录
  */
-function addItemIntoTable(userName, moneyType, amount, remark){
+function addItemIntoTable(userName, statType, moneyType, amount, remark){
 
     if (moneyType == "COST"){
-        moneyType = "支出";
+        if (statType == 'PERIOD'){
+            moneyType = "分期";
+        } else if (statType == 'SPECIAL'){
+            moneyType = "特殊";
+        } else {
+            moneyType = "支出";
+        }
     } else if (moneyType == "INCOME"){
         moneyType = "收入";
     } else if (moneyType == "PREPAY"){

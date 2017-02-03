@@ -213,6 +213,11 @@
                                                 <td>${item.getOtherCostTotal()}&nbsp;元</td>
                                                 <td></td>
                                             </tr>
+                                            <tr class="cTr_otherCostTotal_d">
+                                                <td>日常生活费</td>
+                                                <td>${item.getCurMonthDailyCostTotal()}&nbsp;元</td>
+                                                <td></td>
+                                            </tr>
                                         </table>
                                     </td>
                                 </tr>
