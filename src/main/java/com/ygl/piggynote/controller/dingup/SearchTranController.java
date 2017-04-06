@@ -50,9 +50,11 @@ public class SearchTranController {
         String word = request.getParameter("word");
         if (StringUtils.isNotBlank(word)){
             CollinsSearchResult csr = CollinsDicUtil.searchWordFromWebApi(word);
-            model.addAttribute("collinsSenseList", csr.getSenseList());
-            model.addAttribute("searchWordPron", csr.getHeadWord().getPron());
-            model.addAttribute("searchWord", word);
+            if (csr != null) {
+                model.addAttribute("collinsSenseList", csr.getSenseList());
+                model.addAttribute("searchWordPron", csr.getHeadWord().getPron());
+                model.addAttribute("searchWord", word);
+            }
         }
         return "dingup/search_word";
     }
