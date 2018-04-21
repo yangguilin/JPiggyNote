@@ -7,9 +7,9 @@
     <!--mysql connection bean-->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
           p:driverClassName="com.mysql.jdbc.Driver"
-          p:url="jdbc:mysql://123.57.163.18:3306/piggy_note?useUnicode=true&amp;characterEncoding=UTF-8"
-          p:username="piggy"
-          p:password="198396_db_piggy"
+          p:url="jdbc:mysql://rm-2ze4tk0u850c64o60o.mysql.rds.aliyuncs.com:3306/piggy_note?useUnicode=true&amp;characterEncoding=UTF-8"
+          p:username="piggylife"
+          p:password="198396Yang"
           p:initialSize="1"
           p:maxActive="500"
           p:maxIdle="2"
